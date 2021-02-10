@@ -64,9 +64,10 @@ void dae::Minigin::LoadGame() const
 	scene.Add(to);
 
 	font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 20);
-	to = std::make_shared<TextObject>("00 FPS", font);
+	to = std::make_shared<TextObject>("00 FPS", font, true);
 	to->SetPosition(5, 5);
-	to->AddFpsComponent();
+	to->AddChangleableTextComponent();
+	to->AddColoredTextComponent(glm::vec4(255.f, 0.f, 0.f, 1.f));
 	scene.Add(to);
 }
 

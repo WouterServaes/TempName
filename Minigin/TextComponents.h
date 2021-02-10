@@ -1,8 +1,8 @@
 #pragma once
-
+#pragma once
 #pragma warning(push)
 #pragma warning (disable:4201)
-#include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
 #pragma warning(pop)
 
 namespace dae
@@ -23,7 +23,7 @@ namespace dae
 		ChangeableTextComponent() = default;
 		~ChangeableTextComponent() = default;
 		void SetText(const std::string& text);
-		const std::string& GetNewText() const { return m_NewText; };
+		const std::string& GetNewText() { m_NeedsUpdate = false; return m_NewText; };
 	private:
 		std::string m_NewText{};
 	};
@@ -31,12 +31,12 @@ namespace dae
 	class ColoredTextComponent final: public BaseTextComponent
 	{
 	public:
-		ColoredTextComponent(const glm::vec3& color):m_TextColor(color){};
+		ColoredTextComponent(const glm::vec4& color) :m_TextColor(color) {};
 		~ColoredTextComponent() = default;
-		void SetTextColor(const glm::vec3& color);
-		const glm::vec3& GetTextColor()const { return m_TextColor; };
+		void SetTextColor(const glm::vec4& color);
+		const glm::vec4& GetTextColor() { m_NeedsUpdate = false; return m_TextColor; };
 	private:
-		glm::vec3 m_TextColor;
+		glm::vec4 m_TextColor;
 	};
 }
 
