@@ -28,18 +28,15 @@
     <Filter Include="Components">
       <UniqueIdentifier>{11f43c1e-4a31-4ee3-88f8-7fabd8defc1a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainObjects">
+      <UniqueIdentifier>{897f9e47-d998-4e59-a092-01eea08aff6b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniginPCH.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Singleton.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TextObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Minigin.h">
@@ -78,15 +75,15 @@
     <ClInclude Include="RenderComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>MainObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="TextObject.h">
+      <Filter>MainObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TextObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
@@ -124,6 +121,12 @@
     </ClCompile>
     <ClCompile Include="RenderComponent.cpp">
       <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>MainObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="TextObject.cpp">
+      <Filter>MainObjects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

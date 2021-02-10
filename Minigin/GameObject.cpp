@@ -8,16 +8,15 @@ void dae::GameObject::Update(){}
 
 void dae::GameObject::Render() const
 {
-	const auto pos = m_Transform.GetPosition();
-	Renderer::GetInstance().RenderTexture(*m_Texture, pos.x, pos.y);
-}
-
-void dae::GameObject::SetTexture(const std::string& filename)
-{
-	m_Texture = ResourceManager::GetInstance().LoadTexture(filename);
+	if (m_RenderComponent) m_RenderComponent->Render(m_Transform.GetPosition());
 }
 
 void dae::GameObject::SetPosition(float x, float y)
 {
 	m_Transform.SetPosition(x, y, 0.0f);
+}
+
+void dae::GameObject::AddRenderComponent(const std::string& textureFileName)
+{
+	m_RenderComponent = std::make_unique<RenderComponent>(textureFileName);
 }

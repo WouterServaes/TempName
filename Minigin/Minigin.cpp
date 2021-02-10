@@ -46,11 +46,11 @@ void dae::Minigin::LoadGame() const
 	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
 
 	auto go = std::make_shared<GameObject>();
-	go->SetTexture("background.jpg");
+	go->AddRenderComponent("background.jpg");
 	scene.Add(go);
 
 	go = std::make_shared<GameObject>();
-	go->SetTexture("logo.png");
+	go->AddRenderComponent("logo.png");
 	go->SetPosition(216, 180);
 	scene.Add(go);
 
