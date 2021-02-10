@@ -8,7 +8,7 @@ void dae::GameObject::Update(){}
 
 void dae::GameObject::Render() const
 {
-	if (m_RenderComponent) m_RenderComponent->Render(m_Transform.GetPosition());
+	if (m_RenderComponent != nullptr) m_RenderComponent->Render(m_Transform.GetPosition());
 }
 
 void dae::GameObject::SetPosition(float x, float y)

@@ -1,7 +1,7 @@
 #pragma once
 #include "SceneObject.h"
 #include "Transform.h"
-
+#include "FpsComponent.h"
 namespace dae
 {
 	class Font;
@@ -21,11 +21,16 @@ namespace dae
 		TextObject(TextObject&& other) = delete;
 		TextObject& operator=(const TextObject& other) = delete;
 		TextObject& operator=(TextObject&& other) = delete;
+
+		void AddFpsComponent();
 	private:
 		bool m_NeedsUpdate;
 		std::string m_Text;
 		Transform m_Transform;
 		std::shared_ptr<Font> m_Font;
 		std::shared_ptr<Texture2D> m_Texture;
+
+
+		std::unique_ptr<FpsComponent> m_pFpsComponent{nullptr};
 	};
 }

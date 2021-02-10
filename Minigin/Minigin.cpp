@@ -11,6 +11,7 @@
 #include "GameObject.h"
 #include "Scene.h"
 #include "Time.h"
+#include "FpsCounter.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -43,8 +44,10 @@ void dae::Minigin::Initialize()
  */
 void dae::Minigin::LoadGame() const
 {
+	
 	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
 
+	//game components
 	auto go = std::make_shared<GameObject>();
 	go->AddRenderComponent("background.jpg");
 	scene.Add(go);
@@ -54,9 +57,16 @@ void dae::Minigin::LoadGame() const
 	go->SetPosition(216, 180);
 	scene.Add(go);
 
+	//text components
 	auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-	auto to = std::make_shared<TextObject>("Programming 4 Assignment", font);
+	auto to = std::make_shared<TextObject>( "Programming 4 Assignment", font);
 	to->SetPosition(80, 20);
+	scene.Add(to);
+
+	font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 20);
+	to = std::make_shared<TextObject>("00 FPS", font);
+	to->SetPosition(5, 5);
+	to->AddFpsComponent();
 	scene.Add(to);
 }
 
@@ -95,7 +105,7 @@ void dae::Minigin::Run()
 			
 			doContinue = input.ProcessInput();
 			Time::GetInstance().deltaTime = MsPerUpdate;
-			
+			FpsCounter::GetInstance().SetFps();
 			while (lag>= MsPerUpdate)
 			{
 				sceneManager.Update();

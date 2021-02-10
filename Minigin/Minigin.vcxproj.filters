@@ -81,6 +81,15 @@
     <ClInclude Include="TextObject.h">
       <Filter>MainObjects</Filter>
     </ClInclude>
+    <ClInclude Include="FpsComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="FpsCounter.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="TextComponents.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -127,6 +136,15 @@
     </ClCompile>
     <ClCompile Include="TextObject.cpp">
       <Filter>MainObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="FpsComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="FpsCounter.cpp">
+      <Filter>Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="TextComponents.cpp">
+      <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
