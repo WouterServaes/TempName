@@ -8,7 +8,7 @@ void dae::GameObject::Update(){}
 
 void dae::GameObject::Render() const
 {
-	if (m_RenderComponent != nullptr) m_RenderComponent->Render(m_Transform.GetPosition());
+	if (m_RenderComp != nullptr) m_RenderComp->Render(m_Transform.GetPosition());
 }
 
 void dae::GameObject::SetPosition(float x, float y)
@@ -18,5 +18,5 @@ void dae::GameObject::SetPosition(float x, float y)
 
 void dae::GameObject::AddRenderComponent(const std::string& textureFileName)
 {
-	m_RenderComponent = std::make_unique<RenderComponent>(textureFileName);
+	m_RenderComp = std::make_unique<RenderComponent>(textureFileName);
 }

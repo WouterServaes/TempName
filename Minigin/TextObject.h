@@ -2,6 +2,8 @@
 #include "SceneObject.h"
 #include "Transform.h"
 #include "FpsComponent.h"
+#include "TextComponents.h"
+
 namespace dae
 {
 	class Font;
@@ -31,6 +33,8 @@ namespace dae
 		std::shared_ptr<Texture2D> m_Texture;
 
 
-		std::unique_ptr<FpsComponent> m_pFpsComponent{nullptr};
+		std::unique_ptr<FpsComponent> m_pFpsComp{nullptr};
+		std::unique_ptr<ChangeableTextComponent> m_pChangeableTextComp{ nullptr };
+		std::unique_ptr<ColoredTextComponent>m_pColoredTextComp{ nullptr };
 	};
 }

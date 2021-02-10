@@ -16,7 +16,7 @@ namespace dae
 
 		bool IsMarkedForDeletion() const { return m_MarkForDeletion; };
 	protected:
-		void MarkForDeletion() { m_MarkForDeletion = true; }; //don't delete scene objects, mark them for deletion and delete it after everything is updated
+		void MarkForDeletion() { m_MarkForDeletion = true; }; //don'm_NewText delete scene objects, mark them for deletion and delete it after everything is updated
 	private:
 		bool m_MarkForDeletion{ false };
 	};

@@ -3,6 +3,12 @@
 
 void dae::ChangeableTextComponent::SetText(const std::string& text)
 {
-	t = text;
+	m_NewText = text;
+	m_NeedsUpdate = true;
+}
+
+void dae::ColoredTextComponent::SetTextColor(const glm::vec3& color)
+{
+	m_TextColor = color;
 	m_NeedsUpdate = true;
 }

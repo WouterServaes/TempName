@@ -14,12 +14,13 @@ dae::TextObject::TextObject(const std::string& text, const std::shared_ptr<Font>
 
 void dae::TextObject::Update()
 {
-	if (m_pFpsComponent != nullptr)
-		SetText(std::string(m_pFpsComponent->GetAsString() + " FPS"));
+	if (m_pFpsComp != nullptr)
+		SetText(std::string(m_pFpsComp->GetAsString() + " FPS"));
 	
 	if (m_NeedsUpdate)
 	{
 		const SDL_Color color = { 255,255,255 }; // only white text is supported now
+		
 		const auto surf = TTF_RenderText_Blended(m_Font->GetFont(), m_Text.c_str(), color);
 		if (surf == nullptr) 
 		{
@@ -60,5 +61,5 @@ void dae::TextObject::SetPosition(const float x, const float y)
 
 void dae::TextObject::AddFpsComponent()
 {
-	m_pFpsComponent = std::make_unique<FpsComponent>();
+	m_pFpsComp = std::make_unique<FpsComponent>();
 }

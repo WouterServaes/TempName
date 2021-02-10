@@ -28,7 +28,7 @@ namespace dae
 		Transform m_Transform;
 		std::shared_ptr<Texture2D> m_Texture{};
 
-		std::unique_ptr<RenderComponent> m_RenderComponent{ nullptr };
+		std::unique_ptr<RenderComponent> m_RenderComp{ nullptr };
 		
 	};
 }
