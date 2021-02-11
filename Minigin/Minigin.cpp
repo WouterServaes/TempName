@@ -7,12 +7,11 @@
 #include "Renderer.h"
 #include "ResourceManager.h"
 #include <SDL.h>
-#include "TextObject.h"
 #include "GameObject.h"
 #include "Scene.h"
 #include "Time.h"
 #include "FpsCounter.h"
-
+#include "TextComponent.h"
 using namespace std;
 using namespace std::chrono;
 
@@ -59,18 +58,15 @@ void dae::Minigin::LoadGame() const
 	go->SetPosition(216, 180);
 	scene.Add(go);
 
-	//text objects
-	auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-	auto to = std::make_shared<TextObject>( "Programming 4 Assignment", font);
-	to->SetPosition(80, 20);
-	scene.Add(to);
+	go = make_shared<GameObject>();
+	go->AddComponent(std::make_unique<TextComponent>("Programming 4 Assignment", "Lingua.otf", 36));
+	go->SetPosition(80.f, 20.f);
+	scene.Add(go);
 
-	font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 20);
-	to = std::make_shared<TextObject>("00 FPS", font);
-	to->SetPosition(5, 5);
-	to->AddFpsCounterComponent();
-	to->AddColoredTextComponent(glm::vec4(0.f, 255.f, 0.f, 1.f));
-	scene.Add(to);
+	go = make_shared<GameObject>();
+	go->AddComponent(std::make_unique<TextComponent>("00 FPS", "Lingua.otf", 20, glm::vec4{ 0.f, 255.f, 0.f, 1.f }));
+	go->SetPosition(5.f,5.f);
+	scene.Add(go);
 }
 
 void dae::Minigin::Cleanup()

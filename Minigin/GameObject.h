@@ -2,8 +2,8 @@
 #include "Transform.h"
 #include "SceneObject.h"
 
-#include "RenderComponent.h"
 #include "BaseComponent.h"
+
 namespace dae
 {
 	class Texture2D;
