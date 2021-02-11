@@ -90,6 +90,9 @@
     <ClInclude Include="TextComponents.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="BaseComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">

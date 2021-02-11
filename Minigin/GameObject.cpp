@@ -1,14 +1,19 @@
 #include "MiniginPCH.h"
 #include "GameObject.h"
-#include "ResourceManager.h"
-#include "Renderer.h"
+#include <algorithm>
 dae::GameObject::~GameObject() = default;
 
 void dae::GameObject::Update(){}
 
 void dae::GameObject::Render() const
 {
-	if (m_RenderComp != nullptr) m_RenderComp->Render(m_Transform.GetPosition());
+	std::for_each(m_pComponents.begin(), m_pComponents.end(), [=](const std::unique_ptr<BaseComponent>& comp)
+		{
+			const auto renderComp{ dynamic_cast<const RenderComponent*>(comp.get()) };
+			if (renderComp != nullptr)
+				renderComp->Render(m_Transform.GetPosition());
+		});
+	
 }
 
 void dae::GameObject::SetPosition(float x, float y)
@@ -16,7 +21,11 @@ void dae::GameObject::SetPosition(float x, float y)
 	m_Transform.SetPosition(x, y, 0.0f);
 }
 
-void dae::GameObject::AddRenderComponent(const std::string& textureFileName)
+
+void dae::GameObject::AddComponent(std::unique_ptr<BaseComponent> component)
 {
-	m_RenderComp = std::make_unique<RenderComponent>(textureFileName);
+	if (dynamic_cast<const RenderComponent*>(component.get()) != nullptr)
+		m_NeedsToBeRendered = true;
+	
+	m_pComponents.push_back(std::move(component));
 }

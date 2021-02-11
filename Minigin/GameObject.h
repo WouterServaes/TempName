@@ -3,7 +3,7 @@
 #include "SceneObject.h"
 
 #include "RenderComponent.h"
-
+#include "BaseComponent.h"
 namespace dae
 {
 	class Texture2D;
@@ -23,12 +23,10 @@ namespace dae
 		GameObject& operator=(GameObject&& other) = delete;
 
 
-		void AddRenderComponent(const std::string& textureFileName);
+		void AddComponent(std::unique_ptr<BaseComponent> component);
 	private:
 		Transform m_Transform;
-		std::shared_ptr<Texture2D> m_Texture{};
 
-		std::unique_ptr<RenderComponent> m_RenderComp{ nullptr };
-		
+		std::vector<std::unique_ptr<BaseComponent>> m_pComponents{ };
 	};
 }

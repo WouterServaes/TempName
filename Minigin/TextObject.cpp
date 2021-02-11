@@ -5,37 +5,20 @@
 #include "TextObject.h"
 #include "Renderer.h"
 #include "Font.h"
+#include "GameObject.h"
 #include "Texture2D.h"
 
 dae::TextObject::TextObject(const std::string& text, const std::shared_ptr<Font>& font )
 	: m_Text(text), m_Font(font), m_Texture(nullptr)
-{}
+{
+	m_NeedsToBeRendered = true;
+}
 
 
 void dae::TextObject::Update()
 {	
-	bool needsUpdate{ false };
+	bool needsUpdate{ HandleComponents() };
 
-	if(m_IsInitialized==false)
-	{
-		m_IsInitialized = true;
-		needsUpdate = true;
-	}
-	
-	if(m_pChangeableTextComp != nullptr && m_pChangeableTextComp->GetNeedsUpdate())
-	{
-		m_Text = m_pChangeableTextComp->GetNewText();
-		
-		needsUpdate = true;
-	}
-
-	if(m_pFpsCounterComp != nullptr)
-	{
-		m_pFpsCounterComp->UpdateFpsCounter();
-		m_Text = m_pFpsCounterComp->GetNewText();
-		needsUpdate = true;
-	}
-	
 	bool colorChanged{ false };
 	if(m_pColoredTextComp != nullptr)
 	{
@@ -79,6 +62,32 @@ void dae::TextObject::Render() const
 void dae::TextObject::SetPosition(const float x, const float y)
 {
 	m_Transform.SetPosition(x, y, 0.0f);
+}
+
+bool dae::TextObject::HandleComponents()
+{
+	bool needsUpdate{ false };
+	if (m_IsInitialized == false)
+	{
+		m_IsInitialized = true;
+		needsUpdate =  true;
+	}
+
+	if (m_pChangeableTextComp != nullptr && m_pChangeableTextComp->GetNeedsUpdate())
+	{
+		m_Text = m_pChangeableTextComp->GetNewText();
+
+		needsUpdate = true;
+	}
+
+	if (m_pFpsCounterComp != nullptr)
+	{
+		m_pFpsCounterComp->UpdateFpsCounter();
+		m_Text = m_pFpsCounterComp->GetNewText();
+		needsUpdate = true;
+	}
+
+	return needsUpdate;
 }
 
 void dae::TextObject::AddChangleableTextComponent()

@@ -1,7 +1,7 @@
 #include "MiniginPCH.h"
 #include "Scene.h"
 #include "GameObject.h"
-
+#include <algorithm>
 using namespace dae;
 
 unsigned int Scene::m_IdCounter = 0;
@@ -31,9 +31,11 @@ void Scene::Update()
 
 void Scene::Render() const
 {
-	for (const auto& object : m_Objects)
-	{
-		object->Render();
-	}
+	std::for_each(m_Objects.begin(), m_Objects.end(), [](const std::shared_ptr<SceneObject>& obj)
+		{
+			if (obj->NeedsToBeRendered())
+				obj->Render();
+
+		});
 }
 

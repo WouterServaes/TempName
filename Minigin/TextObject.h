@@ -2,7 +2,6 @@
 #include "SceneObject.h"
 #include "Transform.h"
 #include "TextComponents.h"
-
 #pragma warning(push)
 #pragma warning (disable:4201)
 #include <glm/vec4.hpp>
@@ -30,6 +29,7 @@ namespace dae
 		void AddColoredTextComponent(const glm::vec4& color);
 		void AddFpsCounterComponent();
 	private:
+		bool HandleComponents();
 		std::string m_Text;
 		Transform m_Transform;
 		std::shared_ptr<Font> m_Font;
@@ -40,5 +40,6 @@ namespace dae
 		std::unique_ptr<ColoredTextComponent>m_pColoredTextComp{ nullptr };
 		std::unique_ptr<FpsCounterComponent>m_pFpsCounterComp{ nullptr };
 		bool m_IsInitialized{ false };
+
 	};
 }

@@ -15,8 +15,10 @@ namespace dae
 		SceneObject& operator=(SceneObject&& other) = delete;
 
 		bool IsMarkedForDeletion() const { return m_MarkForDeletion; };
+		bool NeedsToBeRendered()const { return m_NeedsToBeRendered; };
 	protected:
-		void MarkForDeletion() { m_MarkForDeletion = true; }; //don'm_NewText delete scene objects, mark them for deletion and delete it after everything is updated
+		void MarkForDeletion() { m_MarkForDeletion = true; }; //don't delete scene objects, mark them for deletion and delete it after everything is updated
+		bool m_NeedsToBeRendered{ false };
 	private:
 		bool m_MarkForDeletion{ false };
 	};
