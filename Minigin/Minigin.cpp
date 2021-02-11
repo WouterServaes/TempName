@@ -11,7 +11,11 @@
 #include "Scene.h"
 #include "Time.h"
 #include "FpsCounter.h"
+
+
 #include "TextComponent.h"
+#include "TransformComponent.h"
+
 using namespace std;
 using namespace std::chrono;
 
@@ -50,22 +54,21 @@ void dae::Minigin::LoadGame() const
 	//game objects
 	auto go = std::make_shared<GameObject>();
 	go->AddComponent(std::make_unique<RenderComponent>("background.jpg"));
-
 	scene.Add(go);
 
 	go = std::make_shared<GameObject>();
 	go->AddComponent(std::make_unique<RenderComponent>("logo.png"));
-	go->SetPosition(216, 180);
+	go->AddComponent(std::make_unique<TransformComponent>(216.f, 180.f));
 	scene.Add(go);
 
 	go = make_shared<GameObject>();
 	go->AddComponent(std::make_unique<TextComponent>("Programming 4 Assignment", "Lingua.otf", 36));
-	go->SetPosition(80.f, 20.f);
+	go->AddComponent(std::make_unique<TransformComponent>(80.f, 20.f));
 	scene.Add(go);
 
 	go = make_shared<GameObject>();
 	go->AddComponent(std::make_unique<TextComponent>("00 FPS", "Lingua.otf", 20, glm::vec4{ 0.f, 255.f, 0.f, 1.f }));
-	go->SetPosition(5.f,5.f);
+	go->AddComponent(std::make_unique<TransformComponent>(5.f, 5.f));
 	scene.Add(go);
 }
 

@@ -6,7 +6,7 @@
 #include "ResourceManager.h"
 
 dae::TextComponent::TextComponent(const std::string& text, const std::string& font, int fontSize, const glm::vec4& color)
-	:m_Text(text), m_pFont(ResourceManager::GetInstance().LoadFont(font, unsigned(fontSize))), m_Color(color)
+	:m_Text(text), m_pFont(ResourceManager::GetInstance().LoadFont(font, unsigned(fontSize))), m_Color(color), BaseComponent(componentType::text)
 {
 	SDL_Color sdlColor = { Uint8(m_Color.r), Uint8(m_Color.g), Uint8(m_Color.b), Uint8(m_Color.a) };
 	
