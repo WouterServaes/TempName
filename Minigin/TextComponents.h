@@ -17,7 +17,7 @@ namespace dae
 		bool m_NeedsUpdate{ false };
 	};
 	
-	class ChangeableTextComponent final:public BaseTextComponent
+	class ChangeableTextComponent:public BaseTextComponent
 	{
 	public:
 		ChangeableTextComponent() = default;
@@ -37,6 +37,15 @@ namespace dae
 		const glm::vec4& GetTextColor() { m_NeedsUpdate = false; return m_TextColor; };
 	private:
 		glm::vec4 m_TextColor;
+	};
+
+	class FpsCounterComponent final: public ChangeableTextComponent
+	{
+	public:
+		FpsCounterComponent() = default;
+		~FpsCounterComponent() = default;
+		void UpdateFpsCounter();
+		
 	};
 }
 

@@ -6,9 +6,9 @@
 #include "Renderer.h"
 #include "Font.h"
 #include "Texture2D.h"
-#include "FpsCounter.h"
-dae::TextObject::TextObject(const std::string& text, const std::shared_ptr<Font>& font, bool isFpsCounter )
-	: m_Text(text), m_Font(font), m_Texture(nullptr), m_IsFpsCounter(isFpsCounter)
+
+dae::TextObject::TextObject(const std::string& text, const std::shared_ptr<Font>& font )
+	: m_Text(text), m_Font(font), m_Texture(nullptr)
 {}
 
 
@@ -21,15 +21,18 @@ void dae::TextObject::Update()
 		m_IsInitialized = true;
 		needsUpdate = true;
 	}
-	if(m_IsFpsCounter)
-	{
-		m_pChangeableTextComp->SetText(std::to_string(FpsCounter::GetInstance().fps) + " FPS");
-	}
 	
 	if(m_pChangeableTextComp != nullptr && m_pChangeableTextComp->GetNeedsUpdate())
 	{
 		m_Text = m_pChangeableTextComp->GetNewText();
 		
+		needsUpdate = true;
+	}
+
+	if(m_pFpsCounterComp != nullptr)
+	{
+		m_pFpsCounterComp->UpdateFpsCounter();
+		m_Text = m_pFpsCounterComp->GetNewText();
 		needsUpdate = true;
 	}
 	
@@ -86,4 +89,9 @@ void dae::TextObject::AddChangleableTextComponent()
 void dae::TextObject::AddColoredTextComponent(const glm::vec4& color)
 {
 	m_pColoredTextComp = std::make_unique<ColoredTextComponent>(color);
+}
+
+void dae::TextObject::AddFpsCounterComponent()
+{
+	m_pFpsCounterComp = std::make_unique<FpsCounterComponent>();
 }

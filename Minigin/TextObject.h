@@ -19,7 +19,7 @@ namespace dae
 
 		void SetPosition(float x, float y);
 
-		explicit TextObject(const std::string& text, const std::shared_ptr<Font>& font, bool isFpsCounter = false);
+		explicit TextObject(const std::string& text, const std::shared_ptr<Font>& font);
 		virtual ~TextObject() = default;
 		TextObject(const TextObject& other) = delete;
 		TextObject(TextObject&& other) = delete;
@@ -28,6 +28,7 @@ namespace dae
 
 		void AddChangleableTextComponent();
 		void AddColoredTextComponent(const glm::vec4& color);
+		void AddFpsCounterComponent();
 	private:
 		std::string m_Text;
 		Transform m_Transform;
@@ -37,7 +38,7 @@ namespace dae
 
 		std::unique_ptr<ChangeableTextComponent> m_pChangeableTextComp{ nullptr };
 		std::unique_ptr<ColoredTextComponent>m_pColoredTextComp{ nullptr };
-		bool m_IsFpsCounter{false};
+		std::unique_ptr<FpsCounterComponent>m_pFpsCounterComp{ nullptr };
 		bool m_IsInitialized{ false };
 	};
 }
