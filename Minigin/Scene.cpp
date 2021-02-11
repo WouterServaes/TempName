@@ -16,7 +16,7 @@ void Scene::Add(const std::shared_ptr<SceneObject>& object)
 }
 
 void Scene::Update()
-{
+{	
 	std::vector<std::shared_ptr<SceneObject>> objectsToDelete{};
 	for(auto& object : m_Objects)
 	{

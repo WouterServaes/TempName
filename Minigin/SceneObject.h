@@ -18,6 +18,7 @@ namespace dae
 		bool NeedsToBeRendered()const { return m_NeedsToBeRendered; };
 	protected:
 		void MarkForDeletion() { m_MarkForDeletion = true; }; //don't delete scene objects, mark them for deletion and delete it after everything is updated
+		
 		bool m_NeedsToBeRendered{ false };
 	private:
 		bool m_MarkForDeletion{ false };

@@ -10,11 +10,11 @@
 #include "GameObject.h"
 #include "Scene.h"
 #include "Time.h"
-#include "FpsCounter.h"
 
 
 #include "TextComponent.h"
 #include "TransformComponent.h"
+#include "FpsComponent.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -68,6 +68,7 @@ void dae::Minigin::LoadGame() const
 
 	go = make_shared<GameObject>();
 	go->AddComponent(std::make_unique<TextComponent>("00 FPS", "Lingua.otf", 20, glm::vec4{ 0.f, 255.f, 0.f, 1.f }));
+	go->AddComponent(std::make_unique<FpsComponent>(true));
 	go->AddComponent(std::make_unique<TransformComponent>(5.f, 5.f));
 	scene.Add(go);
 }
@@ -106,8 +107,10 @@ void dae::Minigin::Run()
 			lag += deltaTime;
 			
 			doContinue = input.ProcessInput();
-			Time::GetInstance().deltaTime = MsPerUpdate;
-			FpsCounter::GetInstance().SetFps();
+
+			auto& time{ Time::GetInstance() };
+			time.deltaTime = MsPerUpdate;
+			time.SetFps();
 			while (lag>= MsPerUpdate)
 			{
 				sceneManager.Update();

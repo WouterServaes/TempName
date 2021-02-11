@@ -22,7 +22,6 @@ dae::TextComponent::TextComponent(const std::string& text, const std::string& fo
 	}
 	SDL_FreeSurface(surf);
 	m_pRenderComp = std::make_unique<RenderComponent>(std::make_shared<Texture2D>(texture));
-	
 }
 
 

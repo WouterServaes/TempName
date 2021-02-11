@@ -14,8 +14,6 @@ namespace dae
 	{
 	public:
 		void Update() override;
-
-
 		//renders the components that need to be rendered (RenderComponent & TetComponent)
 		//Only gets called when this gameObject has one of these components (when it needs to be rendered)
 		void Render() const override;
@@ -29,13 +27,11 @@ namespace dae
 
 		void AddComponent(std::unique_ptr<BaseComponent> component); //Adds the desired component to this gameObject (by adding to a BaseComponent vector m_pComponents)
 	private:
-
 		std::vector<std::unique_ptr<BaseComponent>> m_pComponents{ };
 		
 		glm::vec3 GetPosition() const; //returns either position of TransformComponent if this component exists OR position 0.f, 0.f, 0.f
-		
-
-
-		
+		int GetFps() const; //Returns fps from FpsComponent, throws error when called without FpsComponent
+		void SetFirstTextCompToFps(); //updates text of first TextComponent to display text, throws error when called without TextComponent
+		bool m_UseTextCompToPrintFps{false}; //Use the first text component to display fps
 	};
 }

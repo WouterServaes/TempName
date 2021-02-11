@@ -78,9 +78,6 @@
     <ClInclude Include="GameObject.h">
       <Filter>MainObjects</Filter>
     </ClInclude>
-    <ClInclude Include="FpsCounter.h">
-      <Filter>Helpers</Filter>
-    </ClInclude>
     <ClInclude Include="BaseComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
@@ -88,6 +85,9 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="TransformComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="FpsComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
@@ -134,13 +134,13 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>MainObjects</Filter>
     </ClCompile>
-    <ClCompile Include="FpsCounter.cpp">
-      <Filter>Helpers</Filter>
-    </ClCompile>
     <ClCompile Include="TextComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="TransformComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="FpsComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>

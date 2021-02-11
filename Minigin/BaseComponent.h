@@ -10,8 +10,10 @@ namespace dae
 		{
 			render = 0,
 			text = 1,
-			transform = 2
+			transform = 2,
+			fps
 		};
+		
 		BaseComponent(componentType type):m_ComponentType(type){};
 		virtual ~BaseComponent() = default;
 
