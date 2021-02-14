@@ -13,6 +13,11 @@ namespace dae
 	class RenderComponent:public BaseComponent
 	{
 	public:
+		enum class ImageTypes
+		{
+			png
+		};
+		
 		RenderComponent(const std::string& filename);
 		RenderComponent(std::shared_ptr<Texture2D> texture);
 		~RenderComponent() = default;

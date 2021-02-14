@@ -14,6 +14,7 @@
 #include "TextComponent.h"
 #include "TransformComponent.h"
 #include "FpsComponent.h"
+#include "AnimationComponent.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -56,7 +57,8 @@ void dae::Minigin::LoadGame() const
 	scene.Add(go);
 
 	go = std::make_shared<GameObject>();
-	go->AddComponent(std::make_unique<RenderComponent>("logo.png"));
+	//go->AddComponent(std::make_unique<RenderComponent>("logo.png"));
+	go->AddComponent(std::make_unique<AnimationComponent>("AnimLogo","logo_",RenderComponent::ImageTypes::png,  60, 25));
 	go->AddComponent(std::make_unique<TransformComponent>(216.f, 180.f));
 	scene.Add(go);
 
@@ -91,7 +93,8 @@ void dae::Minigin::Run()
 		auto& renderer{ Renderer::GetInstance() };
 		auto& sceneManager{ SceneManager::GetInstance() };
 		auto& input{ InputManager::GetInstance() };
-
+		auto& time{ Time::GetInstance() };
+		
 		bool doContinue{ true };
 		auto lastTime{ high_resolution_clock::now() };
 		float lag{ 0.f };
@@ -104,8 +107,6 @@ void dae::Minigin::Run()
 			lag += deltaTime;
 
 			doContinue = input.ProcessInput();
-
-			auto& time{ Time::GetInstance() };
 
 			time.deltaTime = deltaTime;
 			time.SetFps();

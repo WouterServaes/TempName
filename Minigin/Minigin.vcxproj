@@ -201,6 +201,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationComponent.h" />
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="FpsComponent.h" />
     <ClInclude Include="TextComponent.h" />
@@ -221,6 +222,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="TransformComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AnimationComponent.cpp" />
     <ClCompile Include="FpsComponent.cpp" />
     <ClCompile Include="TextComponent.cpp" />
     <ClCompile Include="Font.cpp" />

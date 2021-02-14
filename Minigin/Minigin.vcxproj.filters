@@ -87,6 +87,9 @@
     <ClInclude Include="FpsComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="AnimationComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -138,6 +141,9 @@
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="FpsComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>

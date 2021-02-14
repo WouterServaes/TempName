@@ -10,6 +10,7 @@
 namespace dae
 {
 	class Texture2D;
+	class Texture2D;
 	class TextComponent :public BaseComponent
 	{
 	public:

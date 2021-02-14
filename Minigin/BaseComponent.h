@@ -11,7 +11,8 @@ namespace dae
 			render = 0,
 			text = 1,
 			transform = 2,
-			fps
+			fps = 3,
+			animation = 4
 		};
 		
 		BaseComponent(componentType type):m_ComponentType(type){};

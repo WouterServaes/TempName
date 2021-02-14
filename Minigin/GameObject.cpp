@@ -5,12 +5,25 @@
 #include "TextComponent.h"
 #include "TransformComponent.h"
 #include "FpsComponent.h"
+#include "AnimationComponent.h"
 dae::GameObject::~GameObject() = default;
 
 void dae::GameObject::Update()
 {
 	if (m_UseTextCompToPrintFps)
 		SetFirstTextCompToFps();
+
+	std::for_each(m_pComponents.begin(), m_pComponents.end(), [=](const std::unique_ptr<BaseComponent>& comp)
+		{
+			switch (comp->m_ComponentType)
+			{
+			case BaseComponent::componentType::animation:
+				dynamic_cast<AnimationComponent*>(comp.get())->Update();
+				break;
+			default:
+				break;
+			}
+		});
 }
 
 void dae::GameObject::Render() const
@@ -26,6 +39,9 @@ void dae::GameObject::Render() const
 			case BaseComponent::componentType::text:
 				dynamic_cast<const TextComponent*>(comp.get())->RenderText(position);
 				break;
+			case BaseComponent::componentType::animation:
+				dynamic_cast<const AnimationComponent*>(comp.get())->Render(position);
+				break;
 			default:
 				break;
 			}
@@ -38,6 +54,7 @@ void dae::GameObject::AddComponent(std::unique_ptr<BaseComponent> component)
 	{
 	case BaseComponent::componentType::render:
 	case BaseComponent::componentType::text:
+	case BaseComponent::componentType::animation:
 		m_NeedsToBeRendered = true;
 		break;
 	case BaseComponent::componentType::fps:
@@ -71,7 +88,7 @@ void dae::GameObject::SetFirstTextCompToFps()
 		}) };
 	if (firstTextIt == m_pComponents.end())
 		throw(std::runtime_error(std::string("Printing fps failed -> no TextComponent on this GameObject")));
-	dynamic_cast<TextComponent*>(firstTextIt->get())->UpdateText(std::string(std::to_string(GetFps()) + " FPS"));
+	dynamic_cast<TextComponent*>(firstTextIt->get())->UpdateText("FPS:" + std::string(std::to_string(GetFps())));
 }
 
 glm::vec3 dae::GameObject::GetPosition() const
