@@ -108,8 +108,7 @@ void dae::Minigin::Run()
 
 			doContinue = input.ProcessInput();
 
-			time.deltaTime = deltaTime;
-			time.SetFps();
+			time.Update(deltaTime);
 			while (lag >= MsPerUpdate)
 			{
 				sceneManager.Update();

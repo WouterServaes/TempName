@@ -10,10 +10,15 @@ namespace dae
 		float deltaTime{};
 		int fps{};
 		
-		void SetFps() { fps = int(1.f / deltaTime); };
+		void Update(float deltaT)
+		{
+			deltaTime = deltaT;
+			SetFps();
+		}
 	private:
 		friend class Singleton<Time>;
 		Time() = default;
+		void SetFps() { fps = int(1.f / deltaTime); };
 	};
 }
 
