@@ -11,7 +11,6 @@
 #include "Scene.h"
 #include "Time.h"
 
-
 #include "TextComponent.h"
 #include "TransformComponent.h"
 #include "FpsComponent.h"
@@ -21,7 +20,7 @@ using namespace std::chrono;
 
 void dae::Minigin::Initialize()
 {
-	if (SDL_Init(SDL_INIT_VIDEO) != 0) 
+	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
 		throw std::runtime_error(std::string("SDL_Init Error: ") + SDL_GetError());
 	}
@@ -34,7 +33,7 @@ void dae::Minigin::Initialize()
 		480,
 		SDL_WINDOW_OPENGL
 	);
-	if (m_Window == nullptr) 
+	if (m_Window == nullptr)
 	{
 		throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
 	}
@@ -50,7 +49,7 @@ void dae::Minigin::LoadGame() const
 	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
 
 	//should be: load file in, create objects using this file
-	
+
 	//game objects
 	auto go = std::make_shared<GameObject>();
 	go->AddComponent(std::make_unique<RenderComponent>("background.jpg"));
@@ -84,34 +83,33 @@ void dae::Minigin::Cleanup()
 void dae::Minigin::Run()
 {
 	Initialize();
-
 	// tell the resource manager where he can find the game data
 	ResourceManager::GetInstance().Init("../Data/");
-
 	LoadGame();
 
 	{
 		auto& renderer{ Renderer::GetInstance() };
-		auto& sceneManager {SceneManager::GetInstance()};
+		auto& sceneManager{ SceneManager::GetInstance() };
 		auto& input{ InputManager::GetInstance() };
 
 		bool doContinue{ true };
 		auto lastTime{ high_resolution_clock::now() };
-		float lag{0.f};
-		
+		float lag{ 0.f };
+
 		while (doContinue)
 		{
-			const auto currentTime {high_resolution_clock::now()};
-			const float deltaTime{duration<float>(currentTime - lastTime).count()};
+			const auto currentTime{ high_resolution_clock::now() };
+			const float deltaTime{ duration<float>(currentTime - lastTime).count() };
 			lastTime = currentTime;
 			lag += deltaTime;
-			
+
 			doContinue = input.ProcessInput();
 
 			auto& time{ Time::GetInstance() };
-			time.deltaTime = MsPerUpdate;
+
+			time.deltaTime = deltaTime;
 			time.SetFps();
-			while (lag>= MsPerUpdate)
+			while (lag >= MsPerUpdate)
 			{
 				sceneManager.Update();
 				lag -= MsPerUpdate;

@@ -48,9 +48,6 @@
     <ClInclude Include="Scene.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="SceneObject.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Render</Filter>
     </ClInclude>
