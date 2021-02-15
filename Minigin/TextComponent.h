@@ -15,11 +15,11 @@ namespace dae
 	class TextComponent :public BaseComponent
 	{
 	public:
-		TextComponent(const std::string& text, const std::string& font, int fontSize,const glm::vec4& color = {255.f, 255.f, 255.f, 1.f});
+		TextComponent(const std::string& text, const std::string& font, int fontSize, const glm::vec4& color = { 255.f, 255.f, 255.f, 1.f });
 		~TextComponent() = default;
 		void UpdateText(const std::string& newText);
 		void Render()const override { m_pGameObject->GetComponent<RenderComponent>()->Render(); };
-	void Update() override;
+		void Update() override;
 	private:
 		void InitializeText();
 		std::shared_ptr<Font> m_pFont;
@@ -28,4 +28,3 @@ namespace dae
 		bool m_IsInitialized{ false };
 	};
 }
-

@@ -1,13 +1,9 @@
 #include "MiniginPCH.h"
 #include "GameObject.h"
-#include <algorithm>
 #include <functional>
 
 #include "RenderComponent.h"
-#include "TextComponent.h"
-#include "TransformComponent.h"
-#include "FpsComponent.h"
-#include "AnimationComponent.h"
+
 dae::GameObject::~GameObject()
 {
 	for (auto comp : m_pComponents)

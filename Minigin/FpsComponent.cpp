@@ -4,6 +4,6 @@
 
 void dae::FpsComponent::Update()
 {
-	if(m_UseTextCompToPrint)
+	if (m_UseTextCompToPrint)
 		m_pGameObject->GetComponent<TextComponent>()->UpdateText(std::string("FPS:" + std::to_string(Time::GetInstance().fps)));
 }

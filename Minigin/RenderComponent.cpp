@@ -15,7 +15,7 @@ dae::RenderComponent::RenderComponent(std::shared_ptr<Texture2D> texture)
 
 void dae::RenderComponent::Render()const
 {
-	const auto pos {m_pGameObject->GetComponent<TransformComponent>()->GetPosition()};
+	const auto pos{ m_pGameObject->GetComponent<TransformComponent>()->GetPosition() };
 	Renderer::GetInstance().RenderTexture(*m_Texture, pos.x, pos.y);
 }
 

@@ -6,14 +6,14 @@
 namespace dae
 {
 	class Texture2D;
-	class RenderComponent:public BaseComponent
+	class RenderComponent :public BaseComponent
 	{
 	public:
 		enum class ImageTypes
 		{
 			png
 		};
-		
+
 		RenderComponent(const std::string& filename = "PlaceHolderPng.png"); //Place holder is used to avoid empty m_Texture
 		RenderComponent(std::shared_ptr<Texture2D> texture);
 		~RenderComponent() = default;
@@ -21,7 +21,5 @@ namespace dae
 		void UpdateTexture(std::shared_ptr<Texture2D> texture);
 	private:
 		std::shared_ptr<Texture2D> m_Texture;
-		
 	};
 }
-

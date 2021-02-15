@@ -6,8 +6,8 @@
 namespace dae
 {
 	class Texture2D;
-	class AnimationComponent final:
-	    public BaseComponent
+	class AnimationComponent final :
+		public BaseComponent
 	{
 	public:
 		AnimationComponent(const std::string& folder, const std::string& baseName, RenderComponent::ImageTypes fileType, int amountOfImages, int framesPerSecond);
@@ -22,12 +22,10 @@ namespace dae
 		std::vector<std::shared_ptr<Texture2D>  >m_Textures{};
 		float m_ElapsedTime{ 0.f };
 		int m_CurrentFrame{ 0 }, m_AmountOfFrames, m_FramesPerSecond;
-		
+
 		const std::string* m_pFolderName, * m_pImageBaseName;
 		RenderComponent::ImageTypes m_FileType;
 
-		bool m_IsInitialized{false};
+		bool m_IsInitialized{ false };
 	};
 }
-
-

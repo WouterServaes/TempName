@@ -53,27 +53,27 @@ void dae::Minigin::LoadGame() const
 
 	//game objects
 	auto go = std::make_shared<GameObject>();
-	go->AddComponent(new TransformComponent(0.f, 0.f));
 	go->AddComponent(new RenderComponent("background.jpg"));
+	go->AddComponent(new TransformComponent(0.f, 0.f));
 	scene.Add(go);
 
 	go = std::make_shared<GameObject>();
+	go->AddComponent(new RenderComponent());
 	go->AddComponent(new AnimationComponent("AnimLogo","logo_",RenderComponent::ImageTypes::png,  60, 25));
 	go->AddComponent(new TransformComponent(216.f, 180.f));
-	go->AddComponent(new RenderComponent());
 	scene.Add(go);
 
 	go = make_shared<GameObject>();
+	go->AddComponent(new RenderComponent());
 	go->AddComponent(new TextComponent("Programming 4 Assignment", "Lingua.otf", 36));
 	go->AddComponent(new TransformComponent(80.f, 20.f));
-	go->AddComponent(new RenderComponent());
 	scene.Add(go);
 
 	go = make_shared<GameObject>();
+	go->AddComponent(new RenderComponent());
 	go->AddComponent(new TextComponent("fps text", "Lingua.otf", 20, glm::vec4{ 0.f, 255.f, 0.f, 1.f }));
 	go->AddComponent(new FpsComponent(true));
 	go->AddComponent(new TransformComponent(5.f, 5.f));
-	go->AddComponent(new RenderComponent());
 	scene.Add(go);
 }
 

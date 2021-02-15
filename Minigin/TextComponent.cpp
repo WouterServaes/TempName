@@ -31,12 +31,11 @@ void dae::TextComponent::UpdateText(const std::string& newText)
 
 void dae::TextComponent::Update()
 {
-	if(!m_IsInitialized) //Text doesn't need to be updated every frame.
+	if (!m_IsInitialized) //Text doesn't need to be updated every frame.
 	{
 		InitializeText();
 		m_IsInitialized = true;
 	}
-	
 }
 
 void dae::TextComponent::InitializeText()
@@ -55,5 +54,4 @@ void dae::TextComponent::InitializeText()
 	}
 	SDL_FreeSurface(surf);
 	m_pGameObject->GetComponent<RenderComponent>()->UpdateTexture(std::make_shared<Texture2D>(texture));
-	
 }
