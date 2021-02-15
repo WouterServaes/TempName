@@ -38,7 +38,7 @@ namespace dae
 		virtual void Update() {};
 #pragma warning(push)
 #pragma warning(disable: 4100) //not using renderPos throws a warning
-		virtual void Render(const glm::vec3& renderPos) const {};
+		virtual void Render() const {};
 #pragma warning(pop)
 	protected:
 		GameObject* m_pGameObject{nullptr};

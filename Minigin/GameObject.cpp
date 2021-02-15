@@ -1,6 +1,8 @@
 #include "MiniginPCH.h"
 #include "GameObject.h"
 #include <algorithm>
+#include <functional>
+
 #include "RenderComponent.h"
 #include "TextComponent.h"
 #include "TransformComponent.h"
@@ -22,7 +24,7 @@ void dae::GameObject::Render() const
 	auto position{ GetPosition() };
 
 	for (const auto& comp : m_pComponents)
-		comp->Render(position);
+		comp->Render();
 }
 
 void dae::GameObject::AddComponent(std::unique_ptr<BaseComponent> component)
@@ -83,17 +85,14 @@ glm::vec3 dae::GameObject::GetPosition() const
 	return { 0.f, 0.f, 0.f };
 }
 
-
-dae::BaseComponent& dae::GameObject::GetComponent(BaseComponent::componentType type)
+template<typename T>
+std::unique_ptr<T>& dae::GameObject::GetComponent()
 {
-	const auto it{ std::find_if(m_pComponents.begin(), m_pComponents.end(), [type](const std::unique_ptr<BaseComponent>& comp)
-		{
-			return comp->m_ComponentType == type;
-		}) };
-
-	if (it != m_pComponents.end()) return *it->get();
+	for(auto& comp:m_pComponents)
+	{
+		if (typeid(*comp) == typeid(T))
+			return comp;
+	}	
 	
-
 	throw(std::runtime_error(std::string("GetComponent(type) -> Component doesn't exist on GameObject")));
-	
 }

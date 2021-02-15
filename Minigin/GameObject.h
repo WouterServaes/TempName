@@ -31,8 +31,9 @@ namespace dae
 		bool NeedsToBeRendered()const { return m_NeedsToBeRendered; };
 
 		
+		template<typename T>
+		std::unique_ptr<T>& GetComponent();
 	
-		BaseComponent& GetComponent(BaseComponent::componentType type);
 	private:
 		std::vector<std::unique_ptr<BaseComponent>> m_pComponents{ };
 		

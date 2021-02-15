@@ -9,8 +9,8 @@ dae::AnimationComponent::AnimationComponent(const std::string& folder, const std
 {
 	for (int idx{}; idx < amountOfImages; ++idx)
 		m_Textures.push_back(ResourceManager::GetInstance().LoadTexture(GetImageName(idx))); //save all texture frames
-	
-	m_pRenderComp = std::make_unique<RenderComponent>(m_Textures[0]); //add first frame to render component
+
+	m_pGameObject->GetComponent<RenderComponent>()->UpdateTexture(m_Textures[0]);//set first frame to render component
 }
 
 void dae::AnimationComponent::Update()
@@ -25,13 +25,8 @@ void dae::AnimationComponent::Update()
 			m_CurrentFrame += 1;
 
 		m_ElapsedTime = 0.f;
-		m_pRenderComp->UpdateTexture(m_Textures[m_CurrentFrame]);
+		m_pGameObject->GetComponent<RenderComponent>()->UpdateTexture(m_Textures[m_CurrentFrame]);
 	}
-}
-
-void dae::AnimationComponent::Render(const glm::vec3& renderPos) const
-{
-	m_pRenderComp->Render(renderPos);
 }
 
 std::string dae::AnimationComponent::GetImageName(int imgNr) const

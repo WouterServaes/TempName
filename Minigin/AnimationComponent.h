@@ -18,10 +18,8 @@ namespace dae
 			delete m_pImageBaseName;
 		};
 		void Update() override;
-		void Render(const glm::vec3& renderPos) const override;
 	private:
 		std::string GetImageName(int imgNr) const;
-		std::unique_ptr<RenderComponent> m_pRenderComp{ nullptr };
 		std::vector<std::shared_ptr<Texture2D>  >m_Textures{};
 		float m_ElapsedTime{ 0.f };
 		int m_CurrentFrame{ 0 }, m_AmountOfFrames, m_FramesPerSecond;

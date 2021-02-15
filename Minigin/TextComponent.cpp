@@ -21,7 +21,7 @@ dae::TextComponent::TextComponent(const std::string& text, const std::string& fo
 		throw std::runtime_error(std::string("Create text texture from surface failed: ") + SDL_GetError());
 	}
 	SDL_FreeSurface(surf);
-	m_pRenderComp = std::make_unique<RenderComponent>(std::make_shared<Texture2D>(texture));
+	m_pGameObject->GetComponent<RenderComponent>()->UpdateTexture(std::make_shared<Texture2D>(texture));
 }
 
 
@@ -42,5 +42,5 @@ void dae::TextComponent::UpdateText(const std::string& newText)
 	}
 	SDL_FreeSurface(surf);
 
-	m_pRenderComp->UpdateTexture(std::make_shared<Texture2D>(texture));
+	m_pGameObject->GetComponent<RenderComponent>()->UpdateTexture(std::make_shared<Texture2D>(texture));
 }
