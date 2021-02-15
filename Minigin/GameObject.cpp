@@ -13,39 +13,16 @@ void dae::GameObject::Update()
 	if (m_UseTextCompToPrintFps)
 		SetFirstTextCompToFps();
 
-	std::for_each(m_pComponents.begin(), m_pComponents.end(), [=](const std::unique_ptr<BaseComponent>& comp)
-		{
-			switch (comp->m_ComponentType)
-			{
-			case BaseComponent::componentType::animation:
-				dynamic_cast<AnimationComponent*>(comp.get())->Update();
-				break;
-			default:
-				break;
-			}
-		});
+	for (auto& comp : m_pComponents)
+		comp->Update();
 }
 
 void dae::GameObject::Render() const
 {
 	auto position{ GetPosition() };
-	std::for_each(m_pComponents.begin(), m_pComponents.end(), [=](const std::unique_ptr<BaseComponent>& comp)
-		{
-			switch (comp->m_ComponentType)
-			{
-			case BaseComponent::componentType::render:
-				dynamic_cast<const RenderComponent*>(comp.get())->Render(position);
-				break;
-			case BaseComponent::componentType::text:
-				dynamic_cast<const TextComponent*>(comp.get())->RenderText(position);
-				break;
-			case BaseComponent::componentType::animation:
-				dynamic_cast<const AnimationComponent*>(comp.get())->Render(position);
-				break;
-			default:
-				break;
-			}
-		});
+
+	for (const auto& comp : m_pComponents)
+		comp->Render(position);
 }
 
 void dae::GameObject::AddComponent(std::unique_ptr<BaseComponent> component)
@@ -63,6 +40,9 @@ void dae::GameObject::AddComponent(std::unique_ptr<BaseComponent> component)
 	default:
 		break;
 	}
+
+	
+	component->SetGameObject(this);
 	m_pComponents.push_back(std::move(component));
 }
 
@@ -78,7 +58,6 @@ int dae::GameObject::GetFps() const
 
 	throw(std::runtime_error(std::string("Accessing FPS failed: no FpsComponent on this GameObject")));
 }
-
 
 void dae::GameObject::SetFirstTextCompToFps()
 {
@@ -102,4 +81,18 @@ glm::vec3 dae::GameObject::GetPosition() const
 		return dynamic_cast<const TransformComponent*>(it->get())->GetPosition();
 
 	return { 0.f, 0.f, 0.f };
+}
+
+std::unique_ptr<dae::BaseComponent>::pointer dae::GameObject::GetComponent(BaseComponent::componentType type)
+{
+	auto it{ std::find_if(m_pComponents.begin(), m_pComponents.end(), [type](const std::unique_ptr<BaseComponent>& comp)
+		{
+			return comp->m_ComponentType == type;
+		}) };
+
+	if (it != m_pComponents.end())
+		return it->get();
+	
+	throw(std::runtime_error(std::string("GetComponent(type) -> Component doesn't exist on GameObject")));
+	
 }

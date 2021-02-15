@@ -17,8 +17,8 @@ namespace dae
 			delete m_pFolderName;
 			delete m_pImageBaseName;
 		};
-		void Update();
-		void Render(const glm::vec3& renderPos) const;
+		void Update() override;
+		void Render(const glm::vec3& renderPos) const override;
 	private:
 		std::string GetImageName(int imgNr) const;
 		std::unique_ptr<RenderComponent> m_pRenderComp{ nullptr };

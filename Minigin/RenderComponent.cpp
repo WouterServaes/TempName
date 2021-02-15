@@ -4,11 +4,11 @@
 #include "Renderer.h"
 
 dae::RenderComponent::RenderComponent(const std::string& filename)
-	:m_Texture(ResourceManager::GetInstance().LoadTexture(filename)), BaseComponent(componentType::render)
+	:BaseComponent(componentType::render), m_Texture(ResourceManager::GetInstance().LoadTexture(filename))
 {}
 
 dae::RenderComponent::RenderComponent(std::shared_ptr<Texture2D> texture)
-	:m_Texture(texture), BaseComponent(componentType::render)
+	: BaseComponent(componentType::render), m_Texture(texture)
 {}
 
 void dae::RenderComponent::Render(const glm::vec3& renderPos)const

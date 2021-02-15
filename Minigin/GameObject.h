@@ -28,6 +28,10 @@ namespace dae
 
 		bool IsMarkedForDeletion() const { return m_MarkForDeletion; };
 		bool NeedsToBeRendered()const { return m_NeedsToBeRendered; };
+
+		
+		std::unique_ptr<BaseComponent>::pointer GetComponent(BaseComponent::componentType type);
+	
 	private:
 		std::vector<std::unique_ptr<BaseComponent>> m_pComponents{ };
 		
