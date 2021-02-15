@@ -2,10 +2,10 @@
 #include "AnimationComponent.h"
 #include "ResourceManager.h"
 #include "time.h"
-dae::AnimationComponent::AnimationComponent(const std::string& folder, const std::string& baseName, RenderComponent::ImageTypes fileType, int amountOfImages, int sequenceFramesPerSecond)
+dae::AnimationComponent::AnimationComponent(const std::string& folder, const std::string& baseName, RenderComponent::ImageTypes fileType, int amountOfImages, int framesPerSecond)
 	:BaseComponent(componentType::animation), m_AmountOfFrames(amountOfImages)
 	, m_pFolderName(new std::string(folder)), m_pImageBaseName(new std::string(baseName))
-	, m_FileType{fileType}, m_FramesPerSecond(sequenceFramesPerSecond)
+	, m_FileType{fileType}, m_FramesPerSecond(framesPerSecond)
 {
 	for (int idx{}; idx < amountOfImages; ++idx)
 		m_Textures.push_back(ResourceManager::GetInstance().LoadTexture(GetImageName(idx))); //save all texture frames

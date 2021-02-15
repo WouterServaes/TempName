@@ -20,8 +20,8 @@ int GetOpenGLDriverIndex()
 
 void dae::Renderer::Init(SDL_Window * window)
 {
-	m_pRenderer = SDL_CreateRenderer(window, GetOpenGLDriverIndex(), SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	if (m_pRenderer == nullptr) 
+	m_Renderer = SDL_CreateRenderer(window, GetOpenGLDriverIndex(), SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	if (m_Renderer == nullptr) 
 	{
 		throw std::runtime_error(std::string("SDL_CreateRenderer Error: ") + SDL_GetError());
 	}
@@ -29,19 +29,19 @@ void dae::Renderer::Init(SDL_Window * window)
 
 void dae::Renderer::Render() const
 {
-	SDL_RenderClear(m_pRenderer);
+	SDL_RenderClear(m_Renderer);
 
 	SceneManager::GetInstance().Render();
 	
-	SDL_RenderPresent(m_pRenderer);
+	SDL_RenderPresent(m_Renderer);
 }
 
 void dae::Renderer::Destroy()
 {
-	if (m_pRenderer != nullptr)
+	if (m_Renderer != nullptr)
 	{
-		SDL_DestroyRenderer(m_pRenderer);
-		m_pRenderer = nullptr;
+		SDL_DestroyRenderer(m_Renderer);
+		m_Renderer = nullptr;
 	}
 }
 
