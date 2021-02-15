@@ -19,11 +19,13 @@ namespace dae
 		~TextComponent() = default;
 		void UpdateText(const std::string& newText);
 		void Render()const override { m_pGameObject->GetComponent<RenderComponent>()->Render(); };
+	void Update() override;
 	private:
-		
+		void InitializeText();
 		std::shared_ptr<Font> m_pFont;
 		std::string m_Text;
 		glm::vec4 m_Color;
+		bool m_IsInitialized{ false };
 	};
 }
 

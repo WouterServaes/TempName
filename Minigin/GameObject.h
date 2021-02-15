@@ -13,37 +13,36 @@ namespace dae
 	{
 	public:
 		GameObject() = default;
-		virtual ~GameObject();
+		~GameObject();
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
 		GameObject& operator=(const GameObject& other) = delete;
 		GameObject& operator=(GameObject&& other) = delete;
 
 		void Update();
-		//renders the components that need to be rendered (RenderComponent & TextComponent)
-		//Only gets called when this gameObject has one of these components (when it needs to be rendered)
 		void Render() const;
 		
-		void AddComponent(std::unique_ptr<BaseComponent> component); //Adds the desired component to this gameObject (by adding to a BaseComponent vector m_pComponents)
+		void AddComponent(BaseComponent* component); //Adds the desired component to this gameObject (by adding to a BaseComponent vector m_pComponents)
 
-		
 		bool IsMarkedForDeletion() const { return m_MarkForDeletion; };
 		bool NeedsToBeRendered()const { return m_NeedsToBeRendered; };
 
 		
 		template<typename T>
-		std::unique_ptr<T>& GetComponent();
+		T* GetComponent() {
+			for (auto& comp : m_pComponents)
+			{
+				if (typeid(*comp) == typeid(T))
+					return static_cast<T*>(comp);
+			}
+
+			throw(std::runtime_error(std::string("GetComponent(type) -> Component doesn't exist on GameObject")));
+		};
 	
 	private:
-		std::vector<std::unique_ptr<BaseComponent>> m_pComponents{ };
-		
-		glm::vec3 GetPosition() const; //returns either position of TransformComponent if this component exists OR position 0.f, 0.f, 0.f
-		int GetFps() const; //Returns fps from FpsComponent, throws error when called without FpsComponent
-		void SetFirstTextCompToFps(); //updates text of first TextComponent to display text, throws error when called without TextComponent
-		bool m_UseTextCompToPrintFps{false}; //Use the first text component to display fps
+		std::vector<BaseComponent*> m_pComponents{ };
 
-
-		bool m_MarkForDeletion{ false };
-		bool m_NeedsToBeRendered{ false };
+		bool m_MarkForDeletion{ false }; //true: this game object will be deleted from the scene at the end of the current update
+		bool m_NeedsToBeRendered{ false }; //true: Render() of this gameObject will be called from the scene manager, not every game object needs to be rendered.
 	};
 }

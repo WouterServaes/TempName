@@ -26,7 +26,8 @@ namespace dae
 		virtual ~BaseComponent() = default;
 
 		const componentType m_ComponentType;
-		void SetGameObject(GameObject* pGameObject)
+		
+		void SetGameObject(GameObject* pGameObject) //Only works when the game object ptr is a nullptr
 		{
 			if (m_pGameObject == nullptr)
 				m_pGameObject = pGameObject;

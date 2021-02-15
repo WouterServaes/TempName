@@ -4,6 +4,7 @@
 #include "Renderer.h"
 
 #include "TransformComponent.h"
+
 dae::RenderComponent::RenderComponent(const std::string& filename)
 	:BaseComponent(componentType::render), m_Texture(ResourceManager::GetInstance().LoadTexture(filename))
 {}

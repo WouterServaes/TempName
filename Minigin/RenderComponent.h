@@ -14,7 +14,7 @@ namespace dae
 			png
 		};
 		
-		RenderComponent(const std::string& filename);
+		RenderComponent(const std::string& filename = "PlaceHolderPng.png"); //Place holder is used to avoid empty m_Texture
 		RenderComponent(std::shared_ptr<Texture2D> texture);
 		~RenderComponent() = default;
 		void Render()const override;

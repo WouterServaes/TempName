@@ -10,11 +10,17 @@ dae::AnimationComponent::AnimationComponent(const std::string& folder, const std
 	for (int idx{}; idx < amountOfImages; ++idx)
 		m_Textures.push_back(ResourceManager::GetInstance().LoadTexture(GetImageName(idx))); //save all texture frames
 
-	m_pGameObject->GetComponent<RenderComponent>()->UpdateTexture(m_Textures[0]);//set first frame to render component
+	
 }
 
 void dae::AnimationComponent::Update()
 {
+	if(!m_IsInitialized)
+	{
+		m_IsInitialized = true;
+		m_pGameObject->GetComponent<RenderComponent>()->UpdateTexture(m_Textures[0]);//set first frame to render component
+	}
+	
 	m_ElapsedTime += Time::GetInstance().deltaTime;
 
 	if (m_ElapsedTime >= m_FramesPerSecond/60)

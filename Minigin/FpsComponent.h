@@ -10,6 +10,7 @@ namespace dae
 		~FpsComponent() = default;
 		int GetFps() const { return Time::GetInstance().fps; };
 		bool UseTextCompToPrint()const { return m_UseTextCompToPrint; };
+	void Update() override;
 	private:
 		bool m_UseTextCompToPrint;
 	};
