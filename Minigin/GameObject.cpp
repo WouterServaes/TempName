@@ -83,16 +83,17 @@ glm::vec3 dae::GameObject::GetPosition() const
 	return { 0.f, 0.f, 0.f };
 }
 
-std::unique_ptr<dae::BaseComponent>::pointer dae::GameObject::GetComponent(BaseComponent::componentType type)
+
+dae::BaseComponent& dae::GameObject::GetComponent(BaseComponent::componentType type)
 {
-	auto it{ std::find_if(m_pComponents.begin(), m_pComponents.end(), [type](const std::unique_ptr<BaseComponent>& comp)
+	const auto it{ std::find_if(m_pComponents.begin(), m_pComponents.end(), [type](const std::unique_ptr<BaseComponent>& comp)
 		{
 			return comp->m_ComponentType == type;
 		}) };
 
-	if (it != m_pComponents.end())
-		return it->get();
+	if (it != m_pComponents.end()) return *it->get();
 	
+
 	throw(std::runtime_error(std::string("GetComponent(type) -> Component doesn't exist on GameObject")));
 	
 }

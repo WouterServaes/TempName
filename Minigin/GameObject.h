@@ -1,5 +1,4 @@
 #pragma once
-//#include "Transform.h"
 #include "BaseComponent.h"
 #pragma warning(push)
 #pragma warning (disable:4201)
@@ -8,6 +7,7 @@
 
 namespace dae
 {
+	class BaseComponent;
 	class Texture2D;
 	class GameObject final
 	{
@@ -26,12 +26,13 @@ namespace dae
 		
 		void AddComponent(std::unique_ptr<BaseComponent> component); //Adds the desired component to this gameObject (by adding to a BaseComponent vector m_pComponents)
 
+		
 		bool IsMarkedForDeletion() const { return m_MarkForDeletion; };
 		bool NeedsToBeRendered()const { return m_NeedsToBeRendered; };
 
 		
-		std::unique_ptr<BaseComponent>::pointer GetComponent(BaseComponent::componentType type);
 	
+		BaseComponent& GetComponent(BaseComponent::componentType type);
 	private:
 		std::vector<std::unique_ptr<BaseComponent>> m_pComponents{ };
 		
