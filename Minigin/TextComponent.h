@@ -25,7 +25,6 @@ namespace dae
 		std::shared_ptr<Font> m_pFont;
 		std::string m_Text;
 		glm::vec4 m_Color;
-		bool m_IsInitialized{ false };
 
 		RenderComponent* m_pRenderComponent{ nullptr };
 	};

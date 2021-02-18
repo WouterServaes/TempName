@@ -7,11 +7,15 @@
 
 dae::RenderComponent::RenderComponent(const std::string& filename)
 	:BaseComponent(componentType::render), m_Texture(ResourceManager::GetInstance().LoadTexture(filename))
-{}
+{
+	m_IsInitialized = true;
+}
 
 dae::RenderComponent::RenderComponent(std::shared_ptr<Texture2D> texture)
 	: BaseComponent(componentType::render), m_Texture(texture)
-{}
+{
+	m_IsInitialized = true;
+}
 
 void dae::RenderComponent::Render()const
 {

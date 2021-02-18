@@ -36,5 +36,6 @@ namespace dae
 		virtual void Render() const {};
 	protected:
 		GameObject* m_pGameObject{ nullptr };
+		bool m_IsInitialized{ false };
 	};
 }

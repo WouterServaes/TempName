@@ -99,26 +99,19 @@ void dae::Minigin::Run()
 		auto& time{ Time::GetInstance() };
 		
 		bool doContinue{ true };
-		auto lastTime{ high_resolution_clock::now() };
-		float lag{ 0.f };
+		const auto lastTime{ high_resolution_clock::now() };
 
 		while (doContinue)
 		{
 			const auto currentTime{ high_resolution_clock::now() };
 			const float deltaTime{ duration<float>(currentTime - lastTime).count() };
-			lastTime = currentTime;
-			lag += deltaTime;
-
+			
 			doContinue = input.ProcessInput();
 
-			time.deltaTime = MsPerUpdate;
+			time.deltaTime = deltaTime;
 			time.SetFps();
 			
-			while (lag >= MsPerUpdate)
-			{
-				sceneManager.Update();
-				lag -= MsPerUpdate;
-			}
+			sceneManager.Update();
 			renderer.Render();
 		}
 

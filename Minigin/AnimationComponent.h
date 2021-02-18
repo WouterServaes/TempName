@@ -25,9 +25,6 @@ namespace dae
 
 		const std::string* m_pFolderName, * m_pImageBaseName;
 		RenderComponent::ImageTypes m_FileType;
-
-		bool m_IsInitialized{ false };
-
 		RenderComponent* m_pRenderComponent{ nullptr };
 	};
 }

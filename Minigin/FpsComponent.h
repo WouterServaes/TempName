@@ -14,7 +14,6 @@ namespace dae
 		void Update() override;
 	private:
 		bool m_UseTextCompToPrint;
-		bool m_IsInitialized{ false };
 		TextComponent* m_pTextComponent;
 	};
 }
