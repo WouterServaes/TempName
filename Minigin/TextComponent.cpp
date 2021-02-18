@@ -26,13 +26,14 @@ void dae::TextComponent::UpdateText(const std::string& newText)
 	}
 	SDL_FreeSurface(surf);
 
-	m_pGameObject->GetComponent<RenderComponent>()->UpdateTexture(std::make_shared<Texture2D>(texture));
+	m_pRenderComponent->UpdateTexture(std::make_shared<Texture2D>(texture));
 }
 
 void dae::TextComponent::Update()
 {
 	if (!m_IsInitialized) //Text doesn't need to be updated every frame.
 	{
+		m_pRenderComponent = m_pGameObject->GetComponent<RenderComponent>();
 		InitializeText();
 		m_IsInitialized = true;
 	}
@@ -53,5 +54,5 @@ void dae::TextComponent::InitializeText()
 		throw std::runtime_error(std::string("Create text texture from surface failed: ") + SDL_GetError());
 	}
 	SDL_FreeSurface(surf);
-	m_pGameObject->GetComponent<RenderComponent>()->UpdateTexture(std::make_shared<Texture2D>(texture));
+	m_pRenderComponent->UpdateTexture(std::make_shared<Texture2D>(texture));
 }

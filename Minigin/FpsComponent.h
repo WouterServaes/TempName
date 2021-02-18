@@ -1,6 +1,7 @@
 #pragma once
 #include "BaseComponent.h"
 #include "Time.h"
+#include "TextComponent.h"
 namespace dae
 {
 	class FpsComponent final :public BaseComponent
@@ -13,5 +14,7 @@ namespace dae
 		void Update() override;
 	private:
 		bool m_UseTextCompToPrint;
+		bool m_IsInitialized{ false };
+		TextComponent* m_pTextComponent;
 	};
 }

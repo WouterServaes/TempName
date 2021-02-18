@@ -16,7 +16,9 @@ void dae::AnimationComponent::Update()
 	if (!m_IsInitialized)
 	{
 		m_IsInitialized = true;
-		m_pGameObject->GetComponent<RenderComponent>()->UpdateTexture(m_Textures[0]);//set first frame to render component
+		m_pRenderComponent = m_pGameObject->GetComponent<RenderComponent>();
+		m_pRenderComponent->UpdateTexture(m_Textures[0]);//set first frame to render component
+		
 	}
 
 	m_ElapsedTime += Time::GetInstance().deltaTime;
@@ -29,7 +31,7 @@ void dae::AnimationComponent::Update()
 			m_CurrentFrame += 1;
 
 		m_ElapsedTime = 0.f;
-		m_pGameObject->GetComponent<RenderComponent>()->UpdateTexture(m_Textures[m_CurrentFrame]);
+		m_pRenderComponent->UpdateTexture(m_Textures[m_CurrentFrame]);
 	}
 }
 

@@ -27,5 +27,7 @@ namespace dae
 		RenderComponent::ImageTypes m_FileType;
 
 		bool m_IsInitialized{ false };
+
+		RenderComponent* m_pRenderComponent{ nullptr };
 	};
 }

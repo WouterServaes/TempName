@@ -26,5 +26,7 @@ namespace dae
 		std::string m_Text;
 		glm::vec4 m_Color;
 		bool m_IsInitialized{ false };
+
+		RenderComponent* m_pRenderComponent{ nullptr };
 	};
 }
