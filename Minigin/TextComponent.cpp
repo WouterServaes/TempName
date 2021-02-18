@@ -27,6 +27,7 @@ void dae::TextComponent::UpdateText(const std::string& newText)
 	SDL_FreeSurface(surf);
 
 	m_pRenderComponent->UpdateTexture(std::make_shared<Texture2D>(texture));
+	
 }
 
 void dae::TextComponent::Update()

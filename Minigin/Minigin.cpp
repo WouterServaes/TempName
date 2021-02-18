@@ -99,12 +99,13 @@ void dae::Minigin::Run()
 		auto& time{ Time::GetInstance() };
 		
 		bool doContinue{ true };
-		const auto lastTime{ high_resolution_clock::now() };
+		auto lastTime{ high_resolution_clock::now() };
 
 		while (doContinue)
 		{
 			const auto currentTime{ high_resolution_clock::now() };
 			const float deltaTime{ duration<float>(currentTime - lastTime).count() };
+			lastTime = currentTime;
 			
 			doContinue = input.ProcessInput();
 

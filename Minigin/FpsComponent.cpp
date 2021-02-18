@@ -12,4 +12,5 @@ void dae::FpsComponent::Update()
 	
 	if (m_UseTextCompToPrint)
 		m_pTextComponent->UpdateText(std::string("FPS:" + std::to_string(Time::GetInstance().fps)));
+	
 }
