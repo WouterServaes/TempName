@@ -1,7 +1,8 @@
 #include "MiniginPCH.h"
 #include "AnimationComponent.h"
 #include "ResourceManager.h"
-#include "time.h"
+#include "Time.h"
+
 dae::AnimationComponent::AnimationComponent(const std::string& folder, const std::string& baseName, RenderComponent::ImageTypes fileType, int amountOfImages, int animationFramesPerSecond)
 	:BaseComponent(componentType::animation), m_AmountOfFrames(amountOfImages)
 	, m_pFolderName(new std::string(folder)), m_pImageBaseName(new std::string(baseName))
