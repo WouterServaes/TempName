@@ -10,15 +10,11 @@ namespace dae
 		public BaseComponent
 	{
 	public:
-		AnimationComponent(const std::string& folder, const std::string& baseName, RenderComponent::ImageTypes fileType, int amountOfImages, int framesPerSecond);
-		~AnimationComponent()
-		{
-			delete m_pFolderName;
-			delete m_pImageBaseName;
-		};
+		AnimationComponent(const std::string& folder, const std::string& baseName, RenderComponent::ImageTypes fileType, int amountOfImages, int animationFramesPerSecond);
+		~AnimationComponent() = default;
 		void Update() override;
 	private:
-		std::string GetImageName(int imgNr) const;
+		[[nodiscard]] std::string GetImageName(int imgNr) const;
 		std::vector<std::shared_ptr<Texture2D>  >m_Textures{};
 		float m_ElapsedTime{ 0.f };
 		int m_CurrentFrame{ 0 }, m_AmountOfFrames, m_FramesPerSecond;

@@ -7,11 +7,18 @@ namespace dae
 	    public Singleton<Time>
 	{
 	public:
-		float deltaTime{};
+		float deltaTime{}, elapsedTime{};
 		int fps{};
 		
-		void SetFps() { fps = int(1.f / deltaTime); };
+		void Update(float deltaT)
+		{
+			deltaTime = deltaT;
+			elapsedTime += deltaTime;
+			SetFps();
+			
+		};
 	private:
+		void SetFps() { fps = int(1.f / deltaTime); };
 		friend class Singleton<Time>;
 		Time() = default;
 	};

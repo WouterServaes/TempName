@@ -2,13 +2,15 @@
 #include "AnimationComponent.h"
 #include "ResourceManager.h"
 #include "time.h"
-dae::AnimationComponent::AnimationComponent(const std::string& folder, const std::string& baseName, RenderComponent::ImageTypes fileType, int amountOfImages, int framesPerSecond)
+dae::AnimationComponent::AnimationComponent(const std::string& folder, const std::string& baseName, RenderComponent::ImageTypes fileType, int amountOfImages, int animationFramesPerSecond)
 	:BaseComponent(componentType::animation), m_AmountOfFrames(amountOfImages)
 	, m_pFolderName(new std::string(folder)), m_pImageBaseName(new std::string(baseName))
-	, m_FileType{ fileType }, m_FramesPerSecond(framesPerSecond)
+	, m_FileType{ fileType }, m_FramesPerSecond(animationFramesPerSecond)
 {
 	for (int idx{}; idx < amountOfImages; ++idx)
 		m_Textures.push_back(ResourceManager::GetInstance().LoadTexture(GetImageName(idx))); //save all texture frames
+	delete m_pFolderName;
+	delete m_pImageBaseName;
 }
 
 void dae::AnimationComponent::Update()
@@ -23,7 +25,7 @@ void dae::AnimationComponent::Update()
 
 	m_ElapsedTime += Time::GetInstance().deltaTime;
 
-	if (m_ElapsedTime >= m_FramesPerSecond / 60)
+	if (m_ElapsedTime >= 1.f/float(m_FramesPerSecond))
 	{
 		if (m_CurrentFrame == m_AmountOfFrames - 1)
 			m_CurrentFrame = 0;
