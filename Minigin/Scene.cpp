@@ -12,16 +12,15 @@ void Scene::Add(const std::shared_ptr<GameObject>& object)
 
 void Scene::Update()
 {	
-	std::vector<std::shared_ptr<GameObject>> objectsToDelete{};
-	for(auto& object : m_Objects)
+	for(size_t idx{}; idx<m_Objects.size();++idx)
+		m_Objects[idx]->Update();
+		
+	
+	m_Objects.erase(std::remove_if(m_Objects.begin(), m_Objects.end(), [](const std::shared_ptr<GameObject>& obj)
 	{
-		object->Update();
-		if (object->IsMarkedForDeletion())
-			objectsToDelete.push_back(object);
-	}
-
-	for (auto& objToDelete : objectsToDelete)
-		objToDelete.reset();
+			return obj->IsMarkedForDeletion();
+		
+	}), m_Objects.end());
 }
 
 void Scene::Render() const

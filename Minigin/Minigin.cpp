@@ -111,8 +111,9 @@ void dae::Minigin::Run()
 
 			doContinue = input.ProcessInput();
 
-			time.deltaTime = deltaTime;
+			time.deltaTime = MsPerUpdate;
 			time.SetFps();
+			
 			while (lag >= MsPerUpdate)
 			{
 				sceneManager.Update();
@@ -120,6 +121,7 @@ void dae::Minigin::Run()
 			}
 			renderer.Render();
 		}
+
 	}
 	Cleanup();
 }

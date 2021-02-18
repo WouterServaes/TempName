@@ -46,3 +46,8 @@ namespace dae
 		bool m_NeedsToBeRendered{ false }; //true: Render() of this gameObject will be called from the scene manager, not every game object needs to be rendered.
 	};
 }
+
+
+//store GetComponent result when it's used every frame
+//using raw ptrs: think about when to delete things
+//smart points -> don't think about it
