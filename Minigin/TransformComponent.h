@@ -10,12 +10,12 @@ namespace dae
 	class TransformComponent :public BaseComponent
 	{
 	public:
-		TransformComponent(const glm::vec3& position) :m_Position(position), BaseComponent(componentType::transform) { m_IsInitialized = true; };
 
-		TransformComponent(float x, float y, float z = 0.f) :m_Position(glm::vec3(x, y, z)), BaseComponent(componentType::transform) { m_IsInitialized = true; }
+		explicit TransformComponent(const glm::vec3& position) :m_Position(position), BaseComponent(componentType::transform) { m_IsInitialized = true; };
+		explicit TransformComponent(float x, float y, float z = 0.f) :m_Position(glm::vec3(x, y, z)), BaseComponent(componentType::transform) { m_IsInitialized = true; }
 		~TransformComponent() = default;
 		void SetPosition(const glm::vec3& position) { m_Position = position; };
-		const glm::vec3& GetPosition() const { return m_Position; };
+		[[nodiscard]] const glm::vec3& GetPosition() const { return m_Position; };
 	private:
 		glm::vec3 m_Position;
 	};

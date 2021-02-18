@@ -7,13 +7,13 @@ namespace dae
 	class FpsComponent final :public BaseComponent
 	{
 	public:
-		FpsComponent(bool useTextCompToPrint = false) :m_UseTextCompToPrint(useTextCompToPrint), BaseComponent(componentType::fps) {};
+		FpsComponent(bool useTextCompToPrint = false) :BaseComponent(componentType::fps), m_UseTextCompToPrint(useTextCompToPrint){};
 		~FpsComponent() = default;
-		int GetFps() const { return Time::GetInstance().fps; };
-		bool UseTextCompToPrint()const { return m_UseTextCompToPrint; };
+		[[nodiscard]] int GetFps() const { return Time::GetInstance().fps; };
+		[[nodiscard]] bool UseTextCompToPrint()const { return m_UseTextCompToPrint; };
 		void Update() override;
 	private:
 		bool m_UseTextCompToPrint;
-		TextComponent* m_pTextComponent;
+		TextComponent* m_pTextComponent{nullptr};
 	};
 }
