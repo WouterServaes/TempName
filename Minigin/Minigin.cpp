@@ -16,6 +16,7 @@
 #include "FpsComponent.h"
 #include "AnimationComponent.h"
 
+#include "imgui.h"
 using namespace std;
 using namespace std::chrono;
 
@@ -111,7 +112,6 @@ void dae::Minigin::Run()
 			const auto currentTime{ high_resolution_clock::now() };
 			const float deltaTime{ duration<float>(currentTime - lastTime).count() };
 			lastTime = currentTime;
-			
 			input.ProcessInput();
 			time.Update(deltaTime);
 			sceneManager.Update();

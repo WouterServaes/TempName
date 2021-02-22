@@ -20,6 +20,7 @@ bool dae::InputManager::IsButtonPressed(KeyboardButtons button) const
 	SDL_Event e;
 	while (SDL_PollEvent(&e))
 	{
+		
 		if (e.type == SDL_KEYUP )
 		{
 			if(e.key.keysym.sym == int(button))
