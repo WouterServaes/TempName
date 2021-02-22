@@ -16,6 +16,7 @@ namespace dae
 		~TransformComponent() = default;
 		void SetPosition(const glm::vec3& position) { m_Position = position; };
 		[[nodiscard]] const glm::vec3& GetPosition() const { return m_Position; };
+		void Translate(const glm::vec3& translation);
 	private:
 		glm::vec3 m_Position;
 	};

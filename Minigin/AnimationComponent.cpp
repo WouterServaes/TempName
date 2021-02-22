@@ -70,5 +70,4 @@ dae::AnimationComponent::AnimationComponent(const std::string fileName, int amou
 	m_pTexture = ResourceManager::GetInstance().LoadTexture(m_FileName);
 }
 
-//make Image class
-//width, height, file name, get image.
+//TODO make Image class with Width, Height, FileName, GetImage, ...

@@ -8,19 +8,19 @@ void dae::InputManager::ProcessInput()
 	ProcessKeyboardInput();
 }
 
-bool dae::InputManager::IsPressed(ControllerButtons button) const
+bool dae::InputManager::IsButtonPressed(ControllerButtons button) const
 {
 	if (m_CurrentState.Gamepad.wButtons & int(button))
 		return true;
 	return false;
 }
 
-bool dae::InputManager::IsPressed(KeyboardButtons button) const
+bool dae::InputManager::IsButtonPressed(KeyboardButtons button) const
 {
 	SDL_Event e;
 	while (SDL_PollEvent(&e))
 	{
-		if (e.type ==SDL_KEYUP )
+		if (e.type == SDL_KEYUP )
 		{
 			if(e.key.keysym.sym == int(button))
 				return true;
@@ -47,7 +47,7 @@ void dae::InputManager::ProcessControllerInput()
 			const auto& command{ m_ConsoleCommands.at(key) };
 			if (!command->IsActivated())
 			{
-				if (IsPressed(b))
+				if (IsButtonPressed(b))
 				{
 					command->Execute();
 					command->SetActivated(true);
@@ -55,7 +55,7 @@ void dae::InputManager::ProcessControllerInput()
 			}
 			else
 			{
-				if (!IsPressed(b))
+				if (!IsButtonPressed(b))
 					command->SetActivated(false);
 			}
 		}
@@ -73,7 +73,7 @@ void dae::InputManager::ProcessKeyboardInput()
 		const auto& command{ m_KeyboardCommands.at(key) };
 		if (!command->IsActivated())
 		{
-			if (IsPressed(b))
+			if (IsButtonPressed(b))
 			{
 				command->Execute();
 				command->SetActivated(true);
@@ -81,7 +81,7 @@ void dae::InputManager::ProcessKeyboardInput()
 		}
 		else
 		{
-			if (!IsPressed(b))
+			if (!IsButtonPressed(b))
 			{
 				command->SetActivated(false);
 			}

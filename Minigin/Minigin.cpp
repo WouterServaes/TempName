@@ -78,8 +78,9 @@ void dae::Minigin::LoadGame() const
 	go->AddComponent(new TransformComponent(5.f, 5.f));
 	scene.Add(go);
 
-	//input
+	//input commands
 	auto& inputManager{ InputManager::GetInstance() };
+	
 	inputManager.AssignKey(KeyboardButtons::Quit, std::make_unique<Command_QuitGame>(&m_QuitGame));
 }
 
@@ -112,9 +113,7 @@ void dae::Minigin::Run()
 			lastTime = currentTime;
 			
 			input.ProcessInput();
-
 			time.Update(deltaTime);
-			
 			sceneManager.Update();
 			renderer.Render();
 		}

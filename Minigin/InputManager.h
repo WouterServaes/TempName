@@ -6,6 +6,7 @@
 #include "Commands.h"
 #include "Singleton.h"
 
+//TODO improve input manager
 namespace dae
 {
 	enum class ControllerButtons
@@ -30,19 +31,19 @@ namespace dae
 	{
 		Quit = SDLK_ESCAPE
 	};
-	
+
 	using ControllerKey = std::pair<unsigned, ControllerButtons>;
 	using ControllerCommandsMap = std::map<ControllerKey, std::unique_ptr<Commands>>;
 	using KeyboardKey = std::pair<unsigned, KeyboardButtons>;
 	using KeyboardCommandsMap = std::map < KeyboardKey, std::unique_ptr<Commands>>;
-	
+
 	class InputManager final : public Singleton<InputManager>
 	{
 	public:
 		void ProcessInput();
-		[[nodiscard]] bool IsPressed(ControllerButtons button) const;
-		[[nodiscard]] bool IsPressed(KeyboardButtons button) const;
-
+		[[nodiscard]] bool IsButtonPressed(ControllerButtons button) const;
+		[[nodiscard]] bool IsButtonPressed(KeyboardButtons button) const;
+		
 		template <typename T>
 		void AssignKey(ControllerButtons button, std::unique_ptr<T> command)
 		{
@@ -50,34 +51,36 @@ namespace dae
 			m_ConsoleCommands.insert(std::make_pair(key, std::move(command)));
 		}
 
-	template <typename T>
-	void AssignKey(KeyboardButtons button, std::unique_ptr<T> command)
+		template <typename T>
+		void AssignKey(KeyboardButtons button, std::unique_ptr<T> command)
 		{
 			KeyboardKey key{ std::make_pair(unsigned(button), button) };
 			m_KeyboardCommands.insert(std::make_pair(key, std::move(command)));
 		}
 
-	template <typename T>
-	void AssignKey(ControllerButtons button)
-	{
-		ControllerKey key = std::make_pair(unsigned(button), button);
-		m_ConsoleCommands.insert(std::make_pair(key, std::make_unique<T>()));
-	}
+		template <typename T>
+		void AssignKey(ControllerButtons button)
+		{
+			ControllerKey key = std::make_pair(unsigned(button), button);
+			m_ConsoleCommands.insert(std::make_pair(key, std::make_unique<T>()));
+		}
 
-	template <typename T>
-	void AssignKey(KeyboardButtons button)
-	{
-		KeyboardKey key{ std::make_pair(unsigned(button), button) };
-		m_KeyboardCommands.insert(std::make_pair(key, std::unique_ptr<T>()));
-	}
-	
+		template <typename T>
+		void AssignKey(KeyboardButtons button)
+		{
+			KeyboardKey key{ std::make_pair(unsigned(button), button) };
+			m_KeyboardCommands.insert(std::make_pair(key, std::unique_ptr<T>()));
+		}
+
+
+		
 	private:
 		void ProcessControllerInput();
 		void ProcessKeyboardInput();
 		XINPUT_STATE m_CurrentState{};
 		ControllerCommandsMap m_ConsoleCommands{};
 		KeyboardCommandsMap m_KeyboardCommands{};
-		
+
 		const std::vector<ControllerButtons> m_ConsoleButtons
 		{
 			ControllerButtons::ButtonA,
@@ -100,6 +103,5 @@ namespace dae
 		{
 			KeyboardButtons::Quit
 		};
-		
 	};
 }
