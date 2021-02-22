@@ -4,7 +4,6 @@
 
 void dae::FpsComponent::Update()
 {
-	
 	if (m_UseTextCompToPrint)
 	{
 		if (!m_IsInitialized)

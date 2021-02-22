@@ -62,3 +62,13 @@ std::string dae::AnimationComponent::GetImageName(int imgNr) const
 
 	return imageFileName;
 }
+
+dae::AnimationComponent::AnimationComponent(const std::string fileName, int amountOfFrames, float animationSpeed)
+	:BaseComponent(componentType::animation), m_AmountOfFrames(amountOfFrames), m_AnimationSpeed(animationSpeed)
+, m_FileName(fileName)
+{
+	m_pTexture = ResourceManager::GetInstance().LoadTexture(m_FileName);
+}
+
+//make Image class
+//width, height, file name, get image.

@@ -19,6 +19,8 @@
 using namespace std;
 using namespace std::chrono;
 
+bool m_QuitGame{ false };
+
 void dae::Minigin::Initialize()
 {
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -75,6 +77,10 @@ void dae::Minigin::LoadGame() const
 	go->AddComponent(new FpsComponent(true));
 	go->AddComponent(new TransformComponent(5.f, 5.f));
 	scene.Add(go);
+
+	//input
+	auto& inputManager{ InputManager::GetInstance() };
+	inputManager.AssignKey(KeyboardButtons::Quit, std::make_unique<Command_QuitGame>(&m_QuitGame));
 }
 
 void dae::Minigin::Cleanup()
@@ -97,16 +103,15 @@ void dae::Minigin::Run()
 		auto& input{ InputManager::GetInstance() };
 		auto& time{ Time::GetInstance() };
 		
-		bool doContinue{ true };
 		auto lastTime{ high_resolution_clock::now() };
 
-		while (doContinue)
+		while (!m_QuitGame)
 		{
 			const auto currentTime{ high_resolution_clock::now() };
 			const float deltaTime{ duration<float>(currentTime - lastTime).count() };
 			lastTime = currentTime;
 			
-			doContinue = input.ProcessInput();
+			input.ProcessInput();
 
 			time.Update(deltaTime);
 			

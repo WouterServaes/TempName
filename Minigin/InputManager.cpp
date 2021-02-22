@@ -2,41 +2,89 @@
 #include "InputManager.h"
 #include <SDL.h>
 
-
-bool dae::InputManager::ProcessInput()
+void dae::InputManager::ProcessInput()
 {
-	ZeroMemory(&m_CurrentState, sizeof(XINPUT_STATE));
-	XInputGetState(0, &m_CurrentState);
+	ProcessControllerInput();
+	ProcessKeyboardInput();
+}
 
+bool dae::InputManager::IsPressed(ControllerButtons button) const
+{
+	if (m_CurrentState.Gamepad.wButtons & int(button))
+		return true;
+	return false;
+}
+
+bool dae::InputManager::IsPressed(KeyboardButtons button) const
+{
 	SDL_Event e;
-	while (SDL_PollEvent(&e)) {
-		if (e.type == SDL_QUIT) {
-			return false;
-		}
-		if (e.type == SDL_KEYDOWN) {
-			
-		}
-		if (e.type == SDL_MOUSEBUTTONDOWN) {
-			
-		}
-	}
-
-	return true;
-}
-
-bool dae::InputManager::IsPressed(ControllerButton button) const
-{
-	switch (button)
+	while (SDL_PollEvent(&e))
 	{
-	case ControllerButton::ButtonA:
-		return m_CurrentState.Gamepad.wButtons & XINPUT_GAMEPAD_A;
-	case ControllerButton::ButtonB:
-		return m_CurrentState.Gamepad.wButtons & XINPUT_GAMEPAD_B;
-	case ControllerButton::ButtonX:
-		return m_CurrentState.Gamepad.wButtons & XINPUT_GAMEPAD_X;
-	case ControllerButton::ButtonY:
-		return m_CurrentState.Gamepad.wButtons & XINPUT_GAMEPAD_Y;
-	default: return false;
+		if (e.type ==SDL_KEYUP )
+		{
+			if(e.key.keysym.sym == int(button))
+				return true;
+		}
+	}
+	return false;
+}
+
+void dae::InputManager::ProcessControllerInput()
+{
+	const int connectedControllers{ 1 };
+	for (DWORD i = 0; i < connectedControllers; i++)
+	{
+		ZeroMemory(&m_CurrentState, sizeof(XINPUT_STATE));
+		const auto dwResult = XInputGetState(i, &m_CurrentState);
+		if (dwResult != ERROR_SUCCESS)
+			continue;
+		
+		for (auto b : m_ConsoleButtons)
+		{
+			ControllerKey key{ std::make_pair(int(b), b) };
+			if (m_ConsoleCommands.find(key) == m_ConsoleCommands.end())
+				continue;
+			const auto& command{ m_ConsoleCommands.at(key) };
+			if (!command->IsActivated())
+			{
+				if (IsPressed(b))
+				{
+					command->Execute();
+					command->SetActivated(true);
+				}
+			}
+			else
+			{
+				if (!IsPressed(b))
+					command->SetActivated(false);
+			}
+		}
 	}
 }
 
+void dae::InputManager::ProcessKeyboardInput()
+{
+	for (auto b : m_KeyboardButtons)
+	{
+		KeyboardKey key{ std::make_pair(int(b), b) };
+		if (m_KeyboardCommands.find(key) == m_KeyboardCommands.end())
+			continue;
+
+		const auto& command{ m_KeyboardCommands.at(key) };
+		if (!command->IsActivated())
+		{
+			if (IsPressed(b))
+			{
+				command->Execute();
+				command->SetActivated(true);
+			}
+		}
+		else
+		{
+			if (!IsPressed(b))
+			{
+				command->SetActivated(false);
+			}
+		}
+	}
+}
