@@ -13,29 +13,34 @@ dae::GameObject::~GameObject()
 
 void dae::GameObject::Update()
 {
+	if (!m_IsActive) return;
 	for (auto& comp : m_pComponents)
 		comp->Update();
 }
 
 void dae::GameObject::Render() const
 {
+	if (!m_IsActive) return;
+
 	for (const auto& comp : m_pComponents)
 		comp->Render();
 }
 
 void dae::GameObject::AddComponent(BaseComponent* component)
 {
-	switch (component->m_ComponentType)
+	if (!m_NeedsToBeRendered)
 	{
-	case BaseComponent::componentType::render:
-	case BaseComponent::componentType::text:
-	case BaseComponent::componentType::animation:
-		m_NeedsToBeRendered = true;
-		break;
-	default:
-		break;
+		switch (component->m_ComponentType)
+		{
+		case BaseComponent::componentType::render:
+		case BaseComponent::componentType::text:
+		case BaseComponent::componentType::animation:
+			m_NeedsToBeRendered = true;
+			break;
+		default:
+			break;
+		}
 	}
 	component->SetGameObject(this);
 	m_pComponents.push_back(component);
 }
-

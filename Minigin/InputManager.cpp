@@ -26,6 +26,10 @@ bool dae::InputManager::IsButtonPressed(KeyboardButtons button) const
 			if(e.key.keysym.sym == int(button))
 				return true;
 		}
+		else if(e.type == SDL_QUIT)
+		{
+			//clicked the X of the window
+		}
 	}
 	return false;
 }

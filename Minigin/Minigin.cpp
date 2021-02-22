@@ -13,10 +13,13 @@
 
 #include "TextComponent.h"
 #include "TransformComponent.h"
-#include "FpsComponent.h"
 #include "AnimationComponent.h"
+#include "UIComponent.h"
 
-#include "imgui.h"
+#include "imgui_impl_opengl2.h"
+#include "imgui_impl_sdl.h"
+
+
 using namespace std;
 using namespace std::chrono;
 
@@ -52,8 +55,6 @@ void dae::Minigin::LoadGame() const
 {
 	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
 
-	//should be: load file in, create objects using this file
-
 	//game objects
 	auto go = std::make_shared<GameObject>();
 	go->AddComponent(new RenderComponent("background.jpg"));
@@ -73,12 +74,15 @@ void dae::Minigin::LoadGame() const
 	scene.Add(go);
 
 	go = make_shared<GameObject>();
-	go->AddComponent(new RenderComponent());
-	go->AddComponent(new TextComponent("fps text", "Lingua.otf", 20, glm::vec4{ 0.f, 255.f, 0.f, 1.f }));
-	go->AddComponent(new FpsComponent(true));
-	go->AddComponent(new TransformComponent(5.f, 5.f));
+	go->AddComponent(new FpsUI());
+	go->AddComponent(new TransformComponent(5.f,5.f));
 	scene.Add(go);
-
+	
+	go = make_shared<GameObject>();
+	go->AddComponent(new StartUI());
+	go->AddComponent(new TransformComponent(80.f,200.f));
+	scene.Add(go);
+	
 	//input commands
 	auto& inputManager{ InputManager::GetInstance() };
 	
@@ -111,6 +115,11 @@ void dae::Minigin::Run()
 		{
 			const auto currentTime{ high_resolution_clock::now() };
 			const float deltaTime{ duration<float>(currentTime - lastTime).count() };
+			
+			ImGui_ImplOpenGL2_NewFrame();
+			ImGui_ImplSDL2_NewFrame(m_Window);
+			ImGui::NewFrame();
+			
 			lastTime = currentTime;
 			input.ProcessInput();
 			time.Update(deltaTime);

@@ -11,11 +11,11 @@ namespace dae
 	public:
 		enum class componentType
 		{
-			render = 0,
-			text = 1,
-			transform = 2,
-			fps = 3,
-			animation = 4
+			render,
+			text ,
+			transform,
+			animation,
+			ui 
 		};
 
 		BaseComponent(componentType type) :m_ComponentType(type) {};
@@ -31,7 +31,6 @@ namespace dae
 				throw(std::runtime_error(std::string("SetGameObject(GameObject*) -> Already set pointer to gameObject, can't change this")));
 		};
 
-		//not pure virtual -> I loop over every component in GameObject and call these from every component
 		virtual void Update() {};
 		virtual void Render() const {};
 	protected:

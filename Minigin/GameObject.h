@@ -24,9 +24,10 @@ namespace dae
 		
 		void AddComponent(BaseComponent* component); //Adds the desired component to this gameObject (by adding to a BaseComponent vector m_pComponents)
 
-		bool IsMarkedForDeletion() const { return m_MarkForDeletion; };
-		bool NeedsToBeRendered()const { return m_NeedsToBeRendered; };
-
+		[[nodiscard]]bool IsMarkedForDeletion() const { return m_MarkForDeletion; };
+		void MarkForDeletion() { m_MarkForDeletion = true; };
+		[[nodiscard]] bool NeedsToBeRendered()const { return m_NeedsToBeRendered; };
+		[[nodiscard]] bool IsActive()const { return m_IsActive; };
 		
 		template<typename T>
 		T* GetComponent() {
@@ -38,16 +39,11 @@ namespace dae
 
 			throw(std::runtime_error(std::string("GetComponent(type) -> Component doesn't exist on GameObject")));
 		};
-	
 	private:
 		std::vector<BaseComponent*> m_pComponents{ };
 
 		bool m_MarkForDeletion{ false }; //true: this game object will be deleted from the scene at the end of the current update
 		bool m_NeedsToBeRendered{ false }; //true: Render() of this gameObject will be called from the scene manager, not every game object needs to be rendered.
+		bool m_IsActive{ true };
 	};
 }
-
-
-//store GetComponent result when it's used every frame
-//using raw ptrs: think about when to delete things
-//smart points -> don't think about it

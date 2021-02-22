@@ -24,7 +24,6 @@ int GetOpenGLDriverIndex()
 
 void dae::Renderer::Init(SDL_Window * window)
 {
-	m_Window = window;
 	m_Renderer = SDL_CreateRenderer(window, GetOpenGLDriverIndex(), SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (m_Renderer == nullptr) 
 	{
@@ -46,6 +45,8 @@ void dae::Renderer::Render() const
 
 	ImGui::Render();
 	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
+
+	
 	SDL_RenderPresent(m_Renderer);
 }
 
