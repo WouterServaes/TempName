@@ -5,7 +5,8 @@ namespace dae
 	class Scene
 	{
 	public:
-		void Add(const std::shared_ptr<GameObject>& object);
+		static int SceneCount;
+		void AddGameObject(const std::shared_ptr<GameObject>& object);
 
 		void Update();
 		void Render() const;
@@ -18,11 +19,12 @@ namespace dae
 		Scene& operator=(const Scene& other) = delete;
 		Scene& operator=(Scene&& other) = delete;
 
+		std::string m_Name;
 	private: 
 		virtual void InitializeScene() = 0;
 	protected:
-		std::string m_Name;
 		std::vector < std::shared_ptr<GameObject>> m_Objects{};
+		const int sceneNr;
 	};
 
 }

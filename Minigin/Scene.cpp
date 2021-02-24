@@ -2,11 +2,15 @@
 #include "Scene.h"
 #include <algorithm>
 
-dae::Scene::Scene(const std::string& name)
-: m_Name(name)
-{}
+int dae::Scene::SceneCount = 0;
 
-void dae::Scene::Add(const std::shared_ptr<GameObject>& object)
+dae::Scene::Scene(const std::string& name)
+: m_Name(name), sceneNr{SceneCount}
+{
+	SceneCount++;
+}
+
+void dae::Scene::AddGameObject(const std::shared_ptr<GameObject>& object)
 {
 	m_Objects.push_back(object);
 }
