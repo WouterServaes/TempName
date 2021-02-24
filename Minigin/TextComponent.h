@@ -1,17 +1,18 @@
 #pragma once
 #include "BaseComponent.h"
 #include "RenderComponent.h"
-#include "Font.h"
+#include "GameObject.h"
+
 #pragma warning(push)
 #pragma warning (disable:4201)
 #include <glm/vec4.hpp>
 #pragma warning(pop)
 
+#include "Font.h"
 #include <SDL.h>
+
 namespace dae
 {
-	class Texture2D;
-	class Texture2D;
 	class TextComponent :public BaseComponent
 	{
 	public:

@@ -1,17 +1,17 @@
 #include "MiniginPCH.h"
-#include "AnimationComponent.h"
+#include "GameObject.h"
 #include "ResourceManager.h"
+#include "AnimationComponent.h"
+#include "RenderComponent.h"
 #include "Time.h"
 
-dae::AnimationComponent::AnimationComponent(const std::string& folder, const std::string& baseName, RenderComponent::ImageTypes fileType, int amountOfImages, int animationFramesPerSecond)
+dae::AnimationComponent::AnimationComponent(const std::string& folder, const std::string& baseName, int amountOfImages, int animationFramesPerSecond)
 	:BaseComponent(componentType::animation), m_AmountOfFrames(amountOfImages)
-	, m_pFolderName(new std::string(folder)), m_pImageBaseName(new std::string(baseName))
-	, m_FileType{ fileType }, m_FramesPerSecond(animationFramesPerSecond)
+	, m_FramesPerSecond(animationFramesPerSecond)
 {
+	//save all texture frames as a Texture2D
 	for (int idx{}; idx < amountOfImages; ++idx)
-		m_Textures.push_back(ResourceManager::GetInstance().LoadTexture(GetImageName(idx))); //save all texture frames
-	delete m_pFolderName;
-	delete m_pImageBaseName;
+		m_Textures.push_back(ResourceManager::GetInstance().LoadTexture(GetImageName(idx, folder, baseName))); 
 }
 
 void dae::AnimationComponent::Update()
@@ -20,7 +20,7 @@ void dae::AnimationComponent::Update()
 	{
 		m_IsInitialized = true;
 		m_pRenderComponent = m_pGameObject->GetComponent<RenderComponent>();
-		m_pRenderComponent->UpdateTexture(m_Textures[0]);//set first frame to render component
+		m_pRenderComponent->UpdateTexture(m_Textures[0]);
 		
 	}
 
@@ -38,10 +38,9 @@ void dae::AnimationComponent::Update()
 	}
 }
 
-std::string dae::AnimationComponent::GetImageName(int imgNr) const
+std::string dae::AnimationComponent::GetImageName(int imgNr, const std::string& folderName, const std::string& imageBaseName) const
 {
-	std::string imageFileName{};
-	imageFileName = *m_pFolderName + "/" + *m_pImageBaseName;
+	auto imageFileName{ folderName + "/" + imageBaseName };
 
 	if (imgNr >= 10)
 	{
@@ -51,23 +50,8 @@ std::string dae::AnimationComponent::GetImageName(int imgNr) const
 			imageFileName += std::to_string(imgNr) + ".";
 	}
 	else
-		imageFileName += "0" + std::to_string(imgNr) + ".";
-
-	switch (m_FileType)
-	{
-	case RenderComponent::ImageTypes::png:
-		imageFileName += "png";
-		break;
-	}
+		imageFileName += "0" + std::to_string(imgNr) + ".";	
+	imageFileName += "png";
 
 	return imageFileName;
 }
-
-dae::AnimationComponent::AnimationComponent(const std::string fileName, int amountOfFrames, float animationSpeed)
-	:BaseComponent(componentType::animation), m_AmountOfFrames(amountOfFrames), m_AnimationSpeed(animationSpeed)
-, m_FileName(fileName)
-{
-	m_pTexture = ResourceManager::GetInstance().LoadTexture(m_FileName);
-}
-
-//TODO make Image class with Width, Height, FileName, GetImage, ...

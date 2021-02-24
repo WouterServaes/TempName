@@ -1,5 +1,6 @@
 #include "MiniginPCH.h"
 #include "Commands.h"
+#include "GameObject.h"
 
 dae::Commands::Commands(std::shared_ptr<GameObject> gameObject)
 	:m_pGameObject(gameObject)
@@ -19,9 +20,7 @@ dae::Command_QuitGame::Command_QuitGame(bool* quitGame)
 	:m_pQuitGame(quitGame)
 {}
 
-
 void dae::Command_QuitGame::Execute()
 {
-	
 	*m_pQuitGame = true;
 }

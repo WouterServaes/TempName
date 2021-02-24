@@ -1,7 +1,4 @@
 #pragma once
-#include <glm/detail/type_vec.hpp>
-#pragma warning(push)
-#include "GameObject.h"
 
 namespace dae
 {
@@ -18,12 +15,13 @@ namespace dae
 			ui 
 		};
 
-		BaseComponent(componentType type) :m_ComponentType(type) {};
+		BaseComponent(componentType type) :componentType(type) {};
 		virtual ~BaseComponent() = default;
 
-		const componentType m_ComponentType;
+		const componentType componentType;
 
-		void SetGameObject(GameObject* pGameObject) //Only works when the game object ptr is a nullptr
+		//saves a ptr to the game object that owns this component
+		void SetGameObject(GameObject* pGameObject)
 		{
 			if (m_pGameObject == nullptr)
 				m_pGameObject = pGameObject;
@@ -34,7 +32,7 @@ namespace dae
 		virtual void Update() {};
 		virtual void Render() const {};
 	protected:
-		GameObject* m_pGameObject{ nullptr };
 		bool m_IsInitialized{ false };
+		GameObject* m_pGameObject{ nullptr };
 	};
 }

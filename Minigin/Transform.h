@@ -9,8 +9,11 @@ namespace dae
 	class Transform final
 	{
 	public:
-		const glm::vec3& GetPosition() const { return m_Position; }
-		void SetPosition(float x, float y, float z);
+		[[nodiscard]]const glm::vec3& GetPosition() const { return m_Position; }
+		void SetPosition(float x = 0.f, float y = 0.f, float z = 0.f);
+		void SetPosition(const glm::vec3& pos = glm::vec3(0.f, 0.f, 0.f));
+		void Translate(const glm::vec3& translation);
+		void Translate(float x, float y, float z);
 	private:
 		glm::vec3 m_Position;
 	};

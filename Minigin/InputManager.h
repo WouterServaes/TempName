@@ -2,13 +2,11 @@
 #include <map>
 #include <SDL_events.h>
 #include <XInput.h>
-
-#include "Commands.h"
 #include "Singleton.h"
 
-//TODO improve input manager
 namespace dae
 {
+	class Commands;
 	enum class ControllerButtons
 	{
 		ButtonA = XINPUT_GAMEPAD_A,
@@ -34,16 +32,18 @@ namespace dae
 
 	using ControllerKey = std::pair<unsigned, ControllerButtons>;
 	using ControllerCommandsMap = std::map<ControllerKey, std::unique_ptr<Commands>>;
+
 	using KeyboardKey = std::pair<unsigned, KeyboardButtons>;
 	using KeyboardCommandsMap = std::map < KeyboardKey, std::unique_ptr<Commands>>;
 
 	class InputManager final : public Singleton<InputManager>
 	{
 	public:
+		void SetQuitGamePtr(bool* pQuitGame) { m_pQuitGame = pQuitGame; };
 		void ProcessInput();
 		[[nodiscard]] bool IsButtonPressed(ControllerButtons button) const;
 		[[nodiscard]] bool IsButtonPressed(KeyboardButtons button) const;
-		
+
 		template <typename T>
 		void AssignKey(ControllerButtons button, std::unique_ptr<T> command)
 		{
@@ -72,8 +72,6 @@ namespace dae
 			m_KeyboardCommands.insert(std::make_pair(key, std::unique_ptr<T>()));
 		}
 
-
-		
 	private:
 		void ProcessControllerInput();
 		void ProcessKeyboardInput();
@@ -103,5 +101,6 @@ namespace dae
 		{
 			KeyboardButtons::Quit
 		};
+		bool* m_pQuitGame{nullptr};
 	};
 }

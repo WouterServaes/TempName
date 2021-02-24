@@ -7,6 +7,7 @@ namespace dae
 	public:
 		static T& GetInstance()
 		{
+			
 			static T instance{};
 			return instance;
 		}

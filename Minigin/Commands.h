@@ -1,8 +1,7 @@
 #pragma once
-#include "GameObject.h"
 namespace dae
 {
-	
+	class GameObject;
 	class Commands
 	{
 	public:
@@ -14,10 +13,10 @@ namespace dae
 		virtual void Execute() = 0;
 	protected:
 		bool m_Activated{ false };
-		std::shared_ptr<GameObject> m_pGameObject{nullptr};
+		std::shared_ptr<GameObject> m_pGameObject{ nullptr };
 	};
 
-	class Command_QuitGame final:public Commands
+	class Command_QuitGame final :public Commands
 	{
 	public:
 		explicit Command_QuitGame(bool* quitGame);
@@ -26,4 +25,3 @@ namespace dae
 		bool* m_pQuitGame;
 	};
 }
-

@@ -1,15 +1,15 @@
 #pragma once
 #include "BaseComponent.h"
-#include "TransformComponent.h"
 
 namespace dae
 {
+	class TransformComponent;
 	class UIComponent: public BaseComponent
 	{
 	public:
 		UIComponent() :BaseComponent(componentType::ui) {};
 		~UIComponent() = default;
-		virtual void Update() override = 0 ;
+		void Update() override = 0 ;
 	protected:
 		const TransformComponent* m_pTransformComponent{nullptr};
 	};

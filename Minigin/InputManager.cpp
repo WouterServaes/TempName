@@ -1,5 +1,6 @@
 #include "MiniginPCH.h"
 #include "InputManager.h"
+#include "Commands.h"
 #include <SDL.h>
 
 void dae::InputManager::ProcessInput()
@@ -20,15 +21,14 @@ bool dae::InputManager::IsButtonPressed(KeyboardButtons button) const
 	SDL_Event e;
 	while (SDL_PollEvent(&e))
 	{
-		
-		if (e.type == SDL_KEYUP )
+		if (e.type == SDL_KEYUP)
 		{
-			if(e.key.keysym.sym == int(button))
+			if (e.key.keysym.sym == int(button))
 				return true;
 		}
-		else if(e.type == SDL_QUIT)
+		else if (e.type == SDL_QUIT)
 		{
-			//clicked the X of the window
+			*m_pQuitGame = true;
 		}
 	}
 	return false;
@@ -43,7 +43,7 @@ void dae::InputManager::ProcessControllerInput()
 		const auto dwResult = XInputGetState(i, &m_CurrentState);
 		if (dwResult != ERROR_SUCCESS)
 			continue;
-		
+
 		for (auto b : m_ConsoleButtons)
 		{
 			ControllerKey key{ std::make_pair(int(b), b) };

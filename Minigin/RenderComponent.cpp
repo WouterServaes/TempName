@@ -1,8 +1,9 @@
 #include "MiniginPCH.h"
 #include "RenderComponent.h"
 #include "ResourceManager.h"
+#include "GameObject.h"
 #include "Renderer.h"
-
+#include "Transform.h"
 #include "TransformComponent.h"
 
 dae::RenderComponent::RenderComponent(const std::string& filename)
@@ -19,7 +20,7 @@ dae::RenderComponent::RenderComponent(std::shared_ptr<Texture2D> texture)
 
 void dae::RenderComponent::Render()const
 {
-	const auto pos{ m_pGameObject->GetComponent<TransformComponent>()->GetPosition() };
+	const auto pos{ m_pGameObject->GetComponent<TransformComponent>()->GetTransform()->GetPosition() };
 	Renderer::GetInstance().RenderTexture(*m_Texture, pos.x, pos.y);
 }
 

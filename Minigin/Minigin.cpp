@@ -1,29 +1,60 @@
 #include "MiniginPCH.h"
 #include "Minigin.h"
 #include <chrono>
-#include <thread>
+#include <SDL.h>
+
 #include "InputManager.h"
 #include "SceneManager.h"
-#include "Renderer.h"
 #include "ResourceManager.h"
-#include <SDL.h>
-#include "GameObject.h"
-#include "Scene.h"
-#include "Time.h"
 
-#include "TextComponent.h"
-#include "TransformComponent.h"
-#include "AnimationComponent.h"
-#include "UIComponent.h"
+#include "Renderer.h"
 
 #include "imgui_impl_opengl2.h"
 #include "imgui_impl_sdl.h"
 
 
+#include "Time.h"
+#include "Commands.h"
+
+#include "DemoScene.h"
+
 using namespace std;
 using namespace std::chrono;
 
-bool m_QuitGame{ false };
+void dae::Minigin::Run()
+{
+	Initialize();
+	ResourceManager::GetInstance().Init("../Data/");
+	LoadGame();
+
+	{
+		auto& renderer{ Renderer::GetInstance() };
+		auto& sceneManager{ SceneManager::GetInstance() };
+		auto& input{ InputManager::GetInstance() };
+		input.SetQuitGamePtr(m_QuitGame);
+		auto& time{ Time::GetInstance() };
+
+		auto lastTime{ high_resolution_clock::now() };
+
+		while (!*m_QuitGame)
+		{
+			const auto currentTime{ high_resolution_clock::now() };
+			const float deltaTime{ duration<float>(currentTime - lastTime).count() };
+
+			ImGui_ImplOpenGL2_NewFrame();
+			ImGui_ImplSDL2_NewFrame(m_Window);
+			ImGui::NewFrame();
+
+			lastTime = currentTime;
+			input.ProcessInput();
+			time.Update(deltaTime);
+			sceneManager.Update();
+			renderer.Render();
+		}
+	}
+	Cleanup();
+}
+
 
 void dae::Minigin::Initialize()
 {
@@ -53,80 +84,19 @@ void dae::Minigin::Initialize()
  */
 void dae::Minigin::LoadGame() const
 {
-	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
-
-	//game objects
-	auto go = std::make_shared<GameObject>();
-	go->AddComponent(new RenderComponent("background.jpg"));
-	go->AddComponent(new TransformComponent(0.f, 0.f));
-	scene.Add(go);
-
-	go = std::make_shared<GameObject>();
-	go->AddComponent(new RenderComponent());
-	go->AddComponent(new AnimationComponent("AnimLogo","logo_",RenderComponent::ImageTypes::png,  60, 25));
-	go->AddComponent(new TransformComponent(216.f, 180.f));
-	scene.Add(go);
-
-	go = make_shared<GameObject>();
-	go->AddComponent(new RenderComponent());
-	go->AddComponent(new TextComponent("Programming 4 Assignment", "Lingua.otf", 36));
-	go->AddComponent(new TransformComponent(80.f, 20.f));
-	scene.Add(go);
-
-	go = make_shared<GameObject>();
-	go->AddComponent(new FpsUI());
-	go->AddComponent(new TransformComponent(5.f,5.f));
-	scene.Add(go);
-	
-	go = make_shared<GameObject>();
-	go->AddComponent(new StartUI());
-	go->AddComponent(new TransformComponent(80.f,200.f));
-	scene.Add(go);
-	
+	SceneManager::GetInstance().AddScene(std::make_shared<DemoScene>("Demo"));
 	//input commands
 	auto& inputManager{ InputManager::GetInstance() };
-	
-	inputManager.AssignKey(KeyboardButtons::Quit, std::make_unique<Command_QuitGame>(&m_QuitGame));
+
+	inputManager.AssignKey(KeyboardButtons::Quit, std::make_unique<Command_QuitGame>(m_QuitGame));
 }
 
 void dae::Minigin::Cleanup()
 {
 	Renderer::GetInstance().Destroy();
+	
 	SDL_DestroyWindow(m_Window);
 	m_Window = nullptr;
 	SDL_Quit();
-}
-
-void dae::Minigin::Run()
-{
-	Initialize();
-	ResourceManager::GetInstance().Init("../Data/");
-	LoadGame();
-
-	{
-		auto& renderer{ Renderer::GetInstance() };
-		auto& sceneManager{ SceneManager::GetInstance() };
-		auto& input{ InputManager::GetInstance() };
-		auto& time{ Time::GetInstance() };
-		
-		auto lastTime{ high_resolution_clock::now() };
-
-		while (!m_QuitGame)
-		{
-			const auto currentTime{ high_resolution_clock::now() };
-			const float deltaTime{ duration<float>(currentTime - lastTime).count() };
-			
-			ImGui_ImplOpenGL2_NewFrame();
-			ImGui_ImplSDL2_NewFrame(m_Window);
-			ImGui::NewFrame();
-			
-			lastTime = currentTime;
-			input.ProcessInput();
-			time.Update(deltaTime);
-			sceneManager.Update();
-			renderer.Render();
-		}
-
-	}
-	Cleanup();
+	delete m_QuitGame;
 }

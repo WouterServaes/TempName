@@ -1,11 +1,16 @@
 #include "MiniginPCH.h"
 #include "GameObject.h"
 #include <functional>
+#include "TransformComponent.h"
 
-#include "RenderComponent.h"
+dae::GameObject::GameObject()
+{
+	m_pComponents.push_back(new TransformComponent(0.f, 0.f, 0.f));
+}
 
 dae::GameObject::~GameObject()
 {
+	
 	for (auto comp : m_pComponents)
 		delete comp;
 	m_pComponents.clear();
@@ -30,16 +35,8 @@ void dae::GameObject::AddComponent(BaseComponent* component)
 {
 	if (!m_NeedsToBeRendered)
 	{
-		switch (component->m_ComponentType)
-		{
-		case BaseComponent::componentType::render:
-		case BaseComponent::componentType::text:
-		case BaseComponent::componentType::animation:
+		if (component->componentType == BaseComponent::componentType::render)
 			m_NeedsToBeRendered = true;
-			break;
-		default:
-			break;
-		}
 	}
 	component->SetGameObject(this);
 	m_pComponents.push_back(component);
