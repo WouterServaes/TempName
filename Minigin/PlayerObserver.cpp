@@ -57,19 +57,41 @@ void dae::PlayerObserver::ShowPlayerDied(const std::shared_ptr<GameObject>& game
 
 void dae::PlayerObserver::HandleCatchedSlickOrSame(const std::shared_ptr<GameObject>& gameObject)
 {
-	gameObject->GetComponent<ScoreComponent>()->IncreaseScore(300);
+	AddScore(300, gameObject);
 }
 
 void dae::PlayerObserver::HandleColorChanged(const std::shared_ptr<GameObject>& gameObject)
 {
-	gameObject->GetComponent<ScoreComponent>()->IncreaseScore(25);
+	AddScore(25, gameObject);
 }
 void dae::PlayerObserver::HandleDefeatedCoily(const std::shared_ptr<GameObject>& gameObject)
 {
-	gameObject->GetComponent<ScoreComponent>()->IncreaseScore(500);
+	AddScore(500, gameObject);
 }
 
 void dae::PlayerObserver::HandleLeftDiskAtEnd(const std::shared_ptr<GameObject>& gameObject)
 {
-	gameObject->GetComponent<ScoreComponent>()->IncreaseScore(50);
+	AddScore(50, gameObject);
+}
+
+void dae::PlayerObserver::AddScore(int amount, const std::shared_ptr<GameObject>& playerObj)
+{
+	auto scoreComp{ GetScoreComponent(playerObj) };
+	scoreComp->IncreaseScore(amount);
+	GetScoreTextComponent(playerObj)->UpdateText(std::to_string(scoreComp->GetScore()));
+}
+
+dae::TextComponent* dae::PlayerObserver::GetScoreTextComponent(const std::shared_ptr<GameObject>& playerObj)
+{
+	const wchar_t* textCompName{};
+	if (std::wstring(playerObj->GetName()) == std::wstring(L"Player1"))  //TODO fix this, i just wanted it to work for now
+		textCompName = L"Player1_ScoreUi";
+	else
+		textCompName = L"Player2_ScoreUi";
+	return playerObj->GetCurrentScene()->GetGameObject(textCompName)->GetComponent<TextComponent>();
+}
+
+dae::ScoreComponent* dae::PlayerObserver::GetScoreComponent(const std::shared_ptr<GameObject>& playerObj)
+{
+	return playerObj->GetComponent<ScoreComponent>();
 }

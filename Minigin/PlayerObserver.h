@@ -3,6 +3,8 @@
 
 namespace dae
 {
+	class TextComponent;
+	class ScoreComponent;
 	class PlayerObserver :
 	    public Observer
 	{
@@ -18,6 +20,10 @@ namespace dae
 		void HandleColorChanged (const std::shared_ptr<GameObject>& gameObject);
 		void HandleCatchedSlickOrSame (const std::shared_ptr<GameObject>& gameObject);
 		void HandleLeftDiskAtEnd(const std::shared_ptr<GameObject>& gameObject);
+
+		void AddScore(int amount, const std::shared_ptr<GameObject>& playerObj);
+		TextComponent* GetScoreTextComponent(const std::shared_ptr<GameObject>& playerObj);
+		ScoreComponent* GetScoreComponent(const std::shared_ptr<GameObject>& playerObj);
 	};
 	
 }

@@ -20,6 +20,7 @@ namespace dae
 	private:
 		void AddPlayers();
 		void AddUi(const std::string& font);
+		void InitInput();
 		void UpdatePlayer1Lives();
 		void UpdatePlayer2Lives();
 	};
