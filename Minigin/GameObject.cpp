@@ -2,11 +2,15 @@
 #include "GameObject.h"
 #include <functional>
 #include "TransformComponent.h"
-
-dae::GameObject::GameObject(const wchar_t* pObjectName)
+#include "Subject.h"
+dae::GameObject::GameObject(const wchar_t* pObjectName,const bool isSubject)
 	:m_pObjectName(pObjectName)
 {
 	m_pComponents.push_back(new TransformComponent(0.f, 0.f, 0.f));
+	if(isSubject)
+	{
+		m_pSubject = new Subject();
+	}
 }
 
 dae::GameObject::~GameObject()
@@ -49,3 +53,9 @@ dae::TransformComponent* dae::GameObject::GetTransformComponent()
 {
 	{return GetComponent<TransformComponent>(); }
 }
+
+dae::Subject* dae::GameObject::GetSubject() const
+{
+	return m_pSubject;
+}
+
