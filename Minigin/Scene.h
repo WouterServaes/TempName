@@ -7,7 +7,8 @@ namespace dae
 	public:
 		static int SceneCount;
 		void AddGameObject(const std::shared_ptr<GameObject>& object);
-
+		std::shared_ptr<GameObject>& GetGameObject(int idx);
+		std::shared_ptr<GameObject>& GetGameObject(const wchar_t* pGameObjectName);
 		void Update();
 		void Render() const;
 

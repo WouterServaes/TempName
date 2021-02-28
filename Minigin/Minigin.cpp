@@ -86,9 +86,8 @@ void dae::Minigin::LoadGame() const
 {
 	auto& sceneManager{ SceneManager::GetInstance() };
 	sceneManager.AddScene(std::make_shared<DemoScene>("Demo"));
-	//input commands
-	auto& inputManager{ InputManager::GetInstance() };
 
+	auto& inputManager{ InputManager::GetInstance() };
 	inputManager.AssignKey(KeyboardButtons::Quit, std::make_unique<Command_QuitGame>(m_QuitGame));
 }
 
@@ -101,3 +100,6 @@ void dae::Minigin::Cleanup()
 	SDL_Quit();
 	delete m_QuitGame;
 }
+
+//TODO add fail safes to LoadScene
+//TODO improve InputManager

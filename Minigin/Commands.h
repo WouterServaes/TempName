@@ -5,7 +5,7 @@ namespace dae
 	class Commands
 	{
 	public:
-		explicit Commands(std::shared_ptr<GameObject> gameObject);
+		explicit Commands(std::shared_ptr<GameObject>& gameObject);
 		Commands() = default;
 		virtual ~Commands() = default;
 		[[nodiscard]] bool IsActivated() const;
@@ -23,5 +23,12 @@ namespace dae
 		void Execute() override;
 	private:
 		bool* m_pQuitGame;
+	};
+
+	class Command_RemoveHp final:public Commands
+	{
+	public:
+		explicit Command_RemoveHp(std::shared_ptr<GameObject>& gameObject) :Commands(gameObject){};
+		void Execute() override;
 	};
 }

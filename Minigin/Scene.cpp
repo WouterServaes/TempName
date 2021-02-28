@@ -37,3 +37,23 @@ void dae::Scene::Render() const
 
 		});
 }
+
+std::shared_ptr<dae::GameObject>& dae::Scene::GetGameObject(const wchar_t* pGameObjectName)
+{
+	for (auto& o : m_Objects)
+		if (o->GetName() == pGameObjectName)
+			return o;
+
+	throw(std::exception("GetGameObject(const wchar_t* pGameObjectName) no object with this name exist"));
+}
+
+std::shared_ptr<dae::GameObject>& dae::Scene::GetGameObject(int idx)
+{
+	if (m_Objects.size() < idx &&
+		m_Objects.at(idx) != nullptr)
+			return m_Objects.at(idx);
+
+	throw(std::exception("GetGameObject(int idx) no object at this idx"));
+}
+
+

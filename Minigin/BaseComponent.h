@@ -12,7 +12,8 @@ namespace dae
 			text ,
 			transform,
 			animation,
-			ui 
+			ui,
+			health
 		};
 
 		BaseComponent(componentType type) :componentType(type) {};

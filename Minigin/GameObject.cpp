@@ -3,7 +3,8 @@
 #include <functional>
 #include "TransformComponent.h"
 
-dae::GameObject::GameObject()
+dae::GameObject::GameObject(const wchar_t* pObjectName)
+	:m_pObjectName(pObjectName)
 {
 	m_pComponents.push_back(new TransformComponent(0.f, 0.f, 0.f));
 }
@@ -14,6 +15,8 @@ dae::GameObject::~GameObject()
 	for (auto comp : m_pComponents)
 		delete comp;
 	m_pComponents.clear();
+
+	delete m_pObjectName;
 }
 
 void dae::GameObject::Update()
@@ -40,4 +43,9 @@ void dae::GameObject::AddComponent(BaseComponent* component)
 	}
 	component->SetGameObject(this);
 	m_pComponents.push_back(component);
+}
+
+dae::TransformComponent* dae::GameObject::GetTransformComponent()
+{
+	{return GetComponent<TransformComponent>(); }
 }

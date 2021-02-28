@@ -1,8 +1,9 @@
 #include "MiniginPCH.h"
 #include "Commands.h"
 #include "GameObject.h"
+#include "HealthComponent.h"
 
-dae::Commands::Commands(std::shared_ptr<GameObject> gameObject)
+dae::Commands::Commands(std::shared_ptr<GameObject>& gameObject)
 	:m_pGameObject(gameObject)
 {}
 
@@ -24,3 +25,9 @@ void dae::Command_QuitGame::Execute()
 {
 	*m_pQuitGame = true;
 }
+
+void dae::Command_RemoveHp::Execute()
+{
+	m_pGameObject->GetComponent<HealthComponent>()->RemoveHealth(1.f);
+}
+

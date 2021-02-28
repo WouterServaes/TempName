@@ -2,6 +2,7 @@
 #include "InputManager.h"
 #include "Commands.h"
 #include <SDL.h>
+#include <XInput.h>
 
 void dae::InputManager::ProcessInput()
 {
@@ -11,9 +12,7 @@ void dae::InputManager::ProcessInput()
 
 bool dae::InputManager::IsButtonPressed(ControllerButtons button) const
 {
-	if (m_CurrentState.Gamepad.wButtons & int(button))
-		return true;
-	return false;
+	return (m_CurrentConsoleState.Gamepad.wButtons & int(button));
 }
 
 bool dae::InputManager::IsButtonPressed(KeyboardButtons button) const
@@ -39,8 +38,8 @@ void dae::InputManager::ProcessControllerInput()
 	const int connectedControllers{ 1 };
 	for (DWORD i = 0; i < connectedControllers; i++)
 	{
-		ZeroMemory(&m_CurrentState, sizeof(XINPUT_STATE));
-		const auto dwResult = XInputGetState(i, &m_CurrentState);
+		ZeroMemory(&m_CurrentConsoleState, sizeof(XINPUT_STATE));
+		const auto dwResult = XInputGetState(i, &m_CurrentConsoleState);
 		if (dwResult != ERROR_SUCCESS)
 			continue;
 

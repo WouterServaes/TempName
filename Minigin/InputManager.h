@@ -1,6 +1,5 @@
 #pragma once
 #include <map>
-#include <SDL_events.h>
 #include <XInput.h>
 #include "Singleton.h"
 
@@ -9,25 +8,26 @@ namespace dae
 	class Commands;
 	enum class ControllerButtons
 	{
-		ButtonA = XINPUT_GAMEPAD_A,
-		ButtonB = XINPUT_GAMEPAD_B,
-		ButtonX = XINPUT_GAMEPAD_X,
-		ButtonY = XINPUT_GAMEPAD_Y,
-		ButtonUp = XINPUT_GAMEPAD_DPAD_UP,
-		ButtonDown = XINPUT_GAMEPAD_DPAD_DOWN,
-		ButtonRight = XINPUT_GAMEPAD_DPAD_RIGHT,
-		ButtonLeft = XINPUT_GAMEPAD_DPAD_LEFT,
-		ButtonStart = XINPUT_GAMEPAD_START,
-		ButtonBack = XINPUT_GAMEPAD_BACK,
-		LeftThumb = XINPUT_GAMEPAD_LEFT_THUMB,
-		RightThumb = XINPUT_GAMEPAD_RIGHT_THUMB,
-		LeftShoulder = XINPUT_GAMEPAD_LEFT_SHOULDER,
-		RightShoulder = XINPUT_GAMEPAD_RIGHT_SHOULDER
+		ButtonA = 0x1000,
+		ButtonB = 0x2000,
+		ButtonX = 0x4000,
+		ButtonY = 0x8000,
+		ButtonUp = 0x0001,
+		ButtonDown = 0x0002,
+		ButtonRight = 0x0008,
+		ButtonLeft = 0x0004,
+		ButtonStart = 0x0010,
+		ButtonBack = 0x0020,
+		LeftThumb = 0x0040,
+		RightThumb = 0x0080,
+		LeftShoulder = 0x0100,
+		RightShoulder = 0x0200
 	};
 
 	enum class KeyboardButtons
 	{
-		Quit = SDLK_ESCAPE
+		Quit = 20, //(SDL_QUIT)
+		Space = 44 //(SDL_SCANCODE_SPACE)
 	};
 
 	using ControllerKey = std::pair<unsigned, ControllerButtons>;
@@ -75,7 +75,7 @@ namespace dae
 	private:
 		void ProcessControllerInput();
 		void ProcessKeyboardInput();
-		XINPUT_STATE m_CurrentState{};
+		XINPUT_STATE m_CurrentConsoleState{};
 		ControllerCommandsMap m_ConsoleCommands{};
 		KeyboardCommandsMap m_KeyboardCommands{};
 
