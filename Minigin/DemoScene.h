@@ -18,6 +18,9 @@ namespace dae
 		void InitializeScene() override;
 		void UpdateScene() override;
 	private:
-		void UpdatePlayerLives();
+		void AddPlayers();
+		void AddUi(const std::string& font);
+		void UpdatePlayer1Lives();
+		void UpdatePlayer2Lives();
 	};
 }

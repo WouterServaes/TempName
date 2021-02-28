@@ -4,6 +4,10 @@ namespace dae
 	enum class Event
 	{
 		PlayerDied,
-		LostLive
+		LostLive,
+		ColorChanged,
+		DefeatedCoily,
+		DiskLeftAtEnd,
+		CatchedSlickOrSam
 	};
 }

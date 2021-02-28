@@ -14,7 +14,10 @@ namespace dae
 	private:
 		void UpdateHealthUi(const std::shared_ptr<GameObject>& gameObject);
 		void ShowPlayerDied(const std::shared_ptr<GameObject>& gameObject);
-		
+		void HandleDefeatedCoily(const std::shared_ptr<GameObject>& gameObject);
+		void HandleColorChanged (const std::shared_ptr<GameObject>& gameObject);
+		void HandleCatchedSlickOrSame (const std::shared_ptr<GameObject>& gameObject);
+		void HandleLeftDiskAtEnd(const std::shared_ptr<GameObject>& gameObject);
 	};
 	
 }

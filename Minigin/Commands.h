@@ -25,10 +25,31 @@ namespace dae
 		bool* m_pQuitGame;
 	};
 
-	class Command_RemoveHp final:public Commands
+	class Command_RemoveHp final :public Commands
 	{
 	public:
-		explicit Command_RemoveHp(std::shared_ptr<GameObject>& gameObject) :Commands(gameObject){};
+		explicit Command_RemoveHp(std::shared_ptr<GameObject>& gameObject) :Commands(gameObject) {};
+		void Execute() override;
+	};
+
+	class Command_ColorChanged final :public Commands
+	{
+	public:
+		explicit Command_ColorChanged(std::shared_ptr<GameObject>& gameObject) :Commands(gameObject) {};
+		void Execute() override;
+	};
+
+	class Command_DefeatedCoily final :public Commands
+	{
+	public:
+		explicit Command_DefeatedCoily(std::shared_ptr<GameObject>& gameObject) :Commands(gameObject) {};
+		void Execute() override;
+	};
+
+	class Command_CatchedSlickOrSam final :public Commands
+	{
+	public:
+		explicit Command_CatchedSlickOrSam(std::shared_ptr<GameObject>& gameObject) :Commands(gameObject) {};
 		void Execute() override;
 	};
 }

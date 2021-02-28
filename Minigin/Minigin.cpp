@@ -103,3 +103,4 @@ void dae::Minigin::Cleanup()
 
 //TODO add fail safes to LoadScene
 //TODO improve InputManager
+//TODO change game object names or add name == name functionality 

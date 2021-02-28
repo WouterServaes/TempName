@@ -1,7 +1,11 @@
 #include "MiniginPCH.h"
 #include "Commands.h"
+
+#include "Events.h"
 #include "GameObject.h"
 #include "HealthComponent.h"
+#include "ScoreComponent.h"
+#include "Subject.h"
 
 dae::Commands::Commands(std::shared_ptr<GameObject>& gameObject)
 	:m_pGameObject(gameObject)
@@ -28,7 +32,20 @@ void dae::Command_QuitGame::Execute()
 
 void dae::Command_RemoveHp::Execute()
 {
-	
 	m_pGameObject->GetComponent<HealthComponent>()->RemoveHealth(1.f);
 }
 
+void dae::Command_ColorChanged::Execute()
+{
+	m_pGameObject->GetSubject()->Notify(m_pGameObject, Event::ColorChanged);
+}
+
+void dae::Command_DefeatedCoily::Execute()
+{
+	m_pGameObject->GetSubject()->Notify(m_pGameObject, Event::DefeatedCoily);
+}
+
+void dae::Command_CatchedSlickOrSam::Execute()
+{
+	m_pGameObject->GetSubject()->Notify(m_pGameObject, Event::CatchedSlickOrSam);
+}
