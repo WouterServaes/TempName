@@ -23,6 +23,7 @@ namespace dae
 		std::string m_Name;
 	private: 
 		virtual void InitializeScene() = 0;
+		virtual void UpdateScene() = 0;
 	protected:
 		std::vector < std::shared_ptr<GameObject>> m_Objects{};
 		const int sceneNr;

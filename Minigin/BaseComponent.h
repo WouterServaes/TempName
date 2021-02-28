@@ -13,7 +13,8 @@ namespace dae
 			transform,
 			animation,
 			ui,
-			health
+			health,
+			score
 		};
 
 		BaseComponent(componentType type) :componentType(type) {};

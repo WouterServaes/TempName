@@ -7,11 +7,10 @@ namespace dae
     {
     public:
         Subject() = default;
-        virtual ~Subject() = default;
+        ~Subject() ;
         void AddObserver(Observer* pObserver);
         void RemoveObserver(Observer* pObserver);
-    protected:
-        void Notify(const GameObject* gameObject, Event event);
+        void Notify(const std::shared_ptr<GameObject>& gameObject, Event event);
     private:
         Observer* m_pHeadObserver{nullptr};
     };

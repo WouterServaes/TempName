@@ -16,5 +16,8 @@ namespace dae
 		DemoScene& operator=(DemoScene&& other) = delete;
 
 		void InitializeScene() override;
+		void UpdateScene() override;
+	private:
+		void UpdatePlayerLives();
 	};
 }

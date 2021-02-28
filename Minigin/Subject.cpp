@@ -1,6 +1,21 @@
 #include "MiniginPCH.h"
 #include "Subject.h"
 
+
+dae::Subject::~Subject()
+{
+	auto* current{ m_pHeadObserver->m_pNextObserver };
+	Observer* next{ nullptr };
+	delete m_pHeadObserver;
+
+	while(current!= nullptr)
+	{
+		next = current->m_pNextObserver;
+		delete current;
+		current = next;
+	}
+}
+
 void dae::Subject::AddObserver(Observer* pObserver) //adds observer at the end of the observer chain
 {
 	if (m_pHeadObserver == nullptr)
@@ -44,7 +59,7 @@ void dae::Subject::RemoveObserver(Observer* pObserver)
 	}
 }
 
-void dae::Subject::Notify(const GameObject* gameObject, Event event)
+void dae::Subject::Notify(const std::shared_ptr<GameObject>& gameObject, Event event)
 {
 	auto* current = m_pHeadObserver;
 	while(current!= nullptr)

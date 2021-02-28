@@ -12,6 +12,7 @@ namespace dae
 		void Render();
 		void LoadScene(int sceneNr);
 		void LoadScene(const std::string& sceneName);
+		std::shared_ptr<Scene>& GetCurrentScene() { return m_ActiveScene; };
 	private:
 		friend class Singleton<SceneManager>;
 		SceneManager() = default;

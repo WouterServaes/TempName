@@ -26,8 +26,8 @@ namespace dae
 
 	enum class KeyboardButtons
 	{
-		Quit = 20, //(SDL_QUIT)
-		Space = 44 //(SDL_SCANCODE_SPACE)
+		Quit = 27, //(SDL_QUIT keysym)
+		Space = 32 //(SDL_SCANCODE_SPACE keysym)
 	};
 
 	using ControllerKey = std::pair<unsigned, ControllerButtons>;
@@ -42,7 +42,7 @@ namespace dae
 		void SetQuitGamePtr(bool* pQuitGame) { m_pQuitGame = pQuitGame; };
 		void ProcessInput();
 		[[nodiscard]] bool IsButtonPressed(ControllerButtons button) const;
-		[[nodiscard]] bool IsButtonPressed(KeyboardButtons button) const;
+		[[nodiscard]] bool IsButtonPressed(KeyboardButtons button, int SdlKeyCode) const;
 
 		template <typename T>
 		void AssignKey(ControllerButtons button, std::unique_ptr<T> command)
@@ -99,7 +99,8 @@ namespace dae
 
 		const std::vector<KeyboardButtons> m_KeyboardButtons
 		{
-			KeyboardButtons::Quit
+			KeyboardButtons::Quit,
+			KeyboardButtons::Space
 		};
 		bool* m_pQuitGame{nullptr};
 	};

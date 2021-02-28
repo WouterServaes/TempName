@@ -3,24 +3,21 @@
 #include <functional>
 #include "TransformComponent.h"
 #include "Subject.h"
-dae::GameObject::GameObject(const wchar_t* pObjectName,const bool isSubject)
-	:m_pObjectName(pObjectName)
+dae::GameObject::GameObject(const wchar_t* pObjectName, Scene* pScene, const bool isSubject)
+	:m_pObjectName(pObjectName), m_pCurrentScene(pScene), m_pSubject((isSubject) ? new Subject() : nullptr)
 {
 	m_pComponents.push_back(new TransformComponent(0.f, 0.f, 0.f));
-	if(isSubject)
-	{
-		m_pSubject = new Subject();
-	}
+	m_pComponents.at(0)->SetGameObject(this);
 }
 
 dae::GameObject::~GameObject()
 {
-	
 	for (auto comp : m_pComponents)
 		delete comp;
 	m_pComponents.clear();
 
-	delete m_pObjectName;
+	if (m_pSubject)
+		delete m_pSubject;
 }
 
 void dae::GameObject::Update()
@@ -59,3 +56,7 @@ dae::Subject* dae::GameObject::GetSubject() const
 	return m_pSubject;
 }
 
+dae::Scene* dae::GameObject::GetCurrentScene() const
+{
+	return m_pCurrentScene;
+}

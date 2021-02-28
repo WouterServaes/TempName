@@ -28,6 +28,7 @@ void dae::Command_QuitGame::Execute()
 
 void dae::Command_RemoveHp::Execute()
 {
+	
 	m_pGameObject->GetComponent<HealthComponent>()->RemoveHealth(1.f);
 }
 
