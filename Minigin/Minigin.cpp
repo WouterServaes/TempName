@@ -18,6 +18,9 @@
 
 #include "DemoScene.h"
 
+#include "ServiceLocator.h"
+#include "GameAudio.h"
+
 using namespace std;
 using namespace std::chrono;
 
@@ -26,11 +29,15 @@ void dae::Minigin::Run()
 	Initialize();
 	ResourceManager::GetInstance().Init("../Data/");
 	LoadGame();
-
+	
+	ServiceLocator::ProvideAudioService(new GameAudio());
+	ServiceLocator::GetAudio()->Start();
+	
 	{
 		auto& renderer{ Renderer::GetInstance() };
 		auto& sceneManager{ SceneManager::GetInstance() };
 		auto& input{ InputManager::GetInstance() };
+		auto* audio{ ServiceLocator::GetAudio() };
 		input.SetQuitGamePtr(m_QuitGame);
 		auto& time{ Time::GetInstance() };
 
@@ -50,7 +57,9 @@ void dae::Minigin::Run()
 			time.Update(deltaTime);
 			sceneManager.Update();
 			renderer.Render();
+			audio->Update();
 		}
+		
 	}
 	Cleanup();
 }
@@ -58,6 +67,7 @@ void dae::Minigin::Run()
 
 void dae::Minigin::Initialize()
 {
+	
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
 		throw std::runtime_error(std::string("SDL_Init Error: ") + SDL_GetError());
@@ -77,6 +87,7 @@ void dae::Minigin::Initialize()
 	}
 
 	Renderer::GetInstance().Init(m_Window);
+	ServiceLocator::Initialize();
 }
 
 /**
@@ -94,7 +105,7 @@ void dae::Minigin::LoadGame() const
 void dae::Minigin::Cleanup()
 {
 	Renderer::GetInstance().Destroy();
-	
+	ServiceLocator::RemoveService();
 	SDL_DestroyWindow(m_Window);
 	m_Window = nullptr;
 	SDL_Quit();

@@ -9,10 +9,11 @@ namespace dae
 		QBert_Comp() = default;
 		~QBert_Comp() = default;
 
+		void Start() override;
 		void Update() override;
 
 	private:
-		Health_Comp* m_pHealthComp;
+		Health_Comp* m_pHealthComp{};
 		bool m_IsInitialized{ false };
 	};
 

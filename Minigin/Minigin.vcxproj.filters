@@ -37,6 +37,12 @@
     <Filter Include="Observers">
       <UniqueIdentifier>{df2e5f4a-10d0-4250-8e1c-5f4eb5800021}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Audio">
+      <UniqueIdentifier>{816ca527-1643-4853-a9a0-17e07fd774b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ServiceLocator">
+      <UniqueIdentifier>{8b0f08ee-5604-4e2f-b2cd-7d207185b04a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniginPCH.h">
@@ -147,6 +153,21 @@
     <ClInclude Include="UI_Comp.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="ServiceLocator.h">
+      <Filter>ServiceLocator</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseAudio.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="NullAudio.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="GameAudio.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayMessage.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -244,6 +265,12 @@
     </ClCompile>
     <ClCompile Include="UI_Comp.cpp">
       <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ServiceLocator.cpp">
+      <Filter>ServiceLocator</Filter>
+    </ClCompile>
+    <ClCompile Include="GameAudio.cpp">
+      <Filter>Audio</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
