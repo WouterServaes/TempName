@@ -2,12 +2,12 @@
 #include "BaseComponent.h"
 namespace dae
 {
-	class ScoreComponent :
+	class Score_Comp :
 	    public BaseComponent
 	{
 	public:
-		ScoreComponent() :BaseComponent(componentType::score){};
-		~ScoreComponent() = default;
+		Score_Comp() :BaseComponent(componentType::score){};
+		~Score_Comp() = default;
 
 		[[nodiscard]]const int& GetScore()const { return m_CurrentScore; };
 		void SetScore(const int newScore) { m_CurrentScore = newScore; };

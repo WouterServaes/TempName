@@ -4,13 +4,13 @@
 namespace dae
 {
 	class Texture2D;
-	class RenderComponent;
-	class AnimationComponent final :
+	class Render_Comp;
+	class Animation_Comp final :
 		public BaseComponent
 	{
 	public:
-		AnimationComponent(const std::string& folder, const std::string& baseName, int amountOfImages, int animationFramesPerSecond);
-		~AnimationComponent() = default;
+		Animation_Comp(const std::string& folder, const std::string& baseName, int amountOfImages, int animationFramesPerSecond);
+		~Animation_Comp() = default;
 		void Update() override;
 	private:
 		[[nodiscard]] std::string GetImageName(int imgNr, const std::string& folderName, const std::string& imageBaseName) const;
@@ -20,6 +20,6 @@ namespace dae
 		float m_ElapsedTime{ 0.f }, m_AnimationSpeed;
 		int m_CurrentFrame{ 0 }, m_AmountOfFrames, m_FramesPerSecond;
 
-		RenderComponent* m_pRenderComponent{ nullptr };
+		Render_Comp* m_pRenderComponent{ nullptr };
 	};
 }

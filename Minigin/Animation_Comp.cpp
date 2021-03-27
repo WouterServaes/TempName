@@ -1,11 +1,11 @@
 #include "MiniginPCH.h"
 #include "GameObject.h"
 #include "ResourceManager.h"
-#include "AnimationComponent.h"
-#include "RenderComponent.h"
+#include "Animation_Comp.h"
+#include "Render_Comp.h"
 #include "Time.h"
 
-dae::AnimationComponent::AnimationComponent(const std::string& folder, const std::string& baseName, int amountOfImages, int animationFramesPerSecond)
+dae::Animation_Comp::Animation_Comp(const std::string& folder, const std::string& baseName, int amountOfImages, int animationFramesPerSecond)
 	:BaseComponent(componentType::animation), m_AmountOfFrames(amountOfImages)
 	, m_FramesPerSecond(animationFramesPerSecond)
 {
@@ -14,12 +14,12 @@ dae::AnimationComponent::AnimationComponent(const std::string& folder, const std
 		m_Textures.push_back(ResourceManager::GetInstance().LoadTexture(GetImageName(idx, folder, baseName))); 
 }
 
-void dae::AnimationComponent::Update()
+void dae::Animation_Comp::Update()
 {
 	if (!m_IsInitialized)
 	{
 		m_IsInitialized = true;
-		m_pRenderComponent = m_pGameObject->GetComponent<RenderComponent>();
+		m_pRenderComponent = m_pGameObject->GetComponent<Render_Comp>();
 		m_pRenderComponent->UpdateTexture(m_Textures[0]);
 		
 	}
@@ -38,7 +38,7 @@ void dae::AnimationComponent::Update()
 	}
 }
 
-std::string dae::AnimationComponent::GetImageName(int imgNr, const std::string& folderName, const std::string& imageBaseName) const
+std::string dae::Animation_Comp::GetImageName(int imgNr, const std::string& folderName, const std::string& imageBaseName) const
 {
 	auto imageFileName{ folderName + "/" + imageBaseName };
 

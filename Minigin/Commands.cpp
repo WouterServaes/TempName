@@ -3,8 +3,8 @@
 
 #include "Events.h"
 #include "GameObject.h"
-#include "HealthComponent.h"
-#include "ScoreComponent.h"
+#include "Health_Comp.h"
+#include "Score_Comp.h"
 #include "Subject.h"
 
 dae::Commands::Commands(std::shared_ptr<GameObject>& gameObject)
@@ -32,7 +32,7 @@ void dae::Command_QuitGame::Execute()
 
 void dae::Command_RemoveHp::Execute()
 {
-	m_pGameObject->GetComponent<HealthComponent>()->RemoveHealth(1.f);
+	m_pGameObject->GetComponent<Health_Comp>()->RemoveHealth(1.f);
 }
 
 void dae::Command_ColorChanged::Execute()

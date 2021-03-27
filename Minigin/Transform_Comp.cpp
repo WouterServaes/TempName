@@ -1,13 +1,13 @@
 #include "MiniginPCH.h"
-#include "TransformComponent.h"
+#include "Transform_Comp.h"
 #include "Transform.h"
 
-dae::TransformComponent::~TransformComponent()
+dae::Transform_Comp::~Transform_Comp()
 {
 	delete m_Transform;
 }
 
-dae::TransformComponent::TransformComponent(const glm::vec3& position)
+dae::Transform_Comp::Transform_Comp(const glm::vec3& position)
 : BaseComponent(componentType::transform)
 {
 	m_Transform = new Transform();
@@ -15,7 +15,7 @@ dae::TransformComponent::TransformComponent(const glm::vec3& position)
 	m_IsInitialized = true;
 };
 
-dae::TransformComponent::TransformComponent(const float x, const  float y, const  float z)
+dae::Transform_Comp::Transform_Comp(const float x, const  float y, const  float z)
 :BaseComponent(componentType::transform)
 {
 	m_Transform = new Transform();

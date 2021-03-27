@@ -5,7 +5,7 @@ namespace dae
 	
 	class BaseComponent;
 	class Texture2D;
-	class TransformComponent;
+	class Transform_Comp;
 	class Subject;
 	class Scene;
 	class GameObject final
@@ -53,7 +53,7 @@ namespace dae
 			throw(std::runtime_error(std::string("GetConstComponent() -> Component doesn't exist on GameObject")));
 		}
 		
-		[[nodiscard]] TransformComponent* GetTransformComponent();
+		[[nodiscard]] Transform_Comp* GetTransformComponent();
 		[[nodiscard]] const wchar_t* GetName()const { return m_pObjectName; };
 
 		[[nodiscard]]Subject* GetSubject()const;

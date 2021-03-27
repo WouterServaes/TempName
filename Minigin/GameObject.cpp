@@ -1,12 +1,12 @@
 #include "MiniginPCH.h"
 #include "GameObject.h"
 #include <functional>
-#include "TransformComponent.h"
+#include "Transform_Comp.h"
 #include "Subject.h"
 dae::GameObject::GameObject(const wchar_t* pObjectName, Scene* pScene, const bool isSubject)
 	:m_pObjectName(pObjectName), m_pCurrentScene(pScene), m_pSubject((isSubject) ? new Subject() : nullptr)
 {
-	m_pComponents.push_back(new TransformComponent(0.f, 0.f, 0.f));
+	m_pComponents.push_back(new Transform_Comp(0.f, 0.f, 0.f));
 	m_pComponents.at(0)->SetGameObject(this);
 }
 
@@ -46,9 +46,9 @@ void dae::GameObject::AddComponent(BaseComponent* component)
 	m_pComponents.push_back(component);
 }
 
-dae::TransformComponent* dae::GameObject::GetTransformComponent()
+dae::Transform_Comp* dae::GameObject::GetTransformComponent()
 {
-	{return GetComponent<TransformComponent>(); }
+	{return GetComponent<Transform_Comp>(); }
 }
 
 dae::Subject* dae::GameObject::GetSubject() const

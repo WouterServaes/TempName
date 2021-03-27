@@ -3,11 +3,11 @@
 
 namespace dae
 {
-	class HealthComponent final : public BaseComponent
+	class Health_Comp final : public BaseComponent
 	{
 	public:
-		explicit HealthComponent(float maxHealth = 10.f, float currentHealth = 5.f, int maxLives = 1, int currentLives = 1);
-		~HealthComponent()  = default;
+		explicit Health_Comp(float maxHealth = 10.f, float currentHealth = 5.f, int maxLives = 1, int currentLives = 1);
+		~Health_Comp()  = default;
 		[[nodiscard]]const float& GetHealth() const { return m_CurrentHealth; };
 		bool RemoveHealth(float amount);
 		void AddHealth(float amount);

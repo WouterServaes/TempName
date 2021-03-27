@@ -1,30 +1,30 @@
 #include "MiniginPCH.h"
-#include "RenderComponent.h"
+#include "Render_Comp.h"
 #include "ResourceManager.h"
 #include "GameObject.h"
 #include "Renderer.h"
 #include "Transform.h"
-#include "TransformComponent.h"
+#include "Transform_Comp.h"
 
-dae::RenderComponent::RenderComponent(const std::string& filename)
+dae::Render_Comp::Render_Comp(const std::string& filename)
 	:BaseComponent(componentType::render), m_Texture(ResourceManager::GetInstance().LoadTexture(filename))
 {
 	m_IsInitialized = true;
 }
 
-dae::RenderComponent::RenderComponent(std::shared_ptr<Texture2D> texture)
+dae::Render_Comp::Render_Comp(std::shared_ptr<Texture2D> texture)
 	: BaseComponent(componentType::render), m_Texture(texture)
 {
 	m_IsInitialized = true;
 }
 
-void dae::RenderComponent::Render()const
+void dae::Render_Comp::Render()const
 {
-	const auto pos{ m_pGameObject->GetComponent<TransformComponent>()->GetTransform()->GetPosition() };
+	const auto pos{ m_pGameObject->GetComponent<Transform_Comp>()->GetTransform()->GetPosition() };
 	Renderer::GetInstance().RenderTexture(*m_Texture, pos.x, pos.y);
 }
 
-void dae::RenderComponent::UpdateTexture(std::shared_ptr<Texture2D> texture)
+void dae::Render_Comp::UpdateTexture(std::shared_ptr<Texture2D> texture)
 {
 	m_Texture = texture;
 }

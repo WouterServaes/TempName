@@ -69,22 +69,10 @@
     <ClInclude Include="ResourceManager.h">
       <Filter>Managers</Filter>
     </ClInclude>
-    <ClInclude Include="RenderComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>MainObjects</Filter>
     </ClInclude>
     <ClInclude Include="BaseComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="TextComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="TransformComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimationComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Commands.h">
@@ -114,9 +102,6 @@
     <ClInclude Include="..\3rdParty\imgui-1.81\imstb_truetype.h">
       <Filter>Imgui</Filter>
     </ClInclude>
-    <ClInclude Include="UIComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>Managers</Filter>
     </ClInclude>
@@ -125,9 +110,6 @@
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="HealthComponent.h">
-      <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Observer.h">
       <Filter>Observers</Filter>
@@ -141,7 +123,28 @@
     <ClInclude Include="PlayerObserver.h">
       <Filter>Observers</Filter>
     </ClInclude>
-    <ClInclude Include="ScoreComponent.h">
+    <ClInclude Include="QBert_Comp.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation_Comp.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Health_Comp.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Render_Comp.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Score_Comp.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Text_Comp.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform_Comp.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Comp.h">
       <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
@@ -176,20 +179,8 @@
     <ClCompile Include="ResourceManager.cpp">
       <Filter>Managers</Filter>
     </ClCompile>
-    <ClCompile Include="RenderComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>MainObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="TextComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="TransformComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="AnimationComponent.cpp">
-      <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="Commands.cpp">
       <Filter>Helpers</Filter>
@@ -215,9 +206,6 @@
     <ClCompile Include="..\3rdParty\imgui-1.81\imgui_widgets.cpp">
       <Filter>Imgui</Filter>
     </ClCompile>
-    <ClCompile Include="UIComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>Managers</Filter>
     </ClCompile>
@@ -227,16 +215,34 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="HealthComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
     <ClCompile Include="Subject.cpp">
       <Filter>Observers</Filter>
     </ClCompile>
     <ClCompile Include="PlayerObserver.cpp">
       <Filter>Observers</Filter>
     </ClCompile>
-    <ClCompile Include="ScoreComponent.cpp">
+    <ClCompile Include="QBert_Comp.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation_Comp.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Health_Comp.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Render_Comp.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Score_Comp.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Text_Comp.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform_Comp.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_Comp.cpp">
       <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>

@@ -9,12 +9,12 @@
 namespace dae
 {
 	class Transform;
-	class TransformComponent final :public BaseComponent
+	class Transform_Comp final :public BaseComponent
 	{
 	public:
-		explicit TransformComponent(const glm::vec3& position);
-		explicit TransformComponent(float x, float y, float z = 0.f);
-		~TransformComponent();
+		explicit Transform_Comp(const glm::vec3& position);
+		explicit Transform_Comp(float x, float y, float z = 0.f);
+		~Transform_Comp();
 
 		[[nodiscard]] Transform* GetTransform() const { return m_Transform; };
 	private:

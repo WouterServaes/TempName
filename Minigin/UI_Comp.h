@@ -3,7 +3,7 @@
 
 namespace dae
 {
-	class TransformComponent;
+	class Transform_Comp;
 	class UIComponent: public BaseComponent
 	{
 	public:
@@ -11,7 +11,7 @@ namespace dae
 		~UIComponent() = default;
 		void Update() override = 0 ;
 	protected:
-		const TransformComponent* m_pTransformComponent{nullptr};
+		const Transform_Comp* m_pTransformComponent{nullptr};
 	};
 
 	class StartUI final:public UIComponent

@@ -3,11 +3,11 @@
 
 #include "Events.h"
 #include "GameObject.h"
-#include "HealthComponent.h"
+#include "Health_Comp.h"
 #include "Scene.h"
-#include "ScoreComponent.h"
+#include "Score_Comp.h"
 
-#include "TextComponent.h"
+#include "Text_Comp.h"
 
 void dae::PlayerObserver::OnNotify(const std::shared_ptr<GameObject>& gameObject, Event event)
 {
@@ -44,8 +44,8 @@ void dae::PlayerObserver::UpdateHealthUi(const std::shared_ptr<GameObject>& game
 	else
 		healthCompName = L"Player2_HealthUi";
 
-	auto* pHealthUi{gameObject->GetCurrentScene()->GetGameObject(healthCompName)->GetComponent<TextComponent>()};
-	const auto currentHealth{ gameObject->GetConstComponent<HealthComponent>()->GetLives() };
+	auto* pHealthUi{gameObject->GetCurrentScene()->GetGameObject(healthCompName)->GetComponent<Text_Comp>()};
+	const auto currentHealth{ gameObject->GetConstComponent<Health_Comp>()->GetLives() };
 
 	pHealthUi->UpdateText(std::to_string(currentHealth));	
 }
@@ -81,17 +81,17 @@ void dae::PlayerObserver::AddScore(int amount, const std::shared_ptr<GameObject>
 	GetScoreTextComponent(playerObj)->UpdateText(std::to_string(scoreComp->GetScore()));
 }
 
-dae::TextComponent* dae::PlayerObserver::GetScoreTextComponent(const std::shared_ptr<GameObject>& playerObj)
+dae::Text_Comp* dae::PlayerObserver::GetScoreTextComponent(const std::shared_ptr<GameObject>& playerObj)
 {
 	const wchar_t* textCompName{};
 	if (std::wstring(playerObj->GetName()) == std::wstring(L"Player1"))  //TODO fix this, i just wanted it to work for now
 		textCompName = L"Player1_ScoreUi";
 	else
 		textCompName = L"Player2_ScoreUi";
-	return playerObj->GetCurrentScene()->GetGameObject(textCompName)->GetComponent<TextComponent>();
+	return playerObj->GetCurrentScene()->GetGameObject(textCompName)->GetComponent<Text_Comp>();
 }
 
-dae::ScoreComponent* dae::PlayerObserver::GetScoreComponent(const std::shared_ptr<GameObject>& playerObj)
+dae::Score_Comp* dae::PlayerObserver::GetScoreComponent(const std::shared_ptr<GameObject>& playerObj)
 {
-	return playerObj->GetComponent<ScoreComponent>();
+	return playerObj->GetComponent<Score_Comp>();
 }

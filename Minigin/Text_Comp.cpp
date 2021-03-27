@@ -1,22 +1,22 @@
 #include "MiniginPCH.h"
-#include "TextComponent.h"
+#include "Text_Comp.h"
 #include <SDL_ttf.h>
 #include "Renderer.h"
 #include "ResourceManager.h"
 
-dae::TextComponent::TextComponent(const std::string& text, const std::string& font, int fontSize, const glm::vec4& color)
+dae::Text_Comp::Text_Comp(const std::string& text, const std::string& font, int fontSize, const glm::vec4& color)
 	:m_Text(text), m_pFont(ResourceManager::GetInstance().LoadFont(font, unsigned(fontSize)))
 	, m_Color(new SDL_Color{ Uint8(color.r), Uint8(color.g), Uint8(color.b), Uint8(color.a) })
 	, BaseComponent(componentType::text)
 {
 }
 
-dae::TextComponent::~TextComponent()
+dae::Text_Comp::~Text_Comp()
 {
 	delete m_Color;
 }
 
-void dae::TextComponent::UpdateText(const std::string& newText)
+void dae::Text_Comp::UpdateText(const std::string& newText)
 {
 	m_Text = newText;
 
@@ -34,17 +34,17 @@ void dae::TextComponent::UpdateText(const std::string& newText)
 	m_pRenderComponent->UpdateTexture(std::make_shared<Texture2D>(texture));
 }
 
-void dae::TextComponent::Update()
+void dae::Text_Comp::Update()
 {
 	if (!m_IsInitialized) //Text doesn't need to be updated every frame.
 	{
-		m_pRenderComponent = m_pGameObject->GetComponent<RenderComponent>();
+		m_pRenderComponent = m_pGameObject->GetComponent<Render_Comp>();
 		InitializeText();
 		m_IsInitialized = true;
 	}
 }
 
-void dae::TextComponent::InitializeText() const
+void dae::Text_Comp::InitializeText() const
 {
 	const auto surf = TTF_RenderText_Blended(m_pFont->GetFont(), m_Text.c_str(), *m_Color);
 	if (surf == nullptr)

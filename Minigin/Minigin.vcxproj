@@ -106,7 +106,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\SDL2_ttf\lib\x86;$(SolutionDir)3rdParty\SDL2_image\lib\x86;$(SolutionDir)3rdParty\SDL2\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;xinput.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -131,7 +131,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x86\*.dll" "$(OutputPath)" /R /Y</Com
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\SDL2_ttf\lib\x64;$(SolutionDir)3rdParty\SDL2_image\lib\x64;$(SolutionDir)3rdParty\SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;xinput.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -158,7 +158,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -187,7 +187,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x86\*.dll" "$(OutputPath)" /R /Y</Com
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -209,23 +209,24 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="..\3rdParty\imgui-1.81\imstb_rectpack.h" />
     <ClInclude Include="..\3rdParty\imgui-1.81\imstb_textedit.h" />
     <ClInclude Include="..\3rdParty\imgui-1.81\imstb_truetype.h" />
-    <ClInclude Include="AnimationComponent.h" />
+    <ClInclude Include="Animation_Comp.h" />
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="Commands.h" />
     <ClInclude Include="DemoScene.h" />
     <ClInclude Include="Events.h" />
-    <ClInclude Include="HealthComponent.h" />
+    <ClInclude Include="Health_Comp.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="PlayerObserver.h" />
-    <ClInclude Include="ScoreComponent.h" />
+    <ClInclude Include="QBert_Comp.h" />
+    <ClInclude Include="Score_Comp.h" />
     <ClInclude Include="Subject.h" />
-    <ClInclude Include="TextComponent.h" />
+    <ClInclude Include="Text_Comp.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Minigin.h" />
     <ClInclude Include="MiniginPCH.h" />
-    <ClInclude Include="RenderComponent.h" />
+    <ClInclude Include="Render_Comp.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
@@ -234,8 +235,8 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="Texture2D.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Transform.h" />
-    <ClInclude Include="TransformComponent.h" />
-    <ClInclude Include="UIComponent.h" />
+    <ClInclude Include="Transform_Comp.h" />
+    <ClInclude Include="UI_Comp.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\3rdParty\imgui-1.81\imgui.cpp">
@@ -280,14 +281,15 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="AnimationComponent.cpp" />
+    <ClCompile Include="Animation_Comp.cpp" />
     <ClCompile Include="Commands.cpp" />
     <ClCompile Include="DemoScene.cpp" />
-    <ClCompile Include="HealthComponent.cpp" />
+    <ClCompile Include="Health_Comp.cpp" />
     <ClCompile Include="PlayerObserver.cpp" />
-    <ClCompile Include="ScoreComponent.cpp" />
+    <ClCompile Include="QBert_Comp.cpp" />
+    <ClCompile Include="Score_Comp.cpp" />
     <ClCompile Include="Subject.cpp" />
-    <ClCompile Include="TextComponent.cpp" />
+    <ClCompile Include="Text_Comp.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="InputManager.cpp" />
@@ -300,7 +302,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MiniginPCH.h</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="RenderComponent.cpp" />
+    <ClCompile Include="Render_Comp.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -308,8 +310,8 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClCompile Include="Texture2D.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Transform.cpp" />
-    <ClCompile Include="TransformComponent.cpp" />
-    <ClCompile Include="UIComponent.cpp" />
+    <ClCompile Include="Transform_Comp.cpp" />
+    <ClCompile Include="UI_Comp.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

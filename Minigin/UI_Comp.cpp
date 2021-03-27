@@ -1,17 +1,17 @@
 #include "MiniginPCH.h"
-#include "UIComponent.h"
+#include "UI_Comp.h"
 #include "imgui.h"
 #include "Time.h"
 #include "GameObject.h"
 #include "Transform.h"
-#include "TransformComponent.h"
+#include "Transform_Comp.h"
 
 void dae::StartUI::Update()
 {
 	if (!m_IsInitialized)
 	{
 		m_IsInitialized = true;
-		m_pTransformComponent = m_pGameObject->GetComponent<TransformComponent>();
+		m_pTransformComponent = m_pGameObject->GetComponent<Transform_Comp>();
 	}
 	const auto& transformPos{ m_pTransformComponent->GetTransform()->GetPosition() };
 	const auto pos = ImVec2(transformPos.x, transformPos.y);
@@ -30,7 +30,7 @@ void dae::FpsUI::Update()
 	if (!m_IsInitialized)
 	{
 		m_IsInitialized = true;
-		m_pTransformComponent = m_pGameObject->GetComponent<TransformComponent>();
+		m_pTransformComponent = m_pGameObject->GetComponent<Transform_Comp>();
 	}
 
 	const auto transformPos{ m_pTransformComponent->GetTransform()->GetPosition() };

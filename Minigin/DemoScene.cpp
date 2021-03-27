@@ -1,19 +1,18 @@
 #include "MiniginPCH.h"
 #include "DemoScene.h"
-
-#include "AnimationComponent.h"
+#include "Animation_Comp.h"
 #include "Commands.h"
 #include "Events.h"
-#include "RenderComponent.h"
-#include "TextComponent.h"
-#include "TransformComponent.h"
+#include "Render_Comp.h"
+#include "Text_Comp.h"
+#include "Transform_Comp.h"
 #include "Transform.h"
-#include "UIComponent.h"
-#include "HealthComponent.h"
+#include "UI_Comp.h"
+#include "Health_Comp.h"
 
 #include "InputManager.h"
 #include "PlayerObserver.h"
-#include "ScoreComponent.h"
+#include "Score_Comp.h"
 #include "Subject.h"
 
 void dae::DemoScene::InitializeScene()
@@ -21,18 +20,18 @@ void dae::DemoScene::InitializeScene()
 	const std::string font{ "Lingua.otf" };
 	auto* pCurrentScene = this;
 	auto gameObject = std::make_shared<GameObject>(L"Background", pCurrentScene);
-	gameObject->AddComponent(new RenderComponent("background.jpg"));
+	gameObject->AddComponent(new Render_Comp("background.jpg"));
 	AddGameObject(gameObject);
 
 	gameObject = std::make_shared<GameObject>(L"AnimatedLogo", pCurrentScene);
-	gameObject->AddComponent(new RenderComponent());
-	gameObject->AddComponent(new AnimationComponent("AnimLogo", "logo_", 60, 25));
+	gameObject->AddComponent(new Render_Comp());
+	gameObject->AddComponent(new Animation_Comp("AnimLogo", "logo_", 60, 25));
 	gameObject->GetTransformComponent()->GetTransform()->SetPosition(216.f, 180.f);
 	AddGameObject(gameObject);
 
 	gameObject = std::make_shared<GameObject>(L"ProgrammingText", pCurrentScene);
-	gameObject->AddComponent(new RenderComponent());
-	gameObject->AddComponent(new TextComponent("Programming 4 Assignment", font, 36));
+	gameObject->AddComponent(new Render_Comp());
+	gameObject->AddComponent(new Text_Comp("Programming 4 Assignment", font, 36));
 	gameObject->GetTransformComponent()->GetTransform()->SetPosition(80.f, 20.f);
 	AddGameObject(gameObject);
 
@@ -59,14 +58,14 @@ void dae::DemoScene::AddPlayers()
 	const float maxHealth{ 5 };
 
 	auto player1 = std::make_shared<GameObject>(L"Player1", pCurrentScene, true);
-	player1->AddComponent(new HealthComponent(maxHealth));
-	player1->AddComponent(new ScoreComponent());
+	player1->AddComponent(new Health_Comp(maxHealth));
+	player1->AddComponent(new Score_Comp());
 	player1->GetSubject()->AddObserver(new PlayerObserver());
 	AddGameObject(player1);
 
 	auto player2 = std::make_shared<GameObject>(L"Player2", pCurrentScene, true);
-	player2->AddComponent(new HealthComponent(maxHealth));
-	player2->AddComponent(new ScoreComponent());
+	player2->AddComponent(new Health_Comp(maxHealth));
+	player2->AddComponent(new Score_Comp());
 	player2->GetSubject()->AddObserver(new PlayerObserver());
 	AddGameObject(player2);
 }
@@ -76,78 +75,78 @@ void dae::DemoScene::AddUi(const std::string& font)
 	auto* pCurrentScene = this;
 	//health
 	auto gameObject = std::make_shared<GameObject>(L"Player1_HealthTextUi", pCurrentScene);
-	gameObject->AddComponent(new RenderComponent());
-	gameObject->AddComponent(new TextComponent("Remaining lives (player 1): ", font, 22));
+	gameObject->AddComponent(new Render_Comp());
+	gameObject->AddComponent(new Text_Comp("Remaining lives (player 1): ", font, 22));
 	gameObject->GetTransformComponent()->GetTransform()->SetPosition(5.f, 50.f);
 	AddGameObject(gameObject);
 
-	auto healthText{ std::to_string(GetGameObject(L"Player1")->GetComponent<HealthComponent>()->GetLives()) };
+	auto healthText{ std::to_string(GetGameObject(L"Player1")->GetComponent<Health_Comp>()->GetLives()) };
 	gameObject = std::make_shared<GameObject>(L"Player1_HealthUi", pCurrentScene);
-	gameObject->AddComponent(new RenderComponent());
-	gameObject->AddComponent(new TextComponent(healthText, font, 22));
-	gameObject->AddComponent(new ScoreComponent());
+	gameObject->AddComponent(new Render_Comp());
+	gameObject->AddComponent(new Text_Comp(healthText, font, 22));
+	gameObject->AddComponent(new Score_Comp());
 	gameObject->GetTransformComponent()->GetTransform()->SetPosition(300.f, 50.f);
 	AddGameObject(gameObject);
 
 	gameObject = std::make_shared<GameObject>(L"Player2_HealthTextUi", pCurrentScene);
-	gameObject->AddComponent(new RenderComponent());
-	gameObject->AddComponent(new TextComponent("Remaining lives (player 2): ", font, 22));
+	gameObject->AddComponent(new Render_Comp());
+	gameObject->AddComponent(new Text_Comp("Remaining lives (player 2): ", font, 22));
 	gameObject->GetTransformComponent()->GetTransform()->SetPosition(5.f, 100.f);
 	AddGameObject(gameObject);
 
-	healthText = std::to_string(GetGameObject(L"Player2")->GetComponent<HealthComponent>()->GetLives());
+	healthText = std::to_string(GetGameObject(L"Player2")->GetComponent<Health_Comp>()->GetLives());
 	gameObject = std::make_shared<GameObject>(L"Player2_HealthUi", pCurrentScene);
-	gameObject->AddComponent(new RenderComponent());
-	gameObject->AddComponent(new TextComponent(healthText, font, 22));
-	gameObject->AddComponent(new ScoreComponent());
+	gameObject->AddComponent(new Render_Comp());
+	gameObject->AddComponent(new Text_Comp(healthText, font, 22));
+	gameObject->AddComponent(new Score_Comp());
 	gameObject->GetTransformComponent()->GetTransform()->SetPosition(300.f, 100.f);
 	AddGameObject(gameObject);
 
 	//score
 	gameObject = std::make_shared<GameObject>(L"Player1_ScoreTextUi", pCurrentScene);
-	gameObject->AddComponent(new RenderComponent());
-	gameObject->AddComponent(new TextComponent("Score (player 1): ", font, 22));
+	gameObject->AddComponent(new Render_Comp());
+	gameObject->AddComponent(new Text_Comp("Score (player 1): ", font, 22));
 	gameObject->GetTransformComponent()->GetTransform()->SetPosition(400.f, 50.f);
 	AddGameObject(gameObject);
 
 	gameObject = std::make_shared<GameObject>(L"Player2_ScoreTextUi", pCurrentScene);
-	gameObject->AddComponent(new RenderComponent());
-	gameObject->AddComponent(new TextComponent("Score (player 2): ", font, 22));
+	gameObject->AddComponent(new Render_Comp());
+	gameObject->AddComponent(new Text_Comp("Score (player 2): ", font, 22));
 	gameObject->GetTransformComponent()->GetTransform()->SetPosition(400.f, 100.f);
 	AddGameObject(gameObject);
 
-	auto scoreText{ std::to_string(GetGameObject(L"Player1")->GetComponent<ScoreComponent>()->GetScore()) };
+	auto scoreText{ std::to_string(GetGameObject(L"Player1")->GetComponent<Score_Comp>()->GetScore()) };
 	gameObject = std::make_shared<GameObject>(L"Player1_ScoreUi", pCurrentScene);
-	gameObject->AddComponent(new RenderComponent());
-	gameObject->AddComponent(new TextComponent(scoreText, font, 22));
+	gameObject->AddComponent(new Render_Comp());
+	gameObject->AddComponent(new Text_Comp(scoreText, font, 22));
 	gameObject->GetTransformComponent()->GetTransform()->SetPosition(600.f, 50.f);
 	AddGameObject(gameObject);
 
-	scoreText = std::to_string(GetGameObject(L"Player2")->GetComponent<ScoreComponent>()->GetScore());
+	scoreText = std::to_string(GetGameObject(L"Player2")->GetComponent<Score_Comp>()->GetScore());
 	gameObject = std::make_shared<GameObject>(L"Player2_ScoreUi", pCurrentScene);
-	gameObject->AddComponent(new RenderComponent());
-	gameObject->AddComponent(new TextComponent(scoreText, font, 22));
+	gameObject->AddComponent(new Render_Comp());
+	gameObject->AddComponent(new Text_Comp(scoreText, font, 22));
 	gameObject->GetTransformComponent()->GetTransform()->SetPosition(600.f, 100.f);
 	AddGameObject(gameObject);
 
 	//dead 
 	gameObject = std::make_shared<GameObject>(L"DeadText", pCurrentScene);
-	gameObject->AddComponent(new RenderComponent());
-	gameObject->AddComponent(new TextComponent("Player died", font, 30));
+	gameObject->AddComponent(new Render_Comp());
+	gameObject->AddComponent(new Text_Comp("Player died", font, 30));
 	gameObject->GetTransformComponent()->GetTransform()->SetPosition(200.f, 250.f);
 	gameObject->SetActive(false);
 	AddGameObject(gameObject);
 
 	//controls
 	gameObject = std::make_shared<GameObject>(L"Player1_ControlsText", pCurrentScene);
-	gameObject->AddComponent(new RenderComponent());
-	gameObject->AddComponent(new TextComponent("Player 1:  A: remove hp - B: Catch Slick/Sam - X: Color change - Y: defeat Coily ", font, 15));
+	gameObject->AddComponent(new Render_Comp());
+	gameObject->AddComponent(new Text_Comp("Player 1:  A: remove hp - B: Catch Slick/Sam - X: Color change - Y: defeat Coily ", font, 15));
 	gameObject->GetTransformComponent()->GetTransform()->SetPosition(10.f, 300.f);
 	AddGameObject(gameObject);
 
 	gameObject = std::make_shared<GameObject>(L"Player2_ControlsText", pCurrentScene);
-	gameObject->AddComponent(new RenderComponent());
-	gameObject->AddComponent(new TextComponent("Player 2:  Down: remove hp - Right: Catch Slick/Sam - Left: Color change - Up: defeat Coily ", font, 15));
+	gameObject->AddComponent(new Render_Comp());
+	gameObject->AddComponent(new Text_Comp("Player 2:  Down: remove hp - Right: Catch Slick/Sam - Left: Color change - Up: defeat Coily ", font, 15));
 	gameObject->GetTransformComponent()->GetTransform()->SetPosition(10.f, 325.f);
 	AddGameObject(gameObject);
 }
@@ -162,7 +161,7 @@ void dae::DemoScene::UpdatePlayer1Lives()
 {
 	auto& player1{ GetGameObject(L"Player1") };
 
-	auto playerHealthComp{ player1->GetComponent<HealthComponent>() };
+	auto playerHealthComp{ player1->GetComponent<Health_Comp>() };
 	if (playerHealthComp->GetHealth() <= 0.f)
 	{
 		playerHealthComp->RemoveLives(1);
@@ -179,7 +178,7 @@ void dae::DemoScene::UpdatePlayer1Lives()
 void dae::DemoScene::UpdatePlayer2Lives()
 {
 	auto& player2{ GetGameObject(L"Player2") };
-	auto playerHealthComp{ player2->GetComponent<HealthComponent>() };
+	auto playerHealthComp{ player2->GetComponent<Health_Comp>() };
 	if (playerHealthComp->GetHealth() <= 0.f)
 	{
 		playerHealthComp->RemoveLives(1);
