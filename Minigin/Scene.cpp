@@ -5,7 +5,7 @@
 int dae::Scene::SceneCount = 0;
 
 dae::Scene::Scene(const std::string& name)
-: m_Name(name), sceneNr{SceneCount}
+	: m_Name(name), sceneNr{ SceneCount }
 {
 	SceneCount++;
 }
@@ -16,15 +16,17 @@ void dae::Scene::AddGameObject(const std::shared_ptr<GameObject>& object)
 }
 
 void dae::Scene::Update()
-{	
-	for(size_t idx{}; idx<m_Objects.size();++idx)
-		m_Objects[idx]->Update();
-		
+{
+	if(!m_StartedScene)
+		StartScene();
+	
+	for (auto& obj : m_Objects)
+		obj->Update();
+
 	m_Objects.erase(std::remove_if(m_Objects.begin(), m_Objects.end(), [](const std::shared_ptr<GameObject>& obj)
-	{
+		{
 			return obj->IsMarkedForDeletion();
-		
-	}), m_Objects.end());
+		}), m_Objects.end());
 }
 
 void dae::Scene::Render() const
@@ -33,8 +35,14 @@ void dae::Scene::Render() const
 		{
 			if (obj->NeedsToBeRendered())
 				obj->Render();
-
 		});
+}
+
+void dae::Scene::StartScene()
+{
+	m_StartedScene = true;
+	for (auto& obj : m_Objects)
+		obj->Start();
 }
 
 std::shared_ptr<dae::GameObject>& dae::Scene::GetGameObject(const wchar_t* pGameObjectName)
@@ -50,9 +58,7 @@ std::shared_ptr<dae::GameObject>& dae::Scene::GetGameObject(int idx)
 {
 	if (m_Objects.size() < idx &&
 		m_Objects.at(idx) != nullptr)
-			return m_Objects.at(idx);
+		return m_Objects.at(idx);
 
 	throw(std::exception("GetGameObject(int idx) no object at this idx"));
 }
-
-

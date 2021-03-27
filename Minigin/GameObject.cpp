@@ -39,6 +39,12 @@ void dae::GameObject::Render() const
 		comp->Render();
 }
 
+void dae::GameObject::Start()
+{
+	for (auto& comp : m_pComponents)
+		comp->Start();
+}
+
 void dae::GameObject::AddComponent(BaseComponent* component)
 {
 	if (!m_NeedsToBeRendered)

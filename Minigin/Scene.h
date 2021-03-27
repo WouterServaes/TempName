@@ -11,7 +11,7 @@ namespace dae
 		std::shared_ptr<GameObject>& GetGameObject(const wchar_t* pGameObjectName);
 		void Update();
 		void Render() const;
-
+		
 		explicit Scene(const std::string& name);
 		virtual ~Scene() = default;
 		
@@ -21,7 +21,9 @@ namespace dae
 		Scene& operator=(Scene&& other) = delete;
 
 		std::string m_Name;
-	private: 
+	private:
+		void StartScene();
+		bool m_StartedScene = false;
 		virtual void InitializeScene() = 0;
 	protected:
 		std::vector < std::shared_ptr<GameObject>> m_Objects{};

@@ -35,8 +35,8 @@ namespace dae
 		
 		virtual void Update() {};
 		virtual void Render() const {};
+		virtual void Start() {};
 	protected:
-		bool m_IsInitialized{ false };
 		GameObject* m_pGameObject{ nullptr };
 	};
 }

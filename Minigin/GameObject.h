@@ -18,8 +18,8 @@ namespace dae
 		GameObject& operator=(GameObject&& other) = delete;
 
 		void Update();
+		void Start();
 		void Render() const;
-
 		void AddComponent(BaseComponent* component); //Adds the desired component to this gameObject (by adding to a BaseComponent vector m_pComponents)
 
 		[[nodiscard]] bool IsMarkedForDeletion() const { return m_MarkForDeletion; };

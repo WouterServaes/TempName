@@ -12,12 +12,12 @@ dae::Transform_Comp::Transform_Comp(const glm::vec3& position)
 {
 	m_Transform = new Transform();
 	m_Transform->SetPosition(position.x, position.y, position.z);
-	m_IsInitialized = true;
 };
 
 dae::Transform_Comp::Transform_Comp(const float x, const  float y, const  float z)
 {
 	m_Transform = new Transform();
 	m_Transform->SetPosition(x, y, z);
-	m_IsInitialized = true;
+
 }
+

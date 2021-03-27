@@ -16,6 +16,12 @@ dae::Text_Comp::~Text_Comp()
 	delete m_Color;
 }
 
+void dae::Text_Comp::Start()
+{
+	m_pRenderComponent = m_pGameObject->GetComponent<Render_Comp>();
+	InitializeText();
+}
+
 void dae::Text_Comp::UpdateText(const std::string& newText)
 {
 	m_Text = newText;
@@ -32,16 +38,6 @@ void dae::Text_Comp::UpdateText(const std::string& newText)
 	}
 	SDL_FreeSurface(surf);
 	m_pRenderComponent->UpdateTexture(std::make_shared<Texture2D>(texture));
-}
-
-void dae::Text_Comp::Update()
-{
-	if (!m_IsInitialized) //Text doesn't need to be updated every frame.
-	{
-		m_pRenderComponent = m_pGameObject->GetComponent<Render_Comp>();
-		InitializeText();
-		m_IsInitialized = true;
-	}
 }
 
 void dae::Text_Comp::InitializeText() const

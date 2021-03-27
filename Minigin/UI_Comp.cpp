@@ -6,13 +6,15 @@
 #include "Transform.h"
 #include "Transform_Comp.h"
 
+
+void dae::UI_Comp::Start()
+{
+	m_pTransformComponent = m_pGameObject->GetComponent<Transform_Comp>();
+
+}
+
 void dae::StartUI::Update()
 {
-	if (!m_IsInitialized)
-	{
-		m_IsInitialized = true;
-		m_pTransformComponent = m_pGameObject->GetComponent<Transform_Comp>();
-	}
 	const auto& transformPos{ m_pTransformComponent->GetTransform()->GetPosition() };
 	const auto pos = ImVec2(transformPos.x, transformPos.y);
 
@@ -27,12 +29,6 @@ void dae::StartUI::Update()
 
 void dae::FpsUI::Update()
 {
-	if (!m_IsInitialized)
-	{
-		m_IsInitialized = true;
-		m_pTransformComponent = m_pGameObject->GetComponent<Transform_Comp>();
-	}
-
 	const auto transformPos{ m_pTransformComponent->GetTransform()->GetPosition() };
 	const auto pos = ImVec2(transformPos.x, transformPos.y);
 	const auto size = ImVec2(100, 20);

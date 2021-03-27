@@ -14,16 +14,14 @@ dae::Animation_Comp::Animation_Comp(const std::string& folder, const std::string
 		m_Textures.push_back(ResourceManager::GetInstance().LoadTexture(GetImageName(idx, folder, baseName))); 
 }
 
+void dae::Animation_Comp::Start()
+{
+	m_pRenderComponent = m_pGameObject->GetComponent<Render_Comp>();
+	m_pRenderComponent->UpdateTexture(m_Textures[0]);
+}
+
 void dae::Animation_Comp::Update()
 {
-	if (!m_IsInitialized)
-	{
-		m_IsInitialized = true;
-		m_pRenderComponent = m_pGameObject->GetComponent<Render_Comp>();
-		m_pRenderComponent->UpdateTexture(m_Textures[0]);
-		
-	}
-
 	m_ElapsedTime += Time::GetInstance().deltaTime;
 
 	if (m_ElapsedTime >= 1.f/float(m_FramesPerSecond))

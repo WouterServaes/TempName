@@ -20,7 +20,7 @@ namespace dae
 		~Text_Comp();
 		void UpdateText(const std::string& newText);
 		void Render()const override { m_pGameObject->GetComponent<Render_Comp>()->Render(); };
-		void Update() override;
+		void Start() override;
 	private:
 		void InitializeText() const;
 		std::shared_ptr<Font> m_pFont;

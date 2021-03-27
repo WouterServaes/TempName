@@ -4,17 +4,18 @@
 namespace dae
 {
 	class Transform_Comp;
-	class UIComponent: public BaseComponent
+	class UI_Comp: public BaseComponent
 	{
 	public:
-		UIComponent() = default;
-		~UIComponent() = default;
+		UI_Comp() = default;
+		~UI_Comp() = default;
 		void Update() override = 0 ;
+		void Start() override;
 	protected:
 		const Transform_Comp* m_pTransformComponent{nullptr};
 	};
 
-	class StartUI final:public UIComponent
+	class StartUI final:public UI_Comp
 	{
 	public:
 		StartUI() = default;
@@ -22,7 +23,7 @@ namespace dae
 		void Update() override;
 	};
 
-	class FpsUI final:public UIComponent
+	class FpsUI final:public UI_Comp
 	{
 	public:
 		FpsUI() = default;
