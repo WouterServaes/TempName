@@ -7,13 +7,13 @@
 #include "Transform_Comp.h"
 
 dae::Render_Comp::Render_Comp(const std::string& filename)
-	:BaseComponent(componentType::render), m_Texture(ResourceManager::GetInstance().LoadTexture(filename))
+	:m_Texture(ResourceManager::GetInstance().LoadTexture(filename))
 {
 	m_IsInitialized = true;
 }
 
 dae::Render_Comp::Render_Comp(std::shared_ptr<Texture2D> texture)
-	: BaseComponent(componentType::render), m_Texture(texture)
+	: m_Texture(texture)
 {
 	m_IsInitialized = true;
 }

@@ -7,7 +7,7 @@
 #include "Score_Comp.h"
 #include "Subject.h"
 
-dae::Commands::Commands(std::shared_ptr<GameObject>& gameObject)
+dae::Commands::Commands(GameObject* gameObject)
 	:m_pGameObject(gameObject)
 {}
 

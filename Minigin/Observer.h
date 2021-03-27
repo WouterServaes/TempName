@@ -10,7 +10,7 @@ namespace dae
 		friend class Subject;
 		Observer() = default;
 		virtual ~Observer() = default;
-		virtual void OnNotify(const std::shared_ptr<GameObject>& gameObject, Event event) = 0;
+		virtual void OnNotify( GameObject* const gameObject, Event event) = 0;
 	private:
 		Observer* m_pNextObserver{ nullptr };
 	};

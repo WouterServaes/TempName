@@ -1,4 +1,5 @@
 #pragma once
+#include "GameObject.h"
 
 namespace dae
 {
@@ -6,21 +7,10 @@ namespace dae
 	class BaseComponent
 	{
 	public:
-		enum class componentType
-		{
-			render,
-			text ,
-			transform,
-			animation,
-			ui,
-			health,
-			score
-		};
+	
 
-		BaseComponent(componentType type) :componentType(type) {};
+		BaseComponent() = default;
 		virtual ~BaseComponent() = default;
-
-		const componentType componentType;
 
 		//saves a ptr to the game object that owns this component
 		void SetGameObject(GameObject* pGameObject)
@@ -31,6 +21,18 @@ namespace dae
 				throw(std::runtime_error(std::string("SetGameObject(GameObject*) -> Already set pointer to gameObject, can't change this")));
 		};
 
+		template<typename T>
+		T* GetComponent()
+		{
+			return m_pGameObject->GetComponent<T>();
+		}
+
+		template<typename T>
+		const T* GetConstComponent() const
+		{
+			return m_pGameObject->GetConstComponent<T>();
+		}
+		
 		virtual void Update() {};
 		virtual void Render() const {};
 	protected:

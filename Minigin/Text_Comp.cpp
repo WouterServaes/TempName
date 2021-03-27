@@ -7,7 +7,7 @@
 dae::Text_Comp::Text_Comp(const std::string& text, const std::string& font, int fontSize, const glm::vec4& color)
 	:m_Text(text), m_pFont(ResourceManager::GetInstance().LoadFont(font, unsigned(fontSize)))
 	, m_Color(new SDL_Color{ Uint8(color.r), Uint8(color.g), Uint8(color.b), Uint8(color.a) })
-	, BaseComponent(componentType::text)
+	
 {
 }
 

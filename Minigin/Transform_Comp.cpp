@@ -8,7 +8,7 @@ dae::Transform_Comp::~Transform_Comp()
 }
 
 dae::Transform_Comp::Transform_Comp(const glm::vec3& position)
-: BaseComponent(componentType::transform)
+
 {
 	m_Transform = new Transform();
 	m_Transform->SetPosition(position.x, position.y, position.z);
@@ -16,7 +16,6 @@ dae::Transform_Comp::Transform_Comp(const glm::vec3& position)
 };
 
 dae::Transform_Comp::Transform_Comp(const float x, const  float y, const  float z)
-:BaseComponent(componentType::transform)
 {
 	m_Transform = new Transform();
 	m_Transform->SetPosition(x, y, z);

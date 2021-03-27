@@ -2,7 +2,6 @@
 
 namespace dae
 {
-	
 	class BaseComponent;
 	class Texture2D;
 	class Transform_Comp;
@@ -11,7 +10,7 @@ namespace dae
 	class GameObject final
 	{
 	public:
-		GameObject(const wchar_t* pObjectName, Scene* pScene,bool isSubject = false);
+		GameObject(const wchar_t* pObjectName, Scene* pScene, bool isSubject = false);
 		~GameObject();
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
@@ -28,7 +27,7 @@ namespace dae
 		[[nodiscard]] bool NeedsToBeRendered()const { return m_NeedsToBeRendered; };
 		[[nodiscard]] bool IsActive()const { return m_IsActive; };
 		void SetActive(const bool active) { m_IsActive = active; };
-		
+
 		template<typename T>
 		T* GetComponent()
 		{
@@ -52,11 +51,13 @@ namespace dae
 
 			throw(std::runtime_error(std::string("GetConstComponent() -> Component doesn't exist on GameObject")));
 		}
-		
+
+		GameObject* GetGameObject(const wchar_t* pGameObjectName); //returns game object in current scene
+
 		[[nodiscard]] Transform_Comp* GetTransformComponent();
 		[[nodiscard]] const wchar_t* GetName()const { return m_pObjectName; };
 
-		[[nodiscard]]Subject* GetSubject()const;
+		[[nodiscard]] Subject* GetSubject()const;
 		[[nodiscard]] Scene* GetCurrentScene()const;
 	private:
 		std::vector<BaseComponent*> m_pComponents{};
@@ -66,10 +67,8 @@ namespace dae
 		bool m_IsActive{ true };
 		const wchar_t* m_pObjectName;
 
-		Scene * const m_pCurrentScene;
-		
-		Subject * const m_pSubject{ nullptr };
+		Scene* const m_pCurrentScene;
 
-		
+		Subject* const m_pSubject{ nullptr };
 	};
 }

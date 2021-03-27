@@ -3,7 +3,7 @@
 
 
 dae::Health_Comp::Health_Comp(const float maxHealth, const float currentHealth,const int maxLives, const int currentLives)
-	:BaseComponent(componentType::health), m_MaxHealth(maxHealth), m_CurrentHealth(currentHealth), m_MaxLives(maxLives), m_CurrentLives(currentLives)
+	:m_MaxHealth(maxHealth), m_CurrentHealth(currentHealth), m_MaxLives(maxLives), m_CurrentLives(currentLives)
 {
 	
 }

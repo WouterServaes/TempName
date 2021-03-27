@@ -7,7 +7,7 @@ namespace dae
 	class UIComponent: public BaseComponent
 	{
 	public:
-		UIComponent() :BaseComponent(componentType::ui) {};
+		UIComponent() = default;
 		~UIComponent() = default;
 		void Update() override = 0 ;
 	protected:

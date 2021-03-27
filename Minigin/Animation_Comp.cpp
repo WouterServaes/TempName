@@ -6,7 +6,7 @@
 #include "Time.h"
 
 dae::Animation_Comp::Animation_Comp(const std::string& folder, const std::string& baseName, int amountOfImages, int animationFramesPerSecond)
-	:BaseComponent(componentType::animation), m_AmountOfFrames(amountOfImages)
+	:m_AmountOfFrames(amountOfImages)
 	, m_FramesPerSecond(animationFramesPerSecond)
 {
 	//save all texture frames as a Texture2D

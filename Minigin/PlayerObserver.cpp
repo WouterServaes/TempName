@@ -9,7 +9,7 @@
 
 #include "Text_Comp.h"
 
-void dae::PlayerObserver::OnNotify(const std::shared_ptr<GameObject>& gameObject, Event event)
+void dae::PlayerObserver::OnNotify(GameObject* const gameObject, Event event)
 {
 	switch (event)
 	{
@@ -35,53 +35,53 @@ void dae::PlayerObserver::OnNotify(const std::shared_ptr<GameObject>& gameObject
 	}
 }
 
-void dae::PlayerObserver::UpdateHealthUi(const std::shared_ptr<GameObject>& gameObject)
+void dae::PlayerObserver::UpdateHealthUi(const GameObject* gameObject)
 {
 	const wchar_t* healthCompName{};
-	
+
 	if (std::wstring(gameObject->GetName()) == std::wstring(L"Player1"))  //TODO fix this
 		healthCompName = L"Player1_HealthUi";
 	else
 		healthCompName = L"Player2_HealthUi";
 
-	auto* pHealthUi{gameObject->GetCurrentScene()->GetGameObject(healthCompName)->GetComponent<Text_Comp>()};
+	auto* pHealthUi{ gameObject->GetCurrentScene()->GetGameObject(healthCompName)->GetComponent<Text_Comp>() };
 	const auto currentHealth{ gameObject->GetConstComponent<Health_Comp>()->GetLives() };
 
-	pHealthUi->UpdateText(std::to_string(currentHealth));	
+	pHealthUi->UpdateText(std::to_string(currentHealth));
 }
 
-void dae::PlayerObserver::ShowPlayerDied(const std::shared_ptr<GameObject>& gameObject)
+void dae::PlayerObserver::ShowPlayerDied(GameObject* const gameObject)
 {
 	gameObject->SetActive(true);
 }
 
-void dae::PlayerObserver::HandleCatchedSlickOrSame(const std::shared_ptr<GameObject>& gameObject)
+void dae::PlayerObserver::HandleCatchedSlickOrSame(GameObject* const gameObject)
 {
 	AddScore(300, gameObject);
 }
 
-void dae::PlayerObserver::HandleColorChanged(const std::shared_ptr<GameObject>& gameObject)
+void dae::PlayerObserver::HandleColorChanged(GameObject* const gameObject)
 {
 	AddScore(25, gameObject);
 }
-void dae::PlayerObserver::HandleDefeatedCoily(const std::shared_ptr<GameObject>& gameObject)
+void dae::PlayerObserver::HandleDefeatedCoily(GameObject* const gameObject)
 {
 	AddScore(500, gameObject);
 }
 
-void dae::PlayerObserver::HandleLeftDiskAtEnd(const std::shared_ptr<GameObject>& gameObject)
+void dae::PlayerObserver::HandleLeftDiskAtEnd(GameObject* const gameObject)
 {
 	AddScore(50, gameObject);
 }
 
-void dae::PlayerObserver::AddScore(int amount, const std::shared_ptr<GameObject>& playerObj)
+void dae::PlayerObserver::AddScore(int amount, GameObject* const playerObj)
 {
 	auto scoreComp{ GetScoreComponent(playerObj) };
 	scoreComp->IncreaseScore(amount);
 	GetScoreTextComponent(playerObj)->UpdateText(std::to_string(scoreComp->GetScore()));
 }
 
-dae::Text_Comp* dae::PlayerObserver::GetScoreTextComponent(const std::shared_ptr<GameObject>& playerObj)
+dae::Text_Comp* dae::PlayerObserver::GetScoreTextComponent(const GameObject* playerObj)
 {
 	const wchar_t* textCompName{};
 	if (std::wstring(playerObj->GetName()) == std::wstring(L"Player1"))  //TODO fix this, i just wanted it to work for now
@@ -91,7 +91,7 @@ dae::Text_Comp* dae::PlayerObserver::GetScoreTextComponent(const std::shared_ptr
 	return playerObj->GetCurrentScene()->GetGameObject(textCompName)->GetComponent<Text_Comp>();
 }
 
-dae::Score_Comp* dae::PlayerObserver::GetScoreComponent(const std::shared_ptr<GameObject>& playerObj)
+dae::Score_Comp* dae::PlayerObserver::GetScoreComponent(GameObject* const playerObj)
 {
 	return playerObj->GetComponent<Score_Comp>();
 }

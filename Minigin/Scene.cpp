@@ -16,9 +16,7 @@ void dae::Scene::AddGameObject(const std::shared_ptr<GameObject>& object)
 }
 
 void dae::Scene::Update()
-{
-	UpdateScene();
-	
+{	
 	for(size_t idx{}; idx<m_Objects.size();++idx)
 		m_Objects[idx]->Update();
 		

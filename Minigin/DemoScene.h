@@ -16,12 +16,9 @@ namespace dae
 		DemoScene& operator=(DemoScene&& other) = delete;
 
 		void InitializeScene() override;
-		void UpdateScene() override;
 	private:
 		void AddPlayers();
 		void AddUi(const std::string& font);
 		void InitInput();
-		void UpdatePlayer1Lives();
-		void UpdatePlayer2Lives();
 	};
 }

@@ -6,7 +6,7 @@ namespace dae
 	    public BaseComponent
 	{
 	public:
-		Score_Comp() :BaseComponent(componentType::score){};
+		Score_Comp()=default;
 		~Score_Comp() = default;
 
 		[[nodiscard]]const int& GetScore()const { return m_CurrentScore; };

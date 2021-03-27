@@ -9,7 +9,7 @@
 #include "Transform.h"
 #include "UI_Comp.h"
 #include "Health_Comp.h"
-
+#include "QBert_Comp.h"
 #include "InputManager.h"
 #include "PlayerObserver.h"
 #include "Score_Comp.h"
@@ -60,12 +60,14 @@ void dae::DemoScene::AddPlayers()
 	auto player1 = std::make_shared<GameObject>(L"Player1", pCurrentScene, true);
 	player1->AddComponent(new Health_Comp(maxHealth));
 	player1->AddComponent(new Score_Comp());
+	player1->AddComponent(new QBert_Comp());
 	player1->GetSubject()->AddObserver(new PlayerObserver());
 	AddGameObject(player1);
 
 	auto player2 = std::make_shared<GameObject>(L"Player2", pCurrentScene, true);
 	player2->AddComponent(new Health_Comp(maxHealth));
 	player2->AddComponent(new Score_Comp());
+	player2->AddComponent(new QBert_Comp());
 	player2->GetSubject()->AddObserver(new PlayerObserver());
 	AddGameObject(player2);
 }
@@ -151,51 +153,10 @@ void dae::DemoScene::AddUi(const std::string& font)
 	AddGameObject(gameObject);
 }
 
-void dae::DemoScene::UpdateScene()
-{
-	UpdatePlayer1Lives();
-	UpdatePlayer2Lives();
-}
-
-void dae::DemoScene::UpdatePlayer1Lives()
-{
-	auto& player1{ GetGameObject(L"Player1") };
-
-	auto playerHealthComp{ player1->GetComponent<Health_Comp>() };
-	if (playerHealthComp->GetHealth() <= 0.f)
-	{
-		playerHealthComp->RemoveLives(1);
-		player1->GetSubject()->Notify(player1, Event::LostLive);
-		playerHealthComp->ResetHealth();
-	}
-
-	if (playerHealthComp->GetLives() <= 0)
-	{
-		player1->GetSubject()->Notify(GetGameObject(L"DeadText"), Event::PlayerDied);
-	}
-}
-
-void dae::DemoScene::UpdatePlayer2Lives()
-{
-	auto& player2{ GetGameObject(L"Player2") };
-	auto playerHealthComp{ player2->GetComponent<Health_Comp>() };
-	if (playerHealthComp->GetHealth() <= 0.f)
-	{
-		playerHealthComp->RemoveLives(1);
-		player2->GetSubject()->Notify(player2, Event::LostLive);
-		playerHealthComp->ResetHealth();
-	}
-
-	if (playerHealthComp->GetLives() <= 0)
-	{
-		player2->GetSubject()->Notify(GetGameObject(L"DeadText"), Event::PlayerDied);
-	}
-}
-
 void dae::DemoScene::InitInput()
 {
-	auto& player1{ GetGameObject(L"Player1") };
-	auto& player2{ GetGameObject(L"Player2") };
+	GameObject* player1{ GetGameObject(L"Player1").get() };
+	GameObject* player2{ GetGameObject(L"Player2").get() };
 
 	auto& inputManager{ InputManager::GetInstance() };
 	inputManager.AssignKey(ControllerButtons::ButtonA, std::make_unique<Command_RemoveHp>(player1));

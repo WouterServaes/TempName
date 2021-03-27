@@ -59,13 +59,13 @@ void dae::Subject::RemoveObserver(Observer* pObserver)
 	}
 }
 
-void dae::Subject::Notify(const std::shared_ptr<GameObject>& gameObject, Event event)
+void dae::Subject::Notify(GameObject* gameObject, Event event)
 {
 	auto* current = m_pHeadObserver;
-	while(current!= nullptr)
+	while (current != nullptr)
 	{
 		current->OnNotify(gameObject, event);
 		current = current->m_pNextObserver;
-		
+
 	}
 }

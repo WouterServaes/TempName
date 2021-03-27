@@ -1,6 +1,10 @@
 #include "MiniginPCH.h"
 #include "GameObject.h"
 #include <functional>
+
+
+#include "Render_Comp.h"
+#include "Scene.h"
 #include "Transform_Comp.h"
 #include "Subject.h"
 dae::GameObject::GameObject(const wchar_t* pObjectName, Scene* pScene, const bool isSubject)
@@ -39,7 +43,8 @@ void dae::GameObject::AddComponent(BaseComponent* component)
 {
 	if (!m_NeedsToBeRendered)
 	{
-		if (component->componentType == BaseComponent::componentType::render)
+
+		if (typeid(*component) == typeid(Render_Comp))
 			m_NeedsToBeRendered = true;
 	}
 	component->SetGameObject(this);
@@ -60,3 +65,9 @@ dae::Scene* dae::GameObject::GetCurrentScene() const
 {
 	return m_pCurrentScene;
 }
+
+dae::GameObject* dae::GameObject::GetGameObject(const wchar_t* pGameObjectName)
+{
+	return m_pCurrentScene->GetGameObject(pGameObjectName).get();
+}
+
