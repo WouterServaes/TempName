@@ -100,9 +100,3 @@ void dae::Minigin::Cleanup()
 	SDL_Quit();
 	delete m_QuitGame;
 }
-
-//TODO add fail safes to LoadScene
-//TODO improve InputManager
-//TODO change game object names or add name == name functionality
-//TODO fix keyboard input on input manager
-//TODO add prefab game objects (for text)
