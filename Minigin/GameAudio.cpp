@@ -55,8 +55,7 @@ void dae::GameAudio::Update()
 		//what if m_NumPending changes while doing m_NumPending.store() ._.
 		m_NumPending.store(m_NumPending.load() - numPending);
 
-
-
+		//while (!m_NumPending.compare_exchange_strong(/*expected*/,/*desired*/ ));
 		
 	}
 }
