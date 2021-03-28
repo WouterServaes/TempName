@@ -37,6 +37,7 @@ void dae::Minigin::Run()
 
 	auto* audio{ AudioServiceLocator::GetAudio() };
 	std::thread audioThread{ [&audio] {audio->Update(); } };
+	
 	{
 		auto& renderer{ Renderer::GetInstance() };
 		auto& sceneManager{ SceneManager::GetInstance() };
@@ -45,9 +46,6 @@ void dae::Minigin::Run()
 		auto& time{ Time::GetInstance() };
 
 		auto lastTime{ high_resolution_clock::now() };
-
-		
-		
 		while (!*m_QuitGame)
 		{
 			const auto currentTime{ high_resolution_clock::now() };

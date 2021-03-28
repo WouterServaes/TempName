@@ -49,13 +49,16 @@ void dae::GameAudio::Update()
 		const int numPending{ m_NumPending.load() };
 		for (int idx{}; idx < numPending; idx++)
 		{
-			playSound(
-				m_AudioFiles[m_AudioIds[m_SoundQueue[idx].id]].c_str(), m_SoundQueue[idx].volume);
+			playSound(m_AudioFiles[m_AudioIds[m_SoundQueue[idx].id]].c_str(), m_SoundQueue[idx].volume);
 		}
+		
 		//what if m_NumPending changes while doing m_NumPending.store() ._.
 		m_NumPending.store(m_NumPending.load() - numPending);
+		std::this_thread::sleep_for(std::chrono::microseconds(20));
 
-		//while (!m_NumPending.compare_exchange_strong(/*expected*/,/*desired*/ ));
+
 		
+		//std::cout << "Sound done, new numPending = "<<m_NumPending.load()<<"\n";
+		//while (!m_NumPending.compare_exchange_strong(m_NumPending, m_NumPending+1));
 	}
 }
