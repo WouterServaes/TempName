@@ -2,6 +2,8 @@
 #include "Minigin.h"
 #include <chrono>
 #include <SDL.h>
+#include <thread>
+
 
 #include "InputManager.h"
 #include "SceneManager.h"
@@ -32,17 +34,20 @@ void dae::Minigin::Run()
 	
 	AudioServiceLocator::ProvideAudioService(new GameAudio());
 	AudioServiceLocator::GetAudio()->Start();
-	
+
+	auto* audio{ AudioServiceLocator::GetAudio() };
+	std::thread audioThread{ [&audio] {audio->Update(); } };
 	{
 		auto& renderer{ Renderer::GetInstance() };
 		auto& sceneManager{ SceneManager::GetInstance() };
 		auto& input{ InputManager::GetInstance() };
-		auto* audio{ AudioServiceLocator::GetAudio() };
 		input.SetQuitGamePtr(m_QuitGame);
 		auto& time{ Time::GetInstance() };
 
 		auto lastTime{ high_resolution_clock::now() };
 
+		
+		
 		while (!*m_QuitGame)
 		{
 			const auto currentTime{ high_resolution_clock::now() };
@@ -57,11 +62,10 @@ void dae::Minigin::Run()
 			time.Update(deltaTime);
 			sceneManager.Update();
 			renderer.Render();
-			audio->Update();
 		}
-		
 	}
 	Cleanup();
+	audioThread.join();
 }
 
 

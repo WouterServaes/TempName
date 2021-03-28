@@ -21,38 +21,42 @@ void dae::GameAudio::Start()
 
 void dae::GameAudio::End()
 {
+	m_QuitAudio = true;
 	endAudio();
 }
 
 void dae::GameAudio::PlaySound(int soundId, int volume)
 {
-	if (m_NumPending >= MaxPendingSounds) throw(std::exception("GameAudio::PlaySound() => exceeded event queue events"));
+	const int numPending{ m_NumPending.load() };
+	if (numPending >= MaxPendingSounds) throw(std::exception("GameAudio::PlaySound() => exceeded event queue events"));
 
-	m_SoundQueue[m_NumPending].id = soundId;
-	m_SoundQueue[m_NumPending].volume = volume;
-	m_NumPending++;
+	m_SoundQueue[numPending].id = soundId;
+	m_SoundQueue[numPending].volume = volume;
+	m_NumPending.store(m_NumPending.load() + 1);
 }
 
-void dae::GameAudio::StopSound(int )
+void dae::GameAudio::StopSound(int)
 {
 	throw(std::exception("GameAudio::StopSound() => StopSound has not been implemented"));
 }
 
+
+//this Update runs separately from the main game loop
 void dae::GameAudio::Update()
 {
-
-	auto processSoundQueue{[this]()
+	while (m_QuitAudio == false)
+	{
+		const int numPending{ m_NumPending.load() };
+		for (int idx{}; idx < numPending; idx++)
 		{
-			for (int idx{}; idx < m_NumPending; idx++)
-			{
-				playSound(m_AudioFiles[m_AudioIds[m_SoundQueue[idx].id]].c_str(), m_SoundQueue->volume);	
-			}
-			m_NumPending = 0;
-			
-		} };
+			playSound(
+				m_AudioFiles[m_AudioIds[m_SoundQueue[idx].id]].c_str(), m_SoundQueue[idx].volume);
+		}
+		//what if m_NumPending changes while doing m_NumPending.store() ._.
+		m_NumPending.store(m_NumPending.load() - numPending);
 
-	std::thread audioThread{ processSoundQueue };
-	audioThread.detach();
+
+
+		
+	}
 }
-
-

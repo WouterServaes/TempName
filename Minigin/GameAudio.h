@@ -8,15 +8,17 @@ namespace dae
 	class GameAudio final:public BaseAudio
 	{
 	public:
+		void Start() override;
+		void End() override;
 		void PlaySound(int soundId, int volume) override;
 		void StopSound(int soundId) override;
 		void Update() override;
-		void Start() override;
-		void End() override;
 	private:
 		static const int MaxPendingSounds{10};
 		PlayMessage m_SoundQueue[MaxPendingSounds]{};
-		int m_NumPending{0};
+		std::atomic<int> m_NumPending{ 0 };
+		bool m_QuitAudio{ false };
+		bool m_NeedsToPlayAudio{ false };
 	};
 }
 
