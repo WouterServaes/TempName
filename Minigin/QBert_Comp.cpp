@@ -7,25 +7,21 @@
 #include "Health_Comp.h"
 #include "Subject.h"
 
-#include "ServiceLocator.h"
+#include "AudioServiceLocator.h"
 
 void dae::QBert_Comp::Start()
 {
-	ServiceLocator::GetAudio()->AddSoundFile("../Data/hurt_sound.wav");
+	
+	AudioServiceLocator::GetAudio()->AddSoundFile("../Data/hurt_sound.wav");
+	m_pHealthComp = m_pGameObject->GetComponent<Health_Comp>();
 }
 
 void dae::QBert_Comp::Update()
-{
-	if(!m_IsInitialized)
-	{
-		m_IsInitialized = true;
-		m_pHealthComp = m_pGameObject->GetComponent<Health_Comp>();
-	}
-	
+{	
 	if(m_pHealthComp->GetHealth()<=0.f)
 	{
 		m_pHealthComp->RemoveLives(1);
-		ServiceLocator::GetAudio()->PlaySound(0, 50);
+		AudioServiceLocator::GetAudio()->PlaySound(0, 50);
 		m_pGameObject->GetSubject()->Notify(m_pGameObject, Event::LostLive);
 		m_pHealthComp->ResetHealth();
 	}

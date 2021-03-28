@@ -45,8 +45,7 @@ void dae::GameAudio::Update()
 		{
 			for (int idx{}; idx < m_NumPending; idx++)
 			{
-				playSound(m_AudioFiles[m_SoundQueue[idx].id].c_str(), m_SoundQueue->volume);
-				
+				playSound(m_AudioFiles[m_AudioIds[m_SoundQueue[idx].id]].c_str(), m_SoundQueue->volume);	
 			}
 			m_NumPending = 0;
 			

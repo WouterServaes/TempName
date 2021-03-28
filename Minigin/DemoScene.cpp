@@ -69,6 +69,8 @@ void dae::DemoScene::AddPlayers()
 	player2->AddComponent(new QBert_Comp());
 	player2->GetSubject()->AddObserver(new PlayerObserver());
 	AddGameObject(player2);
+
+	
 }
 
 void dae::DemoScene::AddUi(const std::string& font)

@@ -5,7 +5,7 @@
 namespace dae
 {
 	class BaseAudio;
-	class ServiceLocator final
+	class AudioServiceLocator final
 	{
 	public:
 		

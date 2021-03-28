@@ -153,9 +153,6 @@
     <ClInclude Include="UI_Comp.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="ServiceLocator.h">
-      <Filter>ServiceLocator</Filter>
-    </ClInclude>
     <ClInclude Include="BaseAudio.h">
       <Filter>Audio</Filter>
     </ClInclude>
@@ -167,6 +164,9 @@
     </ClInclude>
     <ClInclude Include="PlayMessage.h">
       <Filter>Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioServiceLocator.h">
+      <Filter>ServiceLocator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -266,11 +266,11 @@
     <ClCompile Include="UI_Comp.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="ServiceLocator.cpp">
-      <Filter>ServiceLocator</Filter>
-    </ClCompile>
     <ClCompile Include="GameAudio.cpp">
       <Filter>Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioServiceLocator.cpp">
+      <Filter>ServiceLocator</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

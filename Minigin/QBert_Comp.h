@@ -14,7 +14,6 @@ namespace dae
 
 	private:
 		Health_Comp* m_pHealthComp{};
-		bool m_IsInitialized{ false };
 	};
 
 }

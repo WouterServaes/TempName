@@ -18,7 +18,7 @@
 
 #include "DemoScene.h"
 
-#include "ServiceLocator.h"
+#include "AudioServiceLocator.h"
 #include "GameAudio.h"
 
 using namespace std;
@@ -30,14 +30,14 @@ void dae::Minigin::Run()
 	ResourceManager::GetInstance().Init("../Data/");
 	LoadGame();
 	
-	ServiceLocator::ProvideAudioService(new GameAudio());
-	ServiceLocator::GetAudio()->Start();
+	AudioServiceLocator::ProvideAudioService(new GameAudio());
+	AudioServiceLocator::GetAudio()->Start();
 	
 	{
 		auto& renderer{ Renderer::GetInstance() };
 		auto& sceneManager{ SceneManager::GetInstance() };
 		auto& input{ InputManager::GetInstance() };
-		auto* audio{ ServiceLocator::GetAudio() };
+		auto* audio{ AudioServiceLocator::GetAudio() };
 		input.SetQuitGamePtr(m_QuitGame);
 		auto& time{ Time::GetInstance() };
 
@@ -87,7 +87,7 @@ void dae::Minigin::Initialize()
 	}
 
 	Renderer::GetInstance().Init(m_Window);
-	ServiceLocator::Initialize();
+	AudioServiceLocator::Initialize();
 }
 
 /**
@@ -105,7 +105,7 @@ void dae::Minigin::LoadGame() const
 void dae::Minigin::Cleanup()
 {
 	Renderer::GetInstance().Destroy();
-	ServiceLocator::RemoveService();
+	AudioServiceLocator::RemoveService();
 	SDL_DestroyWindow(m_Window);
 	m_Window = nullptr;
 	SDL_Quit();

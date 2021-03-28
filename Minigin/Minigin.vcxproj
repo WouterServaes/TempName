@@ -223,7 +223,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="PlayMessage.h" />
     <ClInclude Include="QBert_Comp.h" />
     <ClInclude Include="Score_Comp.h" />
-    <ClInclude Include="ServiceLocator.h" />
+    <ClInclude Include="AudioServiceLocator.h" />
     <ClInclude Include="Subject.h" />
     <ClInclude Include="Text_Comp.h" />
     <ClInclude Include="Font.h" />
@@ -294,7 +294,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClCompile Include="PlayerObserver.cpp" />
     <ClCompile Include="QBert_Comp.cpp" />
     <ClCompile Include="Score_Comp.cpp" />
-    <ClCompile Include="ServiceLocator.cpp" />
+    <ClCompile Include="AudioServiceLocator.cpp" />
     <ClCompile Include="Subject.cpp" />
     <ClCompile Include="Text_Comp.cpp" />
     <ClCompile Include="Font.cpp" />
