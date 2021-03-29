@@ -8,8 +8,8 @@ namespace dae
 	{
 	public:
 		void AddScene(std::shared_ptr<Scene> pScene);
-		void Update();
-		void Render();
+		void Update() const;
+		void Render() const;
 		void LoadScene(int sceneNr);
 		void LoadScene(const std::string& sceneName);
 		std::shared_ptr<Scene>& GetCurrentScene() { return m_ActiveScene; };

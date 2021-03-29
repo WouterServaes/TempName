@@ -52,7 +52,7 @@ namespace dae
 			throw(std::runtime_error(std::string("GetConstComponent() -> Component doesn't exist on GameObject")));
 		}
 
-		GameObject* GetGameObject(const wchar_t* pGameObjectName); //returns game object in current scene
+		GameObject* GetGameObject(const wchar_t* pGameObjectName) const; //returns game object in current scene
 
 		[[nodiscard]] Transform_Comp* GetTransformComponent();
 		[[nodiscard]] const wchar_t* GetName()const { return m_pObjectName; };

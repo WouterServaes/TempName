@@ -1,6 +1,5 @@
 # Minigin things to do/add
 ## General:
-- Add fail safes to LoadScene()
 - Improve InputManager
 - Fix keyboard input
 - Add prefab game objects
@@ -8,8 +7,9 @@
 - Add rule-of-5 stuff
 - Check naming
 - Cleanup data folder
-## BaseComponent:
-- 
+- use static_cast<> instead
+## Audio:
+- Better multi threading
 ## PlayerObserver:
 - Fix ugly UpdateHealthUI/GetScoreTextComponent if()
 

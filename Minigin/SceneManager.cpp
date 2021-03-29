@@ -2,38 +2,30 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include <algorithm>
-void dae::SceneManager::Update()
+void dae::SceneManager::Update() const
 {
 	m_ActiveScene->Update();
-//	for (auto& scene : m_Scenes)
-//	{
-//		scene->Update();
-//	}
 }
 
-void dae::SceneManager::Render()
+void dae::SceneManager::Render() const
 {
 	m_ActiveScene->Render();
-	//for (const auto& scene : m_Scenes)
-	//{
-	//	scene->Render();
-	//}
 }
 
-void dae::SceneManager::AddScene(std::shared_ptr<Scene> scene)
+void dae::SceneManager::AddScene(std::shared_ptr<Scene> pScene)
 {
 	if (m_ActiveScene == nullptr)
-		m_ActiveScene = scene;
-	
-	m_Scenes.push_back(scene);
+		m_ActiveScene = pScene;
+
+	m_Scenes.push_back(pScene);
 }
 
 void dae::SceneManager::LoadScene(int sceneNr)
 {
-	if(sceneNr>=m_Scenes.size())
+	if (sceneNr >= static_cast<int>(m_Scenes.size()))
 	{
-		//scene doesn't exist;
-		
+		const auto exceptionText{ "SceneManager::LoadScene(int) => sceneNr out of bounds, there's only " + std::to_string(m_Scenes.size()) + " scenes!" };
+		throw(std::exception(exceptionText.c_str()));
 	}
 
 	m_ActiveScene = m_Scenes[sceneNr];
@@ -42,15 +34,18 @@ void dae::SceneManager::LoadScene(int sceneNr)
 void dae::SceneManager::LoadScene(const std::string& sceneName)
 {
 	const auto foundScene{ std::find_if(m_Scenes.begin(), m_Scenes.end(), [&sceneName](const std::shared_ptr<Scene>& s)
+		{
+			return s->Name() == sceneName;
+		}) };
+
+	if (foundScene != m_Scenes.end())
 	{
-			return s->m_Name == sceneName;
-	}) };
-	
-	if(foundScene!=m_Scenes.end())
-	{
-		//found scene
 		m_ActiveScene = *foundScene;
 	}
-
-	//scene doesn't exit
+	else
+	{
+		//scene doesn't exit
+		const auto exceptionText{ "SceneManager::LoadScene(const std::string&) => no scene with name \"" + sceneName + "\n found!" };
+		throw(std::exception(exceptionText.c_str()));
+	}
 }

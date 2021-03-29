@@ -72,7 +72,7 @@ dae::Scene* dae::GameObject::GetCurrentScene() const
 	return m_pCurrentScene;
 }
 
-dae::GameObject* dae::GameObject::GetGameObject(const wchar_t* pGameObjectName)
+dae::GameObject* dae::GameObject::GetGameObject(const wchar_t* pGameObjectName) const
 {
 	return m_pCurrentScene->GetGameObject(pGameObjectName).get();
 }

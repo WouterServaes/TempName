@@ -1,11 +1,10 @@
 #include "MiniginPCH.h"
 #include "Scene.h"
 #include <algorithm>
-
 int dae::Scene::SceneCount = 0;
 
 dae::Scene::Scene(const std::string& name)
-	: m_Name(name), sceneNr{ SceneCount }
+	: m_Name{name}, sceneNr{ SceneCount }
 {
 	SceneCount++;
 }
@@ -56,7 +55,7 @@ std::shared_ptr<dae::GameObject>& dae::Scene::GetGameObject(const wchar_t* pGame
 
 std::shared_ptr<dae::GameObject>& dae::Scene::GetGameObject(int idx)
 {
-	if (m_Objects.size() < idx &&
+	if (static_cast<int>(m_Objects.size()) < idx &&
 		m_Objects.at(idx) != nullptr)
 		return m_Objects.at(idx);
 

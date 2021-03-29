@@ -43,6 +43,9 @@
     <Filter Include="ServiceLocator">
       <UniqueIdentifier>{8b0f08ee-5604-4e2f-b2cd-7d207185b04a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Logger">
+      <UniqueIdentifier>{31f1759b-77fe-4285-9bec-62baff105a04}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniginPCH.h">
@@ -168,6 +171,9 @@
     <ClInclude Include="AudioServiceLocator.h">
       <Filter>ServiceLocator</Filter>
     </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Logger</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -271,6 +277,9 @@
     </ClCompile>
     <ClCompile Include="AudioServiceLocator.cpp">
       <Filter>ServiceLocator</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Logger</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

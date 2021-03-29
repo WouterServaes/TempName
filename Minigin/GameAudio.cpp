@@ -40,7 +40,6 @@ void dae::GameAudio::StopSound(int)
 	throw(std::exception("GameAudio::StopSound() => StopSound has not been implemented"));
 }
 
-
 //this Update runs separately from the main game loop
 void dae::GameAudio::Update()
 {
@@ -51,14 +50,11 @@ void dae::GameAudio::Update()
 		{
 			playSound(m_AudioFiles[m_AudioIds[m_SoundQueue[idx].id]].c_str(), m_SoundQueue[idx].volume);
 		}
-		
-		//what if m_NumPending changes while doing m_NumPending.store() ._.
+
+		//what if m_NumPending changes while doing m_NumPending.store() D:
 		m_NumPending.store(m_NumPending.load() - numPending);
+
+		//---i know---
 		std::this_thread::sleep_for(std::chrono::microseconds(20));
-
-
-		
-		//std::cout << "Sound done, new numPending = "<<m_NumPending.load()<<"\n";
-		//while (!m_NumPending.compare_exchange_strong(m_NumPending, m_NumPending+1));
 	}
 }

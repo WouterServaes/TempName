@@ -217,6 +217,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="Events.h" />
     <ClInclude Include="GameAudio.h" />
     <ClInclude Include="Health_Comp.h" />
+    <ClInclude Include="Logger.h" />
     <ClInclude Include="NullAudio.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="PlayerObserver.h" />
@@ -291,6 +292,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClCompile Include="DemoScene.cpp" />
     <ClCompile Include="GameAudio.cpp" />
     <ClCompile Include="Health_Comp.cpp" />
+    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="PlayerObserver.cpp" />
     <ClCompile Include="QBert_Comp.cpp" />
     <ClCompile Include="Score_Comp.cpp" />
