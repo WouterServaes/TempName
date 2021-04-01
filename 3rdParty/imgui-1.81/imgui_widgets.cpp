@@ -1,3 +1,4 @@
+#pragma warning(disable: 4189) //'window': local variable is initialized but no referenced (line 6198)
 // dear imgui, v1.82 WIP
 // (widgets code)
 

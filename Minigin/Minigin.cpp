@@ -1,9 +1,9 @@
 #include "MiniginPCH.h"
+
 #include "Minigin.h"
 #include <chrono>
 #include <SDL.h>
 #include <thread>
-
 
 #include "InputManager.h"
 #include "SceneManager.h"
@@ -13,7 +13,6 @@
 
 #include "imgui_impl_opengl2.h"
 #include "imgui_impl_sdl.h"
-
 
 #include "Time.h"
 #include "Commands.h"
@@ -32,7 +31,7 @@ void dae::Minigin::Run()
 	Initialize();
 	ResourceManager::GetInstance().Init("../Data/");
 	LoadGame();
-	
+
 	AudioServiceLocator::ProvideAudioService(new GameAudio());
 	AudioServiceLocator::GetAudio()->Start();
 
@@ -40,7 +39,7 @@ void dae::Minigin::Run()
 	std::thread audioThread{ [&audio] {audio->Update(); } };
 
 	Logger::LogInfo("Running game...");
-	
+
 	{
 		auto& renderer{ Renderer::GetInstance() };
 		auto& sceneManager{ SceneManager::GetInstance() };
