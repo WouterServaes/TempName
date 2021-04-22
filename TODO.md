@@ -1,8 +1,6 @@
 # Minigin things to do/add
 ## General:
-- Improve InputManager
-- Fix keyboard input
-- Instead of throw std::runtime_error in code, make a static Logger class that does this
+
 - Add rule-of-5 stuff
 - Check naming
 - Cleanup data folder
@@ -14,3 +12,9 @@
 
 ## PlayerObserver:
 - Fix ugly UpdateHealthUI/GetScoreTextComponent if()
+
+## Texture2D:
+- use SDL_SDL_QueryTexture for texture information (format, height, width)
+
+## TransformComponent:
+- use updated Texture2D (no more image sequence, but one big image map (the good way))

@@ -1,6 +1,5 @@
 #include "MiniginPCH.h"
 #include "AudioLogger.h"
-#include "Logger.h"
 
 AudioLogger::AudioLogger(AudioInterface* audioToLog)
 {
