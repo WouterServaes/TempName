@@ -160,31 +160,31 @@ void dae::DemoScene::InitInput()
 	GameObject* player2{ GetGameObject(L"Player2").get() };
 
 	auto& inputManager{ InputManager::GetInstance() };
-	
+	inputManager.SetMaxControllerAmount(2);
 
-	InputAction inputAction{ InputAction('w', TriggerState::Released, ControllerButtons::ButtonA)};
+	InputAction inputAction{ InputAction('w', TriggerState::Released, ControllerButtons::ButtonA, 0)};
 	inputManager.AssignKey(inputAction, std::make_unique<Command_RemoveHp>(player1));
 	
-	inputAction = InputAction('a', TriggerState::Released, ControllerButtons::ButtonB);
+	inputAction = InputAction('a', TriggerState::Released, ControllerButtons::ButtonB, 0);
 	inputManager.AssignKey(inputAction, std::make_unique<Command_CatchedSlickOrSam>(player1));
 	
-	inputAction = InputAction('s', TriggerState::Released, ControllerButtons::ButtonX);
+	inputAction = InputAction('s', TriggerState::Released, ControllerButtons::ButtonX, 0);
 	inputManager.AssignKey(inputAction, std::make_unique<Command_ColorChanged>(player1));
 	
-	inputAction = InputAction('d', TriggerState::Released, ControllerButtons::ButtonY);
+	inputAction = InputAction('d', TriggerState::Released, ControllerButtons::ButtonY, 0);
 	inputManager.AssignKey(inputAction, std::make_unique<Command_DefeatedCoily>(player1));
 
 	
-	inputAction = InputAction(SDLK_UP, TriggerState::Released, ControllerButtons::ButtonDown);
+	inputAction = InputAction(SDLK_UP, TriggerState::Released, ControllerButtons::ButtonDown, 1);
 	inputManager.AssignKey(inputAction, std::make_unique<Command_RemoveHp>(player2));
 	
-	inputAction = InputAction(SDLK_DOWN, TriggerState::Released, ControllerButtons::ButtonRight);
+	inputAction = InputAction(SDLK_DOWN, TriggerState::Released, ControllerButtons::ButtonRight, 1);
 	inputManager.AssignKey(inputAction, std::make_unique<Command_CatchedSlickOrSam>(player2));
 	
-	inputAction = InputAction(SDLK_LEFT, TriggerState::Released, ControllerButtons::ButtonLeft);
+	inputAction = InputAction(SDLK_LEFT, TriggerState::Released, ControllerButtons::ButtonLeft, 1);
 	inputManager.AssignKey(inputAction, std::make_unique<Command_ColorChanged>(player2));
 	
-	inputAction = InputAction(SDLK_RIGHT, TriggerState::Released, ControllerButtons::ButtonUp);
+	inputAction = InputAction(SDLK_RIGHT, TriggerState::Released, ControllerButtons::ButtonUp, 1);
 	inputManager.AssignKey(inputAction, std::make_unique<Command_DefeatedCoily>(player2));
 
 }

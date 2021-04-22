@@ -42,10 +42,10 @@ namespace dae
 
 	struct InputAction
 	{
-		InputAction(SDL_Keycode sdlKeyCode, TriggerState triggerState, ControllerButtons controllerButton) :KeyboardKey(sdlKeyCode, triggerState), ControllerButton(controllerButton) {};
+		InputAction(SDL_Keycode sdlKeyCode, TriggerState triggerState, ControllerButtons controllerButton, int controllerNr = 0) :KeyboardKey(sdlKeyCode, triggerState), ControllerButton(controllerButton), ControllerNr(controllerNr) {};
 		KeyboardKey KeyboardKey;
 		ControllerButtons ControllerButton;
-
+		int ControllerNr;
 		//this does not have any use other than making std::map happy 
 		bool operator<(const InputAction& other) const
 		{

@@ -13,8 +13,13 @@
 ## PlayerObserver:
 - Fix ugly UpdateHealthUI/GetScoreTextComponent if()
 
-## Texture2D:
-- use SDL_SDL_QueryTexture for texture information (format, height, width)
-
-## TransformComponent:
+## AnimationComponent:
 - use updated Texture2D (no more image sequence, but one big image map (the good way))
+
+## RenderComponent:
+- change stuff to work with cut textures n stuff look at Renderer.cpp
+
+## ResourceManager:
+- multi thread resource loading
+
+

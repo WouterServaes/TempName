@@ -38,7 +38,8 @@ void dae::InputManager::ProcessControllerButtons(ControllerButtons button, int c
 {
 	for (auto& inputCommandsMap : m_InputCommandsMap)
 	{
-		if (static_cast<int>(inputCommandsMap.first.ControllerButton) == static_cast<int>(button))
+		if (inputCommandsMap.first.ControllerNr == controllerIdx &&
+			static_cast<int>(inputCommandsMap.first.ControllerButton) == static_cast<int>(button))
 		{
 			ProcessControllerCommand(inputCommandsMap.second, IsButtonPressed(button, controllerIdx));
 
