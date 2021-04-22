@@ -1,6 +1,8 @@
 #pragma once
 #include "BaseAudio.h"
 #include "PlayMessage.h"
+#include <thread>
+#include <condition_variable>
 //https://gameprogrammingpatterns.com/event-queue.html
 
 namespace dae
@@ -15,10 +17,11 @@ namespace dae
 		void Update() override;
 	private:
 		static const int MaxPendingSounds{10};
-		PlayMessage m_SoundQueue[MaxPendingSounds]{};
-		std::atomic<int> m_NumPending{ 0 };
-		bool m_QuitAudio{ false };
-		bool m_NeedsToPlayAudio{ false };
+		std::vector<PlayMessage> m_SoundQueue{};
+
+		std::thread m_AudioThread{};
+		std::condition_variable m_ConditionVariable{};
+		std::mutex m_Mutex{};
 	};
 }
 

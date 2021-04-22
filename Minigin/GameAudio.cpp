@@ -17,22 +17,26 @@ void dae::GameAudio::Start()
 	SDL_Init(SDL_INIT_AUDIO);
 	// Initialize Simple-SDL2-Audio
 	initAudio();
+	m_AudioThread = std::thread([this] {Update(); });
 }
 
 void dae::GameAudio::End()
 {
-	m_QuitAudio = true;
+	m_AudioThread.join();
 	endAudio();
 }
 
 void dae::GameAudio::PlaySound(int soundId, int volume)
 {
-	const int numPending{ m_NumPending.load() };
-	if (numPending >= MaxPendingSounds) throw(std::exception("GameAudio::PlaySound() => exceeded event queue events"));
+	//
+	{
+		std::lock_guard<std::mutex> lock(m_Mutex);
+		if (m_SoundQueue.size() >= MaxPendingSounds) throw(std::exception("GameAudio::PlaySound() => exceeded event queue events"));
 
-	m_SoundQueue[numPending].id = soundId;
-	m_SoundQueue[numPending].volume = volume;
-	m_NumPending.store(m_NumPending.load() + 1);
+		const PlayMessage pm{ soundId, volume };
+		m_SoundQueue.push_back(pm);
+	}
+	//
 }
 
 void dae::GameAudio::StopSound(int)
@@ -40,21 +44,14 @@ void dae::GameAudio::StopSound(int)
 	throw(std::exception("GameAudio::StopSound() => StopSound has not been implemented"));
 }
 
-//this Update runs separately from the main game loop
+//this Update runs on a separate thread
 void dae::GameAudio::Update()
 {
-	while (m_QuitAudio == false)
-	{
-		const int numPending{ m_NumPending.load() };
-		for (int idx{}; idx < numPending; idx++)
-		{
-			playSound(m_AudioFiles[m_AudioIds[m_SoundQueue[idx].id]].c_str(), m_SoundQueue[idx].volume);
-		}
+	std::unique_lock<std::mutex> uniqueLock(m_Mutex);
+	m_ConditionVariable.wait(uniqueLock, [this] {return m_SoundQueue.size() > 0; });
+	
+	for (auto pm : m_SoundQueue)
+		playSound(m_AudioFiles[m_AudioIds[pm.id]].c_str(), pm.volume);
 
-		//what if m_NumPending changes while doing m_NumPending.store() D:
-		m_NumPending.store(m_NumPending.load() - numPending);
-
-		//---i know---
-		std::this_thread::sleep_for(std::chrono::microseconds(20));
-	}
+	m_SoundQueue.clear();
 }

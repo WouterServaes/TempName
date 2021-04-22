@@ -35,9 +35,6 @@ void dae::Minigin::Run()
 	AudioServiceLocator::ProvideAudioService(new GameAudio());
 	AudioServiceLocator::GetAudio()->Start();
 
-	auto* audio{ AudioServiceLocator::GetAudio() };
-	std::thread audioThread{ [&audio] {audio->Update(); } };
-
 	Logger::LogInfo("Running game...");
 
 	{
@@ -66,7 +63,6 @@ void dae::Minigin::Run()
 	}
 	Logger::LogInfo("Quit game");
 	Cleanup();
-	audioThread.join();
 }
 
 
