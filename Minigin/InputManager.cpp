@@ -4,6 +4,7 @@
 #include <SDL.h>
 #include <XInput.h>
 
+
 void dae::InputManager::ProcessInput()
 {
 	ProcessControllerInput();
@@ -20,31 +21,48 @@ void dae::InputManager::ProcessControllerInput()
 	const int connectedControllers{ 1 };
 	for (DWORD i = 0; i < connectedControllers; i++)
 	{
-		ZeroMemory(&m_CurrentConsoleState, sizeof(XINPUT_STATE));
-		const auto dwResult = XInputGetState(i, &m_CurrentConsoleState);
+		const auto dwResult{ UpdateControllerState(i) };
 		if (dwResult != ERROR_SUCCESS)
 			continue;
 
 		for (auto b : m_ConsoleButtons)
+			ProcessControllerButtons(b);
+	}
+}
+
+DWORD dae::InputManager::UpdateControllerState(int controllerIdx)
+{
+	ZeroMemory(&m_CurrentConsoleState, sizeof(XINPUT_STATE));
+	return XInputGetState(controllerIdx, &m_CurrentConsoleState);
+}
+
+void dae::InputManager::ProcessControllerButtons(ControllerButtons button)
+{
+	for (auto& inputCommandsMap : m_InputCommandsMap)
+	{
+		if (static_cast<int>(inputCommandsMap.first.ControllerButton) == static_cast<int>(button))
 		{
-			ControllerKey key{ std::make_pair(int(b), b) };
-			if (m_ConsoleCommands.find(key) == m_ConsoleCommands.end())
-				continue;
-			const auto& command{ m_ConsoleCommands.at(key) };
-			if (!command->IsActivated())
-			{
-				if (IsButtonPressed(b))
-				{
-					command->Execute();
-					command->SetActivated(true);
-				}
-			}
-			else
-			{
-				if (!IsButtonPressed(b))
-					command->SetActivated(false);
-			}
+			ProcessControllerCommand(inputCommandsMap.second, IsButtonPressed(button));
+
+			break;
 		}
+	}
+}
+
+void dae::InputManager::ProcessControllerCommand(const std::unique_ptr<Commands>& command, bool buttonPressed)
+{
+	if (!command->IsActivated())
+	{
+		if (buttonPressed)
+		{
+			command->Execute();
+			command->SetActivated(true);
+		}
+	}
+	else
+	{
+		if (!buttonPressed)
+			command->SetActivated(false);
 	}
 }
 
@@ -64,14 +82,6 @@ void dae::InputManager::ProcessKeyboardInput()
 		case SDL_KEYUP:
 			ProcessKeyboardKey(e.key.keysym.sym, TriggerState::Released);
 			break;
-
-		/*case SDL_MOUSEMOTION:
-
-			break;
-
-		case SDL_MOUSEBUTTONUP:
-
-			break;*/
 		default:
 			break;
 		}
@@ -80,12 +90,13 @@ void dae::InputManager::ProcessKeyboardInput()
 
 void dae::InputManager::ProcessKeyboardKey(SDL_Keycode sdlKeycode, TriggerState triggerState)
 {
-	for (auto& keyboardCommand : m_KeyboardCommands)
+	for (auto& keyboardCommand : m_InputCommandsMap)
 	{
-		if (keyboardCommand.first.sdlKeyCode == sdlKeycode && keyboardCommand.first.triggerState == triggerState)
+		if (keyboardCommand.first.KeyboardKey.sdlKeyCode == sdlKeycode && keyboardCommand.first.KeyboardKey.triggerState == triggerState)
 		{
 			keyboardCommand.second->Execute();
 			keyboardCommand.second->SetActivated(true);
+			break;
 		}
 	}
 }

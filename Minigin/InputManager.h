@@ -35,19 +35,24 @@ namespace dae
 		KeyboardKey(SDL_Keycode sdlKeyCode, TriggerState triggerState) :sdlKeyCode(sdlKeyCode), triggerState(triggerState) {};
 		SDL_Keycode sdlKeyCode{};
 		TriggerState triggerState{ TriggerState::Released };
-		bool wasDown{ false };
-
-		bool operator<(const KeyboardKey&) const
-		{
-			return false;
-		}
 	};
 
-	using ControllerKey = std::pair<unsigned, ControllerButtons>;
-	using ControllerCommandsMap = std::map<ControllerKey, std::unique_ptr<Commands>>;
+	struct InputAction
+	{
+		InputAction(SDL_Keycode sdlKeyCode, TriggerState triggerState, ControllerButtons controllerButton) :KeyboardKey(sdlKeyCode, triggerState), ControllerButton(controllerButton) {};
+		KeyboardKey KeyboardKey;
+		ControllerButtons ControllerButton;
 
-	using KeyboardCommandsMap = std::map<KeyboardKey, std::unique_ptr<Commands>>;
+		//this does not have any use other than making std::map happy 
+		bool operator<(const InputAction& other) const
+		{
+			return KeyboardKey.sdlKeyCode < other.KeyboardKey.sdlKeyCode ;
+		}
+	};
+	
 
+	using InputCommandsMap = std::map<InputAction, std::unique_ptr<Commands>>;
+	
 	class InputManager final : public Singleton<InputManager>
 	{
 	public:
@@ -57,52 +62,24 @@ namespace dae
 		[[nodiscard]] bool IsButtonPressed(ControllerButtons button) const;
 
 		template <typename T>
-		/// <summary>
-		/// Assigns button to command
-		/// </summary>
-		void AssignKey(ControllerButtons button, std::unique_ptr<T> command)
+		void AssignKey(const InputAction& inputAction, std::unique_ptr<T> command)
 		{
-			ControllerKey key = std::make_pair(unsigned(button), button);
-			m_ConsoleCommands.insert(std::make_pair(key, std::move(command)));
+			
+			m_InputCommandsMap.insert(std::make_pair(inputAction, std::move(command)));
 		}
-
-		template <typename T>
-		/// <summary>
-		/// Assigns button to command
-		/// </summary>
-		void AssignKey(const KeyboardKey& key, std::unique_ptr<T> command)
-		{
-			m_KeyboardCommands.insert(std::make_pair(key, std::move(command)));
-		}
-
-		template <typename T>
-		/// <summary>
-		/// Assigns button to T, makes a new T
-		/// </summary>
-		void AssignKey(ControllerButtons button)
-		{
-			ControllerKey key = std::make_pair(unsigned(button), button);
-			m_ConsoleCommands.insert(std::make_pair(key, std::make_unique<T>()));
-		}
-
-		template <typename T>
-		/// <summary>
-		/// Assigns button to T, makes a new T
-		/// </summary>
-		void AssignKey(const KeyboardKey& key)
-		{
-			m_KeyboardCommands.insert(std::make_pair(key, std::make_unique<T>()));
-		}
-
 	private:
 		void ProcessControllerInput();
 		void ProcessKeyboardInput();
 		void ProcessKeyboardKey(SDL_Keycode sdlKeycode, TriggerState triggerState);
+		DWORD UpdateControllerState(int controllerIdx);
+		void ProcessControllerButtons(ControllerButtons button);
+		void ProcessControllerCommand(const std::unique_ptr<Commands>& command, bool buttonPressed);
+
+
 		XINPUT_STATE m_CurrentConsoleState{};
-
-		ControllerCommandsMap m_ConsoleCommands{};
-		KeyboardCommandsMap m_KeyboardCommands{};
-
+		
+		InputCommandsMap m_InputCommandsMap{};
+		
 		const std::vector<ControllerButtons> m_ConsoleButtons
 		{
 			ControllerButtons::ButtonA,
