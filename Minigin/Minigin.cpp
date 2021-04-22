@@ -99,10 +99,7 @@ void dae::Minigin::LoadGame() const
 {
 	Logger::LogInfo("Loading game...");
 	auto& sceneManager{ SceneManager::GetInstance() };
-	sceneManager.AddScene(std::make_shared<DemoScene>("Demo"));
-
-	auto& inputManager{ InputManager::GetInstance() };
-	inputManager.AssignKey(KeyboardButtons::Quit, std::make_unique<Command_QuitGame>(m_QuitGame));
+	sceneManager.AddScene(std::make_shared<DemoScene>("Demo"));	
 }
 
 void dae::Minigin::Cleanup()

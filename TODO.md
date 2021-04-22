@@ -8,9 +8,9 @@
 - Cleanup data folder
 - Use static_cast<> instead
 - Make separate game project in solution
+
 ## Audio:
-- Storing/retrieving requests from the queue is not correct
-- Logging sound system is a wrapper of the current sound system (current sound system as member var, simple cout + currentSoundSystem.Play in Play of LoggerSoundSystem )
+- let someone double check 
 
 ## PlayerObserver:
 - Fix ugly UpdateHealthUI/GetScoreTextComponent if()

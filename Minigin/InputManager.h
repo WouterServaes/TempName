@@ -2,10 +2,11 @@
 #include <map>
 #include <XInput.h>
 #include "Singleton.h"
-
+#include <SDL.h>
 namespace dae
 {
 	class Commands;
+
 	enum class ControllerButtons
 	{
 		ButtonA = 0x1000,
@@ -24,27 +25,41 @@ namespace dae
 		RightShoulder = 0x0200
 	};
 
-	enum class KeyboardButtons
+	enum class TriggerState
 	{
-		Quit = 27, //(SDL_QUIT keysym)
-		Space = 32 //(SDL_SCANCODE_SPACE keysym)
+		Down, Released
+	};
+
+	struct KeyboardKey
+	{
+		KeyboardKey(SDL_Keycode sdlKeyCode, TriggerState triggerState) :sdlKeyCode(sdlKeyCode), triggerState(triggerState) {};
+		SDL_Keycode sdlKeyCode{};
+		TriggerState triggerState{ TriggerState::Released };
+		bool wasDown{ false };
+
+		bool operator<(const KeyboardKey&) const
+		{
+			return false;
+		}
 	};
 
 	using ControllerKey = std::pair<unsigned, ControllerButtons>;
 	using ControllerCommandsMap = std::map<ControllerKey, std::unique_ptr<Commands>>;
 
-	using KeyboardKey = std::pair<unsigned, KeyboardButtons>;
-	using KeyboardCommandsMap = std::map < KeyboardKey, std::unique_ptr<Commands>>;
+	using KeyboardCommandsMap = std::map<KeyboardKey, std::unique_ptr<Commands>>;
 
 	class InputManager final : public Singleton<InputManager>
 	{
 	public:
 		void SetQuitGamePtr(bool* pQuitGame) { m_pQuitGame = pQuitGame; };
 		void ProcessInput();
+
 		[[nodiscard]] bool IsButtonPressed(ControllerButtons button) const;
-		[[nodiscard]] bool IsButtonPressed(KeyboardButtons button, int SdlKeyCode) const;
 
 		template <typename T>
+		/// <summary>
+		/// Assigns button to command
+		/// </summary>
 		void AssignKey(ControllerButtons button, std::unique_ptr<T> command)
 		{
 			ControllerKey key = std::make_pair(unsigned(button), button);
@@ -52,13 +67,18 @@ namespace dae
 		}
 
 		template <typename T>
-		void AssignKey(KeyboardButtons button, std::unique_ptr<T> command)
+		/// <summary>
+		/// Assigns button to command
+		/// </summary>
+		void AssignKey(const KeyboardKey& key, std::unique_ptr<T> command)
 		{
-			KeyboardKey key{ std::make_pair(unsigned(button), button) };
 			m_KeyboardCommands.insert(std::make_pair(key, std::move(command)));
 		}
 
 		template <typename T>
+		/// <summary>
+		/// Assigns button to T, makes a new T
+		/// </summary>
 		void AssignKey(ControllerButtons button)
 		{
 			ControllerKey key = std::make_pair(unsigned(button), button);
@@ -66,16 +86,20 @@ namespace dae
 		}
 
 		template <typename T>
-		void AssignKey(KeyboardButtons button)
+		/// <summary>
+		/// Assigns button to T, makes a new T
+		/// </summary>
+		void AssignKey(const KeyboardKey& key)
 		{
-			KeyboardKey key{ std::make_pair(unsigned(button), button) };
-			m_KeyboardCommands.insert(std::make_pair(key, std::unique_ptr<T>()));
+			m_KeyboardCommands.insert(std::make_pair(key, std::make_unique<T>()));
 		}
 
 	private:
 		void ProcessControllerInput();
 		void ProcessKeyboardInput();
+		void ProcessKeyboardKey(SDL_Keycode sdlKeycode, TriggerState triggerState);
 		XINPUT_STATE m_CurrentConsoleState{};
+
 		ControllerCommandsMap m_ConsoleCommands{};
 		KeyboardCommandsMap m_KeyboardCommands{};
 
@@ -97,11 +121,6 @@ namespace dae
 			ControllerButtons::RightShoulder
 		};;
 
-		const std::vector<KeyboardButtons> m_KeyboardButtons
-		{
-			KeyboardButtons::Quit,
-			KeyboardButtons::Space
-		};
-		bool* m_pQuitGame{nullptr};
+		bool* m_pQuitGame{ nullptr };
 	};
 }

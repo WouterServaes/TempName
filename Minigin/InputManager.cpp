@@ -15,11 +15,6 @@ bool dae::InputManager::IsButtonPressed(ControllerButtons button) const
 	return (m_CurrentConsoleState.Gamepad.wButtons & int(button));
 }
 
-bool dae::InputManager::IsButtonPressed(KeyboardButtons button, int SdlKeyCode) const
-{
-	return int(button) == SdlKeyCode;
-}
-
 void dae::InputManager::ProcessControllerInput()
 {
 	const int connectedControllers{ 1 };
@@ -58,38 +53,39 @@ void dae::InputManager::ProcessKeyboardInput()
 	SDL_Event e;
 	while (SDL_PollEvent(&e))
 	{
-		if (e.type == SDL_KEYUP)
+		switch (e.type)
 		{
-			
-			for (auto b : m_KeyboardButtons)
-			{
-				KeyboardKey key{ std::make_pair(int(b), b) };
-				if (m_KeyboardCommands.find(key) == m_KeyboardCommands.end())
-					continue;
-
-				const auto& command{ m_KeyboardCommands.at(key) };
-
-				const auto sdlKeycode{ e.key.keysym.sym };
-				if (!command->IsActivated())
-				{
-					if (IsButtonPressed(b, sdlKeycode))
-					{
-						command->Execute();
-						command->SetActivated(true);
-					}
-				}
-				else
-				{
-					if (!IsButtonPressed(b, sdlKeycode))
-					{
-						command->SetActivated(false);
-					}
-				}
-			}
-		}
-		else if (e.type == SDL_QUIT )
-		{
+		case SDL_QUIT:
 			*m_pQuitGame = true;
+			break;
+		case SDL_KEYDOWN:
+			ProcessKeyboardKey(e.key.keysym.sym, TriggerState::Down);
+			break;
+		case SDL_KEYUP:
+			ProcessKeyboardKey(e.key.keysym.sym, TriggerState::Released);
+			break;
+
+		/*case SDL_MOUSEMOTION:
+
+			break;
+
+		case SDL_MOUSEBUTTONUP:
+
+			break;*/
+		default:
+			break;
+		}
+	}
+}
+
+void dae::InputManager::ProcessKeyboardKey(SDL_Keycode sdlKeycode, TriggerState triggerState)
+{
+	for (auto& keyboardCommand : m_KeyboardCommands)
+	{
+		if (keyboardCommand.first.sdlKeyCode == sdlKeycode && keyboardCommand.first.triggerState == triggerState)
+		{
+			keyboardCommand.second->Execute();
+			keyboardCommand.second->SetActivated(true);
 		}
 	}
 }

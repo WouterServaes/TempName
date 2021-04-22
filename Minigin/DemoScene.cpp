@@ -160,7 +160,11 @@ void dae::DemoScene::InitInput()
 	GameObject* player2{ GetGameObject(L"Player2").get() };
 
 	auto& inputManager{ InputManager::GetInstance() };
-	inputManager.AssignKey(ControllerButtons::ButtonA, std::make_unique<Command_RemoveHp>(player1));
+	
+	
+
+	inputManager.AssignKey(KeyboardKey('q', TriggerState::Released), std::make_unique<Command_RemoveHp>(player1));
+	
 	inputManager.AssignKey(ControllerButtons::ButtonB, std::make_unique<Command_CatchedSlickOrSam>(player1));
 	inputManager.AssignKey(ControllerButtons::ButtonX, std::make_unique<Command_ColorChanged>(player1));
 	inputManager.AssignKey(ControllerButtons::ButtonY, std::make_unique<Command_DefeatedCoily>(player1));
@@ -169,4 +173,5 @@ void dae::DemoScene::InitInput()
 	inputManager.AssignKey(ControllerButtons::ButtonRight, std::make_unique<Command_CatchedSlickOrSam>(player2));
 	inputManager.AssignKey(ControllerButtons::ButtonLeft, std::make_unique<Command_ColorChanged>(player2));
 	inputManager.AssignKey(ControllerButtons::ButtonUp, std::make_unique<Command_DefeatedCoily>(player2));
+
 }
