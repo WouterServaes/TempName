@@ -15,6 +15,7 @@ namespace dae
 		void PlaySound(int soundId, int volume) override;
 		void StopSound(int soundId) override;
 		void Update() override;
+		void HandleSoundQueue();
 	private:
 		static const int MaxPendingSounds{10};
 		std::vector<PlayMessage> m_SoundQueue{};
@@ -22,6 +23,9 @@ namespace dae
 		std::thread m_AudioThread{};
 		std::condition_variable m_ConditionVariable{};
 		std::mutex m_Mutex{};
+
+		
+		std::atomic_bool m_EndAudio{ false };
 	};
 }
 

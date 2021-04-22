@@ -107,6 +107,7 @@ void dae::Minigin::LoadGame() const
 void dae::Minigin::Cleanup()
 {
 	Logger::LogInfo("Cleaning up...");
+	
 	Renderer::GetInstance().Destroy();
 	AudioServiceLocator::RemoveService();
 	SDL_DestroyWindow(m_Window);
