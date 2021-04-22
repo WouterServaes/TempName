@@ -4,45 +4,43 @@
 #include <SDL.h>
 #include <XInput.h>
 
-
 void dae::InputManager::ProcessInput()
 {
 	ProcessControllerInput();
 	ProcessKeyboardInput();
 }
 
-bool dae::InputManager::IsButtonPressed(ControllerButtons button) const
+bool dae::InputManager::IsButtonPressed(ControllerButtons button, int controllerIdx) const
 {
-	return (m_CurrentConsoleState.Gamepad.wButtons & int(button));
+	return (m_CurrentConsoleState[controllerIdx].Gamepad.wButtons & int(button));
 }
 
 void dae::InputManager::ProcessControllerInput()
 {
-	const int connectedControllers{ 1 };
-	for (DWORD i = 0; i < connectedControllers; i++)
+	for (DWORD controllerIdx{}; controllerIdx < XUSER_MAX_COUNT; controllerIdx++)
 	{
-		const auto dwResult{ UpdateControllerState(i) };
+		const auto dwResult{ UpdateControllerState(controllerIdx) };
 		if (dwResult != ERROR_SUCCESS)
 			continue;
 
 		for (auto b : m_ConsoleButtons)
-			ProcessControllerButtons(b);
+			ProcessControllerButtons(b, controllerIdx);
 	}
 }
 
 DWORD dae::InputManager::UpdateControllerState(int controllerIdx)
 {
 	ZeroMemory(&m_CurrentConsoleState, sizeof(XINPUT_STATE));
-	return XInputGetState(controllerIdx, &m_CurrentConsoleState);
+	return XInputGetState(controllerIdx, &m_CurrentConsoleState[controllerIdx]);
 }
 
-void dae::InputManager::ProcessControllerButtons(ControllerButtons button)
+void dae::InputManager::ProcessControllerButtons(ControllerButtons button, int controllerIdx)
 {
 	for (auto& inputCommandsMap : m_InputCommandsMap)
 	{
 		if (static_cast<int>(inputCommandsMap.first.ControllerButton) == static_cast<int>(button))
 		{
-			ProcessControllerCommand(inputCommandsMap.second, IsButtonPressed(button));
+			ProcessControllerCommand(inputCommandsMap.second, IsButtonPressed(button, controllerIdx));
 
 			break;
 		}

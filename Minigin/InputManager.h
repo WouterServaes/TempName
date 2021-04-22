@@ -3,6 +3,9 @@
 #include <XInput.h>
 #include "Singleton.h"
 #include <SDL.h>
+
+#include "Logger.h"
+
 namespace dae
 {
 	class Commands;
@@ -58,8 +61,13 @@ namespace dae
 	public:
 		void SetQuitGamePtr(bool* pQuitGame) { m_pQuitGame = pQuitGame; };
 		void ProcessInput();
-
-		[[nodiscard]] bool IsButtonPressed(ControllerButtons button) const;
+		void SetMaxControllerAmount(int amount)
+		{
+			if (amount < XUSER_MAX_COUNT) m_MaxControllerAmount = amount;
+			else Logger::LogError("InputManager::SetMaxControllerAmount(amount) => amount exceeds allowed amount of 4 ");
+		}
+		
+		[[nodiscard]] bool IsButtonPressed(ControllerButtons button, int controllerIdx) const;
 
 		template <typename T>
 		void AssignKey(const InputAction& inputAction, std::unique_ptr<T> command)
@@ -72,11 +80,11 @@ namespace dae
 		void ProcessKeyboardInput();
 		void ProcessKeyboardKey(SDL_Keycode sdlKeycode, TriggerState triggerState);
 		DWORD UpdateControllerState(int controllerIdx);
-		void ProcessControllerButtons(ControllerButtons button);
+		void ProcessControllerButtons(ControllerButtons button, int controllerIdx);
 		void ProcessControllerCommand(const std::unique_ptr<Commands>& command, bool buttonPressed);
 
 
-		XINPUT_STATE m_CurrentConsoleState{};
+		XINPUT_STATE m_CurrentConsoleState[2]{};
 		
 		InputCommandsMap m_InputCommandsMap{};
 		
@@ -99,5 +107,6 @@ namespace dae
 		};;
 
 		bool* m_pQuitGame{ nullptr };
+		int m_MaxControllerAmount{ XUSER_MAX_COUNT};
 	};
 }
