@@ -9,15 +9,24 @@ dae::Animation_Comp::Animation_Comp(const std::string& folder, const std::string
 	:m_AmountOfFrames(amountOfImages)
 	, m_FramesPerSecond(animationFramesPerSecond)
 {
+	m_MultipleImages = true;
 	//save all texture frames as a Texture2D
 	for (int idx{}; idx < amountOfImages; ++idx)
 		m_Textures.push_back(ResourceManager::GetInstance().LoadTexture(GetImageName(idx, folder, baseName))); 
 }
 
+dae::Animation_Comp::Animation_Comp(const std::string& animationSheet, int , int ,
+	glm::vec2 )
+{
+	m_Textures[0] = ResourceManager::GetInstance().LoadTexture(animationSheet);
+}
+
 void dae::Animation_Comp::Start()
 {
 	m_pRenderComponent = m_pGameObject->GetComponent<Render_Comp>();
+
 	m_pRenderComponent->UpdateTexture(m_Textures[0]);
+
 }
 
 void dae::Animation_Comp::Update()
@@ -32,8 +41,22 @@ void dae::Animation_Comp::Update()
 			m_CurrentFrame += 1;
 
 		m_ElapsedTime = 0.f;
-		m_pRenderComponent->UpdateTexture(m_Textures[m_CurrentFrame]);
+		if (m_MultipleImages)
+			MultipleTexturesUpdate();
+		else
+			SingleTextureUpdate();
+		
 	}
+}
+
+void dae::Animation_Comp::MultipleTexturesUpdate()
+{
+	m_pRenderComponent->UpdateTexture(m_Textures[m_CurrentFrame]);
+}
+
+void dae::Animation_Comp::SingleTextureUpdate()
+{
+	
 }
 
 std::string dae::Animation_Comp::GetImageName(int imgNr, const std::string& folderName, const std::string& imageBaseName) const
@@ -53,3 +76,5 @@ std::string dae::Animation_Comp::GetImageName(int imgNr, const std::string& fold
 
 	return imageFileName;
 }
+
+
