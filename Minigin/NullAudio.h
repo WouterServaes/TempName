@@ -1,10 +1,10 @@
 #pragma once
-#include "BaseAudio.h"
+#include "AudioInterface.h"
 
 namespace dae
 {
 	//When no audio is assigned, we don't want to break the program.
-	class NullAudio final:public BaseAudio
+	class NullAudio final:public AudioInterface
 	{
 	public:
 		NullAudio() = default;

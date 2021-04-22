@@ -211,7 +211,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="..\3rdParty\imgui-1.81\imstb_truetype.h" />
     <ClInclude Include="Animation_Comp.h" />
     <ClInclude Include="AudioLogger.h" />
-    <ClInclude Include="BaseAudio.h" />
+    <ClInclude Include="AudioInterface.h" />
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="Commands.h" />
     <ClInclude Include="DemoScene.h" />

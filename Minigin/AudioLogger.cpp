@@ -2,7 +2,7 @@
 #include "AudioLogger.h"
 #include "Logger.h"
 
-AudioLogger::AudioLogger(BaseAudio* audioToLog)
+AudioLogger::AudioLogger(AudioInterface* audioToLog)
 {
 	m_CurrentAudioSystem = audioToLog;
 }

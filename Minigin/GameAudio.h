@@ -1,5 +1,5 @@
 #pragma once
-#include "BaseAudio.h"
+#include "AudioInterface.h"
 #include "PlayMessage.h"
 #include <thread>
 #include <condition_variable>
@@ -7,7 +7,7 @@
 
 namespace dae
 {
-	class GameAudio final:public BaseAudio
+	class GameAudio final:public AudioInterface
 	{
 	public:
 		void Start() override;

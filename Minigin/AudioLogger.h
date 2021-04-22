@@ -1,10 +1,10 @@
 #pragma once
-#include "BaseAudio.h"
+#include "AudioInterface.h"
 
-class AudioLogger final:public dae::BaseAudio
+class AudioLogger final:public dae::AudioInterface
 {
 public:
-	AudioLogger(BaseAudio* audioToLog);
+	AudioLogger(AudioInterface* audioToLog);
 	void Start() override;
 	void End() override;
 	void Update() override;
@@ -13,6 +13,6 @@ public:
 
 	void AddAudioFile(const char* fileName) override;
 private:
-	BaseAudio* m_CurrentAudioSystem{ nullptr };
+	AudioInterface* m_CurrentAudioSystem{ nullptr };
 };
 

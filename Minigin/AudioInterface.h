@@ -1,10 +1,10 @@
 #pragma once
 namespace dae
 {
-	class BaseAudio
+	class AudioInterface
 	{
 	public:
-		virtual ~BaseAudio() = default;
+		virtual ~AudioInterface() = default;
 		virtual void Start() = 0;
 		virtual void End() = 0;
 		virtual void Update() = 0;

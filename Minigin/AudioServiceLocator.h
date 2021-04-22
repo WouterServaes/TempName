@@ -1,17 +1,16 @@
 #pragma once
 #include "NullAudio.h"
-#include "BaseAudio.h"
+#include "AudioInterface.h"
 //https://gameprogrammingpatterns.com/service-locator.html
 namespace dae
 {
-	class BaseAudio;
 	class AudioServiceLocator final
 	{
 	public:
 		
-		static BaseAudio* GetAudio() { return m_pAudioService; }
+		static AudioInterface* GetAudio() { return m_pAudioService; }
 		static void Initialize(){m_pAudioService = &m_NullAudioService;};
-		static void ProvideAudioService(BaseAudio* pBaseAudio)
+		static void ProvideAudioService(AudioInterface* pBaseAudio)
 		{
 
 			if (pBaseAudio == nullptr)
@@ -26,7 +25,7 @@ namespace dae
 			delete m_pAudioService;
 		};
 	private:
-		static BaseAudio* m_pAudioService;
+		static AudioInterface* m_pAudioService;
 		static NullAudio m_NullAudioService;
 	};
 
