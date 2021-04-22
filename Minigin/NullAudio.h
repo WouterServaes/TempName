@@ -13,6 +13,7 @@ namespace dae
 		void End() override {/*do nothing*/ };
 		void Update() override {/*do nothing*/ };
 		void PlaySound(int , int ) override {/*do nothing*/};
-		void StopSound(int) override {/*do nothing*/ };
+		void StopSound(int) override {/*do nothing*/ }
+		void AddAudioFile(const char* ) override {/*do nothing*/ }
 	};
 }

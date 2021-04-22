@@ -21,6 +21,7 @@
 
 #include "AudioServiceLocator.h"
 #include "GameAudio.h"
+#include "AudioLogger.h"
 #include "Logger.h"
 
 using namespace std;
@@ -32,7 +33,7 @@ void dae::Minigin::Run()
 	ResourceManager::GetInstance().Init("../Data/");
 	LoadGame();
 
-	AudioServiceLocator::ProvideAudioService(new GameAudio());
+	AudioServiceLocator::ProvideAudioService(new AudioLogger(new GameAudio()));
 	AudioServiceLocator::GetAudio()->Start();
 
 	Logger::LogInfo("Running game...");

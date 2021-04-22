@@ -210,6 +210,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="..\3rdParty\imgui-1.81\imstb_textedit.h" />
     <ClInclude Include="..\3rdParty\imgui-1.81\imstb_truetype.h" />
     <ClInclude Include="Animation_Comp.h" />
+    <ClInclude Include="AudioLogger.h" />
     <ClInclude Include="BaseAudio.h" />
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="Commands.h" />
@@ -288,6 +289,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Animation_Comp.cpp" />
+    <ClCompile Include="AudioLogger.cpp" />
     <ClCompile Include="Commands.cpp" />
     <ClCompile Include="DemoScene.cpp" />
     <ClCompile Include="GameAudio.cpp" />

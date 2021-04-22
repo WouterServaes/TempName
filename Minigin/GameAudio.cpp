@@ -23,7 +23,6 @@ void dae::GameAudio::Start()
 
 void dae::GameAudio::End()
 {
-	
 	m_EndAudio.store(true);
 	m_ConditionVariable.notify_all();
 	m_AudioThread.join();
@@ -53,19 +52,32 @@ void dae::GameAudio::Update()
 void dae::GameAudio::HandleSoundQueue()
 {
 	while (!m_EndAudio.load())
-	{		
+	{
 		std::unique_lock<std::mutex> uniqueLock(m_Mutex);
 		m_ConditionVariable.wait(uniqueLock, [this]
-		{
-			
-			return m_SoundQueue.size() > 0 || m_EndAudio.load();
-		});
+			{
+				return m_SoundQueue.size() > 0 || m_EndAudio.load();
+			});
 
-		
-		
 		for (auto pm : m_SoundQueue)
 			playSound(m_AudioFiles[m_AudioIds[pm.id]].c_str(), pm.volume);
 
 		m_SoundQueue.clear();
 	}
+}
+
+void dae::GameAudio::AddAudioFile(const char* fileName)
+{
+	const auto it{ std::find_if(m_AudioFiles.begin(), m_AudioFiles.end(), [fileName](const std::string& str)
+		{
+			return str == fileName;
+		}) };
+
+	if (it == m_AudioFiles.end())
+	{
+		m_AudioIds.push_back(static_cast<int>(m_AudioIds.size()));
+		m_AudioFiles.push_back(fileName);
+	}
+	else
+		m_AudioIds.push_back(static_cast<int>(std::distance(m_AudioFiles.begin(), it)));
 }
