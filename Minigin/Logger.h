@@ -29,9 +29,9 @@ private:
 
 	enum class Level
 	{
-		Info = 0x1,
-		Warning = 0x2,
-		Error = 0x3
+		Info,
+		Warning,
+		Error
 	};
 
 	static void LogMsg(const Level level, const char* msg, const bool timeStamp = true)
