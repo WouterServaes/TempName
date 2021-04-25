@@ -10,6 +10,7 @@ namespace dae
 	class GameObject final
 	{
 	public:
+		GameObject() = delete;
 		GameObject(const wchar_t* pObjectName, Scene* pScene, bool isSubject = false);
 		~GameObject();
 		GameObject(const GameObject& other) = delete;
@@ -60,6 +61,8 @@ namespace dae
 		[[nodiscard]] Subject* GetSubject()const;
 		[[nodiscard]] Scene* GetCurrentScene()const;
 	private:
+		
+		
 		std::vector<BaseComponent*> m_pComponents{};
 
 		bool m_MarkForDeletion{ false }; //true: this game object will be deleted from the scene at the end of the current update
@@ -70,5 +73,7 @@ namespace dae
 		Scene* const m_pCurrentScene;
 
 		Subject* const m_pSubject{ nullptr };
+
+		
 	};
 }

@@ -7,6 +7,12 @@ namespace dae
 	class SceneManager final : public Singleton<SceneManager>
 	{
 	public:
+		~SceneManager() = default;
+		SceneManager(const SceneManager& other) = delete;
+		SceneManager(SceneManager&& other) noexcept = delete;
+		SceneManager& operator=(const SceneManager& other) = delete;
+		SceneManager& operator=(SceneManager&& other) noexcept = delete;
+		
 		void AddScene(std::shared_ptr<Scene> pScene);
 		void Update() const;
 		void Render() const;

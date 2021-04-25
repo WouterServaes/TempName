@@ -3,13 +3,11 @@
 #include <XInput.h>
 #include "Singleton.h"
 #include <SDL.h>
-
+#include "Commands.h"
 #include "Logger.h"
 
 namespace dae
 {
-	class Commands;
-
 	enum class ControllerButtons
 	{
 		ButtonA = 0x1000,
@@ -59,6 +57,13 @@ namespace dae
 	class InputManager final : public Singleton<InputManager>
 	{
 	public:
+		~InputManager() = default;
+		InputManager(const InputManager& other) = delete;
+		InputManager(InputManager&& other) noexcept = delete;
+		InputManager& operator=(const InputManager& other) = delete;
+		InputManager& operator=(InputManager&& other) noexcept = delete;
+		
+		
 		void SetQuitGamePtr(bool* pQuitGame) { m_pQuitGame = pQuitGame; };
 		void ProcessInput();
 		void SetMaxControllerAmount(int amount)
@@ -76,6 +81,9 @@ namespace dae
 			m_InputCommandsMap.insert(std::make_pair(inputAction, std::move(command)));
 		}
 	private:
+		friend class Singleton<InputManager>;
+		InputManager() = default;
+		
 		void ProcessControllerInput();
 		void ProcessKeyboardInput();
 		void ProcessKeyboardKey(SDL_Keycode sdlKeycode, TriggerState triggerState);

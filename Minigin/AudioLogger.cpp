@@ -3,6 +3,7 @@
 
 AudioLogger::AudioLogger(AudioInterface* audioToLog)
 {
+	
 	m_CurrentAudioSystem = audioToLog;
 }
 

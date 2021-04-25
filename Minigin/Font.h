@@ -9,7 +9,8 @@ namespace dae
 	class Font
 	{
 	public:
-		_TTF_Font* GetFont() const;
+		[[nodiscard]] _TTF_Font* GetFont() const;
+		Font() = delete;
 		explicit Font(const std::string& fullPath, unsigned int size);
 		~Font();
 

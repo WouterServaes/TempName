@@ -1,6 +1,12 @@
 #include "MiniginPCH.h"
 #include "Transform.h"
 
+dae::Transform& dae::Transform::operator=(const Transform& other)
+{
+	m_Position = other.GetPosition();
+	return *this;
+}
+
 void dae::Transform::SetPosition(const float x, const float y, const float z)
 {
 	m_Position.x = x;

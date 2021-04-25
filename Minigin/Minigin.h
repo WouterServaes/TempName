@@ -5,6 +5,13 @@ namespace dae
 	class Minigin
 	{
 	public:
+		Minigin() = default;
+		~Minigin() = default;
+		Minigin(const Minigin& other) = delete;
+		Minigin(Minigin&& other) noexcept = delete;
+		Minigin& operator=(const Minigin& other) = delete;
+		Minigin& operator=(Minigin&& other) noexcept = delete;
+		
 		void Initialize();
 		void LoadGame() const;
 		void Cleanup();

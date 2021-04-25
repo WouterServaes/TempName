@@ -5,14 +5,18 @@ namespace dae
 {
 	class Text_Comp;
 	class Score_Comp;
-	class PlayerObserver :
+	class PlayerObserver final:
 		public Observer
 	{
 	public:
 		PlayerObserver() = default;
 		~PlayerObserver() = default;
+		PlayerObserver(const PlayerObserver& other) = delete;
+		PlayerObserver(PlayerObserver&& other) noexcept = delete;
+		PlayerObserver& operator=(const PlayerObserver& other) = delete;
+		PlayerObserver& operator=(PlayerObserver&& other) noexcept = delete;
+		
 		void OnNotify(GameObject* gameObject, Event event) override;
-
 	private:
 		void UpdateHealthUi(const GameObject* gameObject);
 		void ShowPlayerDied(GameObject* gameObject);

@@ -8,6 +8,11 @@ namespace dae
 	public:
 		explicit Health_Comp(float maxHealth = 10.f, float currentHealth = 5.f, int maxLives = 1, int currentLives = 1);
 		~Health_Comp()  = default;
+		Health_Comp(const Health_Comp& other) = delete;
+		Health_Comp(Health_Comp&& other) noexcept = delete;
+		Health_Comp& operator=(const Health_Comp& other) = delete;
+		Health_Comp& operator=(Health_Comp&& other) noexcept = delete;
+		
 		[[nodiscard]]const float& GetHealth() const { return m_CurrentHealth; };
 		bool RemoveHealth(float amount);
 		void AddHealth(float amount);

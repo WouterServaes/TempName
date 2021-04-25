@@ -7,6 +7,12 @@ namespace dae
 	    public Singleton<Time>
 	{
 	public:
+		~Time() = default;
+		Time(const Time& other) = delete;
+		Time(Time&& other) noexcept = delete;
+		Time& operator=(const Time& other) = delete;
+		Time& operator=(Time&& other) noexcept = delete;
+		
 		float deltaTime{}, elapsedTime{};
 		int fps{};
 		

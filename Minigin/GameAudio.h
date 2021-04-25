@@ -10,6 +10,13 @@ namespace dae
 	class GameAudio final:public AudioInterface
 	{
 	public:
+		GameAudio() = default;
+		~GameAudio() = default;
+		GameAudio(const GameAudio& other) = delete;
+		GameAudio(GameAudio&& other) noexcept = delete;
+		GameAudio& operator=(const GameAudio& other) = delete;
+		GameAudio& operator=(GameAudio&& other) noexcept = delete;
+		
 		void Start() override;
 		void End() override;
 		void PlaySound(int soundId, int volume) override;

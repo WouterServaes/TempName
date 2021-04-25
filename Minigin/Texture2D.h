@@ -16,7 +16,8 @@ namespace dae
 			UINT32 Format{};
 			int TextureAccess{};
 		};
-		
+
+		Texture2D() = delete;
 		explicit Texture2D(SDL_Texture* texture);
 		~Texture2D();
 

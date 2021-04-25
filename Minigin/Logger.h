@@ -20,7 +20,7 @@ public:
 	}
 
 	~Logger() = default;
-
+	Logger() = delete;
 	Logger(const Logger& other) = delete;
 	Logger(Logger&& other) = delete;
 	Logger& operator=(const Logger& other) = delete;
@@ -61,5 +61,5 @@ private:
 		std::cout << prefix << msg << std::endl;
 	}
 
-	Logger() = default;
+	
 };

@@ -7,8 +7,15 @@ namespace dae
 	class AudioServiceLocator final
 	{
 	public:
-		
+		AudioServiceLocator() = delete;
+		~AudioServiceLocator() = default;
+		AudioServiceLocator(const AudioServiceLocator& other) = delete;
+		AudioServiceLocator(AudioServiceLocator&& other) noexcept = delete;
+		AudioServiceLocator& operator=(const AudioServiceLocator& other) = delete;
+		AudioServiceLocator& operator=(AudioServiceLocator&& other) noexcept = delete;
+
 		static AudioInterface* GetAudio() { return m_pAudioService; }
+		
 		static void Initialize(){m_pAudioService = &m_NullAudioService;};
 		static void ProvideAudioService(AudioInterface* pBaseAudio)
 		{
