@@ -1,7 +1,6 @@
 #include "MiniginPCH.h"
 #include "Scene.h"
 #include <algorithm>
-#include "Logger.h"
 int dae::Scene::SceneCount = 0;
 
 dae::Scene::Scene(const std::string& name)

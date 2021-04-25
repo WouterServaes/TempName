@@ -8,7 +8,6 @@
 #include "Texture2D.h"
 #include "Font.h"
 
-#include "Logger.h"
 void dae::ResourceManager::Init(const std::string& dataPath)
 {
 	m_DataPath = dataPath;

@@ -9,6 +9,8 @@
 #pragma warning(pop)
 
 #include "Font.h"
+
+#define SDL_MAIN_HANDLED
 #include <SDL.h>
 
 namespace dae

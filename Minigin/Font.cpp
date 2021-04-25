@@ -1,7 +1,6 @@
 #include "MiniginPCH.h"
 #include <SDL_ttf.h>
 #include "Font.h"
-#include "Logger.h"
 TTF_Font* dae::Font::GetFont() const {
 	return m_Font;
 }

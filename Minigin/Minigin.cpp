@@ -2,7 +2,9 @@
 
 #include "Minigin.h"
 #include <chrono>
+#define SDL_MAIN_HANDLED
 #include <SDL.h>
+
 #include <thread>
 
 #include "InputManager.h"
@@ -11,18 +13,14 @@
 
 #include "Renderer.h"
 
-#include "imgui_impl_opengl2.h"
 #include "imgui_impl_sdl.h"
+#include "imgui_impl_opengl2.h"
 
 #include "Time.h"
-
-
-#include "DemoScene.h"
 
 #include "AudioServiceLocator.h"
 #include "GameAudio.h"
 #include "AudioLogger.h"
-#include "Logger.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -66,7 +64,6 @@ void dae::Minigin::Run()
 	Cleanup();
 }
 
-
 void dae::Minigin::Initialize()
 {
 	Logger::LogInfo("Initializing...");
@@ -92,20 +89,10 @@ void dae::Minigin::Initialize()
 	AudioServiceLocator::Initialize();
 }
 
-/**
- * Code constructing the scene world starts here
- */
-void dae::Minigin::LoadGame() const
-{
-	Logger::LogInfo("Loading game...");
-	auto& sceneManager{ SceneManager::GetInstance() };
-	sceneManager.AddScene(std::make_shared<DemoScene>("Demo"));	
-}
-
 void dae::Minigin::Cleanup()
 {
 	Logger::LogInfo("Cleaning up...");
-	
+
 	Renderer::GetInstance().Destroy();
 	AudioServiceLocator::RemoveService();
 	SDL_DestroyWindow(m_Window);

@@ -1,25 +1,30 @@
 #include "MiniginPCH.h"
+
 #include "DemoScene.h"
-#include "Animation_Comp.h"
 #include "Commands.h"
+#include "Transform.h"
+#include "InputManager.h"
+#include "PlayerObserver.h"
+#include "Subject.h"
+
+#include "Animation_Comp.h"
 #include "Render_Comp.h"
 #include "Text_Comp.h"
 #include "Transform_Comp.h"
-#include "Transform.h"
 #include "UI_Comp.h"
 #include "Health_Comp.h"
 #include "QBert_Comp.h"
-#include "InputManager.h"
-#include "PlayerObserver.h"
 #include "Score_Comp.h"
-#include "Subject.h"
+
+
+
 
 void dae::DemoScene::InitializeScene()
 {
 	const std::string font{ "Lingua.otf" };
 	auto* pCurrentScene = this;
 	auto gameObject = std::make_shared<GameObject>(L"Background", pCurrentScene);
-	gameObject->AddComponent(new Render_Comp("background.jp"));
+	gameObject->AddComponent(new Render_Comp("background.jpg"));
 	AddGameObject(gameObject);
 
 	gameObject = std::make_shared<GameObject>(L"AnimatedLogo", pCurrentScene);
@@ -186,7 +191,6 @@ void dae::DemoScene::InitInput()
 	inputAction = InputAction('d', TriggerState::Released, ControllerButtons::ButtonY, 0);
 	inputManager.AssignKey(inputAction, std::make_unique<Command_DefeatedCoily>(player1));
 
-	
 	inputAction = InputAction(SDLK_UP, TriggerState::Released, ControllerButtons::ButtonDown, 1);
 	inputManager.AssignKey(inputAction, std::make_unique<Command_RemoveHp>(player2));
 	

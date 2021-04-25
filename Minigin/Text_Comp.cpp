@@ -3,7 +3,6 @@
 #include <SDL_ttf.h>
 #include "Renderer.h"
 #include "ResourceManager.h"
-#include "Logger.h"
 dae::Text_Comp::Text_Comp(const std::string& text, const std::string& font,const int fontSize, const glm::vec4& color)
 	:m_pFont(ResourceManager::GetInstance().LoadFont(font, unsigned(fontSize))), m_Text(text)
 	, m_Color(new SDL_Color{ Uint8(color.r), Uint8(color.g), Uint8(color.b), Uint8(color.a) })

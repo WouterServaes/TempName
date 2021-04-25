@@ -1,5 +1,5 @@
 #pragma once
-#include <ctime>
+#include "time.h"
 class Logger
 {
 public:
@@ -74,7 +74,7 @@ private:
 #if _DEBUG
 			const auto msgBoxmsg{ (msg + static_cast<std::string>("\n\n Retry: breaks program\n Cancel: continues program (may result in more crashes)")) };
 
-			const auto msgBoxReturn{ MessageBox(0, msgBoxmsg.c_str(), "[ERROR]", MB_ICONERROR | MB_RETRYCANCEL | MB_TOPMOST) };
+			const auto msgBoxReturn{ MessageBoxA(0, msgBoxmsg.c_str(), "[ERROR]", MB_ICONERROR | MB_RETRYCANCEL | MB_TOPMOST) };
 			if (msgBoxReturn == IDRETRY)
 			{
 				__debugbreak();
@@ -83,7 +83,7 @@ private:
 
 			const auto msgBoxmsg{ (static_cast<std::string>("Critical error:\n") + msg + static_cast<std::string>("\n\n Click OK to close program")) };
 
-			const auto msgBoxReturn{ MessageBox(0, msgBoxmsg.c_str(), "[ERROR]", MB_ICONERROR | MB_OK | MB_TOPMOST) };
+			const auto msgBoxReturn{ MessageBoxA(0, msgBoxmsg.c_str(), "[ERROR]", MB_ICONERROR | MB_OK | MB_TOPMOST) };
 			if (msgBoxReturn == IDOK)
 			{
 				exit(-1);

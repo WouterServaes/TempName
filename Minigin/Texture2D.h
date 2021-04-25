@@ -4,6 +4,7 @@
 #pragma warning (disable:4201)
 #include <glm/vec2.hpp>
 #pragma warning(pop)
+#define SDL_MAIN_HANDLED
 #include <SDL.h>
 namespace dae
 {

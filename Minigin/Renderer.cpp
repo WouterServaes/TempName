@@ -2,10 +2,10 @@
 #include "Renderer.h"
 #include <SDL.h>
 
-
 #include "imgui.h"
-#include "imgui_impl_opengl2.h"
 #include "imgui_impl_sdl.h"
+#include "imgui_impl_opengl2.h"
+
 #include "SceneManager.h"
 #include "Texture2D.h"
 
@@ -23,10 +23,10 @@ int GetOpenGLDriverIndex()
 	return openglIndex;
 }
 
-void dae::Renderer::Init(SDL_Window * window)
+void dae::Renderer::Init(SDL_Window* window)
 {
 	m_Renderer = SDL_CreateRenderer(window, GetOpenGLDriverIndex(), SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	if (m_Renderer == nullptr) 
+	if (m_Renderer == nullptr)
 	{
 		throw std::runtime_error(std::string("SDL_CreateRenderer Error: ") + SDL_GetError());
 	}
@@ -43,11 +43,9 @@ void dae::Renderer::Render() const
 
 	SceneManager::GetInstance().Render();
 
-
 	ImGui::Render();
 	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
 
-	
 	SDL_RenderPresent(m_Renderer);
 }
 
@@ -56,7 +54,7 @@ void dae::Renderer::Destroy()
 	ImGui_ImplOpenGL2_Shutdown();
 	ImGui_ImplSDL2_Shutdown();
 	ImGui::DestroyContext();
-	
+
 	if (m_Renderer != nullptr)
 	{
 		SDL_DestroyRenderer(m_Renderer);
@@ -67,7 +65,7 @@ void dae::Renderer::Destroy()
 void dae::Renderer::RenderTexture(const Texture2D& texture, const float x, const float y) const
 {
 	const auto textureData{ texture.GetTextureData() };
-	SDL_Rect dst{ static_cast<int>(x), static_cast<int>(y), static_cast<int>(textureData.Dimensions.x), static_cast<int>(textureData.Dimensions.y)};
+	SDL_Rect dst{ static_cast<int>(x), static_cast<int>(y), static_cast<int>(textureData.Dimensions.x), static_cast<int>(textureData.Dimensions.y) };
 	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst);
 }
 
@@ -85,8 +83,8 @@ void dae::Renderer::RenderTexture(const Texture2D& texture, float x, float y, fl
 	float srcHeight) const
 {
 	const auto textureData{ texture.GetTextureData() };
-	SDL_Rect dst{ static_cast<int>(x),static_cast<int>(y), static_cast<int>(textureData.Dimensions.x), static_cast<int>(textureData.Dimensions.y) };
-	SDL_Rect src{static_cast<int>(srcX), static_cast<int>(srcY), static_cast<int>(srcWidth), static_cast<int>(srcHeight)};
+	SDL_Rect dst{ static_cast<int>(x), static_cast<int>(y), static_cast<int>(textureData.Dimensions.x), static_cast<int>(textureData.Dimensions.y) };
+	SDL_Rect src{ static_cast<int>(srcX), static_cast<int>(srcY), static_cast<int>(srcWidth), static_cast<int>(srcHeight) };
 	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), &src, &dst);
 }
 
@@ -104,7 +102,6 @@ void dae::Renderer::RenderTexture(const Texture2D& texture, float dstX, float ds
 	src.y = static_cast<int>(srcY);
 	src.w = static_cast<int>(srcWidth);
 	src.h = static_cast<int>(srcHeight);
-	
+
 	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), &src, &dst);
-	
 }

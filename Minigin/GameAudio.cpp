@@ -7,7 +7,6 @@
 
 #pragma warning(push)
 #pragma warning (disable:4244) //'=': conversion from 'int' to uint8_t', possible loss of data
-#include "Logger.h"
 #include "../3rdParty/Simple-SDL2-Audio/audio.c"
 #pragma warning(pop)
 

@@ -1,8 +1,8 @@
 #pragma once
 #include <map>
 #include <XInput.h>
-#include "Singleton.h"
 #include <SDL.h>
+#include "Singleton.h"
 #include "Commands.h"
 #include "Logger.h"
 

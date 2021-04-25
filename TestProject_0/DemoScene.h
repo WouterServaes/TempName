@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+#include <string>
 namespace dae
 {
 	class DemoScene final :public Scene
