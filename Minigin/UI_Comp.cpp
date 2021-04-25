@@ -6,11 +6,9 @@
 #include "Transform.h"
 #include "Transform_Comp.h"
 
-
 void dae::UI_Comp::Start()
 {
 	m_pTransformComponent = m_pGameObject->GetComponent<Transform_Comp>();
-
 }
 
 void dae::StartUI::Update()

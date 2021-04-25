@@ -7,8 +7,7 @@ namespace dae
 	class UI_Comp : public BaseComponent
 	{
 	public:
-		
-		
+
 		UI_Comp() = default;
 		~UI_Comp() = default;
 
@@ -16,7 +15,7 @@ namespace dae
 		UI_Comp(UI_Comp&& other) noexcept = delete;
 		UI_Comp& operator=(const UI_Comp& other) = delete;
 		UI_Comp& operator=(UI_Comp&& other) noexcept = delete;
-		
+
 		void Update() override = 0;
 		void Start() override;
 	protected:

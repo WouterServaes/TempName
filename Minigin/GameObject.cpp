@@ -20,8 +20,7 @@ dae::GameObject::~GameObject()
 		delete comp;
 	m_pComponents.clear();
 
-	if (m_pSubject)
-		delete m_pSubject;
+	delete m_pSubject;
 }
 
 void dae::GameObject::Update()

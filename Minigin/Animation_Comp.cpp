@@ -5,7 +5,7 @@
 #include "Render_Comp.h"
 #include "Time.h"
 
-dae::Animation_Comp::Animation_Comp(const std::string& folder, const std::string& baseName, int amountOfImages, int animationFramesPerSecond)
+dae::Animation_Comp::Animation_Comp(const std::string& folder, const std::string& baseName,const int amountOfImages, const int animationFramesPerSecond)
 	:m_AmountOfFrames(amountOfImages)
 	, m_FramesPerSecond(animationFramesPerSecond)
 {
@@ -15,12 +15,12 @@ dae::Animation_Comp::Animation_Comp(const std::string& folder, const std::string
 		m_Textures.push_back(ResourceManager::GetInstance().LoadTexture(GetImageName(idx, folder, baseName)));
 }
 
-dae::Animation_Comp::Animation_Comp(const std::string& animationSheet, int imageAmount, int framesPerSec,
-	glm::vec2 frameDimensions)
+dae::Animation_Comp::Animation_Comp(const std::string& animationSheet, const int imageAmount, const int framesPerSecond,
+	const glm::vec2 frameDimensions)
 {
 	m_FrameDimensions = frameDimensions;
 	m_AmountOfFrames = imageAmount;
-	m_FramesPerSecond = framesPerSec;
+	m_FramesPerSecond = framesPerSecond;
 
 	m_Textures.push_back(ResourceManager::GetInstance().LoadTexture(animationSheet));
 }

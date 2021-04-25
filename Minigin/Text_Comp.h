@@ -30,8 +30,8 @@ namespace dae
 
 	private:
 		void InitializeText() const;
-		std::shared_ptr<Font> m_pFont;
-		std::string m_Text;
+		std::shared_ptr<Font> m_pFont{};
+		std::string m_Text{};
 
 		Render_Comp* m_pRenderComponent{ nullptr };
 		SDL_Color* m_Color{ nullptr };

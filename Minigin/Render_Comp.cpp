@@ -11,7 +11,7 @@ dae::Render_Comp::Render_Comp(const std::string& filename)
 	UpdateTexture(ResourceManager::GetInstance().LoadTexture(filename));
 }
 
-dae::Render_Comp::Render_Comp(std::shared_ptr<Texture2D> texture)
+dae::Render_Comp::Render_Comp(const std::shared_ptr<Texture2D> texture)
 {
 	UpdateTexture(texture);
 }
@@ -30,10 +30,12 @@ void dae::Render_Comp::Render()const
 	case Method::CutOutResize:
 		Renderer::GetInstance().RenderTexture(*m_Texture, pos.x, pos.y, m_DstWidth, m_DstHeight, m_SrcX, m_SrcY, m_SrcWidth, m_SrcHeight);
 		break;
+	default:
+		break;
 	}
 }
 
-void dae::Render_Comp::UpdateTexture(std::shared_ptr<Texture2D> texture, float dstWidth, float dstHeight)
+void dae::Render_Comp::UpdateTexture(const std::shared_ptr<Texture2D> texture, const  float dstWidth, const float dstHeight)
 {
 	if (dstWidth < 0)
 		m_DstWidth = texture->GetTextureData().Dimensions.x;
@@ -49,7 +51,7 @@ void dae::Render_Comp::UpdateTexture(std::shared_ptr<Texture2D> texture, float d
 	m_Method = Method::Resize;
 }
 
-void dae::Render_Comp::UpdateTexture(std::shared_ptr<Texture2D> texture, float srcX, float srcY, float srcWidth,
+void dae::Render_Comp::UpdateTexture(const std::shared_ptr<Texture2D> texture, const  float srcX, const float srcY, const float srcWidth,
 	float srcHeight)
 {
 	m_SrcX = srcX;
@@ -62,8 +64,8 @@ void dae::Render_Comp::UpdateTexture(std::shared_ptr<Texture2D> texture, float s
 	m_Method = Method::CutOut;
 }
 
-void dae::Render_Comp::UpdateTexture(std::shared_ptr<Texture2D> texture, float dstWidth, float dstHeight,
-	float srcX, float srcY, float srcWidth, float srcHeight)
+void dae::Render_Comp::UpdateTexture(const std::shared_ptr<Texture2D> texture, const  float dstWidth, const  float dstHeight,
+	const float srcX, const  float srcY, const  float srcWidth, const float srcHeight)
 {
 	m_DstWidth = dstWidth;
 	m_DstHeight = dstHeight;

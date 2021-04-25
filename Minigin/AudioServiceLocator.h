@@ -19,12 +19,10 @@ namespace dae
 		static void Initialize(){m_pAudioService = &m_NullAudioService;};
 		static void ProvideAudioService(AudioInterface* pBaseAudio)
 		{
-
 			if (pBaseAudio == nullptr)
 				m_pAudioService = &m_NullAudioService;
 			else
-				m_pAudioService = pBaseAudio;
-			
+				m_pAudioService = pBaseAudio;	
 		}
 		static void RemoveService()
 		{

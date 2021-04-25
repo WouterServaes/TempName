@@ -26,7 +26,14 @@ public:
 	Logger& operator=(const Logger& other) = delete;
 	Logger& operator=(Logger&& other) = delete;
 private:
-	enum class Level { Info, Warning, Error };
+
+	enum class Level
+	{
+		Info = 0x1,
+		Warning = 0x2,
+		Error = 0x3
+	};
+
 	static void LogMsg(const Level level, const char* msg, const bool timeStamp = true)
 	{
 		const char* prefix{};
@@ -58,8 +65,30 @@ private:
 			timeStr += std::to_string(time.wSecond);
 			std::cout << timeStr;
 		}
-		std::cout << prefix << msg << std::endl;
-	}
 
-	
+		std::cout << prefix << msg << std::endl;
+
+		if (level == Level::Error)
+		{
+			//https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-messagebox
+#if _DEBUG
+			const auto msgBoxmsg{ (msg + static_cast<std::string>("\n\n Retry: breaks program\n Cancel: continues program (may result in more crashes)")) };
+
+			const auto msgBoxReturn{ MessageBox(0, msgBoxmsg.c_str(), "[ERROR]", MB_ICONERROR | MB_RETRYCANCEL | MB_TOPMOST) };
+			if (msgBoxReturn == IDRETRY)
+			{
+				__debugbreak();
+			}
+#else
+
+			const auto msgBoxmsg{ (static_cast<std::string>("Critical error:\n") + msg + static_cast<std::string>("\n\n Click OK to close program")) };
+
+			const auto msgBoxReturn{ MessageBox(0, msgBoxmsg.c_str(), "[ERROR]", MB_ICONERROR | MB_OK | MB_TOPMOST) };
+			if (msgBoxReturn == IDOK)
+			{
+				exit(-1);
+			}
+#endif
+		}
+	}
 };

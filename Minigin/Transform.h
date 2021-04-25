@@ -15,7 +15,7 @@ namespace dae
 		Transform& operator=(Transform&& other) noexcept = delete;
 
 		Transform() = default;
-		Transform(const glm::vec3& position) :m_Position(position) {};
+		explicit Transform(const glm::vec3& position) :m_Position(position) {};
 		~Transform() = default;
 		
 		

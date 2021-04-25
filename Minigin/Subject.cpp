@@ -59,7 +59,7 @@ void dae::Subject::RemoveObserver(Observer* pObserver)
 	}
 }
 
-void dae::Subject::Notify(GameObject* gameObject, Event event)
+void dae::Subject::Notify(GameObject* gameObject, Event event) const
 {
 	auto* current = m_pHeadObserver;
 	while (current != nullptr)

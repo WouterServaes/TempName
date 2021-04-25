@@ -16,7 +16,7 @@ namespace dae
 		float deltaTime{}, elapsedTime{};
 		int fps{};
 		
-		void Update(float deltaT)
+		void Update(const float deltaT)
 		{
 			deltaTime = deltaT;
 			elapsedTime += deltaTime;

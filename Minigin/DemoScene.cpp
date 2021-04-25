@@ -19,7 +19,7 @@ void dae::DemoScene::InitializeScene()
 	const std::string font{ "Lingua.otf" };
 	auto* pCurrentScene = this;
 	auto gameObject = std::make_shared<GameObject>(L"Background", pCurrentScene);
-	gameObject->AddComponent(new Render_Comp("background.jpg"));
+	gameObject->AddComponent(new Render_Comp("background.jp"));
 	AddGameObject(gameObject);
 
 	gameObject = std::make_shared<GameObject>(L"AnimatedLogo", pCurrentScene);

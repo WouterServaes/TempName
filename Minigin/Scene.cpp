@@ -1,6 +1,7 @@
 #include "MiniginPCH.h"
 #include "Scene.h"
 #include <algorithm>
+#include "Logger.h"
 int dae::Scene::SceneCount = 0;
 
 dae::Scene::Scene(const std::string& name)
@@ -50,14 +51,16 @@ std::shared_ptr<dae::GameObject>& dae::Scene::GetGameObject(const wchar_t* pGame
 		if (o->GetName() == pGameObjectName)
 			return o;
 
-	throw(std::exception("GetGameObject(const wchar_t* pGameObjectName) no object with this name exist"));
+	Logger::LogError("GetGameObject(const wchar_t* pGameObjectName) no object with this name exist");
+	return m_Objects[0];
 }
 
-std::shared_ptr<dae::GameObject>& dae::Scene::GetGameObject(int idx)
+std::shared_ptr<dae::GameObject>& dae::Scene::GetGameObject(const int idx)
 {
 	if (static_cast<int>(m_Objects.size()) < idx &&
 		m_Objects.at(idx) != nullptr)
 		return m_Objects.at(idx);
 
-	throw(std::exception("GetGameObject(int idx) no object at this idx"));
+	Logger::LogError("GetGameObject(int idx) no object at this idx");
+	return m_Objects[0];
 }

@@ -1,7 +1,6 @@
 #include "MiniginPCH.h"
 #include "QBert_Comp.h"
 
-
 #include "Events.h"
 #include "GameObject.h"
 #include "Health_Comp.h"
@@ -11,17 +10,18 @@
 
 void dae::QBert_Comp::Start()
 {
-	
 	AudioServiceLocator::GetAudio()->AddAudioFile("../Data/hurt_sound.wav");
 	m_pHealthComp = m_pGameObject->GetComponent<Health_Comp>();
 }
 
 void dae::QBert_Comp::Update()
-{	
-	if(m_pHealthComp->GetHealth()<=0.f)
+{
+	if (m_pHealthComp->GetHealth() <= 0.f)
 	{
 		m_pHealthComp->RemoveLives(1);
-		AudioServiceLocator::GetAudio()->PlaySound(0, 50);
+		const auto volume = 50,
+			soundId = 0;
+		AudioServiceLocator::GetAudio()->PlaySound(soundId, volume);
 		m_pGameObject->GetSubject()->Notify(m_pGameObject, Event::LostLive);
 		m_pHealthComp->ResetHealth();
 	}

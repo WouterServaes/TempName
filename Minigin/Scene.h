@@ -11,7 +11,7 @@ namespace dae
 		std::shared_ptr<GameObject>& GetGameObject(const wchar_t* pGameObjectName);
 		void Update();
 		void Render() const;
-		const std::string& Name() const { return m_Name; };
+		[[nodiscard]] const std::string& Name() const { return m_Name; };
 		explicit Scene(const std::string& name);
 		virtual ~Scene() = default;
 		

@@ -29,10 +29,10 @@ void dae::GameAudio::End()
 	endAudio();
 }
 
-void dae::GameAudio::PlaySound(int soundId, int volume)
+void dae::GameAudio::PlaySound(const int soundId, const  int volume)
 {
 	std::lock_guard<std::mutex> lock(m_Mutex);
-	if (m_SoundQueue.size() >= MaxPendingSounds) throw(std::exception("GameAudio::PlaySound() => exceeded event queue events"));
+	if (m_SoundQueue.size() >= MaxPendingSounds) Logger::LogError("GameAudio::PlaySound() => exceeded event queue events");
 
 	const PlayMessage pm{ soundId, volume };
 	m_SoundQueue.push_back(pm);
@@ -41,7 +41,7 @@ void dae::GameAudio::PlaySound(int soundId, int volume)
 
 void dae::GameAudio::StopSound(int)
 {
-	throw(std::exception("GameAudio::StopSound() => StopSound has not been implemented"));
+	Logger::LogError("GameAudio::StopSound() => StopSound has not been implemented");
 }
 
 void dae::GameAudio::Update()
@@ -59,7 +59,7 @@ void dae::GameAudio::HandleSoundQueue()
 				return m_SoundQueue.size() > 0 || m_EndAudio.load();
 			});
 
-		for (auto pm : m_SoundQueue)
+		for (const auto& pm : m_SoundQueue)
 			playSound(m_AudioFiles[m_AudioIds[pm.id]].c_str(), pm.volume);
 
 		m_SoundQueue.clear();

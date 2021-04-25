@@ -25,21 +25,22 @@ void AudioLogger::Update()
 	m_CurrentAudioSystem->Update();
 }
 
-void AudioLogger::PlaySound(int soundId, int volume)
+void AudioLogger::PlaySound(const int soundId, const  int volume)
 {
-	Logger::LogInfo(std::string("Played sound - ID: " + std::to_string(soundId) + " volume: " + std::to_string(volume)).c_str());
+	
+	Logger::LogInfo(static_cast<std::string>("Played sound - ID: " + std::to_string(soundId) + " volume: " + std::to_string(volume)).c_str());
 	m_CurrentAudioSystem->PlaySound(soundId, volume);
 }
 
-void AudioLogger::StopSound(int soundId)
+void AudioLogger::StopSound(const int soundId)
 {
-	Logger::LogInfo(std::string("Stopped sound - ID: " + std::to_string(soundId)).c_str());
+	Logger::LogInfo(static_cast<std::string>("Stopped sound - ID: " + std::to_string(soundId)).c_str());
 	m_CurrentAudioSystem->StopSound(soundId);
 }
 
 void AudioLogger::AddAudioFile(const char* fileName)
 {
-	auto msg{ std::string("Added audio file ") };
+	auto msg{ static_cast<std::string>("Added audio file ") };
 	msg += fileName;
 	Logger::LogInfo(msg.c_str());
 	m_CurrentAudioSystem->AddAudioFile(fileName);

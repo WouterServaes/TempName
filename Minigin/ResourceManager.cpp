@@ -8,6 +8,7 @@
 #include "Texture2D.h"
 #include "Font.h"
 
+#include "Logger.h"
 void dae::ResourceManager::Init(const std::string& dataPath)
 {
 	m_DataPath = dataPath;
@@ -16,17 +17,17 @@ void dae::ResourceManager::Init(const std::string& dataPath)
 
 	if ((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) != IMG_INIT_PNG) 
 	{
-		throw std::runtime_error(std::string("Failed to load support for png's: ") + SDL_GetError());
+		Logger::LogError((static_cast<std::string>("Failed to load support for png's: ") + SDL_GetError()).c_str());
 	}
 
 	if ((IMG_Init(IMG_INIT_JPG) & IMG_INIT_JPG) != IMG_INIT_JPG) 
 	{
-		throw std::runtime_error(std::string("Failed to load support for jpg's: ") + SDL_GetError());
+		Logger::LogError((static_cast<std::string>("Failed to load support for jpg's: ") + SDL_GetError()).c_str());
 	}
 
 	if (TTF_Init() != 0) 
 	{
-		throw std::runtime_error(std::string("Failed to load support for fonts: ") + SDL_GetError());
+		Logger::LogError((static_cast<std::string>("Failed to load support for fonts: ") + SDL_GetError()).c_str());
 	}
 }
 
@@ -37,7 +38,7 @@ std::shared_ptr<dae::Texture2D> dae::ResourceManager::LoadTexture(const std::str
 	auto texture = IMG_LoadTexture(Renderer::GetInstance().GetSDLRenderer(), fullPath.c_str());
 	if (texture == nullptr) 
 	{
-		throw std::runtime_error(std::string("Failed to load texture: ") + SDL_GetError());
+		Logger::LogError((static_cast<std::string>("Failed to load texture: ") + SDL_GetError()).c_str());
 	}
 	return std::make_shared<Texture2D>(texture);
 }
