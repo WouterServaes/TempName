@@ -7,9 +7,6 @@
 #include <SDL.h>
 namespace dae
 {
-	/**
-	 * Simple RAII wrapper for an SDL_Texture
-	 */
 	class Texture2D
 	{
 	public:
@@ -19,6 +16,7 @@ namespace dae
 			UINT32 Format{};
 			int TextureAccess{};
 		};
+		
 		explicit Texture2D(SDL_Texture* texture);
 		~Texture2D();
 

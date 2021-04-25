@@ -1,3 +1,4 @@
+
 # Minigin things to do/add
 ## General:
 
@@ -12,12 +13,6 @@
 
 ## PlayerObserver:
 - Fix ugly UpdateHealthUI/GetScoreTextComponent if()
-
-## AnimationComponent:
-- use updated Texture2D (no more image sequence, but one big image map (the good way))
-
-## RenderComponent:
-- change stuff to work with cut textures n stuff look at Renderer.cpp
 
 ## ResourceManager:
 - multi thread resource loading

@@ -25,10 +25,11 @@ namespace dae
 		
 		std::vector<std::shared_ptr<Texture2D>> m_Textures{};
 
-		std::shared_ptr<Texture2D> m_Texture{};
 		float m_ElapsedTime{ 0.f }, m_AnimationSpeed;
-		int m_CurrentFrame{ 0 }, m_AmountOfFrames, m_FramesPerSecond;
+		int m_CurrentFrameColumn{ 0 },m_CurrentFrameRow{ 0 }, m_AmountOfFrames, m_FramesPerSecond;
 
+		glm::vec2 m_FrameDimensions{};
+		
 		Render_Comp* m_pRenderComponent{ nullptr };
 
 		bool m_MultipleImages{ false };

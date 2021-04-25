@@ -12,13 +12,17 @@ dae::Animation_Comp::Animation_Comp(const std::string& folder, const std::string
 	m_MultipleImages = true;
 	//save all texture frames as a Texture2D
 	for (int idx{}; idx < amountOfImages; ++idx)
-		m_Textures.push_back(ResourceManager::GetInstance().LoadTexture(GetImageName(idx, folder, baseName))); 
+		m_Textures.push_back(ResourceManager::GetInstance().LoadTexture(GetImageName(idx, folder, baseName)));
 }
 
-dae::Animation_Comp::Animation_Comp(const std::string& animationSheet, int , int ,
-	glm::vec2 )
+dae::Animation_Comp::Animation_Comp(const std::string& animationSheet, int imageAmount, int framesPerSec,
+	glm::vec2 frameDimensions)
 {
-	m_Textures[0] = ResourceManager::GetInstance().LoadTexture(animationSheet);
+	m_FrameDimensions = frameDimensions;
+	m_AmountOfFrames = imageAmount;
+	m_FramesPerSecond = framesPerSec;
+
+	m_Textures.push_back(ResourceManager::GetInstance().LoadTexture(animationSheet));
 }
 
 void dae::Animation_Comp::Start()
@@ -26,37 +30,53 @@ void dae::Animation_Comp::Start()
 	m_pRenderComponent = m_pGameObject->GetComponent<Render_Comp>();
 
 	m_pRenderComponent->UpdateTexture(m_Textures[0]);
-
 }
 
 void dae::Animation_Comp::Update()
 {
 	m_ElapsedTime += Time::GetInstance().deltaTime;
 
-	if (m_ElapsedTime >= 1.f/float(m_FramesPerSecond))
+	if (m_ElapsedTime >= 1.f / float(m_FramesPerSecond))
 	{
-		if (m_CurrentFrame == m_AmountOfFrames - 1)
-			m_CurrentFrame = 0;
-		else
-			m_CurrentFrame += 1;
-
 		m_ElapsedTime = 0.f;
+
 		if (m_MultipleImages)
 			MultipleTexturesUpdate();
 		else
 			SingleTextureUpdate();
-		
 	}
 }
 
 void dae::Animation_Comp::MultipleTexturesUpdate()
 {
-	m_pRenderComponent->UpdateTexture(m_Textures[m_CurrentFrame]);
+	if (m_CurrentFrameColumn == m_AmountOfFrames - 1)
+		m_CurrentFrameColumn = 0;
+	else
+		m_CurrentFrameColumn += 1;
+
+	m_pRenderComponent->UpdateTexture(m_Textures[m_CurrentFrameColumn]);
 }
 
 void dae::Animation_Comp::SingleTextureUpdate()
 {
 	
+	const auto texDim{ m_Textures[0]->GetTextureData().Dimensions };
+	if (m_CurrentFrameColumn+1 >= texDim.x / m_FrameDimensions.x)
+	{
+		m_CurrentFrameColumn = 0;
+
+		const auto rows{ texDim.y / m_FrameDimensions.y };
+		if (rows == 1 || m_CurrentFrameRow+1 >= texDim.y / m_FrameDimensions.y)
+			m_CurrentFrameRow = 0;
+		else
+			m_CurrentFrameRow++;
+	}
+	else
+		m_CurrentFrameColumn++;
+
+	const float srcX{ m_FrameDimensions.x * m_CurrentFrameColumn }
+	, srcY{ m_FrameDimensions.y * m_CurrentFrameRow };
+	m_pRenderComponent->UpdateTexture(m_Textures[0], m_FrameDimensions.x, m_FrameDimensions.y, srcX, srcY, m_FrameDimensions.x, m_FrameDimensions.y);
 }
 
 std::string dae::Animation_Comp::GetImageName(int imgNr, const std::string& folderName, const std::string& imageBaseName) const
@@ -71,10 +91,8 @@ std::string dae::Animation_Comp::GetImageName(int imgNr, const std::string& fold
 			imageFileName += std::to_string(imgNr) + ".";
 	}
 	else
-		imageFileName += "0" + std::to_string(imgNr) + ".";	
+		imageFileName += "0" + std::to_string(imgNr) + ".";
 	imageFileName += "png";
 
 	return imageFileName;
 }
-
-
