@@ -1,13 +1,13 @@
 #include "MiniginPCH.h"
 
 #include "DemoScene.h"
-#include "Commands.h"
 #include "Transform.h"
 #include "InputManager.h"
 #include "PlayerObserver.h"
 #include "Subject.h"
 
 #include "Animation_Comp.h"
+#include "GameCommands.h"
 #include "Render_Comp.h"
 #include "Text_Comp.h"
 #include "Transform_Comp.h"
@@ -16,10 +16,7 @@
 #include "QBert_Comp.h"
 #include "Score_Comp.h"
 
-
-
-
-void dae::DemoScene::InitializeScene()
+void DemoScene::InitializeScene()
 {
 	const std::string font{ "Lingua.otf" };
 	auto* pCurrentScene = this;
@@ -33,10 +30,9 @@ void dae::DemoScene::InitializeScene()
 	gameObject->GetTransformComponent()->GetTransform()->SetPosition(216.f, 180.f);
 	AddGameObject(gameObject);
 
-
 	gameObject = std::make_shared<GameObject>(L"TestAnimation", pCurrentScene);
 	gameObject->AddComponent(new Render_Comp());
-	gameObject->AddComponent(new Animation_Comp("TestAnimSheet.png", 4, 2, glm::vec2(100,100)));
+	gameObject->AddComponent(new Animation_Comp("TestAnimSheet.png", 4, 2, glm::vec2(100, 100)));
 	gameObject->GetTransformComponent()->GetTransform()->SetPosition(200.f, 150.f);
 	AddGameObject(gameObject);
 
@@ -44,7 +40,7 @@ void dae::DemoScene::InitializeScene()
 	gameObject->AddComponent(new Render_Comp("TestAnimSheet.png"));
 	gameObject->GetTransformComponent()->GetTransform()->SetPosition(300.f, 150.f);
 	AddGameObject(gameObject);
-	
+
 	gameObject = std::make_shared<GameObject>(L"ProgrammingText", pCurrentScene);
 	gameObject->AddComponent(new Render_Comp());
 	gameObject->AddComponent(new Text_Comp("Programming 4 Assignment", font, 36));
@@ -67,7 +63,7 @@ void dae::DemoScene::InitializeScene()
 	InitInput();
 }
 
-void dae::DemoScene::AddPlayers()
+void DemoScene::AddPlayers()
 {
 	auto* pCurrentScene = this;
 
@@ -86,11 +82,9 @@ void dae::DemoScene::AddPlayers()
 	player2->AddComponent(new QBert_Comp());
 	player2->GetSubject()->AddObserver(new PlayerObserver());
 	AddGameObject(player2);
-
-	
 }
 
-void dae::DemoScene::AddUi(const std::string& font)
+void DemoScene::AddUi(const std::string& font)
 {
 	auto* pCurrentScene = this;
 	//health
@@ -149,7 +143,7 @@ void dae::DemoScene::AddUi(const std::string& font)
 	gameObject->GetTransformComponent()->GetTransform()->SetPosition(600.f, 100.f);
 	AddGameObject(gameObject);
 
-	//dead 
+	//dead
 	gameObject = std::make_shared<GameObject>(L"DeadText", pCurrentScene);
 	gameObject->AddComponent(new Render_Comp());
 	gameObject->AddComponent(new Text_Comp("Player died", font, 30));
@@ -160,18 +154,18 @@ void dae::DemoScene::AddUi(const std::string& font)
 	//controls
 	gameObject = std::make_shared<GameObject>(L"Player1_ControlsText", pCurrentScene);
 	gameObject->AddComponent(new Render_Comp());
-	gameObject->AddComponent(new Text_Comp("Player 1:  A: remove hp - B: Catch Slick/Sam - X: Color change - Y: defeat Coily ", font, 15));
+	gameObject->AddComponent(new Text_Comp("Player 1: A: remove hp - B: Catch Slick/Sam - X: Color change - Y: defeat Coily ", font, 15));
 	gameObject->GetTransformComponent()->GetTransform()->SetPosition(10.f, 300.f);
 	AddGameObject(gameObject);
 
 	gameObject = std::make_shared<GameObject>(L"Player2_ControlsText", pCurrentScene);
 	gameObject->AddComponent(new Render_Comp());
-	gameObject->AddComponent(new Text_Comp("Player 2:  Down: remove hp - Right: Catch Slick/Sam - Left: Color change - Up: defeat Coily ", font, 15));
+	gameObject->AddComponent(new Text_Comp("Player 2: Down: remove hp - Right: Catch Slick/Sam - Left: Color change - Up: defeat Coily ", font, 15));
 	gameObject->GetTransformComponent()->GetTransform()->SetPosition(10.f, 325.f);
 	AddGameObject(gameObject);
 }
 
-void dae::DemoScene::InitInput()
+void DemoScene::InitInput()
 {
 	GameObject* player1{ GetGameObject(L"Player1").get() };
 	GameObject* player2{ GetGameObject(L"Player2").get() };
@@ -179,28 +173,27 @@ void dae::DemoScene::InitInput()
 	auto& inputManager{ InputManager::GetInstance() };
 	inputManager.SetMaxControllerAmount(2);
 
-	InputAction inputAction{ InputAction('w', TriggerState::Released, ControllerButtons::ButtonA, 0)};
+	InputAction inputAction{ InputAction('w', TriggerState::Released, ControllerButtons::ButtonA, 0) };
 	inputManager.AssignKey(inputAction, std::make_unique<Command_RemoveHp>(player1));
-	
+
 	inputAction = InputAction('a', TriggerState::Released, ControllerButtons::ButtonB, 0);
 	inputManager.AssignKey(inputAction, std::make_unique<Command_CatchedSlickOrSam>(player1));
-	
+
 	inputAction = InputAction('s', TriggerState::Released, ControllerButtons::ButtonX, 0);
 	inputManager.AssignKey(inputAction, std::make_unique<Command_ColorChanged>(player1));
-	
+
 	inputAction = InputAction('d', TriggerState::Released, ControllerButtons::ButtonY, 0);
 	inputManager.AssignKey(inputAction, std::make_unique<Command_DefeatedCoily>(player1));
 
 	inputAction = InputAction(SDLK_UP, TriggerState::Released, ControllerButtons::ButtonDown, 1);
 	inputManager.AssignKey(inputAction, std::make_unique<Command_RemoveHp>(player2));
-	
+
 	inputAction = InputAction(SDLK_DOWN, TriggerState::Released, ControllerButtons::ButtonRight, 1);
 	inputManager.AssignKey(inputAction, std::make_unique<Command_CatchedSlickOrSam>(player2));
-	
+
 	inputAction = InputAction(SDLK_LEFT, TriggerState::Released, ControllerButtons::ButtonLeft, 1);
 	inputManager.AssignKey(inputAction, std::make_unique<Command_ColorChanged>(player2));
-	
+
 	inputAction = InputAction(SDLK_RIGHT, TriggerState::Released, ControllerButtons::ButtonUp, 1);
 	inputManager.AssignKey(inputAction, std::make_unique<Command_DefeatedCoily>(player2));
-
 }

@@ -9,12 +9,12 @@ public:
 		LogMsg(Level::Info, msg, timeStamp);
 	}
 
-	static void LogWarning(const char* msg, const  bool timeStamp = true)
+	static void LogWarning(const char* msg, const bool timeStamp = true)
 	{
 		LogMsg(Level::Warning, msg, timeStamp);
 	}
 
-	static void LogError(const char* msg, const  bool timeStamp = true)
+	static void LogError(const char* msg, const bool timeStamp = true)
 	{
 		LogMsg(Level::Error, msg, timeStamp);
 	}
@@ -77,6 +77,8 @@ private:
 			const auto msgBoxReturn{ MessageBoxA(0, msgBoxmsg.c_str(), "[ERROR]", MB_ICONERROR | MB_RETRYCANCEL | MB_TOPMOST) };
 			if (msgBoxReturn == IDRETRY)
 			{
+				// is there a way to step through the call stack through code? breakpoint gets put here, but the user should see the actual error.
+				//
 				__debugbreak();
 			}
 #else

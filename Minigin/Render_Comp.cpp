@@ -6,17 +6,17 @@
 #include "Transform.h"
 #include "Transform_Comp.h"
 
-dae::Render_Comp::Render_Comp(const std::string& filename)
+Render_Comp::Render_Comp(const std::string& filename)
 {
 	UpdateTexture(ResourceManager::GetInstance().LoadTexture(filename));
 }
 
-dae::Render_Comp::Render_Comp(const std::shared_ptr<Texture2D> texture)
+Render_Comp::Render_Comp(const std::shared_ptr<Texture2D> texture)
 {
 	UpdateTexture(texture);
 }
 
-void dae::Render_Comp::Render()const
+void Render_Comp::Render()const
 {
 	const auto pos{ m_pGameObject->GetComponent<Transform_Comp>()->GetTransform()->GetPosition() };
 	switch (m_Method)
@@ -35,7 +35,7 @@ void dae::Render_Comp::Render()const
 	}
 }
 
-void dae::Render_Comp::UpdateTexture(const std::shared_ptr<Texture2D> texture, const  float dstWidth, const float dstHeight)
+void Render_Comp::UpdateTexture(const std::shared_ptr<Texture2D> texture, const float dstWidth, const float dstHeight)
 {
 	if (dstWidth < 0)
 		m_DstWidth = texture->GetTextureData().Dimensions.x;
@@ -51,7 +51,7 @@ void dae::Render_Comp::UpdateTexture(const std::shared_ptr<Texture2D> texture, c
 	m_Method = Method::Resize;
 }
 
-void dae::Render_Comp::UpdateTexture(const std::shared_ptr<Texture2D> texture, const  float srcX, const float srcY, const float srcWidth,
+void Render_Comp::UpdateTexture(const std::shared_ptr<Texture2D> texture, const float srcX, const float srcY, const float srcWidth,
 	float srcHeight)
 {
 	m_SrcX = srcX;
@@ -64,8 +64,8 @@ void dae::Render_Comp::UpdateTexture(const std::shared_ptr<Texture2D> texture, c
 	m_Method = Method::CutOut;
 }
 
-void dae::Render_Comp::UpdateTexture(const std::shared_ptr<Texture2D> texture, const  float dstWidth, const  float dstHeight,
-	const float srcX, const  float srcY, const  float srcWidth, const float srcHeight)
+void Render_Comp::UpdateTexture(const std::shared_ptr<Texture2D> texture, const float dstWidth, const float dstHeight,
+	const float srcX, const float srcY, const float srcWidth, const float srcHeight)
 {
 	m_DstWidth = dstWidth;
 	m_DstHeight = dstHeight;

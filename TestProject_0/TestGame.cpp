@@ -7,7 +7,7 @@
 
 void TestGame::LoadGame()
 {
-		Logger::LogInfo("Loading game...");
-	auto& sceneManager{dae::SceneManager::GetInstance() };
-	sceneManager.AddScene(std::make_shared<dae::DemoScene>("Demo"));	
+	Logger::LogInfo("Loading game...");
+	auto& sceneManager{ SceneManager::GetInstance() };
+	sceneManager.AddScene(std::make_shared<DemoScene>("Demo"));
 }

@@ -10,7 +10,7 @@
 #include "../3rdParty/Simple-SDL2-Audio/audio.c"
 #pragma warning(pop)
 
-void dae::GameAudio::Start()
+void GameAudio::Start()
 {
 	// Initialize SDL audio
 	_putenv("SDL_AUDIODRIVER=DirectSound");
@@ -20,7 +20,7 @@ void dae::GameAudio::Start()
 	m_AudioThread = std::thread([this] {HandleSoundQueue(); });
 }
 
-void dae::GameAudio::End()
+void GameAudio::End()
 {
 	m_EndAudio.store(true);
 	m_ConditionVariable.notify_all();
@@ -28,7 +28,7 @@ void dae::GameAudio::End()
 	endAudio();
 }
 
-void dae::GameAudio::PlaySound(const int soundId, const  int volume)
+void GameAudio::PlaySound(const int soundId, const int volume)
 {
 	std::lock_guard<std::mutex> lock(m_Mutex);
 	if (m_SoundQueue.size() >= MaxPendingSounds) Logger::LogError("GameAudio::PlaySound() => exceeded event queue events");
@@ -38,17 +38,17 @@ void dae::GameAudio::PlaySound(const int soundId, const  int volume)
 	m_ConditionVariable.notify_all();
 }
 
-void dae::GameAudio::StopSound(int)
+void GameAudio::StopSound(int)
 {
 	Logger::LogError("GameAudio::StopSound() => StopSound has not been implemented");
 }
 
-void dae::GameAudio::Update()
+void GameAudio::Update()
 {
 }
 
 //this function runs on a separate thread
-void dae::GameAudio::HandleSoundQueue()
+void GameAudio::HandleSoundQueue()
 {
 	while (!m_EndAudio.load())
 	{
@@ -65,7 +65,7 @@ void dae::GameAudio::HandleSoundQueue()
 	}
 }
 
-void dae::GameAudio::AddAudioFile(const char* fileName)
+void GameAudio::AddAudioFile(const char* fileName)
 {
 	const auto it{ std::find_if(m_AudioFiles.begin(), m_AudioFiles.end(), [fileName](const std::string& str)
 		{

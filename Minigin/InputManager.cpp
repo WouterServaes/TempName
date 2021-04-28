@@ -1,19 +1,18 @@
 #include "MiniginPCH.h"
 #include "InputManager.h"
 
-
-void dae::InputManager::ProcessInput()
+void InputManager::ProcessInput()
 {
 	ProcessControllerInput();
 	ProcessKeyboardInput();
 }
 
-bool dae::InputManager::IsButtonPressed(ControllerButtons button, int controllerIdx) const
+bool InputManager::IsButtonPressed(ControllerButtons button, int controllerIdx) const
 {
 	return (m_CurrentConsoleState[controllerIdx].Gamepad.wButtons & int(button));
 }
 
-void dae::InputManager::ProcessControllerInput()
+void InputManager::ProcessControllerInput()
 {
 	for (DWORD controllerIdx{}; controllerIdx < XUSER_MAX_COUNT; controllerIdx++)
 	{
@@ -26,13 +25,13 @@ void dae::InputManager::ProcessControllerInput()
 	}
 }
 
-DWORD dae::InputManager::UpdateControllerState(int controllerIdx)
+DWORD InputManager::UpdateControllerState(int controllerIdx)
 {
 	ZeroMemory(&m_CurrentConsoleState, sizeof(XINPUT_STATE));
 	return XInputGetState(controllerIdx, &m_CurrentConsoleState[controllerIdx]);
 }
 
-void dae::InputManager::ProcessControllerButtons(ControllerButtons button, int controllerIdx)
+void InputManager::ProcessControllerButtons(ControllerButtons button, int controllerIdx)
 {
 	for (auto& inputCommandsMap : m_InputCommandsMap)
 	{
@@ -46,7 +45,7 @@ void dae::InputManager::ProcessControllerButtons(ControllerButtons button, int c
 	}
 }
 
-void dae::InputManager::ProcessControllerCommand(const std::unique_ptr<Commands>& command, bool buttonPressed)
+void InputManager::ProcessControllerCommand(const std::unique_ptr<Commands>& command, bool buttonPressed)
 {
 	if (!command->IsActivated())
 	{
@@ -63,7 +62,7 @@ void dae::InputManager::ProcessControllerCommand(const std::unique_ptr<Commands>
 	}
 }
 
-void dae::InputManager::ProcessKeyboardInput()
+void InputManager::ProcessKeyboardInput()
 {
 	SDL_Event e;
 	while (SDL_PollEvent(&e))
@@ -85,7 +84,7 @@ void dae::InputManager::ProcessKeyboardInput()
 	}
 }
 
-void dae::InputManager::ProcessKeyboardKey(SDL_Keycode sdlKeycode, TriggerState triggerState)
+void InputManager::ProcessKeyboardKey(SDL_Keycode sdlKeycode, TriggerState triggerState)
 {
 	for (auto& keyboardCommand : m_InputCommandsMap)
 	{

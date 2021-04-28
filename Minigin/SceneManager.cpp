@@ -2,17 +2,17 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include <algorithm>
-void dae::SceneManager::Update() const
+void SceneManager::Update() const
 {
 	m_ActiveScene->Update();
 }
 
-void dae::SceneManager::Render() const
+void SceneManager::Render() const
 {
 	m_ActiveScene->Render();
 }
 
-void dae::SceneManager::AddScene(std::shared_ptr<Scene> pScene)
+void SceneManager::AddScene(std::shared_ptr<Scene> pScene)
 {
 	if (m_ActiveScene == nullptr)
 		m_ActiveScene = pScene;
@@ -20,7 +20,7 @@ void dae::SceneManager::AddScene(std::shared_ptr<Scene> pScene)
 	m_Scenes.push_back(pScene);
 }
 
-void dae::SceneManager::LoadScene(int sceneNr)
+void SceneManager::LoadScene(int sceneNr)
 {
 	if (sceneNr >= static_cast<int>(m_Scenes.size()))
 	{
@@ -31,7 +31,7 @@ void dae::SceneManager::LoadScene(int sceneNr)
 	m_ActiveScene = m_Scenes[sceneNr];
 }
 
-void dae::SceneManager::LoadScene(const std::string& sceneName)
+void SceneManager::LoadScene(const std::string& sceneName)
 {
 	const auto foundScene{ std::find_if(m_Scenes.begin(), m_Scenes.end(), [&sceneName](const std::shared_ptr<Scene>& s)
 		{

@@ -123,12 +123,6 @@
     <ClInclude Include="Events.h">
       <Filter>Observers</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerObserver.h">
-      <Filter>Observers</Filter>
-    </ClInclude>
-    <ClInclude Include="QBert_Comp.h">
-      <Filter>Components</Filter>
-    </ClInclude>
     <ClInclude Include="Animation_Comp.h">
       <Filter>Components</Filter>
     </ClInclude>
@@ -136,9 +130,6 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Render_Comp.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Score_Comp.h">
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Text_Comp.h">
@@ -151,9 +142,6 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="NullAudio.h">
-      <Filter>Audio</Filter>
-    </ClInclude>
-    <ClInclude Include="GameAudio.h">
       <Filter>Audio</Filter>
     </ClInclude>
     <ClInclude Include="PlayMessage.h">
@@ -236,12 +224,6 @@
     <ClCompile Include="Subject.cpp">
       <Filter>Observers</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerObserver.cpp">
-      <Filter>Observers</Filter>
-    </ClCompile>
-    <ClCompile Include="QBert_Comp.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
     <ClCompile Include="Animation_Comp.cpp">
       <Filter>Components</Filter>
     </ClCompile>
@@ -249,9 +231,6 @@
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="Render_Comp.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Score_Comp.cpp">
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="Text_Comp.cpp">
@@ -262,9 +241,6 @@
     </ClCompile>
     <ClCompile Include="UI_Comp.cpp">
       <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="GameAudio.cpp">
-      <Filter>Audio</Filter>
     </ClCompile>
     <ClCompile Include="AudioServiceLocator.cpp">
       <Filter>ServiceLocator</Filter>

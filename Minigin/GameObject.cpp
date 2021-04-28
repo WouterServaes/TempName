@@ -2,19 +2,18 @@
 #include "GameObject.h"
 #include <functional>
 
-
 #include "Render_Comp.h"
 #include "Scene.h"
 #include "Transform_Comp.h"
 #include "Subject.h"
-dae::GameObject::GameObject(const wchar_t* pObjectName, Scene* pScene, const bool isSubject)
+GameObject::GameObject(const wchar_t* pObjectName, Scene* pScene, const bool isSubject)
 	:m_pObjectName(pObjectName), m_pCurrentScene(pScene), m_pSubject((isSubject) ? new Subject() : nullptr)
 {
 	m_pComponents.push_back(new Transform_Comp(0.f, 0.f, 0.f));
 	m_pComponents.at(0)->SetGameObject(this);
 }
 
-dae::GameObject::~GameObject()
+GameObject::~GameObject()
 {
 	for (auto comp : m_pComponents)
 		delete comp;
@@ -23,14 +22,14 @@ dae::GameObject::~GameObject()
 	delete m_pSubject;
 }
 
-void dae::GameObject::Update()
+void GameObject::Update()
 {
 	if (!m_IsActive) return;
 	for (auto& comp : m_pComponents)
 		comp->Update();
 }
 
-void dae::GameObject::Render() const
+void GameObject::Render() const
 {
 	if (!m_IsActive) return;
 
@@ -38,17 +37,16 @@ void dae::GameObject::Render() const
 		comp->Render();
 }
 
-void dae::GameObject::Start()
+void GameObject::Start()
 {
 	for (auto& comp : m_pComponents)
 		comp->Start();
 }
 
-void dae::GameObject::AddComponent(BaseComponent* component)
+void GameObject::AddComponent(BaseComponent* component)
 {
 	if (!m_NeedsToBeRendered)
 	{
-
 		if (typeid(*component) == typeid(Render_Comp))
 			m_NeedsToBeRendered = true;
 	}
@@ -56,23 +54,22 @@ void dae::GameObject::AddComponent(BaseComponent* component)
 	m_pComponents.push_back(component);
 }
 
-dae::Transform_Comp* dae::GameObject::GetTransformComponent()
+Transform_Comp* GameObject::GetTransformComponent()
 {
 	{return GetComponent<Transform_Comp>(); }
 }
 
-dae::Subject* dae::GameObject::GetSubject() const
+Subject* GameObject::GetSubject() const
 {
 	return m_pSubject;
 }
 
-dae::Scene* dae::GameObject::GetCurrentScene() const
+Scene* GameObject::GetCurrentScene() const
 {
 	return m_pCurrentScene;
 }
 
-dae::GameObject* dae::GameObject::GetGameObject(const wchar_t* pGameObjectName) const
+GameObject* GameObject::GetGameObject(const wchar_t* pGameObjectName) const
 {
 	return m_pCurrentScene->GetGameObject(pGameObjectName).get();
 }
-

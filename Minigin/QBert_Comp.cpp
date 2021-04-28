@@ -8,13 +8,13 @@
 
 #include "AudioServiceLocator.h"
 
-void dae::QBert_Comp::Start()
+void QBert_Comp::Start()
 {
 	AudioServiceLocator::GetAudio()->AddAudioFile("../Data/hurt_sound.wav");
 	m_pHealthComp = m_pGameObject->GetComponent<Health_Comp>();
 }
 
-void dae::QBert_Comp::Update()
+void QBert_Comp::Update()
 {
 	if (m_pHealthComp->GetHealth() <= 0.f)
 	{

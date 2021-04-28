@@ -1,14 +1,13 @@
 #include "MiniginPCH.h"
 #include "Subject.h"
 
-
-dae::Subject::~Subject()
+Subject::~Subject()
 {
 	auto* current{ m_pHeadObserver->m_pNextObserver };
 	Observer* next{ nullptr };
 	delete m_pHeadObserver;
 
-	while(current!= nullptr)
+	while (current != nullptr)
 	{
 		next = current->m_pNextObserver;
 		delete current;
@@ -16,7 +15,7 @@ dae::Subject::~Subject()
 	}
 }
 
-void dae::Subject::AddObserver(Observer* pObserver) //adds observer at the end of the observer chain
+void Subject::AddObserver(Observer* pObserver) //adds observer at the end of the observer chain
 {
 	if (m_pHeadObserver == nullptr)
 	{
@@ -37,19 +36,19 @@ void dae::Subject::AddObserver(Observer* pObserver) //adds observer at the end o
 	}
 }
 
-void dae::Subject::RemoveObserver(Observer* pObserver)
+void Subject::RemoveObserver(Observer* pObserver)
 {
-	if(m_pHeadObserver == pObserver)
+	if (m_pHeadObserver == pObserver)
 	{
 		m_pHeadObserver = pObserver->m_pNextObserver;
 		pObserver->m_pNextObserver = nullptr;
 		return;
 	}
 
-	auto* current{m_pHeadObserver};
-	while(current!= nullptr)
+	auto* current{ m_pHeadObserver };
+	while (current != nullptr)
 	{
-		if(current->m_pNextObserver == pObserver)
+		if (current->m_pNextObserver == pObserver)
 		{
 			current->m_pNextObserver = pObserver->m_pNextObserver;
 			pObserver->m_pNextObserver = nullptr;
@@ -59,13 +58,12 @@ void dae::Subject::RemoveObserver(Observer* pObserver)
 	}
 }
 
-void dae::Subject::Notify(GameObject* gameObject, Event event) const
+void Subject::Notify(GameObject* gameObject, Event event) const
 {
 	auto* current = m_pHeadObserver;
 	while (current != nullptr)
 	{
 		current->OnNotify(gameObject, event);
 		current = current->m_pNextObserver;
-
 	}
 }

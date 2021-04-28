@@ -4,41 +4,39 @@
 #pragma warning (disable:4201)
 #include <glm/vec2.hpp>
 #pragma warning(pop)
-namespace dae
+
+class Texture2D;
+class Render_Comp;
+class Animation_Comp final : public BaseComponent
 {
-	class Texture2D;
-	class Render_Comp;
-	class Animation_Comp final : public BaseComponent
-	{
-	public:
-		Animation_Comp() = delete;
-		Animation_Comp(const std::string& folder, const std::string& baseName, int amountOfImages, int animationFramesPerSecond);
-		Animation_Comp(const std::string& animationSheet, int imageAmount, int framesPerSecond, glm::vec2 frameDimensions);
-		~Animation_Comp() = default;
+public:
+	Animation_Comp() = delete;
+	Animation_Comp(const std::string& folder, const std::string& baseName, int amountOfImages, int animationFramesPerSecond);
+	Animation_Comp(const std::string& animationSheet, int imageAmount, int framesPerSecond, glm::vec2 frameDimensions);
+	~Animation_Comp() = default;
 
-		Animation_Comp(const Animation_Comp& other) = delete;
-		Animation_Comp(Animation_Comp&& other) noexcept = delete;
-		Animation_Comp& operator=(const Animation_Comp& other) = delete;
-		Animation_Comp& operator=(Animation_Comp&& other) noexcept = delete;
+	Animation_Comp(const Animation_Comp& other) = delete;
+	Animation_Comp(Animation_Comp&& other) noexcept = delete;
+	Animation_Comp& operator=(const Animation_Comp& other) = delete;
+	Animation_Comp& operator=(Animation_Comp&& other) noexcept = delete;
 
-		void Update() override;
-		void Start() override;
+	void Update() override;
+	void Start() override;
 
-	private:
-		[[nodiscard]] std::string GetImageName(int imgNr, const std::string& folderName, const std::string& imageBaseName) const;
+private:
+	[[nodiscard]] std::string GetImageName(int imgNr, const std::string& folderName, const std::string& imageBaseName) const;
 
-		void MultipleTexturesUpdate();
-		void SingleTextureUpdate();
+	void MultipleTexturesUpdate();
+	void SingleTextureUpdate();
 
-		std::vector<std::shared_ptr<Texture2D>> m_Textures{};
+	std::vector<std::shared_ptr<Texture2D>> m_Textures{};
 
-		float m_ElapsedTime{ 0.f };
-		int m_CurrentFrameColumn{ 0 }, m_CurrentFrameRow{ 0 }, m_AmountOfFrames, m_FramesPerSecond;
+	float m_ElapsedTime{ 0.f };
+	int m_CurrentFrameColumn{ 0 }, m_CurrentFrameRow{ 0 }, m_AmountOfFrames, m_FramesPerSecond;
 
-		glm::vec2 m_FrameDimensions{};
+	glm::vec2 m_FrameDimensions{};
 
-		Render_Comp* m_pRenderComponent{ nullptr };
+	Render_Comp* m_pRenderComponent{ nullptr };
 
-		bool m_MultipleImages{ false };
-	};
-}
+	bool m_MultipleImages{ false };
+};

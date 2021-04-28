@@ -16,6 +16,21 @@
     <Filter Include="Scenes">
       <UniqueIdentifier>{543425bd-11ee-48c4-baf3-66bcdcffbd97}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameComponents">
+      <UniqueIdentifier>{fb0b3638-12c1-456b-a312-1c9a2124de18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObservers">
+      <UniqueIdentifier>{481debc5-d302-4a85-9410-9ad4c2b4918f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameAudio">
+      <UniqueIdentifier>{4cdde5fd-7952-44b0-91dd-4fdd408366ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameCommands">
+      <UniqueIdentifier>{aaeed854-5102-4388-be58-bdb38bf0470c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEvents">
+      <UniqueIdentifier>{2bad5ec2-d8f7-480b-8d7a-cd0f0c2333f8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TestProject_0.cpp">
@@ -30,6 +45,21 @@
     <ClCompile Include="DemoScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Minigin\QBert_Comp.cpp">
+      <Filter>GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Minigin\Score_Comp.cpp">
+      <Filter>GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Minigin\PlayerObserver.cpp">
+      <Filter>GameObservers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Minigin\GameAudio.cpp">
+      <Filter>GameAudio</Filter>
+    </ClCompile>
+    <ClCompile Include="GameCommands.cpp">
+      <Filter>GameCommands</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniginPCH.h">
@@ -40,6 +70,24 @@
     </ClInclude>
     <ClInclude Include="DemoScene.h">
       <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Minigin\QBert_Comp.h">
+      <Filter>GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Minigin\Score_Comp.h">
+      <Filter>GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Minigin\PlayerObserver.h">
+      <Filter>GameObservers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Minigin\GameAudio.h">
+      <Filter>GameAudio</Filter>
+    </ClInclude>
+    <ClInclude Include="GameCommands.h">
+      <Filter>GameCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEvents.h">
+      <Filter>GameEvents</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

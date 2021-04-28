@@ -1,10 +1,8 @@
 #pragma once
 //https://gameprogrammingpatterns.com/event-queue.html
-namespace dae
+
+struct PlayMessage
 {
-	struct PlayMessage
-	{
-		int id,
-			volume;
-	};
-}
+	int id,
+		volume;
+};

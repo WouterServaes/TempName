@@ -179,7 +179,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Minigin\GameAudio.cpp" />
+    <ClCompile Include="..\Minigin\PlayerObserver.cpp" />
+    <ClCompile Include="..\Minigin\QBert_Comp.cpp" />
+    <ClCompile Include="..\Minigin\Score_Comp.cpp" />
     <ClCompile Include="DemoScene.cpp" />
+    <ClCompile Include="GameCommands.cpp" />
     <ClCompile Include="MiniginPCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -190,7 +195,13 @@
     <ClCompile Include="TestProject_0.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Minigin\GameAudio.h" />
+    <ClInclude Include="..\Minigin\PlayerObserver.h" />
+    <ClInclude Include="..\Minigin\QBert_Comp.h" />
+    <ClInclude Include="..\Minigin\Score_Comp.h" />
     <ClInclude Include="DemoScene.h" />
+    <ClInclude Include="GameCommands.h" />
+    <ClInclude Include="GameEvents.h" />
     <ClInclude Include="MiniginPCH.h" />
     <ClInclude Include="TestGame.h" />
   </ItemGroup>

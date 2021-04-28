@@ -1,23 +1,19 @@
 #pragma once
 //https://gameprogrammingpatterns.com/observer.html
-namespace dae
+
+enum class Event;
+class GameObject;
+class Observer
 {
-	enum class Event;
-	class GameObject;
-	class Observer
-	{
-	public:
-		friend class Subject;
-		Observer() = default;
-		virtual ~Observer() = default;
-		Observer(const Observer& other) = delete;
-		Observer(Observer&& other) noexcept = delete;
-		Observer& operator=(const Observer& other) = delete;
-		Observer& operator=(Observer&& other) noexcept = delete;
-		virtual void OnNotify( GameObject* const gameObject, Event event) = 0;
-	private:
-		Observer* m_pNextObserver{ nullptr };
-	};
-
-}
-
+public:
+	friend class Subject;
+	Observer() = default;
+	virtual ~Observer() = default;
+	Observer(const Observer& other) = delete;
+	Observer(Observer&& other) noexcept = delete;
+	Observer& operator=(const Observer& other) = delete;
+	Observer& operator=(Observer&& other) noexcept = delete;
+	virtual void OnNotify(GameObject* const gameObject, Event event) = 0;
+private:
+	Observer* m_pNextObserver{ nullptr };
+};

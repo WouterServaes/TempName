@@ -10,7 +10,7 @@
 
 int GameMain()
 {
-	auto pGame = new TestGame();
+	auto* pGame = new TestGame();
 	pGame->Run();
 	delete pGame;
 	return 0;
@@ -18,7 +18,7 @@ int GameMain()
 
 int main()
 {
-	auto pGame = new TestGame();
+	auto* pGame = new TestGame();
 	pGame->Run();
 	delete pGame;
 	return 0;

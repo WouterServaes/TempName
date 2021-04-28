@@ -1,13 +1,11 @@
 #pragma once
-namespace dae
+
+enum class Event
 {
-	enum class Event
-	{
-		PlayerDied,
-		LostLive,
-		ColorChanged,
-		DefeatedCoily,
-		DiskLeftAtEnd,
-		CatchedSlickOrSam
-	};
-}
+	PlayerDied,
+	LostLive,
+	ColorChanged,
+	DefeatedCoily,
+	DiskLeftAtEnd,
+	CatchedSlickOrSam
+};

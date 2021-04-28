@@ -1,6 +1,6 @@
 #pragma once
 #include "Minigin.h"
-class TestGame: public dae::Minigin
+class TestGame : public Minigin
 {
 public:
 	TestGame() = default;
@@ -13,4 +13,3 @@ public:
 protected:
 	void LoadGame() override;
 };
-

@@ -23,7 +23,7 @@ int GetOpenGLDriverIndex()
 	return openglIndex;
 }
 
-void dae::Renderer::Init(SDL_Window* window)
+void Renderer::Init(SDL_Window* window)
 {
 	m_Renderer = SDL_CreateRenderer(window, GetOpenGLDriverIndex(), SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (m_Renderer == nullptr)
@@ -37,7 +37,7 @@ void dae::Renderer::Init(SDL_Window* window)
 	ImGui_ImplOpenGL2_Init();
 }
 
-void dae::Renderer::Render() const
+void Renderer::Render() const
 {
 	SDL_RenderClear(m_Renderer);
 
@@ -49,7 +49,7 @@ void dae::Renderer::Render() const
 	SDL_RenderPresent(m_Renderer);
 }
 
-void dae::Renderer::Destroy()
+void Renderer::Destroy()
 {
 	ImGui_ImplOpenGL2_Shutdown();
 	ImGui_ImplSDL2_Shutdown();
@@ -62,14 +62,14 @@ void dae::Renderer::Destroy()
 	}
 }
 
-void dae::Renderer::RenderTexture(const Texture2D& texture, const float x, const float y) const
+void Renderer::RenderTexture(const Texture2D& texture, const float x, const float y) const
 {
 	const auto textureData{ texture.GetTextureData() };
 	SDL_Rect dst{ static_cast<int>(x), static_cast<int>(y), static_cast<int>(textureData.Dimensions.x), static_cast<int>(textureData.Dimensions.y) };
 	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst);
 }
 
-void dae::Renderer::RenderTexture(const Texture2D& texture, const float x, const float y, const float width, const float height) const
+void Renderer::RenderTexture(const Texture2D& texture, const float x, const float y, const float width, const float height) const
 {
 	SDL_Rect dst;
 	dst.x = static_cast<int>(x);
@@ -79,7 +79,7 @@ void dae::Renderer::RenderTexture(const Texture2D& texture, const float x, const
 	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst);
 }
 
-void dae::Renderer::RenderTexture(const Texture2D& texture, float x, float y, float srcX, float srcY, float srcWidth,
+void Renderer::RenderTexture(const Texture2D& texture, float x, float y, float srcX, float srcY, float srcWidth,
 	float srcHeight) const
 {
 	const auto textureData{ texture.GetTextureData() };
@@ -88,7 +88,7 @@ void dae::Renderer::RenderTexture(const Texture2D& texture, float x, float y, fl
 	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), &src, &dst);
 }
 
-void dae::Renderer::RenderTexture(const Texture2D& texture, float dstX, float dstY, float dstWidth, float dstHeight,
+void Renderer::RenderTexture(const Texture2D& texture, float dstX, float dstY, float dstWidth, float dstHeight,
 	float srcX, float srcY, float srcWidth, float srcHeight) const
 {
 	SDL_Rect dst{};

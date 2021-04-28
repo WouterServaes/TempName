@@ -5,7 +5,7 @@
 #include "Render_Comp.h"
 #include "Time.h"
 
-dae::Animation_Comp::Animation_Comp(const std::string& folder, const std::string& baseName,const int amountOfImages, const int animationFramesPerSecond)
+Animation_Comp::Animation_Comp(const std::string& folder, const std::string& baseName, const int amountOfImages, const int animationFramesPerSecond)
 	:m_AmountOfFrames(amountOfImages)
 	, m_FramesPerSecond(animationFramesPerSecond)
 {
@@ -15,7 +15,7 @@ dae::Animation_Comp::Animation_Comp(const std::string& folder, const std::string
 		m_Textures.push_back(ResourceManager::GetInstance().LoadTexture(GetImageName(idx, folder, baseName)));
 }
 
-dae::Animation_Comp::Animation_Comp(const std::string& animationSheet, const int imageAmount, const int framesPerSecond,
+Animation_Comp::Animation_Comp(const std::string& animationSheet, const int imageAmount, const int framesPerSecond,
 	const glm::vec2 frameDimensions)
 {
 	m_FrameDimensions = frameDimensions;
@@ -25,14 +25,14 @@ dae::Animation_Comp::Animation_Comp(const std::string& animationSheet, const int
 	m_Textures.push_back(ResourceManager::GetInstance().LoadTexture(animationSheet));
 }
 
-void dae::Animation_Comp::Start()
+void Animation_Comp::Start()
 {
 	m_pRenderComponent = m_pGameObject->GetComponent<Render_Comp>();
 
 	m_pRenderComponent->UpdateTexture(m_Textures[0]);
 }
 
-void dae::Animation_Comp::Update()
+void Animation_Comp::Update()
 {
 	m_ElapsedTime += Time::GetInstance().deltaTime;
 
@@ -47,7 +47,7 @@ void dae::Animation_Comp::Update()
 	}
 }
 
-void dae::Animation_Comp::MultipleTexturesUpdate()
+void Animation_Comp::MultipleTexturesUpdate()
 {
 	if (m_CurrentFrameColumn == m_AmountOfFrames - 1)
 		m_CurrentFrameColumn = 0;
@@ -57,16 +57,15 @@ void dae::Animation_Comp::MultipleTexturesUpdate()
 	m_pRenderComponent->UpdateTexture(m_Textures[m_CurrentFrameColumn]);
 }
 
-void dae::Animation_Comp::SingleTextureUpdate()
+void Animation_Comp::SingleTextureUpdate()
 {
-	
 	const auto texDim{ m_Textures[0]->GetTextureData().Dimensions };
-	if (m_CurrentFrameColumn+1 >= texDim.x / m_FrameDimensions.x)
+	if (m_CurrentFrameColumn + 1 >= texDim.x / m_FrameDimensions.x)
 	{
 		m_CurrentFrameColumn = 0;
 
 		const auto rows{ texDim.y / m_FrameDimensions.y };
-		if (rows == 1 || m_CurrentFrameRow+1 >= texDim.y / m_FrameDimensions.y)
+		if (rows == 1 || m_CurrentFrameRow + 1 >= texDim.y / m_FrameDimensions.y)
 			m_CurrentFrameRow = 0;
 		else
 			m_CurrentFrameRow++;
@@ -79,7 +78,7 @@ void dae::Animation_Comp::SingleTextureUpdate()
 	m_pRenderComponent->UpdateTexture(m_Textures[0], m_FrameDimensions.x, m_FrameDimensions.y, srcX, srcY, m_FrameDimensions.x, m_FrameDimensions.y);
 }
 
-std::string dae::Animation_Comp::GetImageName(int imgNr, const std::string& folderName, const std::string& imageBaseName) const
+std::string Animation_Comp::GetImageName(int imgNr, const std::string& folderName, const std::string& imageBaseName) const
 {
 	auto imageFileName{ folderName + "/" + imageBaseName };
 

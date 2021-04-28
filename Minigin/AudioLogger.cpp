@@ -3,7 +3,6 @@
 
 AudioLogger::AudioLogger(AudioInterface* audioToLog)
 {
-	
 	m_CurrentAudioSystem = audioToLog;
 }
 
@@ -25,9 +24,8 @@ void AudioLogger::Update()
 	m_CurrentAudioSystem->Update();
 }
 
-void AudioLogger::PlaySound(const int soundId, const  int volume)
+void AudioLogger::PlaySound(const int soundId, const int volume)
 {
-	
 	Logger::LogInfo(static_cast<std::string>("Played sound - ID: " + std::to_string(soundId) + " volume: " + std::to_string(volume)).c_str());
 	m_CurrentAudioSystem->PlaySound(soundId, volume);
 }

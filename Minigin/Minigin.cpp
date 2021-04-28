@@ -25,7 +25,7 @@
 using namespace std;
 using namespace std::chrono;
 
-void dae::Minigin::Run()
+void Minigin::Run()
 {
 	Initialize();
 	ResourceManager::GetInstance().Init("../Data/");
@@ -64,7 +64,7 @@ void dae::Minigin::Run()
 	Cleanup();
 }
 
-void dae::Minigin::Initialize()
+void Minigin::Initialize()
 {
 	Logger::LogInfo("Initializing...");
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -89,7 +89,7 @@ void dae::Minigin::Initialize()
 	AudioServiceLocator::Initialize();
 }
 
-void dae::Minigin::Cleanup()
+void Minigin::Cleanup()
 {
 	Logger::LogInfo("Cleaning up...");
 

@@ -1,24 +1,24 @@
 #include "MiniginPCH.h"
 #include "Scene.h"
 #include <algorithm>
-int dae::Scene::SceneCount = 0;
+int Scene::SceneCount = 0;
 
-dae::Scene::Scene(const std::string& name)
-	: m_Name{name}, sceneNr{ SceneCount }
+Scene::Scene(const std::string& name)
+	: m_Name{ name }, sceneNr{ SceneCount }
 {
 	SceneCount++;
 }
 
-void dae::Scene::AddGameObject(const std::shared_ptr<GameObject>& object)
+void Scene::AddGameObject(const std::shared_ptr<GameObject>& object)
 {
 	m_Objects.push_back(object);
 }
 
-void dae::Scene::Update()
+void Scene::Update()
 {
-	if(!m_StartedScene)
+	if (!m_StartedScene)
 		StartScene();
-	
+
 	for (auto& obj : m_Objects)
 		obj->Update();
 
@@ -28,7 +28,7 @@ void dae::Scene::Update()
 		}), m_Objects.end());
 }
 
-void dae::Scene::Render() const
+void Scene::Render() const
 {
 	std::for_each(m_Objects.begin(), m_Objects.end(), [](const std::shared_ptr<GameObject>& obj)
 		{
@@ -37,14 +37,14 @@ void dae::Scene::Render() const
 		});
 }
 
-void dae::Scene::StartScene()
+void Scene::StartScene()
 {
 	m_StartedScene = true;
 	for (auto& obj : m_Objects)
 		obj->Start();
 }
 
-std::shared_ptr<dae::GameObject>& dae::Scene::GetGameObject(const wchar_t* pGameObjectName)
+std::shared_ptr< GameObject>& Scene::GetGameObject(const wchar_t* pGameObjectName)
 {
 	for (auto& o : m_Objects)
 		if (o->GetName() == pGameObjectName)
@@ -54,7 +54,7 @@ std::shared_ptr<dae::GameObject>& dae::Scene::GetGameObject(const wchar_t* pGame
 	return m_Objects[0];
 }
 
-std::shared_ptr<dae::GameObject>& dae::Scene::GetGameObject(const int idx)
+std::shared_ptr< GameObject>& Scene::GetGameObject(const int idx)
 {
 	if (static_cast<int>(m_Objects.size()) < idx &&
 		m_Objects.at(idx) != nullptr)

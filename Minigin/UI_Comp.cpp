@@ -6,12 +6,12 @@
 #include "Transform.h"
 #include "Transform_Comp.h"
 
-void dae::UI_Comp::Start()
+void UI_Comp::Start()
 {
 	m_pTransformComponent = m_pGameObject->GetComponent<Transform_Comp>();
 }
 
-void dae::StartUI::Update()
+void StartUI::Update()
 {
 	const auto& transformPos{ m_pTransformComponent->GetTransform()->GetPosition() };
 	const auto pos = ImVec2(transformPos.x, transformPos.y);
@@ -25,7 +25,7 @@ void dae::StartUI::Update()
 	ImGui::End();
 }
 
-void dae::FpsUI::Update()
+void FpsUI::Update()
 {
 	const auto transformPos{ m_pTransformComponent->GetTransform()->GetPosition() };
 	const auto pos = ImVec2(transformPos.x, transformPos.y);
