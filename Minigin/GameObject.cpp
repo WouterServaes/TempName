@@ -1,6 +1,5 @@
 #include "MiniginPCH.h"
 #include "GameObject.h"
-#include <functional>
 
 #include "Render_Comp.h"
 #include "Scene.h"
@@ -45,6 +44,13 @@ void GameObject::Start()
 
 void GameObject::AddComponent(BaseComponent* component)
 {
+	for (auto& comp : m_pComponents)
+		if (typeid(*comp) == typeid(component))
+		{
+			Logger::LogWarning("GameObject::AddComponent() => can't add two of the same component to one game object!");
+			return;
+		}
+
 	if (!m_NeedsToBeRendered)
 	{
 		if (typeid(*component) == typeid(Render_Comp))
@@ -54,13 +60,16 @@ void GameObject::AddComponent(BaseComponent* component)
 	m_pComponents.push_back(component);
 }
 
-Transform_Comp* GameObject::GetTransformComponent()
+Transform* GameObject::GetTransform()
 {
-	{return GetComponent<Transform_Comp>(); }
+	return GetComponent<Transform_Comp>()->GetTransform();
 }
 
 Subject* GameObject::GetSubject() const
 {
+	if (!m_pSubject)
+		Logger::LogWarning("GameObject::GetSubject() => game object is not a subject!");
+	
 	return m_pSubject;
 }
 

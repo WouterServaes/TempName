@@ -14,7 +14,7 @@ bool InputManager::IsButtonPressed(ControllerButtons button, int controllerIdx) 
 
 void InputManager::ProcessControllerInput()
 {
-	for (DWORD controllerIdx{}; controllerIdx < XUSER_MAX_COUNT; controllerIdx++)
+	for (int controllerIdx{}; controllerIdx < m_MaxControllerAmount; controllerIdx++)
 	{
 		const auto dwResult{ UpdateControllerState(controllerIdx) };
 		if (dwResult != ERROR_SUCCESS)

@@ -23,6 +23,7 @@ private:
 	void HandleCatchedSlickOrSame(GameObject* gameObject);
 	void HandleLeftDiskAtEnd(GameObject* gameObject);
 
+	void HandleMove(GameObject* pGameObject);
 	void AddScore(int amount, GameObject* playerObj);
 	Text_Comp* GetScoreTextComponent(const GameObject* playerObj);
 	Score_Comp* GetScoreComponent(GameObject* const playerObj);

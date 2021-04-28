@@ -18,7 +18,8 @@ Render_Comp::Render_Comp(const std::shared_ptr<Texture2D> texture)
 
 void Render_Comp::Render()const
 {
-	const auto pos{ m_pGameObject->GetComponent<Transform_Comp>()->GetTransform()->GetPosition() };
+	const auto& pos{ m_pGameObject->GetTransform()->GetPosition() };
+	
 	switch (m_Method)
 	{
 	case Method::Resize:

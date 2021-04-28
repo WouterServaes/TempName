@@ -10,7 +10,6 @@
 #include "GameCommands.h"
 #include "Render_Comp.h"
 #include "Text_Comp.h"
-#include "Transform_Comp.h"
 #include "UI_Comp.h"
 #include "Health_Comp.h"
 #include "QBert_Comp.h"
@@ -27,34 +26,34 @@ void DemoScene::InitializeScene()
 	gameObject = std::make_shared<GameObject>(L"AnimatedLogo", pCurrentScene);
 	gameObject->AddComponent(new Render_Comp());
 	gameObject->AddComponent(new Animation_Comp("Images/AnimLogo", "logo_", 60, 25));
-	gameObject->GetTransformComponent()->GetTransform()->SetPosition(216.f, 180.f);
+	gameObject->GetTransform()->SetPosition(216.f, 180.f);
 	AddGameObject(gameObject);
 
-	gameObject = std::make_shared<GameObject>(L"TestAnimation", pCurrentScene);
+	/*gameObject = std::make_shared<GameObject>(L"TestAnimation", pCurrentScene);
 	gameObject->AddComponent(new Render_Comp());
 	gameObject->AddComponent(new Animation_Comp("Images/TestAnimSheet.png", 4, 2, glm::vec2(100, 100)));
-	gameObject->GetTransformComponent()->GetTransform()->SetPosition(200.f, 150.f);
+	gameObject->GetTransform()->SetPosition(200.f, 150.f);
 	AddGameObject(gameObject);
 
 	gameObject = std::make_shared<GameObject>(L"t", pCurrentScene);
 	gameObject->AddComponent(new Render_Comp("Images/TestAnimSheet.png"));
-	gameObject->GetTransformComponent()->GetTransform()->SetPosition(300.f, 150.f);
-	AddGameObject(gameObject);
+	gameObject->GetTransform()->SetPosition(300.f, 150.f);
+	AddGameObject(gameObject);*/
 
 	gameObject = std::make_shared<GameObject>(L"ProgrammingText", pCurrentScene);
 	gameObject->AddComponent(new Render_Comp());
 	gameObject->AddComponent(new Text_Comp("Programming 4 Assignment", font, 36));
-	gameObject->GetTransformComponent()->GetTransform()->SetPosition(80.f, 20.f);
+	gameObject->GetTransform()->SetPosition(80.f, 20.f);
 	AddGameObject(gameObject);
 
 	gameObject = std::make_shared<GameObject>(L"Fps", pCurrentScene);
 	gameObject->AddComponent(new FpsUI());
-	gameObject->GetTransformComponent()->GetTransform()->SetPosition(5.f, 5.f);
+	gameObject->GetTransform()->SetPosition(5.f, 5.f);
 	AddGameObject(gameObject);
 
 	gameObject = std::make_shared<GameObject>(L"StartButtons", pCurrentScene);
 	gameObject->AddComponent(new StartUI());
-	gameObject->GetTransformComponent()->GetTransform()->SetPosition(80.f, 200.f);
+	gameObject->GetTransform()->SetPosition(80.f, 200.f);
 	AddGameObject(gameObject);
 
 	AddPlayers();
@@ -70,10 +69,13 @@ void DemoScene::AddPlayers()
 	const float maxHealth{ 5 };
 
 	auto player1 = std::make_shared<GameObject>(L"Player1", pCurrentScene, true);
+	player1->AddComponent(new Render_Comp());
+	player1->AddComponent(new Animation_Comp("Images/TestAnimSheet.png", 4, 2, glm::vec2(100, 100)));
 	player1->AddComponent(new Health_Comp(maxHealth));
 	player1->AddComponent(new Score_Comp());
 	player1->AddComponent(new QBert_Comp());
 	player1->GetSubject()->AddObserver(new PlayerObserver());
+	player1->GetTransform()->SetPosition(10, 10);
 	AddGameObject(player1);
 
 	auto player2 = std::make_shared<GameObject>(L"Player2", pCurrentScene, true);
@@ -91,7 +93,7 @@ void DemoScene::AddUi(const std::string& font)
 	auto gameObject = std::make_shared<GameObject>(L"Player1_HealthTextUi", pCurrentScene);
 	gameObject->AddComponent(new Render_Comp());
 	gameObject->AddComponent(new Text_Comp("Remaining lives (player 1): ", font, 22));
-	gameObject->GetTransformComponent()->GetTransform()->SetPosition(5.f, 50.f);
+	gameObject->GetTransform()->SetPosition(5.f, 50.f);
 	AddGameObject(gameObject);
 
 	auto healthText{ std::to_string(GetGameObject(L"Player1")->GetComponent<Health_Comp>()->GetLives()) };
@@ -99,13 +101,13 @@ void DemoScene::AddUi(const std::string& font)
 	gameObject->AddComponent(new Render_Comp());
 	gameObject->AddComponent(new Text_Comp(healthText, font, 22));
 	gameObject->AddComponent(new Score_Comp());
-	gameObject->GetTransformComponent()->GetTransform()->SetPosition(300.f, 50.f);
+	gameObject->GetTransform()->SetPosition(300.f, 50.f);
 	AddGameObject(gameObject);
 
 	gameObject = std::make_shared<GameObject>(L"Player2_HealthTextUi", pCurrentScene);
 	gameObject->AddComponent(new Render_Comp());
 	gameObject->AddComponent(new Text_Comp("Remaining lives (player 2): ", font, 22));
-	gameObject->GetTransformComponent()->GetTransform()->SetPosition(5.f, 100.f);
+	gameObject->GetTransform()->SetPosition(5.f, 100.f);
 	AddGameObject(gameObject);
 
 	healthText = std::to_string(GetGameObject(L"Player2")->GetComponent<Health_Comp>()->GetLives());
@@ -113,41 +115,41 @@ void DemoScene::AddUi(const std::string& font)
 	gameObject->AddComponent(new Render_Comp());
 	gameObject->AddComponent(new Text_Comp(healthText, font, 22));
 	gameObject->AddComponent(new Score_Comp());
-	gameObject->GetTransformComponent()->GetTransform()->SetPosition(300.f, 100.f);
+	gameObject->GetTransform()->SetPosition(300.f, 100.f);
 	AddGameObject(gameObject);
 
 	//score
 	gameObject = std::make_shared<GameObject>(L"Player1_ScoreTextUi", pCurrentScene);
 	gameObject->AddComponent(new Render_Comp());
 	gameObject->AddComponent(new Text_Comp("Score (player 1): ", font, 22));
-	gameObject->GetTransformComponent()->GetTransform()->SetPosition(400.f, 50.f);
+	gameObject->GetTransform()->SetPosition(400.f, 50.f);
 	AddGameObject(gameObject);
 
 	gameObject = std::make_shared<GameObject>(L"Player2_ScoreTextUi", pCurrentScene);
 	gameObject->AddComponent(new Render_Comp());
 	gameObject->AddComponent(new Text_Comp("Score (player 2): ", font, 22));
-	gameObject->GetTransformComponent()->GetTransform()->SetPosition(400.f, 100.f);
+	gameObject->GetTransform()->SetPosition(400.f, 100.f);
 	AddGameObject(gameObject);
 
 	auto scoreText{ std::to_string(GetGameObject(L"Player1")->GetComponent<Score_Comp>()->GetScore()) };
 	gameObject = std::make_shared<GameObject>(L"Player1_ScoreUi", pCurrentScene);
 	gameObject->AddComponent(new Render_Comp());
 	gameObject->AddComponent(new Text_Comp(scoreText, font, 22));
-	gameObject->GetTransformComponent()->GetTransform()->SetPosition(600.f, 50.f);
+	gameObject->GetTransform()->SetPosition(600.f, 50.f);
 	AddGameObject(gameObject);
 
 	scoreText = std::to_string(GetGameObject(L"Player2")->GetComponent<Score_Comp>()->GetScore());
 	gameObject = std::make_shared<GameObject>(L"Player2_ScoreUi", pCurrentScene);
 	gameObject->AddComponent(new Render_Comp());
 	gameObject->AddComponent(new Text_Comp(scoreText, font, 22));
-	gameObject->GetTransformComponent()->GetTransform()->SetPosition(600.f, 100.f);
+	gameObject->GetTransform()->SetPosition(600.f, 100.f);
 	AddGameObject(gameObject);
 
 	//dead
 	gameObject = std::make_shared<GameObject>(L"DeadText", pCurrentScene);
 	gameObject->AddComponent(new Render_Comp());
 	gameObject->AddComponent(new Text_Comp("Player died", font, 30));
-	gameObject->GetTransformComponent()->GetTransform()->SetPosition(200.f, 250.f);
+	gameObject->GetTransform()->SetPosition(200.f, 250.f);
 	gameObject->SetActive(false);
 	AddGameObject(gameObject);
 
@@ -155,13 +157,13 @@ void DemoScene::AddUi(const std::string& font)
 	gameObject = std::make_shared<GameObject>(L"Player1_ControlsText", pCurrentScene);
 	gameObject->AddComponent(new Render_Comp());
 	gameObject->AddComponent(new Text_Comp("Player 1: A: remove hp - B: Catch Slick/Sam - X: Color change - Y: defeat Coily ", font, 15));
-	gameObject->GetTransformComponent()->GetTransform()->SetPosition(10.f, 300.f);
+	gameObject->GetTransform()->SetPosition(10.f, 300.f);
 	AddGameObject(gameObject);
 
 	gameObject = std::make_shared<GameObject>(L"Player2_ControlsText", pCurrentScene);
 	gameObject->AddComponent(new Render_Comp());
 	gameObject->AddComponent(new Text_Comp("Player 2: Down: remove hp - Right: Catch Slick/Sam - Left: Color change - Up: defeat Coily ", font, 15));
-	gameObject->GetTransformComponent()->GetTransform()->SetPosition(10.f, 325.f);
+	gameObject->GetTransform()->SetPosition(10.f, 325.f);
 	AddGameObject(gameObject);
 }
 
@@ -196,4 +198,10 @@ void DemoScene::InitInput()
 
 	inputAction = InputAction(SDLK_RIGHT, TriggerState::Released, ControllerButtons::ButtonUp, 1);
 	inputManager.AssignKey(inputAction, std::make_unique<Command_DefeatedCoily>(player2));
+
+
+
+	//move test
+	inputAction = InputAction('z', TriggerState::Down, ControllerButtons::ButtonB, 0);
+	inputManager.AssignKey(inputAction, std::make_unique<Command_Move>(player1));
 }

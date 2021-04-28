@@ -60,6 +60,9 @@
     <ClCompile Include="GameCommands.cpp">
       <Filter>GameCommands</Filter>
     </ClCompile>
+    <ClCompile Include="..\Minigin\Health_Comp.cpp">
+      <Filter>GameComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniginPCH.h">
@@ -88,6 +91,9 @@
     </ClInclude>
     <ClInclude Include="GameEvents.h">
       <Filter>GameEvents</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Minigin\Health_Comp.h">
+      <Filter>GameComponents</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

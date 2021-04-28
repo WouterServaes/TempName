@@ -24,3 +24,8 @@ void Command_CatchedSlickOrSam::Execute()
 {
 	m_pGameObject->GetSubject()->Notify(m_pGameObject, Event::CatchedSlickOrSam);
 }
+
+void Command_Move::Execute()
+{
+	m_pGameObject->GetSubject()->Notify(m_pGameObject, Event::Move);
+}

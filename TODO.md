@@ -9,6 +9,7 @@
 - Add End() to BaseComponent, use this is destructor in components
 - document that Logger is used for error handling in the engine/game
 - don't crash when resource isn't found, just continue with empty resource and display message
+- change wchar_t to char + cleanup  Subject* GameObject::GetSubject() const  
 
 ## Audio:
 - let someone double check 
@@ -19,4 +20,12 @@
 ## ResourceManager:
 - multi thread resource loading
 
+## Events:
+- revisit event and handling of events. remove enum class, change to array of strings/idx ?
+- events shouldnt be defined in the engine project  
 
+## Animation_Comp (and possible other comps)  
+- if no rendercomponent is given, just don't render instead of throwing an error + throw a warning
+
+## Transform_Comp  
+- transform hierarchy: let transform effect child transform too

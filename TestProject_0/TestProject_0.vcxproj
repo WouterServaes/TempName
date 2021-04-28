@@ -180,6 +180,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Minigin\GameAudio.cpp" />
+    <ClCompile Include="..\Minigin\Health_Comp.cpp" />
     <ClCompile Include="..\Minigin\PlayerObserver.cpp" />
     <ClCompile Include="..\Minigin\QBert_Comp.cpp" />
     <ClCompile Include="..\Minigin\Score_Comp.cpp" />
@@ -196,6 +197,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Minigin\GameAudio.h" />
+    <ClInclude Include="..\Minigin\Health_Comp.h" />
     <ClInclude Include="..\Minigin\PlayerObserver.h" />
     <ClInclude Include="..\Minigin\QBert_Comp.h" />
     <ClInclude Include="..\Minigin\Score_Comp.h" />

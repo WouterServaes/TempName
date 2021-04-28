@@ -7,5 +7,6 @@ enum class Event
 	ColorChanged,
 	DefeatedCoily,
 	DiskLeftAtEnd,
-	CatchedSlickOrSam
+	CatchedSlickOrSam,
+	Move
 };

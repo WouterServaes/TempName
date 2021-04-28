@@ -126,9 +126,6 @@
     <ClInclude Include="Animation_Comp.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="Health_Comp.h">
-      <Filter>Components</Filter>
-    </ClInclude>
     <ClInclude Include="Render_Comp.h">
       <Filter>Components</Filter>
     </ClInclude>
@@ -225,9 +222,6 @@
       <Filter>Observers</Filter>
     </ClCompile>
     <ClCompile Include="Animation_Comp.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Health_Comp.cpp">
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="Render_Comp.cpp">

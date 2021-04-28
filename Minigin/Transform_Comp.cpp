@@ -8,7 +8,6 @@ Transform_Comp::~Transform_Comp()
 }
 
 Transform_Comp::Transform_Comp(const glm::vec3& position)
-
 {
 	m_Transform = new Transform();
 	m_Transform->SetPosition(position.x, position.y, position.z);

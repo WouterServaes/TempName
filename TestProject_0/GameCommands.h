@@ -54,3 +54,18 @@ public:
 
 	void Execute() override;
 };
+
+class Command_Move final: public Commands
+{
+public:
+	Command_Move() = delete;
+	explicit Command_Move(GameObject* gameObject) :Commands(gameObject) {};
+	~Command_Move() = default;
+	Command_Move(const Command_Move& other) = delete;
+	Command_Move(Command_Move&& other) noexcept = delete;
+	Command_Move& operator=(const Command_Move& other) = delete;
+	Command_Move& operator=(Command_Move&& other) noexcept = delete;
+
+	void Execute() override;
+};
+

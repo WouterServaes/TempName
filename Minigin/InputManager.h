@@ -62,7 +62,7 @@ public:
 
 	void SetQuitGamePtr(bool* pQuitGame) { m_pQuitGame = pQuitGame; };
 	void ProcessInput();
-	void SetMaxControllerAmount(int amount)
+	void SetMaxControllerAmount(const int amount)
 	{
 		if (amount < XUSER_MAX_COUNT) m_MaxControllerAmount = amount;
 		else Logger::LogError("InputManager::SetMaxControllerAmount(amount) => amount exceeds allowed amount of 4 ");

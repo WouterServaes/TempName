@@ -8,6 +8,8 @@
 #include "Score_Comp.h"
 
 #include "Text_Comp.h"
+#include "Transform.h"
+#include "Transform_Comp.h"
 
 void PlayerObserver::OnNotify(GameObject* const gameObject, Event event)
 {
@@ -31,6 +33,9 @@ void PlayerObserver::OnNotify(GameObject* const gameObject, Event event)
 		break;
 	case Event::DiskLeftAtEnd:
 		HandleLeftDiskAtEnd(gameObject);
+		break;
+	case Event::Move:
+		HandleMove(gameObject);
 		break;
 	}
 }
@@ -72,6 +77,12 @@ void PlayerObserver::HandleDefeatedCoily(GameObject* const gameObject)
 void PlayerObserver::HandleLeftDiskAtEnd(GameObject* const gameObject)
 {
 	AddScore(50, gameObject);
+}
+
+void PlayerObserver::HandleMove(GameObject* pGameObject)
+{
+	const auto pos = pGameObject->GetTransform()->GetPosition();
+	pGameObject->GetTransform()->SetPosition(pos.x + 30 * Time::GetInstance().deltaTime, pos.y, pos.z);
 }
 
 void PlayerObserver::AddScore(int amount, GameObject* const playerObj)

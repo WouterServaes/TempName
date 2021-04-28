@@ -2,7 +2,7 @@
 
 class BaseComponent;
 class Texture2D;
-class Transform_Comp;
+class Transform;
 class Subject;
 class Scene;
 class GameObject final
@@ -36,7 +36,8 @@ public:
 				return static_cast<T*>(comp);
 		}
 
-		throw(std::runtime_error(std::string("GetComponent() -> Component doesn't exist on GameObject")));
+		Logger::LogWarning("GetComponent() -> Component doesn't exist on GameObject");
+		return nullptr;
 	};
 
 	template<typename T>
@@ -48,12 +49,13 @@ public:
 				return static_cast<T*>(comp);
 		}
 
-		throw(std::runtime_error(std::string("GetConstComponent() -> Component doesn't exist on GameObject")));
+		Logger::LogWarning("GetConstComponent() -> Component doesn't exist on GameObject");
+		return nullptr;
 	}
 
 	GameObject* GetGameObject(const wchar_t* pGameObjectName) const; //returns game object in current scene
 
-	[[nodiscard]] Transform_Comp* GetTransformComponent();
+	[[nodiscard]] Transform* GetTransform();
 	[[nodiscard]] const wchar_t* GetName()const { return m_pObjectName; };
 
 	[[nodiscard]] Subject* GetSubject()const;
