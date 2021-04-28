@@ -10,7 +10,7 @@
 
 void QBert_Comp::Start()
 {
-	AudioServiceLocator::GetAudio()->AddAudioFile("../Data/hurt_sound.wav");
+	AudioServiceLocator::GetAudio()->AddAudioFile("../Data/Audio/hurt_sound.wav");
 	m_pHealthComp = m_pGameObject->GetComponent<Health_Comp>();
 }
 

@@ -18,26 +18,26 @@
 
 void DemoScene::InitializeScene()
 {
-	const std::string font{ "Lingua.otf" };
+	const std::string font{ "Fonts/Lingua.otf" };
 	auto* pCurrentScene = this;
 	auto gameObject = std::make_shared<GameObject>(L"Background", pCurrentScene);
-	gameObject->AddComponent(new Render_Comp("background.jpg"));
+	gameObject->AddComponent(new Render_Comp("Images/background.jpg"));
 	AddGameObject(gameObject);
 
 	gameObject = std::make_shared<GameObject>(L"AnimatedLogo", pCurrentScene);
 	gameObject->AddComponent(new Render_Comp());
-	gameObject->AddComponent(new Animation_Comp("AnimLogo", "logo_", 60, 25));
+	gameObject->AddComponent(new Animation_Comp("Images/AnimLogo", "logo_", 60, 25));
 	gameObject->GetTransformComponent()->GetTransform()->SetPosition(216.f, 180.f);
 	AddGameObject(gameObject);
 
 	gameObject = std::make_shared<GameObject>(L"TestAnimation", pCurrentScene);
 	gameObject->AddComponent(new Render_Comp());
-	gameObject->AddComponent(new Animation_Comp("TestAnimSheet.png", 4, 2, glm::vec2(100, 100)));
+	gameObject->AddComponent(new Animation_Comp("Images/TestAnimSheet.png", 4, 2, glm::vec2(100, 100)));
 	gameObject->GetTransformComponent()->GetTransform()->SetPosition(200.f, 150.f);
 	AddGameObject(gameObject);
 
 	gameObject = std::make_shared<GameObject>(L"t", pCurrentScene);
-	gameObject->AddComponent(new Render_Comp("TestAnimSheet.png"));
+	gameObject->AddComponent(new Render_Comp("Images/TestAnimSheet.png"));
 	gameObject->GetTransformComponent()->GetTransform()->SetPosition(300.f, 150.f);
 	AddGameObject(gameObject);
 

@@ -6,7 +6,7 @@
 class Render_Comp final :public BaseComponent
 {
 public:
-	explicit Render_Comp(const std::string& filename = "PlaceHolderPng.png"); //Place holder is used to avoid empty m_Texture
+	explicit Render_Comp(const std::string& filename = "Engine/PlaceHolderPng.png"); //Place holder is used to avoid empty m_Texture
 	explicit Render_Comp(std::shared_ptr<Texture2D> texture);
 	~Render_Comp() = default;
 	Render_Comp(const Render_Comp& other) = delete;
