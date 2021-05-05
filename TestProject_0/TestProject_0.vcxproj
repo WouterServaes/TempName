@@ -194,6 +194,8 @@
     </ClCompile>
     <ClCompile Include="TestGame.cpp" />
     <ClCompile Include="TestProject_0.cpp" />
+    <ClCompile Include="WorldTileManager_Comp.cpp" />
+    <ClCompile Include="WorldTile_Comp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Minigin\GameAudio.h" />
@@ -206,6 +208,8 @@
     <ClInclude Include="GameEvents.h" />
     <ClInclude Include="MiniginPCH.h" />
     <ClInclude Include="TestGame.h" />
+    <ClInclude Include="WorldTileManager_Comp.h" />
+    <ClInclude Include="WorldTile_Comp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

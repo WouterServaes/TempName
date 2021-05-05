@@ -63,6 +63,12 @@
     <ClCompile Include="..\Minigin\Health_Comp.cpp">
       <Filter>GameComponents</Filter>
     </ClCompile>
+    <ClCompile Include="WorldTile_Comp.cpp">
+      <Filter>GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldTileManager_Comp.cpp">
+      <Filter>GameComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniginPCH.h">
@@ -93,6 +99,12 @@
       <Filter>GameEvents</Filter>
     </ClInclude>
     <ClInclude Include="..\Minigin\Health_Comp.h">
+      <Filter>GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldTile_Comp.h">
+      <Filter>GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldTileManager_Comp.h">
       <Filter>GameComponents</Filter>
     </ClInclude>
   </ItemGroup>
