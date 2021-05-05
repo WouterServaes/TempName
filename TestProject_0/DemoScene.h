@@ -5,7 +5,7 @@
 class DemoScene final :public Scene
 {
 public:
-	DemoScene(const std::string& name) : Scene(name)
+	explicit DemoScene(const std::string& name) : Scene(name)
 	{
 		InitializeScene();
 	};

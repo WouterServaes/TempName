@@ -69,6 +69,9 @@
     <ClCompile Include="WorldTileManager_Comp.cpp">
       <Filter>GameComponents</Filter>
     </ClCompile>
+    <ClCompile Include="LevelScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniginPCH.h">
@@ -106,6 +109,9 @@
     </ClInclude>
     <ClInclude Include="WorldTileManager_Comp.h">
       <Filter>GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelScene.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
