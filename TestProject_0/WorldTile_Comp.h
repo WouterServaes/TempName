@@ -6,7 +6,7 @@
 #pragma warning(pop)
 
 #include "Texture2D.h"
-class WorldTile_Comp final:BaseComponent
+class WorldTile_Comp final :public BaseComponent
 {
 public:
 	WorldTile_Comp(std::shared_ptr<Texture2D> pNormalTexture, std::shared_ptr<Texture2D> pHighlightTexture, glm::vec2 standLocation);
@@ -25,14 +25,13 @@ public:
 	/// Sets the texture back to normal if highlighted
 	/// </summary>
 	void ToNormalTexture();
+	
+	void Start() override;
 private:
 	//vector 2 stand position -> middle of top square of hexagon
 	glm::vec2 m_StandPosition{};
-	
-	
-	bool m_IsHighlighted{ false };
-	std::shared_ptr<Texture2D> m_pNormalTexture{}
-	                           , m_pHighlightTexture{};
-	
-};
 
+	bool m_IsHighlighted{ true };
+	std::shared_ptr<Texture2D> m_pNormalTexture{}
+	, m_pHighlightTexture{};
+};

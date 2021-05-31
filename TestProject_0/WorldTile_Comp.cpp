@@ -20,5 +20,11 @@ void WorldTile_Comp::ToNormalTexture()
 		GetComponent<Render_Comp>()->UpdateTexture(m_pNormalTexture);
 	}
 }
+
+//...
+void WorldTile_Comp::Start()
+{
+	GetComponent<Render_Comp>()->UpdateTexture(m_pNormalTexture);
+}
 	
 	

@@ -21,8 +21,5 @@
 - revisit event and handling of events. remove enum class, change to array of strings/idx ?
 - events shouldnt be defined in the engine project  
 
-## Animation_Comp (and possible other comps)  
-- if no rendercomponent is given, just don't render instead of throwing an error + throw a warning
-
-## Transform_Comp  
-- transform hierarchy: let transform effect child transform too
+## Minigin.cpp
+- Ability to set audio system

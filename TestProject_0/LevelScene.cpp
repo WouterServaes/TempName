@@ -2,6 +2,8 @@
 #include "LevelScene.h"
 #include "GameObject.h"
 #include "ResourceManager.h"
+#include "Texture2D.h"
+#include "Transform.h"
 #include "WorldTileManager_Comp.h"
 void LevelScene::InitializeScene()
 {
@@ -15,15 +17,18 @@ void LevelScene::InitUi()
 
 void LevelScene::InitWorld()
 {
-	const auto pNormalTexture{ ResourceManager::GetInstance().LoadTexture("") }
-	,pHighlightTexture{ ResourceManager::GetInstance().LoadTexture("") };
+	const auto pNormalTexture{ ResourceManager::GetInstance().LoadTexture("Images/Tile_Normal.png") }
+	,pHighlightTexture{ ResourceManager::GetInstance().LoadTexture("Images/Tile_Highlighted.png") };
 
-	const auto spaceBetweenTiles{ 2.f };
+	const auto textDim{ pNormalTexture->GetTextureData().Dimensions };
+	const auto tileWidth{ textDim.x },
+		tileSmallestHeight{ textDim.y * 3.f/4.f};
 	const auto bottomRowAmount{ 5 };
 	auto pWorldGridManager{ std::make_shared<GameObject>(L"WorldGridManager", this) };
-	pWorldGridManager->AddComponent(new WorldTileManager_Comp(pNormalTexture, pHighlightTexture, spaceBetweenTiles, bottomRowAmount));
-
 	AddGameObject(pWorldGridManager);
+	pWorldGridManager->GetTransform()->SetPosition(50, 250);
+	pWorldGridManager->AddComponent(new WorldTileManager_Comp(pNormalTexture, pHighlightTexture, tileWidth, tileSmallestHeight, bottomRowAmount));
+
 }
 
 void LevelScene::InitPlayerManager()

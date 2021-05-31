@@ -33,7 +33,6 @@ void ResourceManager::Init(const std::string& dataPath)
 std::shared_ptr< Texture2D> ResourceManager::LoadTexture(const std::string& file) const
 {
 	const auto fullPath = m_DataPath + file;
-
 	auto texture = IMG_LoadTexture(Renderer::GetInstance().GetSDLRenderer(), fullPath.c_str());
 	if (texture == nullptr)
 	{
