@@ -25,6 +25,16 @@
 using namespace std;
 using namespace std::chrono;
 
+int Minigin::GetWindowWidth() const
+{
+	return m_WindowWidth;
+}
+
+int Minigin::GetWindowHeight() const
+{
+	return m_WindowHeight;
+}
+
 void Minigin::Run()
 {
 	Initialize();

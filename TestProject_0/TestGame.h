@@ -1,6 +1,6 @@
 #pragma once
 #include "Minigin.h"
-class TestGame : public Minigin
+class TestGame final: public Minigin
 {
 public:
 	TestGame() = default;
