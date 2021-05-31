@@ -25,6 +25,8 @@ public:
 
 	//cut out + resize
 	void UpdateTexture(std::shared_ptr<Texture2D> texture, float dstWidth, float dstHeight, float srcX, float srcY, float srcWidth, float srcHeight);
+
+	void ScaleTexture(float scaleX, float scaleY);
 private:
 	std::shared_ptr<Texture2D> m_Texture{ nullptr };
 

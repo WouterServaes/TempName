@@ -79,3 +79,10 @@ void Render_Comp::UpdateTexture(const std::shared_ptr<Texture2D> texture, const 
 
 	m_Method = Method::CutOutResize;
 }
+
+void Render_Comp::ScaleTexture(const float scaleX, const float scaleY)
+{
+	m_DstWidth *= scaleX;
+	m_DstHeight *= scaleY;
+	m_Method = Method::Resize;
+}
