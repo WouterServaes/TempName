@@ -1,4 +1,5 @@
 #pragma once
+#include <SDL.h> //included for the macros
 struct EngineSettings
 {
 	std::string Title = std::string("Wouter Servaes Exam");

@@ -9,7 +9,7 @@
 class WorldTile_Comp final :public BaseComponent
 {
 public:
-	WorldTile_Comp(std::shared_ptr<Texture2D> pNormalTexture, std::shared_ptr<Texture2D> pHighlightTexture, glm::vec2 standLocation);
+	WorldTile_Comp(std::shared_ptr<Texture2D> pNormalTexture, std::shared_ptr<Texture2D> pHighlightTexture, glm::vec2 standLocation, float scale);
 	~WorldTile_Comp() = default;
 	WorldTile_Comp(const WorldTile_Comp& other) = delete;
 	WorldTile_Comp(WorldTile_Comp&& other) noexcept = delete;
@@ -25,8 +25,7 @@ public:
 	/// Sets the texture back to normal if highlighted
 	/// </summary>
 	void ToNormalTexture();
-	
-	void Start() override;
+
 private:
 	//vector 2 stand position -> middle of top square of hexagon
 	glm::vec2 m_StandPosition{};
@@ -34,4 +33,5 @@ private:
 	bool m_IsHighlighted{ true };
 	std::shared_ptr<Texture2D> m_pNormalTexture{}
 	, m_pHighlightTexture{};
+	const float m_Scale;
 };

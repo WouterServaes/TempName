@@ -1,5 +1,7 @@
 #include "MiniginPCH.h"
 #include "LevelScene.h"
+
+#include "EngineSettings.h"
 #include "GameObject.h"
 #include "ResourceManager.h"
 #include "Texture2D.h"
@@ -20,14 +22,12 @@ void LevelScene::InitWorld()
 	const auto pNormalTexture{ ResourceManager::GetInstance().LoadTexture("Images/Tile_Normal.png") }
 	,pHighlightTexture{ ResourceManager::GetInstance().LoadTexture("Images/Tile_Highlighted.png") };
 
-	const auto textDim{ pNormalTexture->GetTextureData().Dimensions };
-	const auto tileWidth{ textDim.x },
-		tileSmallestHeight{ textDim.y * 3.f/4.f};
+	const auto scale{ .5f };
+	
 	const auto bottomRowAmount{ 5 };
 	auto pWorldGridManager{ std::make_shared<GameObject>(L"WorldGridManager", this) };
 	AddGameObject(pWorldGridManager);
-	pWorldGridManager->GetTransform()->SetPosition(50, 250);
-	pWorldGridManager->AddComponent(new WorldTileManager_Comp(pNormalTexture, pHighlightTexture, tileWidth, tileSmallestHeight, bottomRowAmount));
+	pWorldGridManager->AddComponent(new WorldTileManager_Comp(pNormalTexture, pHighlightTexture, scale, bottomRowAmount));
 
 }
 

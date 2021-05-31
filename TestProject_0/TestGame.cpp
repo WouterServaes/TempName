@@ -2,7 +2,6 @@
 
 #include "TestGame.h"
 
-#include "DemoScene.h"
 #include "SceneManager.h"
 #include "LevelScene.h"
 void TestGame::LoadGame()
