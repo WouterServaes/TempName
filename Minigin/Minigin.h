@@ -2,11 +2,11 @@
 struct SDL_Window;
 
 extern int GameMain();
-
+struct EngineSettings;
 class Minigin
 {
 public:
-	Minigin(int windowWidth = 640, int windowHeight = 480);
+	Minigin() = default;
 	virtual ~Minigin() = default;
 	Minigin(const Minigin& other) = delete;
 	Minigin(Minigin&& other) noexcept = delete;
@@ -14,8 +14,7 @@ public:
 	Minigin& operator=(Minigin&& other) noexcept = delete;
 	void Run();
 
-	[[nodiscard]] int GetWindowWidth() const;
-	[[nodiscard]] int GetWindowHeight() const;
+	static EngineSettings* pEngineSettings;
 protected:
 	virtual void LoadGame() = 0;
 
@@ -26,5 +25,4 @@ private:
 	static const int MsPerFrame{ 16 }; //16 for 60 fps, 33 for 30 fps
 	const float MsPerUpdate{ MsPerFrame / 1000.f };
 	SDL_Window* m_Window{};
-	const int m_WindowWidth, m_WindowHeight;
 };

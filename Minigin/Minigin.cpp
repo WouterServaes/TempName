@@ -21,20 +21,12 @@
 #include "AudioServiceLocator.h"
 #include "GameAudio.h"
 #include "AudioLogger.h"
+#include "EngineSettings.h"
 
 using namespace std;
 using namespace std::chrono;
 
-int Minigin::GetWindowWidth() const
-{
-	return m_WindowWidth;
-}
-
-int Minigin::GetWindowHeight() const
-{
-	return m_WindowHeight;
-}
-
+EngineSettings* Minigin::pEngineSettings = new EngineSettings();
 void Minigin::Run()
 {
 	Initialize();
@@ -83,11 +75,11 @@ void Minigin::Initialize()
 	}
 
 	m_Window = SDL_CreateWindow(
-		"Programming 4 assignment",
-		SDL_WINDOWPOS_CENTERED,
-		SDL_WINDOWPOS_CENTERED,
-		640,
-		480,
+		pEngineSettings->Title.c_str(),
+		pEngineSettings->WindowX,
+		pEngineSettings->WindowY,
+		pEngineSettings->WindowWidth,
+		pEngineSettings->WindowHeight,
 		SDL_WINDOW_OPENGL
 	);
 	if (m_Window == nullptr)
