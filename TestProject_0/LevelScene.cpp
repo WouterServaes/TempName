@@ -1,16 +1,25 @@
 #include "MiniginPCH.h"
 #include "LevelScene.h"
 
+
+#include "CharacterController_Comp.h"
 #include "EngineSettings.h"
 #include "GameObject.h"
+#include "Render_Comp.h"
 #include "ResourceManager.h"
 #include "Texture2D.h"
 #include "Transform.h"
 #include "WorldTileManager_Comp.h"
 void LevelScene::InitializeScene()
 {
-	InitUi();
-	InitWorld();
+	
+	//InitWorld();
+	const auto pTestCharText{ ResourceManager::GetInstance().LoadTexture("Images/logo.png") };
+	auto* pCharContrComp{ new CharacterController_Comp(.5f) };
+	auto pTestChar{ std::make_shared<GameObject>(L"aaa", this) };
+	AddGameObject(pTestChar);
+	pTestChar->AddComponent(pCharContrComp);
+	pTestChar->AddComponent(new Render_Comp(pTestCharText));
 }
 
 void LevelScene::InitUi()
