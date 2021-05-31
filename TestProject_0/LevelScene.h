@@ -21,6 +21,10 @@ private:
 	//world 
 	void InitWorld();
 	
-	
+	//players
+	void InitPlayerManager();
+
+	//Coily
+	void InitCoily();
 };
 

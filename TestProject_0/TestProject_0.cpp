@@ -8,14 +8,6 @@
 #include "Minigin.h"
 #include "TestGame.h"
 
-int GameMain()
-{
-	auto* pGame = new TestGame();
-	pGame->Run();
-	delete pGame;
-	return 0;
-}
-
 int main()
 {
 	auto* pGame = new TestGame();

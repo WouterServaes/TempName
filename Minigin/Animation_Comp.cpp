@@ -29,7 +29,8 @@ void Animation_Comp::Start()
 {
 	m_pRenderComponent = m_pGameObject->GetComponent<Render_Comp>();
 
-	m_pRenderComponent->UpdateTexture(m_Textures[0]);
+	if(m_pRenderComponent)
+		m_pRenderComponent->UpdateTexture(m_Textures[0]);
 }
 
 void Animation_Comp::Update()
@@ -54,7 +55,8 @@ void Animation_Comp::MultipleTexturesUpdate()
 	else
 		m_CurrentFrameColumn += 1;
 
-	m_pRenderComponent->UpdateTexture(m_Textures[m_CurrentFrameColumn]);
+	if (m_pRenderComponent)
+		m_pRenderComponent->UpdateTexture(m_Textures[m_CurrentFrameColumn]);
 }
 
 void Animation_Comp::SingleTextureUpdate()
@@ -75,7 +77,8 @@ void Animation_Comp::SingleTextureUpdate()
 
 	const float srcX{ m_FrameDimensions.x * m_CurrentFrameColumn }
 	, srcY{ m_FrameDimensions.y * m_CurrentFrameRow };
-	m_pRenderComponent->UpdateTexture(m_Textures[0], m_FrameDimensions.x, m_FrameDimensions.y, srcX, srcY, m_FrameDimensions.x, m_FrameDimensions.y);
+	if (m_pRenderComponent)
+		m_pRenderComponent->UpdateTexture(m_Textures[0], m_FrameDimensions.x, m_FrameDimensions.y, srcX, srcY, m_FrameDimensions.x, m_FrameDimensions.y);
 }
 
 std::string Animation_Comp::GetImageName(int imgNr, const std::string& folderName, const std::string& imageBaseName) const

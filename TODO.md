@@ -11,9 +11,6 @@
 - don't crash when resource isn't found, just continue with empty resource and display message
 - change wchar_t to char + cleanup  Subject* GameObject::GetSubject() const  
 
-## Audio:
-- let someone double check 
-
 ## PlayerObserver:
 - Fix ugly UpdateHealthUI/GetScoreTextComponent if()
 

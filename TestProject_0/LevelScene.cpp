@@ -25,3 +25,18 @@ void LevelScene::InitWorld()
 
 	AddGameObject(pWorldGridManager);
 }
+
+void LevelScene::InitPlayerManager()
+{
+	//initializes gameObject playerManager with playerManagerComp.
+	//this comp can add/remove player
+	//a player is added when a GameCommand "AddPlayer" is fired, this is fired from a ui click or something
+
+	//player has health component, qbert component, score component, animation component
+}
+
+void LevelScene::InitCoily()
+{
+	//has coily component
+		//this component changes position of game object	
+}
