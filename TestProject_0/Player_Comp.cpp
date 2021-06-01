@@ -21,7 +21,7 @@ void Player_Comp::Start()
 
 	const auto pWorldGrid{ m_pGameObject->GetCurrentScene()->GetGameObject("WorldTileManager") };
 	const auto pWorldGridManagerComp{ pWorldGrid->GetConstComponent<WorldTileManager_Comp>() };
-	const auto spawnPos{ pWorldGridManagerComp->GetTileStandPos(0) };
+	const auto spawnPos{ pWorldGridManagerComp->GetTileStandPos(pWorldGridManagerComp->GetTileAmount()) };
 
 	auto* pTransform{ m_pGameObject->GetTransform() };
 	const auto textureWidth{ GetConstComponent<Animation_Comp>()->GetFrameDimensions().x * pTransform->GetUniformScale() };

@@ -72,6 +72,11 @@ WorldTile_Comp* WorldTileManager_Comp::GetTileAtPosition(glm::vec2 position)
 	return nullptr;
 }
 
+int WorldTileManager_Comp::GetTileAmount() const
+{
+	return static_cast<int>(m_pWorldTiles.size()) - 1;
+}
+
 void WorldTileManager_Comp::SpawnTiles()
 {
 	const auto& startPos{ m_pGameObject->GetTransform()->GetPosition() };
