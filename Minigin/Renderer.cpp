@@ -79,7 +79,7 @@ void Renderer::RenderTexture(const Texture2D& texture, const float x, const floa
 	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst);
 }
 
-void Renderer::RenderTexture(const Texture2D& texture, float x, float y, float srcX, float srcY, float srcWidth,
+void Renderer::RenderTexture(const Texture2D& texture, const float x, const float y, const float srcX, const float srcY, const float srcWidth,
 	float srcHeight) const
 {
 	const auto textureData{ texture.GetTextureData() };
@@ -88,8 +88,8 @@ void Renderer::RenderTexture(const Texture2D& texture, float x, float y, float s
 	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), &src, &dst);
 }
 
-void Renderer::RenderTexture(const Texture2D& texture, float dstX, float dstY, float dstWidth, float dstHeight,
-	float srcX, float srcY, float srcWidth, float srcHeight) const
+void Renderer::RenderTexture(const Texture2D& texture, const float dstX, const float dstY, const float dstWidth, const float dstHeight,
+	const float srcX, const float srcY, const float srcWidth, const float srcHeight) const
 {
 	SDL_Rect dst{};
 	dst.x = static_cast<int>(dstX);
