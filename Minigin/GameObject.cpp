@@ -95,6 +95,16 @@ void GameObject::SetScene(Scene* pScene, const bool warnIfFail)
 		Logger::LogWarning(("GameObject::SetScene: " + m_ObjectName + "already has a scene").c_str());
 }
 
+void GameObject::SetRenderLayer(const int layer)
+{
+	m_RenderLayer = layer;
+}
+
+int GameObject::GetRenderLayer() const
+{
+	return m_RenderLayer;
+}
+
 GameObject* GameObject::GetGameObject(const char* pGameObjectName) const
 {
 	return m_pCurrentScene->GetGameObject(pGameObjectName).get();

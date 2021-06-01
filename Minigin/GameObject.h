@@ -9,8 +9,8 @@ class GameObject final
 {
 public:
 	GameObject() = delete;
-	GameObject(const std::string& objectName, Scene* pScene, bool isSubject = false);
-	GameObject(const std::string& objectName, bool isSubject = false);
+	explicit GameObject(const std::string& objectName, Scene* pScene, bool isSubject = false);
+	explicit GameObject(const std::string& objectName, bool isSubject = false);
 	~GameObject();
 	GameObject(const GameObject& other) = delete;
 	GameObject(GameObject&& other) = delete;
@@ -29,6 +29,12 @@ public:
 	void SetActive(const bool active) { m_IsActive = active; };
 
 	void SetScene(Scene* pScene, bool warnIfFail = true);
+
+	//Determines render order: higher layers are rendered ontop of lower layers
+	void SetRenderLayer(int layer);
+	[[nodiscard]] int GetRenderLayer() const;
+
+	
 	template<typename T>
 	T* GetComponent()
 	{
@@ -74,4 +80,6 @@ private:
 	Scene* m_pCurrentScene{};
 
 	Subject* const m_pSubject{ nullptr };
+
+	int m_RenderLayer{0};
 };

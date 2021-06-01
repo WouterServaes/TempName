@@ -32,7 +32,7 @@ void LevelOneScene::InitializeScene()
 	pPlayerObj->AddComponent(new CharacterController_Comp(.025f));
 	pPlayerObj->AddComponent(new Player_Comp());
 	pPlayerObj->GetSubject()->AddObserver(new MovementObserver());
-	
+	pPlayerObj->SetRenderLayer(5);
 	
 }
 

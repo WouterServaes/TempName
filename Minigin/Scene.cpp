@@ -38,11 +38,30 @@ void Scene::Update()
 
 void Scene::Render() const
 {
-	std::for_each(m_Objects.begin(), m_Objects.end(), [](const std::shared_ptr<GameObject>& obj)
+	//To avoid textures rendering on top of each other in a way that is determined by the order the GameObjects were made,
+	//I sort objects with using the "renderLayer" of the object
+	//Higher layers get drawn on top of lower layers
+	//objects with the same render layer get rendered in the original way, determined by the order the GameObjects were made.
+	
+	std::vector<std::shared_ptr<GameObject>> renderObjs{};
+	std::for_each(m_Objects.begin(), m_Objects.end(), [&renderObjs](const std::shared_ptr<GameObject>& obj)
 		{
 			if (obj->NeedsToBeRendered())
-				obj->Render();
+				renderObjs.push_back(obj);
 		});
+
+	if (!renderObjs.empty())
+	{
+		std::sort(renderObjs.begin(), renderObjs.end(), [](const std::shared_ptr<GameObject>& objA, const std::shared_ptr<GameObject>& objB)
+			{
+				return objA->GetRenderLayer() < objB->GetRenderLayer();
+			});
+
+		std::for_each(renderObjs.begin(), renderObjs.end(), [](const std::shared_ptr<GameObject>& obj)
+			{
+				obj->Render();
+			});
+	}
 }
 
 void Scene::StartScene()
