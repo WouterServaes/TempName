@@ -30,3 +30,18 @@ void Transform::Translate(const float x, const float y, const float z)
 	m_Position.y *= y;
 	m_Position.z *= z;
 }
+
+void Transform::ScaleUniform(const float scale)
+{
+	Scale(glm::vec2(scale, scale));
+}
+
+void Transform::Scale(const float scaleX,const float scaleY)
+{
+	Scale(glm::vec2(scaleX, scaleY));
+}
+
+void Transform::Scale(const glm::vec2& scale)
+{
+	m_Scale = scale;
+}

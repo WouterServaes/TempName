@@ -9,8 +9,8 @@
 #include "Scene.h"
 #include "Transform.h"
 
-WorldTileManager_Comp::WorldTileManager_Comp(const std::shared_ptr<Texture2D> pNormalTexture, const std::shared_ptr<Texture2D> pHighlightTexture, const float scale, const int bottomRowAmount)
-	: m_BottomRowAmount(bottomRowAmount), m_Scale(scale),
+WorldTileManager_Comp::WorldTileManager_Comp(const std::shared_ptr<Texture2D> pNormalTexture, const std::shared_ptr<Texture2D> pHighlightTexture, const int bottomRowAmount)
+	: m_BottomRowAmount(bottomRowAmount),
 	m_pNormalTexture(pNormalTexture),
 	m_pHighlightTexture(pHighlightTexture)
 {
@@ -20,19 +20,22 @@ void WorldTileManager_Comp::Start()
 {
 	//texture/tile dimensions
 	const auto textDim{ m_pNormalTexture->GetTextureData().Dimensions };
-	m_TileWidth = textDim.x * m_Scale;
-	m_TileSmallestHeight = textDim.y * m_Scale * 3.f / 4.f;
+	auto* pTransform{ m_pGameObject->GetTransform() };
+	const auto scale{ pTransform->GetUniformScale() };
+	m_TileWidth = textDim.x * scale;
+	m_TileSmallestHeight = textDim.y * scale * 3.f / 4.f;
 
 	//tile stand offset
 	m_TileStandOffset.x = m_TileWidth / 2.f;
-	m_TileStandOffset.y = m_TileSmallestHeight + m_TileSmallestHeight / 2.f;
+	m_TileStandOffset.y = m_TileSmallestHeight/2.f;
+	
 
 	//pyramid position
 	auto* pEngineSettings{ Minigin::pEngineSettings };
 	const auto bottomMargin{ 20.f };
 	const auto x{ static_cast<float>(pEngineSettings->WindowWidth) / 2.f - static_cast<float>(m_BottomRowAmount) / 2.f * m_TileWidth },
 		y{ static_cast<float>(pEngineSettings->WindowHeight) - m_TileWidth - bottomMargin };
-	m_pGameObject->GetTransform()->SetPosition(x, y);
+	pTransform->SetPosition(x, y);
 
 	SpawnTiles();
 }
@@ -80,10 +83,13 @@ void WorldTileManager_Comp::CreateTile(const glm::vec3 pos, const int c, const i
 
 	auto pHexObj{ std::make_shared< GameObject>(name.c_str()) };
 
-	pHexObj->GetTransform()->SetPosition(pos);
+	auto* pHexTransform{ pHexObj->GetTransform() };
+	pHexTransform->SetPosition(pos);
+	pHexTransform->ScaleUniform(m_pGameObject->GetTransform()->GetUniformScale());
+	
 	pHexObj->AddComponent(new Render_Comp());
 
-	auto* pTileComp{ new WorldTile_Comp(m_pNormalTexture, m_pHighlightTexture, glm::vec2(pos.x + m_TileStandOffset.x, pos.y + m_TileStandOffset.y), m_Scale) };
+	auto* pTileComp{ new WorldTile_Comp(m_pNormalTexture, m_pHighlightTexture, glm::vec2(pos.x + m_TileStandOffset.x, pos.y - m_TileStandOffset.y)) };
 	m_pWorldTiles.push_back(pTileComp);
 
 	pHexObj->AddComponent(pTileComp);

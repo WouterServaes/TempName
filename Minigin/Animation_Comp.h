@@ -23,8 +23,6 @@ public:
 	void Update() override;
 	void Start() override;
 
-	void Scale(float amount);
-	void Scale(glm::vec2 amount);
 private:
 	[[nodiscard]] std::string GetImageName(int imgNr, const std::string& folderName, const std::string& imageBaseName) const;
 
@@ -42,5 +40,4 @@ private:
 
 	bool m_MultipleImages{ false };
 
-	glm::vec2 m_Scale{ 1.f, 1.f };
 };

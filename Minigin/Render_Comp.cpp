@@ -18,18 +18,20 @@ Render_Comp::Render_Comp(const std::shared_ptr<Texture2D> texture)
 
 void Render_Comp::Render()const
 {
-	const auto& pos{ m_pGameObject->GetTransform()->GetPosition() };
+	const auto* pTransform{ m_pGameObject->GetTransform() };
+	const auto& pos{ pTransform->GetPosition() };
+	const auto& scale{ pTransform->GetScale() };
 	
 	switch (m_Method)
 	{
 	case Method::Resize:
-		Renderer::GetInstance().RenderTexture(*m_Texture, pos.x, pos.y, m_DstWidth, m_DstHeight);
+		Renderer::GetInstance().RenderTexture(*m_Texture, pos.x, pos.y, m_DstWidth * scale.x, m_DstHeight * scale.y);
 		break;
 	case Method::CutOut:
 		Renderer::GetInstance().RenderTexture(*m_Texture, pos.x, pos.y, m_SrcX, m_SrcY, m_SrcWidth, m_SrcHeight);
 		break;
 	case Method::CutOutResize:
-		Renderer::GetInstance().RenderTexture(*m_Texture, pos.x, pos.y, m_DstWidth, m_DstHeight, m_SrcX, m_SrcY, m_SrcWidth, m_SrcHeight);
+		Renderer::GetInstance().RenderTexture(*m_Texture, pos.x, pos.y, m_DstWidth * scale.x, m_DstHeight * scale.y, m_SrcX, m_SrcY, m_SrcWidth, m_SrcHeight);
 		break;
 	default:
 		break;
@@ -78,11 +80,4 @@ void Render_Comp::UpdateTexture(const std::shared_ptr<Texture2D> texture, const 
 	m_Texture = texture;
 
 	m_Method = Method::CutOutResize;
-}
-
-void Render_Comp::ScaleTexture(const float scaleX, const float scaleY)
-{
-	m_DstWidth *= scaleX;
-	m_DstHeight *= scaleY;
-	m_Method = Method::Resize;
 }

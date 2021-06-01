@@ -28,12 +28,11 @@ void LevelOneScene::InitializeScene()
 	pPlayerObj->AddComponent(new Render_Comp());
 	auto* pAnimComp{ new Animation_Comp("Images/QBert.png", 4, 8, glm::vec2(128.f, 147.f)) };
 	pPlayerObj->AddComponent(pAnimComp);
-	pAnimComp->Scale(.25f);
 	pPlayerObj->AddComponent(new CharacterController_Comp(.025f));
 	pPlayerObj->AddComponent(new Player_Comp());
 	pPlayerObj->GetSubject()->AddObserver(new MovementObserver());
 	pPlayerObj->SetRenderLayer(5);
-	
+	pPlayerObj->GetTransform()->ScaleUniform(.25f);
 }
 
 void LevelOneScene::InitUi()
@@ -45,12 +44,12 @@ void LevelOneScene::InitWorld()
 	const auto pNormalTexture{ ResourceManager::GetInstance().LoadTexture("Images/Tile_Normal.png") }
 	,pHighlightTexture{ ResourceManager::GetInstance().LoadTexture("Images/Tile_Highlighted.png") };
 
-	const auto scale{ .5f };
 	
-	const auto bottomRowAmount{ 5 };
+	const auto bottomRowAmount{ 1 };
 	auto pWorldGridManager{ std::make_shared<GameObject>("WorldGridManager") };
 	AddGameObject(pWorldGridManager);
-	pWorldGridManager->AddComponent(new WorldTileManager_Comp(pNormalTexture, pHighlightTexture, scale, bottomRowAmount));
+	pWorldGridManager->GetTransform()->ScaleUniform(.5f);
+	pWorldGridManager->AddComponent(new WorldTileManager_Comp(pNormalTexture, pHighlightTexture, bottomRowAmount));
 
 }
 

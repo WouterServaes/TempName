@@ -33,17 +33,6 @@ void Animation_Comp::Start()
 		m_pRenderComponent->UpdateTexture(m_Textures[0]);
 }
 
-void Animation_Comp::Scale(const float amount)
-{
-	m_Scale.x = amount;
-	m_Scale.y = amount;
-}
-
-void Animation_Comp::Scale(glm::vec2 amount)
-{
-	m_Scale = amount;
-}
-
 void Animation_Comp::Update()
 {
 	m_ElapsedTime += Time::GetInstance().deltaTime;
@@ -69,8 +58,6 @@ void Animation_Comp::MultipleTexturesUpdate()
 	if (m_pRenderComponent)
 	{
 		m_pRenderComponent->UpdateTexture(m_Textures[m_CurrentFrameColumn]);
-		if(m_Scale != glm::vec2(1.f, 1.f))
-			m_pRenderComponent->ScaleTexture(m_Scale.x, m_Scale.y);
 	}
 }
 
@@ -93,7 +80,7 @@ void Animation_Comp::SingleTextureUpdate()
 	const float srcX{ m_FrameDimensions.x * m_CurrentFrameColumn }
 	, srcY{ m_FrameDimensions.y * m_CurrentFrameRow };
 	if (m_pRenderComponent)
-		m_pRenderComponent->UpdateTexture(m_Textures[0], m_FrameDimensions.x * m_Scale.x, m_FrameDimensions.y * m_Scale.y, srcX, srcY, m_FrameDimensions.x, m_FrameDimensions.y);
+		m_pRenderComponent->UpdateTexture(m_Textures[0], m_FrameDimensions.x, m_FrameDimensions.y, srcX, srcY, m_FrameDimensions.x, m_FrameDimensions.y);
 }
 
 std::string Animation_Comp::GetImageName(const int imgNr, const std::string& folderName, const std::string& imageBaseName) const
