@@ -87,6 +87,9 @@
     <ClCompile Include="TileChanger_Comp.cpp">
       <Filter>GameComponents</Filter>
     </ClCompile>
+    <ClCompile Include="ScoreObserver.cpp">
+      <Filter>GameObservers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniginPCH.h">
@@ -142,6 +145,9 @@
     </ClInclude>
     <ClInclude Include="TileChanger_Comp.h">
       <Filter>GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreObserver.h">
+      <Filter>GameObservers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

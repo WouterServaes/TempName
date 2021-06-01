@@ -18,13 +18,14 @@
 #include "CharacterController_Comp.h"
 #include "Player_Comp.h"
 #include "Animation_Comp.h"
+#include "ScoreObserver.h"
+#include "Score_Comp.h"
 #include "TileChanger_Comp.h"
 
 void LevelOneScene::InitializeScene()
 {
 	InitWorld();
 
-	
 	auto pPlayerObj{ std::make_shared< GameObject>("pl", true) };
 	AddGameObject(pPlayerObj);
 	pPlayerObj->AddComponent(new Render_Comp());
@@ -33,7 +34,9 @@ void LevelOneScene::InitializeScene()
 	pPlayerObj->AddComponent(new CharacterController_Comp(.025f));
 	pPlayerObj->AddComponent(new Player_Comp());
 	pPlayerObj->AddComponent(new TileChanger_Comp());
+	pPlayerObj->AddComponent(new Score_Comp());
 	pPlayerObj->GetSubject()->AddObserver(new MovementObserver());
+	pPlayerObj->GetSubject()->AddObserver(new ScoreObserver());
 	pPlayerObj->SetRenderLayer(5);
 	pPlayerObj->GetTransform()->ScaleUniform(.25f);
 }

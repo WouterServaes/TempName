@@ -30,7 +30,8 @@ public:
 	/// Sets the texture highlighted if normal
 	/// </summary>
 	void ToHighlightedTexture();
-	glm::vec2 GetStandPos() const { return m_StandPosition; }
+	[[nodiscard]] glm::vec2 GetStandPos() const { return m_StandPosition; }
+	[[nodiscard]] bool GetIsHighlighted() const { return m_IsHighlighted; }
 private:
 	//vector 2 stand position -> middle of top square of hexagon
 	glm::vec2 m_StandPosition{};

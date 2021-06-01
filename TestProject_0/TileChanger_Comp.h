@@ -19,6 +19,8 @@ public:
 	void Update() override;
 	void Start() override;
 private:
+	void TryChangeTile();
+	void FireEvent() const;
 	WorldTileManager_Comp* m_pWorldTileManager{};
 	Transform* m_pTransform{};
 	glm::vec3 m_LastFramePos{};
