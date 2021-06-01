@@ -14,6 +14,7 @@
 #include "Transform.h"
 #include "WorldTileManager_Comp.h"
 #include "GameCommands.h"
+#include "MoveCommands.h"
 #include "CharacterController_Comp.h"
 void LevelOneScene::InitializeScene()
 {
@@ -24,7 +25,10 @@ void LevelOneScene::InitializeScene()
 	pPlayerObj->AddComponent(new CharacterController_Comp(.025f));
 	pPlayerObj->GetSubject()->AddObserver(new MovementObserver());
 	
-	InputManager::GetInstance().AssignKey(InputAction(SDL_KEYUP, TriggerState::Released, ControllerButtons::ButtonUp), std::make_unique<Command_MoveLeftUp>(pPlayerObj.get()));
+	InputManager::GetInstance().AssignKey(InputAction(SDLK_UP, TriggerState::Released, ControllerButtons::ButtonUp), std::make_unique<Command_MoveLeftUp>(pPlayerObj.get()));
+	InputManager::GetInstance().AssignKey(InputAction(SDLK_DOWN, TriggerState::Released, ControllerButtons::ButtonDown), std::make_unique<Command_MoveLeftDown>(pPlayerObj.get()));
+	InputManager::GetInstance().AssignKey(InputAction(SDLK_LEFT, TriggerState::Released, ControllerButtons::ButtonLeft), std::make_unique<Command_MoveLeft>(pPlayerObj.get()));
+	InputManager::GetInstance().AssignKey(InputAction(SDLK_RIGHT, TriggerState::Released, ControllerButtons::ButtonRight), std::make_unique<Command_MoveRight>(pPlayerObj.get()));
 }
 
 void LevelOneScene::InitUi()

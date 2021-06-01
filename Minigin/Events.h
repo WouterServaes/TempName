@@ -11,5 +11,7 @@ enum class Event
 	MoveLeftUp,
 	MoveLeftDown,
 	MoveRightUp,
-	MoveRightDown
+	MoveRightDown,
+	MoveRight,
+	MoveLeft
 };

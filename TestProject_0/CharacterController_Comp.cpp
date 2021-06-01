@@ -7,6 +7,9 @@
 #pragma warning (disable:4201)
 #include <glm/gtx/compatibility.hpp>
 #include <glm/gtx/norm.hpp>
+
+#include "Scene.h"
+#include "WorldTileManager_Comp.h"
 #pragma warning(pop)
 
 CharacterController_Comp::CharacterController_Comp(const float moveSpeed)
@@ -14,15 +17,14 @@ CharacterController_Comp::CharacterController_Comp(const float moveSpeed)
 {
 }
 
-void CharacterController_Comp::Move(const glm::vec2 position)
+void CharacterController_Comp::Move(const glm::vec2 movement)
 {
 	if (!m_IsMoving)
 	{
 		m_IsMoving = true;
 		const auto& pos{ m_pTransform->GetPosition() };
 		m_OrigPos = glm::vec2(pos.x, pos.y);
-		m_TargetPos = m_OrigPos + position;
-		//m_DistanceToTravelSqred = std::pow(m_TargetPos.x - m_OrigPos.x, 2.f) + std::pow(m_TargetPos.y - m_OrigPos.y, 2.f); //distance squared to avoid sqrt
+		m_TargetPos = m_OrigPos + movement;
 		m_DistanceToTravelSqred = glm::distance2(m_TargetPos, m_OrigPos);
 	}
 }
@@ -36,12 +38,43 @@ void CharacterController_Comp::Update()
 void CharacterController_Comp::Start()
 {
 	m_pTransform = m_pGameObject->GetTransform();
+	SetGridMovementVec();
+	
+}
+
+void CharacterController_Comp::MoveLeftUpOnGrid()
+{
+	Move(glm::vec2(m_GridMovements.Left, m_GridMovements.Up));
+}
+
+void CharacterController_Comp::MoveLeftDownOnGrid()
+{
+	Move(glm::vec2(m_GridMovements.Left, m_GridMovements.Down));
+}
+
+void CharacterController_Comp::MoveRightUpOnGrid()
+{
+	Move(glm::vec2(m_GridMovements.Right, m_GridMovements.Up));
+}
+
+void CharacterController_Comp::MoveRightDownOnGrid()
+{
+	Move(glm::vec2(m_GridMovements.Right, m_GridMovements.Down));
+}
+
+void CharacterController_Comp::MoveLeftOnGrid()
+{
+	Move(glm::vec2(m_GridMovements.Left,0.f));
+}
+
+void CharacterController_Comp::MoveRightOnGrid()
+{
+	Move(glm::vec2(m_GridMovements.Right, 0.f));
 }
 
 bool CharacterController_Comp::GetReachedPos() const
 {
 	const auto& currentPos{ m_pTransform->GetPosition() };
-	//const auto distanceTraveledSqred{ std::pow(m_OrigPos.x - currentPos.x, 2.f) + std::pow(m_OrigPos.y - currentPos.y, 2.f) };
 	const auto distanceTraveledSqred{ glm::distance2(m_OrigPos, glm::vec2(currentPos))};
 	return distanceTraveledSqred >= m_DistanceToTravelSqred;
 }
@@ -53,8 +86,6 @@ void CharacterController_Comp::UpdatePos()
 		//change to bezier curve later https://gamedev.stackexchange.com/questions/157642/moving-a-2d-object-along-circular-arc-between-two-points
 		const auto elapsedSec{ Time::GetInstance().elapsedTime };
 		m_MoveDelta += elapsedSec * m_MoveSpeed;
-		//const auto x{ (1 - m_MoveDelta) * m_OrigPos.x + m_MoveDelta * m_TargetPos.x },
-		//	y{ (1 - m_MoveDelta) * m_OrigPos.y + m_MoveDelta * m_TargetPos.y };
 
 		const auto lerped{ glm::lerp(m_OrigPos, m_TargetPos, m_MoveDelta) };
 		
@@ -67,4 +98,16 @@ void CharacterController_Comp::UpdatePos()
 		m_DistanceToTravelSqred = 0.f;
 		m_pTransform->SetPosition(m_TargetPos.x, m_TargetPos.y);
 	}
+}
+
+void CharacterController_Comp::SetGridMovementVec()
+{
+	const auto pWorldGrid{ m_pGameObject->GetCurrentScene()->GetGameObject("WorldGridManager") };
+	const auto pWorldGridManagerComp{ pWorldGrid->GetConstComponent<WorldTileManager_Comp>() };
+	const auto tileDimensions{ pWorldGridManagerComp->GetGridTileDimensions() };
+
+	m_GridMovements.Down = tileDimensions.y;
+	m_GridMovements.Up = -tileDimensions.y;
+	m_GridMovements.Left = -tileDimensions.x;
+	m_GridMovements.Right = tileDimensions.x;
 }

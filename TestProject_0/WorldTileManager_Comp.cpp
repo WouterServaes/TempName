@@ -37,6 +37,11 @@ void WorldTileManager_Comp::Start()
 	SpawnTiles();
 }
 
+glm::vec2 WorldTileManager_Comp::GetGridTileDimensions() const
+{
+	return m_TileStandOffset;
+}
+
 void WorldTileManager_Comp::ResetTiles()
 {
 	for (auto& tile : m_pWorldTiles)

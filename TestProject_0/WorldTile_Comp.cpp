@@ -25,9 +25,5 @@ void WorldTile_Comp::ToNormalTexture()
 	}
 }
 
-void WorldTile_Comp::Start()
-{
-	Logger::LogInfo(m_pGameObject->GetName());
-}
 	
 	

@@ -22,6 +22,7 @@ public:
 
 	void Start() override;
 
+	glm::vec2 GetGridTileDimensions() const;
 	/// <summary>
 	/// Resets all the tiles
 	/// </summary>
