@@ -8,5 +8,8 @@ enum class Event
 	DefeatedCoily,
 	DiskLeftAtEnd,
 	CatchedSlickOrSam,
-	Move
+	MoveLeftUp,
+	MoveLeftDown,
+	MoveRightUp,
+	MoveRightDown
 };

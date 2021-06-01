@@ -203,5 +203,5 @@ void DemoScene::InitInput()
 
 	//move test
 	inputAction = InputAction('z', TriggerState::Down, ControllerButtons::ButtonB, 0);
-	inputManager.AssignKey(inputAction, std::make_unique<Command_Move>(player1));
+	inputManager.AssignKey(inputAction, std::make_unique<Command_MoveLeftUp>(player1));
 }

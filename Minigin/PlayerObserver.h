@@ -16,6 +16,7 @@ public:
 
 	void OnNotify(GameObject* gameObject, Event event) override;
 private:
+	//old:
 	void UpdateHealthUi(const GameObject* gameObject);
 	void ShowPlayerDied(GameObject* gameObject);
 	void HandleDefeatedCoily(GameObject* gameObject);
@@ -27,4 +28,7 @@ private:
 	void AddScore(int amount, GameObject* playerObj);
 	Text_Comp* GetScoreTextComponent(const GameObject* playerObj);
 	Score_Comp* GetScoreComponent(GameObject* const playerObj);
+
+	//new:
+	
 };

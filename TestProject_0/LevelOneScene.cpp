@@ -5,8 +5,11 @@
 #include "CharacterController_Comp.h"
 #include "EngineSettings.h"
 #include "GameObject.h"
+#include "InputManager.h"
+#include "MovementObserver.h"
 #include "Render_Comp.h"
 #include "ResourceManager.h"
+#include "Subject.h"
 #include "Texture2D.h"
 #include "Transform.h"
 #include "WorldTileManager_Comp.h"
@@ -40,6 +43,7 @@ void LevelOneScene::InitPlayerManager()
 	//a player is added when a GameCommand "AddPlayer" is fired, this is fired from a ui click or something
 
 	//player has health component, qbert component, score component, animation component
+	
 }
 
 void LevelOneScene::InitCoily()

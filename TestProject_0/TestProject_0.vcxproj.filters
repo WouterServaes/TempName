@@ -75,6 +75,12 @@
     <ClCompile Include="LevelOneScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Player_Comp.cpp">
+      <Filter>GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="MovementObserver.cpp">
+      <Filter>GameObservers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniginPCH.h">
@@ -118,6 +124,12 @@
     </ClInclude>
     <ClInclude Include="LevelOneScene.h">
       <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Player_Comp.h">
+      <Filter>GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="MovementObserver.h">
+      <Filter>GameObservers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

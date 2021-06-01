@@ -23,7 +23,4 @@
 
 ## Minigin.cpp
 - Ability to set audio system
-
-## math helper 
-- distance (CharacterController_Comp)
-- lerp
+     

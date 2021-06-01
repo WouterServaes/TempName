@@ -13,7 +13,7 @@ public:
 	Observer(Observer&& other) noexcept = delete;
 	Observer& operator=(const Observer& other) = delete;
 	Observer& operator=(Observer&& other) noexcept = delete;
-	virtual void OnNotify(GameObject* const gameObject, Event event) = 0;
+	virtual void OnNotify(GameObject* pGameObject, Event event) = 0;
 private:
 	Observer* m_pNextObserver{ nullptr };
 };

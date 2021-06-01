@@ -34,9 +34,7 @@ void PlayerObserver::OnNotify(GameObject* const gameObject, Event event)
 	case Event::DiskLeftAtEnd:
 		HandleLeftDiskAtEnd(gameObject);
 		break;
-	case Event::Move:
-		HandleMove(gameObject);
-		break;
+	
 	}
 }
 
