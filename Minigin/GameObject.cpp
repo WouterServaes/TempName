@@ -5,8 +5,8 @@
 #include "Scene.h"
 #include "Transform_Comp.h"
 #include "Subject.h"
-GameObject::GameObject(const char* pObjectName, Scene* pScene, const bool isSubject)
-	:m_pObjectName(pObjectName), m_pCurrentScene(pScene), m_pSubject((isSubject) ? new Subject() : nullptr)
+GameObject::GameObject(const std::string& objectName, Scene* pScene, const bool isSubject)
+	:m_ObjectName(objectName), m_pCurrentScene(pScene), m_pSubject((isSubject) ? new Subject() : nullptr)
 {
 	m_pComponents.push_back(new Transform_Comp(0.f, 0.f, 0.f));
 	m_pComponents.at(0)->SetGameObject(this);
@@ -38,7 +38,7 @@ void GameObject::Render() const
 
 void GameObject::Start()
 {
-	const auto comps{ m_pComponents.size() };
+	const auto comps{ static_cast<int>(m_pComponents.size()) };
 	for (int idx{}; idx < comps; idx++)
 		m_pComponents.at(idx)->Start();
 

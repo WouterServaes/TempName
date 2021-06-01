@@ -27,7 +27,7 @@ void WorldTile_Comp::ToNormalTexture()
 
 void WorldTile_Comp::Start()
 {
-	Logger::LogInfo((std::string("Added ") + std::string(m_pGameObject->GetName())).c_str());
+	Logger::LogInfo(m_pGameObject->GetName());
 }
 	
 	

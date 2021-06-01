@@ -9,6 +9,11 @@ public:
 		LogMsg(Level::Info, msg, timeStamp);
 	}
 
+	static void LogInfo(const std::string& msg, const bool timeStamp = true)
+	{
+		LogMsg(Level::Info, msg.c_str(), timeStamp);
+	}
+	
 	static void LogWarning(const char* msg, const bool timeStamp = true)
 	{
 		LogMsg(Level::Warning, msg, timeStamp);

@@ -56,21 +56,21 @@ void Scene::StartScene()
 
 void Scene::StartLateObjects()
 {
-	if (m_InitialStartObjIdxs.size() > 0)
+	if (m_ObjIdxsNeedStart.size() > 0)
 	{
-		for (int idx : m_InitialStartObjIdxs)
+		for (int idx : m_ObjIdxsNeedStart)
 			m_Objects.at(idx)->Start();
-		m_InitialStartObjIdxs.clear();
+		m_ObjIdxsNeedStart.clear();
 	}
 }
 
-std::shared_ptr< GameObject>& Scene::GetGameObject(const char* pGameObjectName)
+std::shared_ptr< GameObject>& Scene::GetGameObject(const std::string& gameObjectName)
 {
 	for (auto& o : m_Objects)
-		if (o->GetName() == pGameObjectName)
+		if (o->GetName() == gameObjectName)
 			return o;
 
-	Logger::LogError("GetGameObject(const wchar_t* pGameObjectName) no object with this name exist");
+	Logger::LogError("GetGameObject(const std::string& pGameObjectName) no object with this name exist");
 	return m_Objects[0];
 }
 

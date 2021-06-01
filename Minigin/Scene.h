@@ -7,7 +7,7 @@ public:
 	static int SceneCount;
 	void AddGameObject(const std::shared_ptr<GameObject>& object);
 	std::shared_ptr<GameObject>& GetGameObject(int idx);
-	std::shared_ptr<GameObject>& GetGameObject(const char* pGameObjectName);
+	std::shared_ptr<GameObject>& GetGameObject(const std::string& gameObjectName);
 	void Update();
 	void Render() const;
 	[[nodiscard]] const std::string& Name() const { return m_Name; };

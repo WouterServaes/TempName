@@ -11,8 +11,8 @@
 
 WorldTileManager_Comp::WorldTileManager_Comp(const std::shared_ptr<Texture2D> pNormalTexture, const std::shared_ptr<Texture2D> pHighlightTexture, const float scale, const int bottomRowAmount)
 	: m_BottomRowAmount(bottomRowAmount), m_Scale(scale),
-	  m_pNormalTexture(pNormalTexture),
-	  m_pHighlightTexture(pHighlightTexture)
+	m_pNormalTexture(pNormalTexture),
+	m_pHighlightTexture(pHighlightTexture)
 {
 }
 
@@ -63,9 +63,10 @@ void WorldTileManager_Comp::SpawnTiles()
 	}
 }
 
-void WorldTileManager_Comp::CreateTile(const glm::vec3 pos, const  int c, const  int r)
+void WorldTileManager_Comp::CreateTile(const glm::vec3 pos, const int c, const int r)
 {
-	const auto name{ std::string("Hex " + std::to_string(r) + " " + std::to_string(c)) };
+	auto name{ std::string("Hex " + std::to_string(r)) };
+	name += " " + std::to_string(c);
 
 	auto pHexObj{ std::make_shared< GameObject>(name.c_str(), m_pGameObject->GetCurrentScene()) };
 
