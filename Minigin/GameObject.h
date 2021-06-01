@@ -10,6 +10,7 @@ class GameObject final
 public:
 	GameObject() = delete;
 	GameObject(const std::string& objectName, Scene* pScene, bool isSubject = false);
+	GameObject(const std::string& objectName, bool isSubject = false);
 	~GameObject();
 	GameObject(const GameObject& other) = delete;
 	GameObject(GameObject&& other) = delete;
@@ -27,6 +28,7 @@ public:
 	[[nodiscard]] bool IsActive()const { return m_IsActive; };
 	void SetActive(const bool active) { m_IsActive = active; };
 
+	void SetScene(Scene* pScene, bool warnIfFail = true);
 	template<typename T>
 	T* GetComponent()
 	{
@@ -67,9 +69,9 @@ private:
 	bool m_MarkForDeletion{ false }; //true: this game object will be deleted from the scene at the end of the current update
 	bool m_NeedsToBeRendered{ false }; //true: Render() of this gameObject will be called from the scene manager, not every game object needs to be rendered.
 	bool m_IsActive{ true };
-	std::string m_ObjectName;
+	std::string m_ObjectName{};
 
-	Scene* const m_pCurrentScene;
+	Scene* m_pCurrentScene{};
 
 	Subject* const m_pSubject{ nullptr };
 };

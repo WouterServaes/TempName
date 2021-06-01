@@ -16,6 +16,7 @@ void Scene::AddGameObject(const std::shared_ptr<GameObject>& object)
 	else
 		m_ObjIdxsNeedStart.push_back(static_cast<int>(m_Objects.size()));
 
+	object->SetScene(this, false);
 	m_Objects.push_back(object);
 }
 

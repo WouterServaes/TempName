@@ -68,7 +68,7 @@ void WorldTileManager_Comp::CreateTile(const glm::vec3 pos, const int c, const i
 	auto name{ std::string("Hex " + std::to_string(r)) };
 	name += " " + std::to_string(c);
 
-	auto pHexObj{ std::make_shared< GameObject>(name.c_str(), m_pGameObject->GetCurrentScene()) };
+	auto pHexObj{ std::make_shared< GameObject>(name.c_str()) };
 
 	pHexObj->GetTransform()->SetPosition(pos);
 	pHexObj->AddComponent(new Render_Comp());

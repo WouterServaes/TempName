@@ -12,6 +12,13 @@ GameObject::GameObject(const std::string& objectName, Scene* pScene, const bool 
 	m_pComponents.at(0)->SetGameObject(this);
 }
 
+GameObject::GameObject(const std::string& objectName, bool isSubject)
+	:m_ObjectName(objectName), m_pCurrentScene(nullptr), m_pSubject((isSubject) ? new Subject() : nullptr)
+{
+	m_pComponents.push_back(new Transform_Comp(0.f, 0.f, 0.f));
+	m_pComponents.at(0)->SetGameObject(this);
+}
+
 GameObject::~GameObject()
 {
 	for (auto comp : m_pComponents)
@@ -78,6 +85,14 @@ Subject* GameObject::GetSubject() const
 Scene* GameObject::GetCurrentScene() const
 {
 	return m_pCurrentScene;
+}
+
+void GameObject::SetScene(Scene* pScene, const bool warnIfFail)
+{
+	if (m_pCurrentScene == nullptr)
+		m_pCurrentScene = pScene;
+	else if(warnIfFail)
+		Logger::LogWarning(("GameObject::SetScene: " + m_ObjectName + "already has a scene").c_str());
 }
 
 GameObject* GameObject::GetGameObject(const char* pGameObjectName) const
