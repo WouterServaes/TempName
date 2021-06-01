@@ -10,12 +10,15 @@ void TileChanger_Comp::Update()
 {
 	const auto pos{ m_pTransform->GetPosition() };
 	
-	if(pos != m_pTransform->GetLastPosition())
+	if(pos != m_LastFramePos)
 	{
 		auto* pCurrentTile{ m_pWorldTileManager->GetTileAtPosition(pos) };
 		if(pCurrentTile != nullptr)
+		{
 			pCurrentTile->ToHighlightedTexture();
+		}
 	}
+	m_LastFramePos = pos;
 }
 
 void TileChanger_Comp::Start()

@@ -58,10 +58,13 @@ glm::vec2 WorldTileManager_Comp::GetTileStandPos(const int tileIdx) const
 
 WorldTile_Comp* WorldTileManager_Comp::GetTileAtPosition(glm::vec2 position)
 {
-	const auto it{ std::find_if(m_pWorldTiles.begin(), m_pWorldTiles.end(), [position](WorldTile_Comp* pWorldTile)
+	const auto it{ std::find_if(m_pWorldTiles.begin(), m_pWorldTiles.end(), [position, this](WorldTile_Comp* pWorldTile)
 		{
 			const auto standPos{ pWorldTile->GetStandPos() };
-			return standPos.x == position.x && standPos.y == position.y;
+
+			return position.x <= standPos.x + m_TileWidth / 2.f && position.x >= standPos.x - m_TileWidth / 2.f
+				&& position.y == standPos.y;
+		
 		}) };
 	
 	if (it != m_pWorldTiles.end())

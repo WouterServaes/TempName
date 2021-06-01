@@ -2,6 +2,11 @@
 #include <BaseComponent.h>
 class WorldTileManager_Comp;
 class Transform;
+#pragma warning(push)
+#pragma warning (disable:4201)
+#include <glm/vec3.hpp>
+#pragma warning(pop)
+
 class TileChanger_Comp final:public BaseComponent
 {
 public:
@@ -16,5 +21,6 @@ public:
 private:
 	WorldTileManager_Comp* m_pWorldTileManager{};
 	Transform* m_pTransform{};
+	glm::vec3 m_LastFramePos{};
 };
 
