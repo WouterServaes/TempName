@@ -17,5 +17,6 @@ public:
 private:
 	void InitInput();
 	CharacterController_Comp* m_pController{nullptr};
+	bool m_Spawned{ false };
 };
 

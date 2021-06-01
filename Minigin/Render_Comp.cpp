@@ -81,3 +81,23 @@ void Render_Comp::UpdateTexture(const std::shared_ptr<Texture2D> texture, const 
 
 	m_Method = Method::CutOutResize;
 }
+
+float Render_Comp::GetTextureWidth() const
+{
+	return m_DstWidth;
+}
+
+float Render_Comp::GetTextureHeight() const
+{
+	return m_DstHeight;
+}
+
+float Render_Comp::GetScaledTextureWidth() const
+{
+	return m_DstWidth * m_pGameObject->GetTransform()->GetScale().x;
+}
+
+float Render_Comp::GetScaledTextureHeight() const
+{
+	return m_DstWidth * m_pGameObject->GetTransform()->GetScale().y;
+}

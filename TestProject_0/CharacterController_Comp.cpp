@@ -38,8 +38,7 @@ void CharacterController_Comp::Update()
 void CharacterController_Comp::Start()
 {
 	m_pTransform = m_pGameObject->GetTransform();
-	SetGridMovementVec();
-	
+	SetGridMovement();
 }
 
 void CharacterController_Comp::MoveLeftUpOnGrid()
@@ -64,18 +63,18 @@ void CharacterController_Comp::MoveRightDownOnGrid()
 
 void CharacterController_Comp::MoveLeftOnGrid()
 {
-	Move(glm::vec2(m_GridMovements.Left,0.f));
+	Move(glm::vec2(m_GridMovements.Left * 2.f, 0.f));
 }
 
 void CharacterController_Comp::MoveRightOnGrid()
 {
-	Move(glm::vec2(m_GridMovements.Right, 0.f));
+	Move(glm::vec2(m_GridMovements.Right * 2.f, 0.f));
 }
 
 bool CharacterController_Comp::GetReachedPos() const
 {
 	const auto& currentPos{ m_pTransform->GetPosition() };
-	const auto distanceTraveledSqred{ glm::distance2(m_OrigPos, glm::vec2(currentPos))};
+	const auto distanceTraveledSqred{ glm::distance2(m_OrigPos, glm::vec2(currentPos)) };
 	return distanceTraveledSqred >= m_DistanceToTravelSqred;
 }
 
@@ -88,7 +87,7 @@ void CharacterController_Comp::UpdatePos()
 		m_MoveDelta += elapsedSec * m_MoveSpeed;
 
 		const auto lerped{ glm::lerp(m_OrigPos, m_TargetPos, m_MoveDelta) };
-		
+
 		m_pTransform->SetPosition(lerped.x, lerped.y);
 	}
 	else
@@ -100,14 +99,14 @@ void CharacterController_Comp::UpdatePos()
 	}
 }
 
-void CharacterController_Comp::SetGridMovementVec()
+void CharacterController_Comp::SetGridMovement()
 {
 	const auto pWorldGrid{ m_pGameObject->GetCurrentScene()->GetGameObject("WorldGridManager") };
 	const auto pWorldGridManagerComp{ pWorldGrid->GetConstComponent<WorldTileManager_Comp>() };
 	const auto tileDimensions{ pWorldGridManagerComp->GetGridTileDimensions() };
 
-	m_GridMovements.Down = tileDimensions.y;
-	m_GridMovements.Up = -tileDimensions.y;
+	m_GridMovements.Down = tileDimensions.y * 2.f;
+	m_GridMovements.Up = -tileDimensions.y * 2.f;
 	m_GridMovements.Left = -tileDimensions.x;
 	m_GridMovements.Right = tileDimensions.x;
 }

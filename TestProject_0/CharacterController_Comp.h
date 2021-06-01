@@ -38,7 +38,7 @@ public:
 private:
 	[[nodiscard]] bool GetReachedPos() const;
 	void UpdatePos();
-	void SetGridMovementVec();
+	void SetGridMovement();
 	const float m_MoveSpeed;
 	float m_ElapsedTime{};
 	float m_MoveDelta{};

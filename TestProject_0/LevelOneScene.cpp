@@ -45,7 +45,7 @@ void LevelOneScene::InitWorld()
 	,pHighlightTexture{ ResourceManager::GetInstance().LoadTexture("Images/Tile_Highlighted.png") };
 
 	
-	const auto bottomRowAmount{ 1 };
+	const auto bottomRowAmount{ 5 };
 	auto pWorldGridManager{ std::make_shared<GameObject>("WorldGridManager") };
 	AddGameObject(pWorldGridManager);
 	pWorldGridManager->GetTransform()->ScaleUniform(.5f);

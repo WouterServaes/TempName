@@ -23,6 +23,7 @@ public:
 	void Update() override;
 	void Start() override;
 
+	[[nodiscard]] const glm::vec2& GetFrameDimensions() const { return m_FrameDimensions; }
 private:
 	[[nodiscard]] std::string GetImageName(int imgNr, const std::string& folderName, const std::string& imageBaseName) const;
 

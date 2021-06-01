@@ -1,5 +1,7 @@
 #include "MiniginPCH.h"
 #include "Player_Comp.h"
+
+#include "Animation_Comp.h"
 #include "CharacterController_Comp.h"
 #include "MoveCommands.h"
 #include "InputManager.h"
@@ -9,16 +11,22 @@
 
 void Player_Comp::Update()
 {
+
 }
 
 void Player_Comp::Start()
 {
 	m_pController = GetComponent<CharacterController_Comp>();
 	InitInput();
+
 	const auto pWorldGrid{ m_pGameObject->GetCurrentScene()->GetGameObject("WorldGridManager") };
 	const auto pWorldGridManagerComp{ pWorldGrid->GetConstComponent<WorldTileManager_Comp>() };
 	const auto spawnPos{ pWorldGridManagerComp->GetTileStandPos(0) };
-	m_pGameObject->GetTransform()->SetPosition(spawnPos.x, spawnPos.y) ;
+
+	auto* pTransform{ m_pGameObject->GetTransform() };
+	const auto textureWidth{ GetConstComponent<Animation_Comp>()->GetFrameDimensions().x * pTransform->GetUniformScale() };
+	pTransform->SetPosition(spawnPos.x - textureWidth / 2.f, spawnPos.y);
+	
 }
 
 void Player_Comp::InitInput()
