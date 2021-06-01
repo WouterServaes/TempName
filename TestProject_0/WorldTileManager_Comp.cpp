@@ -90,4 +90,5 @@ void WorldTileManager_Comp::CreateTile(const glm::vec3 pos, const int c, const i
 	pTileComp->ToNormalTexture();
 
 	m_pGameObject->GetCurrentScene()->AddGameObject(pHexObj);
+	pHexObj->SetRenderLayer(-1);
 }
