@@ -27,6 +27,7 @@ public:
 	void ResetTiles();
 
 	[[nodiscard]] glm::vec2 GetTileStandPos(int tileIdx) const;
+	[[nodiscard]] WorldTile_Comp* GetTileAtPosition(glm::vec2 position);
 private:
 	void SpawnTiles();
 	void CreateTile(glm::vec3 pos, int c, int r);

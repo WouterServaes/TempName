@@ -13,17 +13,28 @@ public:
 	{
 		LogMsg(Level::Info, msg.c_str(), timeStamp);
 	}
+
+	static void LogWarning(const std::string& msg, const bool timeStamp = true)
+	{
+		LogMsg(Level::Warning, msg.c_str(), timeStamp);
+	}
 	
 	static void LogWarning(const char* msg, const bool timeStamp = true)
 	{
 		LogMsg(Level::Warning, msg, timeStamp);
 	}
 
+	static void LogError(const std::string& msg, const bool timeStamp = true)
+	{
+		LogMsg(Level::Error, msg.c_str(), timeStamp);
+	}
+	
 	static void LogError(const char* msg, const bool timeStamp = true)
 	{
 		LogMsg(Level::Error, msg, timeStamp);
 	}
 
+	
 	~Logger() = default;
 	Logger() = delete;
 	Logger(const Logger& other) = delete;

@@ -101,7 +101,7 @@ void CharacterController_Comp::UpdatePos()
 
 void CharacterController_Comp::SetGridMovement()
 {
-	const auto pWorldGrid{ m_pGameObject->GetCurrentScene()->GetGameObject("WorldGridManager") };
+	const auto pWorldGrid{ m_pGameObject->GetCurrentScene()->GetGameObject("WorldTileManager") };
 	const auto pWorldGridManagerComp{ pWorldGrid->GetConstComponent<WorldTileManager_Comp>() };
 	const auto tileDimensions{ pWorldGridManagerComp->GetGridTileDimensions() };
 

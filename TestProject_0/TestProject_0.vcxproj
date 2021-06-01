@@ -199,6 +199,7 @@
     <ClCompile Include="Player_Comp.cpp" />
     <ClCompile Include="TestGame.cpp" />
     <ClCompile Include="TestProject_0.cpp" />
+    <ClCompile Include="TileChanger_Comp.cpp" />
     <ClCompile Include="WorldTileManager_Comp.cpp" />
     <ClCompile Include="WorldTile_Comp.cpp" />
   </ItemGroup>
@@ -218,6 +219,7 @@
     <ClInclude Include="MovementObserver.h" />
     <ClInclude Include="Player_Comp.h" />
     <ClInclude Include="TestGame.h" />
+    <ClInclude Include="TileChanger_Comp.h" />
     <ClInclude Include="WorldTileManager_Comp.h" />
     <ClInclude Include="WorldTile_Comp.h" />
   </ItemGroup>

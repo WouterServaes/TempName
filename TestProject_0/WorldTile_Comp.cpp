@@ -23,5 +23,15 @@ void WorldTile_Comp::ToNormalTexture()
 	}
 }
 
+void WorldTile_Comp::ToHighlightedTexture()
+{
+	if(!m_IsHighlighted)
+	{
+		m_IsHighlighted = true;
+		auto pRend{ GetComponent<Render_Comp>() };
+		pRend->UpdateTexture(m_pHighlightTexture);
+	}
+}
+
 	
 	

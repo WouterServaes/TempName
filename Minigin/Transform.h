@@ -18,6 +18,7 @@ public:
 	~Transform() = default;
 
 	[[nodiscard]] const glm::vec3& GetPosition() const { return m_Position; }
+	[[nodiscard]] const glm::vec3& GetLastPosition() const { return m_LastPosition; }
 	void SetPosition(float x = 0.f, float y = 0.f, float z = 0.f);
 	void SetPosition(const glm::vec3& pos = glm::vec3(0.f, 0.f, 0.f));
 	void Translate(const glm::vec3& translation);
@@ -30,5 +31,6 @@ public:
 	void Scale(const glm::vec2& scale);
 private:
 	glm::vec3 m_Position;
+	glm::vec3 m_LastPosition;
 	glm::vec2 m_Scale;
 };

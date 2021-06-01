@@ -18,6 +18,8 @@
 #include "CharacterController_Comp.h"
 #include "Player_Comp.h"
 #include "Animation_Comp.h"
+#include "TileChanger_Comp.h"
+
 void LevelOneScene::InitializeScene()
 {
 	InitWorld();
@@ -30,6 +32,7 @@ void LevelOneScene::InitializeScene()
 	pPlayerObj->AddComponent(pAnimComp);
 	pPlayerObj->AddComponent(new CharacterController_Comp(.025f));
 	pPlayerObj->AddComponent(new Player_Comp());
+	pPlayerObj->AddComponent(new TileChanger_Comp());
 	pPlayerObj->GetSubject()->AddObserver(new MovementObserver());
 	pPlayerObj->SetRenderLayer(5);
 	pPlayerObj->GetTransform()->ScaleUniform(.25f);
@@ -46,7 +49,7 @@ void LevelOneScene::InitWorld()
 
 	
 	const auto bottomRowAmount{ 5 };
-	auto pWorldGridManager{ std::make_shared<GameObject>("WorldGridManager") };
+	auto pWorldGridManager{ std::make_shared<GameObject>("WorldTileManager") };
 	AddGameObject(pWorldGridManager);
 	pWorldGridManager->GetTransform()->ScaleUniform(.5f);
 	pWorldGridManager->AddComponent(new WorldTileManager_Comp(pNormalTexture, pHighlightTexture, bottomRowAmount));

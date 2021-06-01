@@ -84,6 +84,9 @@
     <ClCompile Include="MoveCommands.cpp">
       <Filter>GameCommands</Filter>
     </ClCompile>
+    <ClCompile Include="TileChanger_Comp.cpp">
+      <Filter>GameComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniginPCH.h">
@@ -136,6 +139,9 @@
     </ClInclude>
     <ClInclude Include="MoveCommands.h">
       <Filter>GameCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="TileChanger_Comp.h">
+      <Filter>GameComponents</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

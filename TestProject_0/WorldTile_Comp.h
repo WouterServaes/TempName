@@ -5,7 +5,7 @@
 #include <glm/vec2.hpp>
 #pragma warning(pop)
 
-#include "Texture2D.h"
+class Texture2D;
 class WorldTile_Comp final :public BaseComponent
 {
 public:
@@ -26,6 +26,10 @@ public:
 	/// </summary>
 	void ToNormalTexture();
 
+	/// <summary>
+	/// Sets the texture highlighted if normal
+	/// </summary>
+	void ToHighlightedTexture();
 	glm::vec2 GetStandPos() const { return m_StandPosition; }
 private:
 	//vector 2 stand position -> middle of top square of hexagon

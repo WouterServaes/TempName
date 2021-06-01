@@ -90,7 +90,7 @@ std::shared_ptr< GameObject>& Scene::GetGameObject(const std::string& gameObject
 		if (o->GetName() == gameObjectName)
 			return o;
 
-	Logger::LogError("GetGameObject(const std::string& pGameObjectName) no object with this name exist");
+	Logger::LogError("GetGameObject(const std::string& pGameObjectName) no object with this name exist, name: " + gameObjectName);
 	return m_Objects[0];
 }
 

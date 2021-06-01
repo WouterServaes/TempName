@@ -9,6 +9,7 @@ Transform& Transform::operator=(const Transform& other)
 
 void Transform::SetPosition(const float x, const float y, const float z)
 {
+	m_LastPosition = m_Position;
 	m_Position.x = x;
 	m_Position.y = y;
 	m_Position.z = z;
@@ -16,16 +17,19 @@ void Transform::SetPosition(const float x, const float y, const float z)
 
 void Transform::SetPosition(const glm::vec3& pos)
 {
+	m_LastPosition = m_Position;
 	m_Position = pos;
 }
 
 void Transform::Translate(const glm::vec3& translation)
 {
+	m_LastPosition = m_Position;
 	m_Position *= translation;
 }
 
 void Transform::Translate(const float x, const float y, const float z)
 {
+	m_LastPosition = m_Position;
 	m_Position.x *= x;
 	m_Position.y *= y;
 	m_Position.z *= z;
