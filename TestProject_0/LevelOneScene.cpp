@@ -18,7 +18,7 @@
 void LevelOneScene::InitializeScene()
 {
 	InitWorld();
-	auto pPlayerObj{ std::make_shared< GameObject>(L"pl", this, true) };
+	auto pPlayerObj{ std::make_shared< GameObject>("pl", this, true) };
 	AddGameObject(pPlayerObj);
 	pPlayerObj->AddComponent(new Render_Comp("Images/logo.png"));
 	pPlayerObj->AddComponent(new CharacterController_Comp(.025f));
@@ -39,7 +39,7 @@ void LevelOneScene::InitWorld()
 	const auto scale{ .5f };
 	
 	const auto bottomRowAmount{ 5 };
-	auto pWorldGridManager{ std::make_shared<GameObject>(L"WorldGridManager", this) };
+	auto pWorldGridManager{ std::make_shared<GameObject>("WorldGridManager", this) };
 	AddGameObject(pWorldGridManager);
 	pWorldGridManager->AddComponent(new WorldTileManager_Comp(pNormalTexture, pHighlightTexture, scale, bottomRowAmount));
 

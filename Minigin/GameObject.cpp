@@ -5,7 +5,7 @@
 #include "Scene.h"
 #include "Transform_Comp.h"
 #include "Subject.h"
-GameObject::GameObject(const wchar_t* pObjectName, Scene* pScene, const bool isSubject)
+GameObject::GameObject(const char* pObjectName, Scene* pScene, const bool isSubject)
 	:m_pObjectName(pObjectName), m_pCurrentScene(pScene), m_pSubject((isSubject) ? new Subject() : nullptr)
 {
 	m_pComponents.push_back(new Transform_Comp(0.f, 0.f, 0.f));
@@ -80,7 +80,7 @@ Scene* GameObject::GetCurrentScene() const
 	return m_pCurrentScene;
 }
 
-GameObject* GameObject::GetGameObject(const wchar_t* pGameObjectName) const
+GameObject* GameObject::GetGameObject(const char* pGameObjectName) const
 {
 	return m_pCurrentScene->GetGameObject(pGameObjectName).get();
 }

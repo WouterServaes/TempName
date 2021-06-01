@@ -26,6 +26,7 @@ public:
 	/// </summary>
 	void ToNormalTexture();
 
+	void Start() override;
 private:
 	//vector 2 stand position -> middle of top square of hexagon
 	glm::vec2 m_StandPosition{};

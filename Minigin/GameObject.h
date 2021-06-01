@@ -9,7 +9,7 @@ class GameObject final
 {
 public:
 	GameObject() = delete;
-	GameObject(const wchar_t* pObjectName, Scene* pScene, bool isSubject = false);
+	GameObject(const char* pObjectName, Scene* pScene, bool isSubject = false);
 	~GameObject();
 	GameObject(const GameObject& other) = delete;
 	GameObject(GameObject&& other) = delete;
@@ -53,10 +53,10 @@ public:
 		return nullptr;
 	}
 
-	GameObject* GetGameObject(const wchar_t* pGameObjectName) const; //returns game object in current scene
+	GameObject* GetGameObject(const char* pGameObjectName) const; //returns game object in current scene
 
 	[[nodiscard]] Transform* GetTransform();
-	[[nodiscard]] const wchar_t* GetName()const { return m_pObjectName; };
+	[[nodiscard]] const char* GetName()const { return m_pObjectName; };
 
 	[[nodiscard]] Subject* GetSubject()const;
 	[[nodiscard]] Scene* GetCurrentScene()const;
@@ -67,7 +67,7 @@ private:
 	bool m_MarkForDeletion{ false }; //true: this game object will be deleted from the scene at the end of the current update
 	bool m_NeedsToBeRendered{ false }; //true: Render() of this gameObject will be called from the scene manager, not every game object needs to be rendered.
 	bool m_IsActive{ true };
-	const wchar_t* m_pObjectName;
+	const char* m_pObjectName;
 
 	Scene* const m_pCurrentScene;
 

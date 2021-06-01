@@ -24,5 +24,10 @@ void WorldTile_Comp::ToNormalTexture()
 		pRend->ScaleTexture(m_Scale, m_Scale);
 	}
 }
+
+void WorldTile_Comp::Start()
+{
+	Logger::LogInfo((std::string("Added ") + std::string(m_pGameObject->GetName())).c_str());
+}
 	
 	

@@ -27,5 +27,5 @@ void QBert_Comp::Update()
 	}
 
 	if (m_pHealthComp->GetLives() <= 0)
-		m_pGameObject->GetSubject()->Notify(m_pGameObject->GetGameObject(L"DeadText"), Event::PlayerDied);
+		m_pGameObject->GetSubject()->Notify(m_pGameObject->GetGameObject("DeadText"), Event::PlayerDied);
 }

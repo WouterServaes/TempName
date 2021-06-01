@@ -64,7 +64,7 @@ void Scene::StartLateObjects()
 	}
 }
 
-std::shared_ptr< GameObject>& Scene::GetGameObject(const wchar_t* pGameObjectName)
+std::shared_ptr< GameObject>& Scene::GetGameObject(const char* pGameObjectName)
 {
 	for (auto& o : m_Objects)
 		if (o->GetName() == pGameObjectName)

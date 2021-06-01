@@ -65,7 +65,7 @@ void WorldTileManager_Comp::SpawnTiles()
 
 void WorldTileManager_Comp::CreateTile(const glm::vec3 pos, const  int c, const  int r)
 {
-	const auto name{ std::wstring(L"Hex " + std::to_wstring(r) + L" " + std::to_wstring(c)) };
+	const auto name{ std::string("Hex " + std::to_string(r) + " " + std::to_string(c)) };
 
 	auto pHexObj{ std::make_shared< GameObject>(name.c_str(), m_pGameObject->GetCurrentScene()) };
 

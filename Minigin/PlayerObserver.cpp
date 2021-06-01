@@ -40,12 +40,12 @@ void PlayerObserver::OnNotify(GameObject* const gameObject, Event event)
 
 void PlayerObserver::UpdateHealthUi(const GameObject* gameObject)
 {
-	const wchar_t* healthCompName{};
+	const char* healthCompName{};
 
-	if (std::wstring(gameObject->GetName()) == std::wstring(L"Player1")) //TODO fix this
-		healthCompName = L"Player1_HealthUi";
+	if (std::string(gameObject->GetName()) == std::string("Player1")) //TODO fix this
+		healthCompName = "Player1_HealthUi";
 	else
-		healthCompName = L"Player2_HealthUi";
+		healthCompName = "Player2_HealthUi";
 
 	auto* pHealthUi{ gameObject->GetCurrentScene()->GetGameObject(healthCompName)->GetComponent<Text_Comp>() };
 	const auto currentHealth{ gameObject->GetConstComponent<Health_Comp>()->GetLives() };
@@ -92,11 +92,11 @@ void PlayerObserver::AddScore(int amount, GameObject* const playerObj)
 
 Text_Comp* PlayerObserver::GetScoreTextComponent(const GameObject* playerObj)
 {
-	const wchar_t* textCompName{};
-	if (std::wstring(playerObj->GetName()) == std::wstring(L"Player1")) //TODO fix this, i just wanted it to work for now
-		textCompName = L"Player1_ScoreUi";
+	const char* textCompName{};
+	if (std::string(playerObj->GetName()) == std::string("Player1")) //TODO fix this, i just wanted it to work for now
+		textCompName = "Player1_ScoreUi";
 	else
-		textCompName = L"Player2_ScoreUi";
+		textCompName = "Player2_ScoreUi";
 	return playerObj->GetCurrentScene()->GetGameObject(textCompName)->GetComponent<Text_Comp>();
 }
 
