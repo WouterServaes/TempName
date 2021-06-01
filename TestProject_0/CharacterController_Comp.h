@@ -5,6 +5,7 @@
 #pragma warning (disable:4201)
 #include <glm/vec2.hpp>
 #pragma warning(pop)
+class WorldTileManager_Comp;
 class CharacterController_Comp final:public BaseComponent
 {
 public:
@@ -28,17 +29,18 @@ public:
 	void Update() override;
 	void Start() override;
 
-	
 	void MoveLeftUpOnGrid();
 	void MoveLeftDownOnGrid();
 	void MoveRightUpOnGrid();
 	void MoveRightDownOnGrid();
+	
 	void MoveLeftOnGrid();
 	void MoveRightOnGrid();
 private:
 	[[nodiscard]] bool GetReachedPos() const;
 	void UpdatePos();
 	void SetGridMovement();
+	void TestIsOutsideGrid() const;
 	const float m_MoveSpeed;
 	float m_ElapsedTime{};
 	float m_MoveDelta{};
@@ -48,4 +50,5 @@ private:
 	float m_DistanceToTravelSqred{};
 
 	GridMovements m_GridMovements{};
+	const WorldTileManager_Comp* m_pWorldTileManager{nullptr};
 };

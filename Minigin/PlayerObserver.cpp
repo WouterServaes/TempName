@@ -11,13 +11,14 @@
 #include "Transform.h"
 #include "Transform_Comp.h"
 
-void PlayerObserver::OnNotify(GameObject* const gameObject, Event event)
+void PlayerObserver::OnNotify(GameObject* const gameObject, const Event event)
 {
 	switch (event)
 	{
 	case Event::LostLive:
 		UpdateHealthUi(gameObject);
 		break;
+	case Event::FellOffGrid:
 	case Event::PlayerDied:
 		ShowPlayerDied(gameObject);
 		break;

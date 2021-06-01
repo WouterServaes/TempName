@@ -13,5 +13,6 @@ enum class Event
 	MoveRightUp,
 	MoveRightDown,
 	MoveRight,
-	MoveLeft
+	MoveLeft,
+	FellOffGrid
 };

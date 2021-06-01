@@ -56,7 +56,7 @@ glm::vec2 WorldTileManager_Comp::GetTileStandPos(const int tileIdx) const
 	return m_pWorldTiles.at(tileIdx)->GetStandPos();
 }
 
-WorldTile_Comp* WorldTileManager_Comp::GetTileAtPosition(glm::vec2 position)
+WorldTile_Comp* WorldTileManager_Comp::GetTileAtPosition(glm::vec2 position) const
 {
 	const auto it{ std::find_if(m_pWorldTiles.begin(), m_pWorldTiles.end(), [position, this](WorldTile_Comp* pWorldTile)
 		{
@@ -71,6 +71,12 @@ WorldTile_Comp* WorldTileManager_Comp::GetTileAtPosition(glm::vec2 position)
 		return *it;
 	return nullptr;
 }
+
+bool WorldTileManager_Comp::IsTileAtPosition(const glm::vec2 position) const
+{
+	return GetTileAtPosition(position) != nullptr;
+}
+
 
 int WorldTileManager_Comp::GetTileAmount() const
 {

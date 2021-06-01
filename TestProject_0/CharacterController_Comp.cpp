@@ -8,7 +8,9 @@
 #include <glm/gtx/compatibility.hpp>
 #include <glm/gtx/norm.hpp>
 
+#include "Events.h"
 #include "Scene.h"
+#include "Subject.h"
 #include "WorldTileManager_Comp.h"
 #pragma warning(pop)
 
@@ -33,10 +35,14 @@ void CharacterController_Comp::Update()
 {
 	if (m_IsMoving)
 		UpdatePos();
+	
+	TestIsOutsideGrid();
 }
 
 void CharacterController_Comp::Start()
 {
+	const auto pWorldGrid{ m_pGameObject->GetCurrentScene()->GetGameObject("WorldTileManager") };
+	m_pWorldTileManager = pWorldGrid->GetConstComponent<WorldTileManager_Comp>();
 	m_pTransform = m_pGameObject->GetTransform();
 	SetGridMovement();
 }
@@ -101,12 +107,19 @@ void CharacterController_Comp::UpdatePos()
 
 void CharacterController_Comp::SetGridMovement()
 {
-	const auto pWorldGrid{ m_pGameObject->GetCurrentScene()->GetGameObject("WorldTileManager") };
-	const auto pWorldGridManagerComp{ pWorldGrid->GetConstComponent<WorldTileManager_Comp>() };
-	const auto tileDimensions{ pWorldGridManagerComp->GetGridTileDimensions() };
+	const auto tileDimensions{ m_pWorldTileManager->GetGridTileDimensions() };
 
 	m_GridMovements.Down = tileDimensions.y * 2.f;
 	m_GridMovements.Up = -tileDimensions.y * 2.f;
 	m_GridMovements.Left = -tileDimensions.x;
 	m_GridMovements.Right = tileDimensions.x;
+}
+
+void CharacterController_Comp::TestIsOutsideGrid() const
+{
+	if (!m_pWorldTileManager->IsTileAtPosition(m_TargetPos))
+	{
+		auto* pSubject{ m_pGameObject->GetSubject() };
+		if (pSubject) pSubject->Notify(m_pGameObject, Event::FellOffGrid);
+	}
 }

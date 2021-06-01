@@ -39,5 +39,5 @@ void TileChanger_Comp::TryChangeTile()
 void TileChanger_Comp::FireEvent() const
 {
 	auto* pSubject = m_pGameObject->GetSubject();
-	pSubject->Notify(m_pGameObject, Event::ColorChanged);
+	if(pSubject) pSubject->Notify(m_pGameObject, Event::ColorChanged);
 }
