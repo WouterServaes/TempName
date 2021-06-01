@@ -26,7 +26,7 @@ public:
 	/// </summary>
 	/// <param name="texture">original texture</param>
 	/// <param name="x">x position of rendered texture</param>
-	/// <param name="x">y position of rendered texture</param>
+	/// <param name="y">y position of rendered texture</param>
 	void RenderTexture(const Texture2D& texture, float x, float y) const;
 
 	/// <summary>
@@ -34,7 +34,7 @@ public:
 	/// </summary>
 	/// <param name="texture">original texture</param>
 	/// <param name="x">x position of rendered texture</param>
-	/// <param name="x">y position of rendered texture</param>
+	/// <param name="y">y position of rendered texture</param>
 	/// <param name="width">width of rendered texture</param>
 	/// <param name="height">height of rendered texture</param>
 	void RenderTexture(const Texture2D& texture, float x, float y, float width, float height) const;
@@ -45,7 +45,7 @@ public:
 	/// </summary>
 	/// <param name="texture">original texture</param>
 	/// <param name="x">x position of rendered texture</param>
-	/// <param name="x">y position of rendered texture</param>
+	/// <param name="y">y position of rendered texture</param>
 	/// <param name="srcX">bottomLeft x of cut-out part</param>
 	/// <param name="srcY">bottomLeft y of cut-out part</param>
 	/// <param name="srcWidth">Width of cut-out part</param>
