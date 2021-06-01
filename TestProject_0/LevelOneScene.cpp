@@ -1,5 +1,5 @@
 #include "MiniginPCH.h"
-#include "LevelScene.h"
+#include "LevelOneScene.h"
 
 
 #include "CharacterController_Comp.h"
@@ -10,23 +10,16 @@
 #include "Texture2D.h"
 #include "Transform.h"
 #include "WorldTileManager_Comp.h"
-void LevelScene::InitializeScene()
+void LevelOneScene::InitializeScene()
 {
-	
-	//InitWorld();
-	const auto pTestCharText{ ResourceManager::GetInstance().LoadTexture("Images/logo.png") };
-	auto* pCharContrComp{ new CharacterController_Comp(.5f) };
-	auto pTestChar{ std::make_shared<GameObject>(L"aaa", this) };
-	AddGameObject(pTestChar);
-	pTestChar->AddComponent(pCharContrComp);
-	pTestChar->AddComponent(new Render_Comp(pTestCharText));
+	InitWorld();
 }
 
-void LevelScene::InitUi()
+void LevelOneScene::InitUi()
 {
 }
 
-void LevelScene::InitWorld()
+void LevelOneScene::InitWorld()
 {
 	const auto pNormalTexture{ ResourceManager::GetInstance().LoadTexture("Images/Tile_Normal.png") }
 	,pHighlightTexture{ ResourceManager::GetInstance().LoadTexture("Images/Tile_Highlighted.png") };
@@ -40,7 +33,7 @@ void LevelScene::InitWorld()
 
 }
 
-void LevelScene::InitPlayerManager()
+void LevelOneScene::InitPlayerManager()
 {
 	//initializes gameObject playerManager with playerManagerComp.
 	//this comp can add/remove player
@@ -49,7 +42,7 @@ void LevelScene::InitPlayerManager()
 	//player has health component, qbert component, score component, animation component
 }
 
-void LevelScene::InitCoily()
+void LevelOneScene::InitCoily()
 {
 	//has coily component
 		//this component changes position of game object	
