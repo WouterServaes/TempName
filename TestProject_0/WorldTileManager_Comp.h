@@ -22,11 +22,13 @@ public:
 
 	void Start() override;
 
-	glm::vec2 GetGridTileDimensions() const;
+	[[nodiscard]] glm::vec2 GetGridTileDimensions() const;
 	/// <summary>
 	/// Resets all the tiles
 	/// </summary>
 	void ResetTiles();
+
+	glm::vec2 GetTileStandPos(int tileIdx) const;
 private:
 	void SpawnTiles();
 	void CreateTile(glm::vec3 pos, int c, int r);
@@ -34,7 +36,7 @@ private:
 	float m_TileWidth{}, m_TileSmallestHeight{};
 	glm::vec2 m_TileStandOffset{};
 	const float m_Scale;
-	std::vector<WorldTile_Comp*> m_pWorldTiles{ nullptr };
+	std::vector<WorldTile_Comp*> m_pWorldTiles{ };
 
 	std::shared_ptr<Texture2D> m_pNormalTexture{}
 	                           , m_pHighlightTexture{};

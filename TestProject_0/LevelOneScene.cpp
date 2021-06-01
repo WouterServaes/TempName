@@ -14,21 +14,26 @@
 #include "Transform.h"
 #include "WorldTileManager_Comp.h"
 #include "GameCommands.h"
-#include "MoveCommands.h"
+
 #include "CharacterController_Comp.h"
+#include "Player_Comp.h"
+#include "Animation_Comp.h"
 void LevelOneScene::InitializeScene()
 {
 	InitWorld();
+
+	
 	auto pPlayerObj{ std::make_shared< GameObject>("pl", true) };
 	AddGameObject(pPlayerObj);
-	pPlayerObj->AddComponent(new Render_Comp("Images/logo.png"));
+	pPlayerObj->AddComponent(new Render_Comp());
+	auto* pAnimComp{ new Animation_Comp("Images/QBert.png", 4, 8, glm::vec2(128.f, 147.f)) };
+	pPlayerObj->AddComponent(pAnimComp);
+	pAnimComp->Scale(.25f);
 	pPlayerObj->AddComponent(new CharacterController_Comp(.025f));
+	pPlayerObj->AddComponent(new Player_Comp());
 	pPlayerObj->GetSubject()->AddObserver(new MovementObserver());
 	
-	InputManager::GetInstance().AssignKey(InputAction(SDLK_UP, TriggerState::Released, ControllerButtons::ButtonUp), std::make_unique<Command_MoveLeftUp>(pPlayerObj.get()));
-	InputManager::GetInstance().AssignKey(InputAction(SDLK_DOWN, TriggerState::Released, ControllerButtons::ButtonDown), std::make_unique<Command_MoveLeftDown>(pPlayerObj.get()));
-	InputManager::GetInstance().AssignKey(InputAction(SDLK_LEFT, TriggerState::Released, ControllerButtons::ButtonLeft), std::make_unique<Command_MoveLeft>(pPlayerObj.get()));
-	InputManager::GetInstance().AssignKey(InputAction(SDLK_RIGHT, TriggerState::Released, ControllerButtons::ButtonRight), std::make_unique<Command_MoveRight>(pPlayerObj.get()));
+	
 }
 
 void LevelOneScene::InitUi()

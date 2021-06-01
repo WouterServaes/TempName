@@ -48,6 +48,11 @@ void WorldTileManager_Comp::ResetTiles()
 		tile->ToNormalTexture();
 }
 
+glm::vec2 WorldTileManager_Comp::GetTileStandPos(const int tileIdx) const
+{
+	return m_pWorldTiles.at(tileIdx)->GetStandPos();
+}
+
 void WorldTileManager_Comp::SpawnTiles()
 {
 	const auto& startPos{ m_pGameObject->GetTransform()->GetPosition() };
