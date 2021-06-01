@@ -19,9 +19,9 @@ void CharacterController_Comp::Move(const glm::vec2 position)
 	if (!m_IsMoving)
 	{
 		m_IsMoving = true;
-		m_TargetPos = position;
 		const auto& pos{ m_pTransform->GetPosition() };
 		m_OrigPos = glm::vec2(pos.x, pos.y);
+		m_TargetPos = m_OrigPos + position;
 		//m_DistanceToTravelSqred = std::pow(m_TargetPos.x - m_OrigPos.x, 2.f) + std::pow(m_TargetPos.y - m_OrigPos.y, 2.f); //distance squared to avoid sqrt
 		m_DistanceToTravelSqred = glm::distance2(m_TargetPos, m_OrigPos);
 	}

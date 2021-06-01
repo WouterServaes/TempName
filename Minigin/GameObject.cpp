@@ -38,8 +38,10 @@ void GameObject::Render() const
 
 void GameObject::Start()
 {
-	for (auto& comp : m_pComponents)
-		comp->Start();
+	const auto comps{ m_pComponents.size() };
+	for (int idx{}; idx < comps; idx++)
+		m_pComponents.at(idx)->Start();
+
 }
 
 void GameObject::AddComponent(BaseComponent* component)

@@ -8,7 +8,7 @@
 class CharacterController_Comp final:public BaseComponent
 {
 public:
-	CharacterController_Comp(float moveSpeed);
+	explicit CharacterController_Comp(float moveSpeed);
 	~CharacterController_Comp() = default;
 	CharacterController_Comp(const CharacterController_Comp& other) = delete;
 	CharacterController_Comp(CharacterController_Comp&& other) noexcept = delete;

@@ -27,7 +27,7 @@ void MovementObserver::OnNotify(GameObject* const pGameObject, const Event event
 
 void MovementObserver::MoveLeftUp(GameObject* pGameObject) const
 {
-	pGameObject->GetComponent<CharacterController_Comp>()->Move(glm::vec2(0, 0));
+	pGameObject->GetComponent<CharacterController_Comp>()->Move(glm::vec2(-10, 10));
 }
 
 void MovementObserver::MoveLeftDown(GameObject* pGameObject)const

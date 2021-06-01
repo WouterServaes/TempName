@@ -11,6 +11,11 @@ Scene::Scene(const std::string& name)
 
 void Scene::AddGameObject(const std::shared_ptr<GameObject>& object)
 {
+	if (!m_StartedScene)
+		m_InitialStartObjIdxs.push_back(static_cast<int>(m_Objects.size()));
+	else
+		m_ObjIdxsNeedStart.push_back(static_cast<int>(m_Objects.size()));
+
 	m_Objects.push_back(object);
 }
 
@@ -18,6 +23,8 @@ void Scene::Update()
 {
 	if (!m_StartedScene)
 		StartScene();
+
+	StartLateObjects();
 
 	for (auto& obj : m_Objects)
 		obj->Update();
@@ -40,8 +47,21 @@ void Scene::Render() const
 void Scene::StartScene()
 {
 	m_StartedScene = true;
-	for (auto& obj : m_Objects)
-		obj->Start();
+
+	for (int idx : m_InitialStartObjIdxs)
+		m_Objects.at(idx)->Start();
+
+	m_InitialStartObjIdxs.clear();
+}
+
+void Scene::StartLateObjects()
+{
+	if (m_InitialStartObjIdxs.size() > 0)
+	{
+		for (int idx : m_InitialStartObjIdxs)
+			m_Objects.at(idx)->Start();
+		m_InitialStartObjIdxs.clear();
+	}
 }
 
 std::shared_ptr< GameObject>& Scene::GetGameObject(const wchar_t* pGameObjectName)

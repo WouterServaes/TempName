@@ -1,6 +1,6 @@
 #include "MiniginPCH.h"
 #include "Player_Comp.h"
-
+#include "CharacterController_Comp.h"
 void Player_Comp::Update()
 {
 }

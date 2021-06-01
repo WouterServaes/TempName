@@ -13,9 +13,18 @@
 #include "Texture2D.h"
 #include "Transform.h"
 #include "WorldTileManager_Comp.h"
+#include "GameCommands.h"
+#include "CharacterController_Comp.h"
 void LevelOneScene::InitializeScene()
 {
 	InitWorld();
+	auto pPlayerObj{ std::make_shared< GameObject>(L"pl", this, true) };
+	AddGameObject(pPlayerObj);
+	pPlayerObj->AddComponent(new Render_Comp("Images/logo.png"));
+	pPlayerObj->AddComponent(new CharacterController_Comp(.025f));
+	pPlayerObj->GetSubject()->AddObserver(new MovementObserver());
+	
+	InputManager::GetInstance().AssignKey(InputAction(SDL_KEYUP, TriggerState::Released, ControllerButtons::ButtonUp), std::make_unique<Command_MoveLeftUp>(pPlayerObj.get()));
 }
 
 void LevelOneScene::InitUi()

@@ -21,9 +21,12 @@ public:
 
 private:
 	void StartScene();
+	void StartLateObjects();
 	std::string m_Name;
 	bool m_StartedScene = false;
 	virtual void InitializeScene() = 0;
+	std::vector<int> m_InitialStartObjIdxs{}; //This prevents crashes when adding a game object to the scene in the Start() of a component
+	std::vector<int> m_ObjIdxsNeedStart{};
 protected:
 	std::vector < std::shared_ptr<GameObject>> m_Objects{};
 	const int sceneNr;
