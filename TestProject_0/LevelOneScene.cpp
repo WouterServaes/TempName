@@ -20,12 +20,14 @@
 #include "Animation_Comp.h"
 #include "ScoreObserver.h"
 #include "Score_Comp.h"
+#include "Text_Comp.h"
 #include "TileChanger_Comp.h"
 
 void LevelOneScene::InitializeScene()
 {
 	InitWorld();
-
+	
+	//player
 	auto pPlayerObj{ std::make_shared< GameObject>("pl", true) };
 	AddGameObject(pPlayerObj);
 	pPlayerObj->AddComponent(new Render_Comp());
@@ -39,6 +41,15 @@ void LevelOneScene::InitializeScene()
 	pPlayerObj->GetSubject()->AddObserver(new ScoreObserver());
 	pPlayerObj->SetRenderLayer(5);
 	pPlayerObj->GetTransform()->ScaleUniform(.25f);
+
+	//player 1
+	const std::string font{ "Fonts/Lingua.otf" };
+	auto pLiveDisplay{ std::make_shared<GameObject>("LiveDisplay") };
+	pLiveDisplay->AddComponent(new Render_Comp());
+	auto* pLiveText{ new Text_Comp("Lives: ", font, 18) };
+	pLiveDisplay->AddComponent(pLiveText);
+	AddGameObject(pLiveDisplay);
+	pLiveDisplay->GetTransform()->SetPosition(30, 50);
 }
 
 void LevelOneScene::InitUi()
@@ -51,7 +62,7 @@ void LevelOneScene::InitWorld()
 	,pHighlightTexture{ ResourceManager::GetInstance().LoadTexture("Images/Tile_Highlighted.png") };
 
 	
-	const auto bottomRowAmount{ 5 };
+	const auto bottomRowAmount{ 7 };
 	auto pWorldGridManager{ std::make_shared<GameObject>("WorldTileManager") };
 	AddGameObject(pWorldGridManager);
 	pWorldGridManager->GetTransform()->ScaleUniform(.5f);

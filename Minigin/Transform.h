@@ -32,5 +32,5 @@ public:
 private:
 	glm::vec3 m_Position;
 	glm::vec3 m_LastPosition;
-	glm::vec2 m_Scale;
+	glm::vec2 m_Scale{1.f,1.f};
 };

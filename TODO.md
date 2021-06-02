@@ -11,9 +11,6 @@
 - don't crash when resource isn't found, just continue with empty resource and display message
 - change wchar_t to char + cleanup  Subject* GameObject::GetSubject() const  
 
-## PlayerObserver:
-- Fix ugly UpdateHealthUI/GetScoreTextComponent if()
-
 ## ResourceManager:
 - multi thread resource loading
 
@@ -23,4 +20,12 @@
 
 ## Minigin.cpp
 - Ability to set audio system
+
+## game
+diagonal movement  
+jump off pyramid: lose live, teleport to top.  
+lost all lives: end of game.  
+
+
+
      

@@ -25,7 +25,6 @@ public:
 	Text_Comp& operator=(Text_Comp&& other) noexcept = delete;
 
 	void UpdateText(const std::string& newText);
-	void Render()const override { m_pGameObject->GetComponent<Render_Comp>()->Render(); };
 	void Start() override;
 
 private:
