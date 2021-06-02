@@ -34,35 +34,29 @@ void MovementObserver::OnNotify(GameObject* const pGameObject, const Event event
 void MovementObserver::MoveLeftUp(GameObject* pGameObject) const
 {
 	pGameObject->GetComponent<CharacterController_Comp>()->MoveLeftUpOnGrid();
-	Logger::LogInfo("leftUp");
 }
 
 void MovementObserver::MoveLeftDown(GameObject* pGameObject)const
 {
 	pGameObject->GetComponent<CharacterController_Comp>()->MoveLeftDownOnGrid();
-	Logger::LogInfo("leftDown");
 }
 
 void MovementObserver::MoveRightUp(GameObject* pGameObject)const
 {
 	pGameObject->GetComponent<CharacterController_Comp>()->MoveRightUpOnGrid();
-	Logger::LogInfo("rightUp");
 }
 
 void MovementObserver::MoveRightDown(GameObject* pGameObject)const
 {
 	pGameObject->GetComponent<CharacterController_Comp>()->MoveRightDownOnGrid();
-	Logger::LogInfo("rightDown");
 }
 
 void MovementObserver::MoveRight(GameObject* pGameObject) const
 {
 	pGameObject->GetComponent<CharacterController_Comp>()->MoveRightOnGrid();
-	Logger::LogInfo("right");
 }
 
 void MovementObserver::MoveLeft(GameObject* pGameObject) const
 {
 	pGameObject->GetComponent<CharacterController_Comp>()->MoveLeftOnGrid();
-	Logger::LogInfo("left");
 }

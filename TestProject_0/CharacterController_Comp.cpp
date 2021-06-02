@@ -77,7 +77,7 @@ void CharacterController_Comp::MoveRightOnGrid()
 	Move(glm::vec2(m_GridMovements.Right * 2.f, 0.f));
 }
 
-void CharacterController_Comp::SetSpawnPos(glm::vec2 position)
+void CharacterController_Comp::SetSpawnPos(const glm::vec2 position)
 {
 	m_SpawnPos = position;
 }

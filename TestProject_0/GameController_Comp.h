@@ -10,6 +10,7 @@ public:
 	GameController_Comp& operator=(const GameController_Comp& other) = delete;
 	GameController_Comp& operator=(GameController_Comp&& other) noexcept = delete;
 	void CompletedGrid();
+	void PlayerDied();
 private:
 };
 

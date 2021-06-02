@@ -12,5 +12,6 @@ public:
 	void OnNotify(GameObject * pGameObject, Event event) override;
 private:
 	void GridComplete(GameObject* pGameObject);
+	void PlayerDied(GameObject* pGameObject);
 };
 
