@@ -200,6 +200,7 @@
     <ClCompile Include="MoveCommands.cpp" />
     <ClCompile Include="MovementObserver.cpp" />
     <ClCompile Include="Player_Comp.cpp" />
+    <ClCompile Include="PurpleCreature_Comp.cpp" />
     <ClCompile Include="ScoreObserver.cpp" />
     <ClCompile Include="TestGame.cpp" />
     <ClCompile Include="TestProject_0.cpp" />
@@ -225,6 +226,7 @@
     <ClInclude Include="MoveCommands.h" />
     <ClInclude Include="MovementObserver.h" />
     <ClInclude Include="Player_Comp.h" />
+    <ClInclude Include="PurpleCreature_Comp.h" />
     <ClInclude Include="ScoreObserver.h" />
     <ClInclude Include="TestGame.h" />
     <ClInclude Include="TileChanger_Comp.h" />

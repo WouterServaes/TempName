@@ -9,18 +9,16 @@
 #include "Render_Comp.h"
 #include "ResourceManager.h"
 #include "Subject.h"
-#include "Texture2D.h"
 #include "Transform.h"
 #include "WorldTileManager_Comp.h"
-#include "GameCommands.h"
 
-#include "CharacterController_Comp.h"
 #include "Player_Comp.h"
 #include "Animation_Comp.h"
 #include "CharacterObserver.h"
 #include "GameController_Comp.h"
 #include "GameObserver.h"
 #include "Health_Comp.h"
+#include "PurpleCreature_Comp.h"
 #include "ScoreObserver.h"
 #include "Score_Comp.h"
 #include "Text_Comp.h"
@@ -74,6 +72,16 @@ void LevelScene::InitializeScene()
 	pGameController->AddComponent(new GameController_Comp());
 	pGameController->GetSubject()->AddObserver(new GameObserver());
 
+	//purple creatures
+	auto pUgg{ std::make_shared<GameObject>("Ugg", true) };
+	AddGameObject(pUgg);
+	pUgg->AddComponent(new Render_Comp());
+	pUgg->AddComponent(new Animation_Comp("Images/Ugg_Wrongway.png", 4, 8, glm::vec2(128.f, 147.f)));
+	pUgg->AddComponent(new CharacterController_Comp(.15f));
+	pUgg->AddComponent(new PurpleCreature_Comp(2.f));
+	pUgg->AddComponent(new TileChanger_Comp(TileChanger_Comp::TileChangeLevel::RevertChanges));
+	pUgg->GetTransform()->ScaleUniform(.25f);
+	pUgg->GetSubject()->AddObserver(new CharacterObserver());
 }
 
 void LevelScene::InitUi()
@@ -83,13 +91,14 @@ void LevelScene::InitUi()
 void LevelScene::InitWorld()
 {
 	const auto pNormalTexture{ ResourceManager::GetInstance().LoadTexture("Images/Tile_Normal.png") }
+	, pIntermediateTexture{ ResourceManager::GetInstance().LoadTexture("Images/Tile_Intermediate.png") }
 	, pHighlightTexture{ ResourceManager::GetInstance().LoadTexture("Images/Tile_Highlighted.png") };
 
 	const auto bottomRowAmount{ 7 };
 	auto pWorldGridManager{ std::make_shared<GameObject>("WorldTileManager") };
 	AddGameObject(pWorldGridManager);
 	pWorldGridManager->GetTransform()->ScaleUniform(.5f);
-	pWorldGridManager->AddComponent(new WorldTileManager_Comp(pNormalTexture, pHighlightTexture, bottomRowAmount));
+	pWorldGridManager->AddComponent(new WorldTileManager_Comp(pNormalTexture, pHighlightTexture, pIntermediateTexture, bottomRowAmount));
 }
 
 void LevelScene::InitPlayerManager()

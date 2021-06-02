@@ -1,5 +1,6 @@
 #pragma once
 #include <Observer.h>
+class Player_Comp;
 class GameObserver final:public Observer
 {
 public:

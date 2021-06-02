@@ -7,12 +7,12 @@
 #pragma warning (disable:4201)
 #include <glm/gtx/compatibility.hpp>
 #include <glm/gtx/norm.hpp>
-
+#pragma warning(pop)
 #include "Events.h"
 #include "Scene.h"
 #include "Subject.h"
 #include "WorldTileManager_Comp.h"
-#pragma warning(pop)
+
 
 CharacterController_Comp::CharacterController_Comp(const float moveSpeed)
 	: m_MoveSpeed(moveSpeed)

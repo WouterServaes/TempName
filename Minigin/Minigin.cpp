@@ -50,6 +50,7 @@ void Minigin::Run()
 		{
 			const auto currentTime{ high_resolution_clock::now() };
 			const float deltaTime{ duration<float>(currentTime - lastTime).count() };
+			srand(static_cast<unsigned>(time.elapsedTime));
 
 			ImGui_ImplOpenGL2_NewFrame();
 			ImGui_ImplSDL2_NewFrame(m_Window);

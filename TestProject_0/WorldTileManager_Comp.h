@@ -10,7 +10,7 @@ class WorldTile_Comp;
 class WorldTileManager_Comp final :public BaseComponent
 {
 public:
-	WorldTileManager_Comp(std::shared_ptr<Texture2D> pNormalTexture, std::shared_ptr<Texture2D> pHighlightTexture,
+	WorldTileManager_Comp(std::shared_ptr<Texture2D> pNormalTexture, std::shared_ptr<Texture2D> pHighlightTexture, std::shared_ptr<Texture2D> pIntermediateTexture,
 		int bottomRowAmount = 5);
 	~WorldTileManager_Comp() = default;
 	WorldTileManager_Comp(const WorldTileManager_Comp& other) = delete;
@@ -30,6 +30,7 @@ public:
 	[[nodiscard]] WorldTile_Comp* GetTileAtPosition(glm::vec2 position) const;
 	[[nodiscard]] bool IsTileAtPosition(glm::vec2 position) const;
 	[[nodiscard]] int GetTileAmount() const;
+	[[nodiscard]] int GetBottomRowAmount() const;
 private:
 	void SpawnTiles();
 	void CreateTile(glm::vec3 pos, int c, int r);
@@ -39,6 +40,7 @@ private:
 	glm::vec2 m_TileStandOffset{};
 	std::vector<WorldTile_Comp*> m_pWorldTiles{ };
 
-	std::shared_ptr<Texture2D> m_pNormalTexture{}
-	                           , m_pHighlightTexture{};
+	std::shared_ptr<Texture2D> m_pNormalTexture
+	                           , m_pHighlightTexture
+							   , m_pIntermediateTexture;
 };

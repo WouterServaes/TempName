@@ -39,6 +39,7 @@ public:
 
 	void SetSpawnPos(glm::vec2 position);
 	void GoToSpawnPos() const;
+	[[nodiscard]] bool CanMove() const { return !m_IsMoving; }
 private:
 	[[nodiscard]] bool GetReachedPos() const;
 	void UpdatePos();

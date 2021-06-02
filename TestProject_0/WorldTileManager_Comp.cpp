@@ -11,10 +11,11 @@
 #include "Subject.h"
 #include "Transform.h"
 
-WorldTileManager_Comp::WorldTileManager_Comp(const std::shared_ptr<Texture2D> pNormalTexture, const std::shared_ptr<Texture2D> pHighlightTexture, const int bottomRowAmount)
+WorldTileManager_Comp::WorldTileManager_Comp(const std::shared_ptr<Texture2D> pNormalTexture, const std::shared_ptr<Texture2D> pHighlightTexture, std::shared_ptr<Texture2D> pIntermediateTexture, const int bottomRowAmount)
 	: m_BottomRowAmount(bottomRowAmount),
 	m_pNormalTexture(pNormalTexture),
-	m_pHighlightTexture(pHighlightTexture)
+	m_pHighlightTexture(pHighlightTexture),
+	m_pIntermediateTexture(pIntermediateTexture)
 {
 }
 
@@ -90,6 +91,11 @@ int WorldTileManager_Comp::GetTileAmount() const
 	return static_cast<int>(m_pWorldTiles.size()) - 1;
 }
 
+int WorldTileManager_Comp::GetBottomRowAmount() const
+{
+	return m_BottomRowAmount - 1;
+}
+
 void WorldTileManager_Comp::SpawnTiles()
 {
 	const auto& startPos{ m_pGameObject->GetTransform()->GetPosition() };
@@ -123,7 +129,7 @@ void WorldTileManager_Comp::CreateTile(const glm::vec3 pos, const int c, const i
 	
 	pHexObj->AddComponent(new Render_Comp());
 
-	auto* pTileComp{ new WorldTile_Comp(m_pNormalTexture, m_pHighlightTexture, glm::vec2(pos.x + m_TileStandOffset.x, pos.y - m_TileStandOffset.y)) };
+	auto* pTileComp{ new WorldTile_Comp(m_pNormalTexture, m_pHighlightTexture, m_pIntermediateTexture, glm::vec2(pos.x + m_TileStandOffset.x, pos.y - m_TileStandOffset.y)) };
 	m_pWorldTiles.push_back(pTileComp);
 
 	pHexObj->AddComponent(pTileComp);
