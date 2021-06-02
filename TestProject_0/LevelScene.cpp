@@ -1,5 +1,5 @@
 #include "MiniginPCH.h"
-#include "LevelOneScene.h"
+#include "LevelScene.h"
 
 #include "CharacterController_Comp.h"
 #include "EngineSettings.h"
@@ -18,6 +18,7 @@
 #include "Player_Comp.h"
 #include "Animation_Comp.h"
 #include "CharacterObserver.h"
+#include "GameController_Comp.h"
 #include "GameObserver.h"
 #include "Health_Comp.h"
 #include "ScoreObserver.h"
@@ -25,7 +26,7 @@
 #include "Text_Comp.h"
 #include "TileChanger_Comp.h"
 
-void LevelOneScene::InitializeScene()
+void LevelScene::InitializeScene()
 {
 	InitWorld();
 
@@ -38,8 +39,10 @@ void LevelOneScene::InitializeScene()
 	pPlayerObj->AddComponent(new CharacterController_Comp(.025f));
 	pPlayerObj->AddComponent(new Player_Comp());
 	pPlayerObj->AddComponent(new TileChanger_Comp());
-	pPlayerObj->AddComponent(new Score_Comp());
-	pPlayerObj->AddComponent(new Health_Comp(10.f, 10.f, 3, 3));
+	auto* pPl1Score{ new Score_Comp() };
+	pPlayerObj->AddComponent(pPl1Score);
+	auto* pPl1Health{ new Health_Comp(3, 3) };
+	pPlayerObj->AddComponent(pPl1Health);
 	pPlayerObj->GetSubject()->AddObserver(new MovementObserver());
 	pPlayerObj->GetSubject()->AddObserver(new ScoreObserver());
 	pPlayerObj->GetSubject()->AddObserver(new CharacterObserver());
@@ -48,24 +51,36 @@ void LevelOneScene::InitializeScene()
 
 	//player 1 lives
 	const std::string font{ "Fonts/Lingua.otf" };
-	auto pLiveDisplay{ std::make_shared<GameObject>("LiveDisplay") };
+	auto pLiveDisplay{ std::make_shared<GameObject>("Player1LiveUi") };
 	pLiveDisplay->AddComponent(new Render_Comp());
 	auto* pLiveText{ new Text_Comp("Lives: ", font, 18) };
 	pLiveDisplay->AddComponent(pLiveText);
+	pPl1Health->AttachTextComp(pLiveText);
 	AddGameObject(pLiveDisplay);
 	pLiveDisplay->GetTransform()->SetPosition(30, 50);
 
+	//player 1 score
+	auto pScoreDisplay{ std::make_shared<GameObject>("Player1ScoreUi") };
+	pScoreDisplay->AddComponent(new Render_Comp());
+	auto* pScoreText{new Text_Comp("Score: ", font, 18)};
+	pScoreDisplay->AddComponent(pScoreText);
+	pPl1Score->AttachTextComp(pScoreText);
+	AddGameObject(pScoreDisplay);
+	pScoreDisplay->GetTransform()->SetPosition(30, 70);
+	
 	//game controller
 	auto pGameController{ std::make_shared<GameObject>("GameController", true) };
 	AddGameObject(pGameController);
+	pGameController->AddComponent(new GameController_Comp());
 	pGameController->GetSubject()->AddObserver(new GameObserver());
+
 }
 
-void LevelOneScene::InitUi()
+void LevelScene::InitUi()
 {
 }
 
-void LevelOneScene::InitWorld()
+void LevelScene::InitWorld()
 {
 	const auto pNormalTexture{ ResourceManager::GetInstance().LoadTexture("Images/Tile_Normal.png") }
 	, pHighlightTexture{ ResourceManager::GetInstance().LoadTexture("Images/Tile_Highlighted.png") };
@@ -77,7 +92,7 @@ void LevelOneScene::InitWorld()
 	pWorldGridManager->AddComponent(new WorldTileManager_Comp(pNormalTexture, pHighlightTexture, bottomRowAmount));
 }
 
-void LevelOneScene::InitPlayerManager()
+void LevelScene::InitPlayerManager()
 {
 	//initializes gameObject playerManager with playerManagerComp.
 	//this comp can add/remove player
@@ -86,7 +101,7 @@ void LevelOneScene::InitPlayerManager()
 	//player has health component, qbert component, score component, animation component
 }
 
-void LevelOneScene::InitCoily()
+void LevelScene::InitCoily()
 {
 	//has coily component
 		//this component changes position of game object

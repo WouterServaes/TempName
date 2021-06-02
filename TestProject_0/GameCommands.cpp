@@ -7,7 +7,7 @@
 #include "Subject.h"
 void Command_RemoveHp::Execute()
 {
-	m_pGameObject->GetComponent<Health_Comp>()->RemoveHealth(1.f);
+	//m_pGameObject->GetComponent<Health_Comp>()->RemoveHealth(1.f);
 }
 
 void Command_ColorChanged::Execute()

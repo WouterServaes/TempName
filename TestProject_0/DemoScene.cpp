@@ -66,7 +66,7 @@ void DemoScene::AddPlayers()
 {
 	auto* pCurrentScene = this;
 
-	const float maxHealth{ 5 };
+	const int maxHealth{ 5 };
 
 	auto player1 = std::make_shared<GameObject>("Player1", pCurrentScene, true);
 	player1->AddComponent(new Render_Comp());

@@ -4,23 +4,38 @@
 
 #include "Events.h"
 #include "Subject.h"
+#include "Text_Comp.h"
 
-Health_Comp::Health_Comp(const float maxHealth, const float currentHealth, const int maxLives, const int currentLives)
-	:m_MaxHealth(maxHealth), m_CurrentHealth(currentHealth), m_MaxLives(maxLives), m_CurrentLives(currentLives)
+Health_Comp::Health_Comp(const int maxLives, const int currentLives)
+	: m_CurrentLives(currentLives), m_MaxLives(maxLives)
 {
 }
 
-void Health_Comp::AddHealth(const float amount)
+
+void Health_Comp::Update()
 {
-	m_CurrentHealth += amount;
-	if (m_CurrentHealth > m_MaxHealth)
-		m_CurrentHealth = m_MaxHealth;
+	if(!m_UpdatedStartUi)
+	{
+		m_UpdatedStartUi = true;
+		UpdateUi();
+		
+	}
 }
 
-bool Health_Comp::RemoveHealth(const float amount)
+void Health_Comp::AttachTextComp(Text_Comp* pTextComp)
 {
-	m_CurrentHealth -= amount;
-	return m_CurrentHealth > 0.f;
+	m_pHealthText = pTextComp;
+}
+
+void Health_Comp::UpdateUi() const
+{
+	if (!m_pHealthText)
+	{
+		Logger::LogInfo("Health_Comp on " + m_pGameObject->GetName() + " no text comp assigned!");
+		return;
+	}
+	const auto text{ "Lives: " + std::to_string(m_CurrentLives) };
+	m_pHealthText->UpdateText(text);
 }
 
 bool Health_Comp::RemoveLives(const int amount)
@@ -29,11 +44,6 @@ bool Health_Comp::RemoveLives(const int amount)
 	
 	auto* pSubject{ m_pGameObject->GetSubject() };
 	if (pSubject) pSubject->Notify(m_pGameObject, Event::LostLive);
-	
+	UpdateUi();
 	return m_CurrentLives > 0;
-}
-
-void Health_Comp::ResetHealth()
-{
-	m_CurrentHealth = m_MaxHealth;
 }

@@ -2,6 +2,7 @@
 #include <BaseComponent.h>
 
 class CharacterController_Comp;
+class Health_Comp;
 class Player_Comp final:public BaseComponent
 {
 public:
@@ -16,7 +17,8 @@ public:
 	void Start() override;
 private:
 	void InitInput();
+	void CheckIfDead() const;
 	CharacterController_Comp* m_pController{nullptr};
-	bool m_Spawned{ false };
+	const Health_Comp* m_pHealthComp{ nullptr };
 };
 

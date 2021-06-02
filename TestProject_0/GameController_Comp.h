@@ -12,5 +12,8 @@ public:
 	void CompletedGrid();
 	void PlayerDied();
 private:
+	void StartLevelTwo();
+	void StartLevelThree();
+	int m_CurrentLevel{ 1 };
 };
 

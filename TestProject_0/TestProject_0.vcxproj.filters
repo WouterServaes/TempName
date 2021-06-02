@@ -72,9 +72,6 @@
     <ClCompile Include="CharacterController_Comp.cpp">
       <Filter>GameComponents</Filter>
     </ClCompile>
-    <ClCompile Include="LevelOneScene.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="Player_Comp.cpp">
       <Filter>GameComponents</Filter>
     </ClCompile>
@@ -98,6 +95,9 @@
     </ClCompile>
     <ClCompile Include="GameObserver.cpp">
       <Filter>GameObservers</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelScene.cpp">
+      <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -140,9 +140,6 @@
     <ClInclude Include="CharacterController_Comp.h">
       <Filter>GameComponents</Filter>
     </ClInclude>
-    <ClInclude Include="LevelOneScene.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="Player_Comp.h">
       <Filter>GameComponents</Filter>
     </ClInclude>
@@ -166,6 +163,9 @@
     </ClInclude>
     <ClInclude Include="GameObserver.h">
       <Filter>GameObservers</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelScene.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

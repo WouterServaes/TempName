@@ -16,15 +16,7 @@ void QBert_Comp::Start()
 
 void QBert_Comp::Update()
 {
-	if (m_pHealthComp->GetHealth() <= 0.f)
-	{
-		m_pHealthComp->RemoveLives(1);
-		const auto volume = 50,
-			soundId = 0;
-		AudioServiceLocator::GetAudio()->PlaySound(soundId, volume);
-		m_pGameObject->GetSubject()->Notify(m_pGameObject, Event::LostLive);
-		m_pHealthComp->ResetHealth();
-	}
+	
 
 	if (m_pHealthComp->GetLives() <= 0)
 		m_pGameObject->GetSubject()->Notify(m_pGameObject->GetGameObject("DeadText"), Event::PlayerDied);

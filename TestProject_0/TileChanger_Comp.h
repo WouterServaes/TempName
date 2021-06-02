@@ -18,11 +18,13 @@ public:
 	TileChanger_Comp& operator=(TileChanger_Comp&& other) noexcept = delete;
 	void Update() override;
 	void Start() override;
+	void SetLevel(int level);
 private:
 	void TryChangeTile();
 	void FireEvent() const;
 	WorldTileManager_Comp* m_pWorldTileManager{};
 	Transform* m_pTransform{};
 	glm::vec3 m_LastFramePos{};
+	int m_Level{ 1 };
 };
 
