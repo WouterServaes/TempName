@@ -34,6 +34,27 @@ public:
 	void SetRenderLayer(int layer);
 	[[nodiscard]] int GetRenderLayer() const;
 
+	template<typename T>
+	[[nodiscard]] bool HasComponent()
+	{
+		for (auto& comp : m_pComponents)
+			if (typeid(*comp) == typeid(T))
+				return true;
+		return false;
+	}
+
+	template<typename T>
+	[[nodiscard]] bool TryGetComponent(T*& pComp)
+	{
+		for (auto& comp : m_pComponents)
+			if (typeid(*comp) == typeid(T))
+			{
+				pComp = static_cast<T*>(comp);
+				return true;
+			}
+		
+		return false;
+	}
 	
 	template<typename T>
 	T* GetComponent()
@@ -44,7 +65,7 @@ public:
 				return static_cast<T*>(comp);
 		}
 
-		Logger::LogWarning("GetComponent() -> Component doesn't exist on GameObject");
+		Logger::LogWarning("GetComponent() -> Component doesn't exist on GameObject, name: " + m_ObjectName);
 		return nullptr;
 	};
 
@@ -57,7 +78,7 @@ public:
 				return static_cast<T*>(comp);
 		}
 
-		Logger::LogWarning("GetConstComponent() -> Component doesn't exist on GameObject");
+		Logger::LogWarning("GetConstComponent() -> Component doesn't exist on GameObject, name: " + m_ObjectName);
 		return nullptr;
 	}
 

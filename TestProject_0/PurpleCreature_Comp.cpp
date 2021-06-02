@@ -1,16 +1,17 @@
 #include "MiniginPCH.h"
-#include "GreenCreature_Comp.h"
+#include "PurpleCreature_Comp.h"
 
 #include "Animation_Comp.h"
 #include "CharacterController_Comp.h"
 #include "Transform.h"
 #include "WorldTileManager_Comp.h"
 
-GreenCreature_Comp::GreenCreature_Comp(const float timeBetweenJumps) : m_TimeBetweenJumps(timeBetweenJumps)
+PurpleCreature_Comp::PurpleCreature_Comp(const Side spawnSide, const float timeBetweenJumps) : m_SpawnSide(spawnSide),
+	m_TimeBetweenJumps(timeBetweenJumps)
 {
 }
 
-void GreenCreature_Comp::Update()
+void PurpleCreature_Comp::Update()
 {
 	if (m_pCharacterController->CanMove())
 	{
@@ -19,19 +20,19 @@ void GreenCreature_Comp::Update()
 		{
 			m_ElapsedTime = 0.f;
 			bool otherDir{ rand() % 10 <= 3 };
-			switch (m_FollowingSide)
+			switch (m_SpawnSide)
 			{
 			case Side::Left:
 				if (!otherDir)
-					m_pCharacterController->MoveLeftDownOnGrid();
+					m_pCharacterController->MoveRightUpOnGrid();
 				else
-					m_pCharacterController->MoveRightDownOnGrid();
+					m_pCharacterController->MoveLeftUpOnGrid();
 				break;
 			case Side::Right:
 				if (!otherDir)
-					m_pCharacterController->MoveRightDownOnGrid();
-				else
 					m_pCharacterController->MoveLeftDownOnGrid();
+				else
+					m_pCharacterController->MoveRightUpOnGrid();
 				break;
 			default:;
 			}
@@ -39,20 +40,15 @@ void GreenCreature_Comp::Update()
 	}
 }
 
-void GreenCreature_Comp::Respawn()
+void PurpleCreature_Comp::Spawn()
 {
-	m_pCharacterController->GoToSpawnPos();
+	int tileNr{ 0 };
+	if (m_SpawnSide == Side::Right) tileNr = m_pWorldTileManager->GetBottomRowAmount();
 
-	m_FollowingSide = (rand() % 2 == 0) ? Side::Left : Side::Right;
-}
-
-void GreenCreature_Comp::Spawn()
-{
-	auto spawnPos{ m_pWorldTileManager->GetTileStandPos(m_pWorldTileManager->GetTileAmount()) };
+	auto spawnPos{ m_pWorldTileManager->GetTileStandPos(tileNr) };
 
 	const auto textureWidth{ GetConstComponent<Animation_Comp>()->GetFrameDimensions().x * m_pTransform->GetUniformScale() };
 	spawnPos.x -= textureWidth / 2.f;
-
 	m_pCharacterController->SetSpawnPos(spawnPos);
 	Respawn();
 }

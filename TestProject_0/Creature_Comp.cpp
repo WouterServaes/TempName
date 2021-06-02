@@ -5,6 +5,11 @@
 #include "CharacterController_Comp.h"
 #include "WorldTileManager_Comp.h"
 
+void Creature_Comp::Respawn()
+{
+	m_pCharacterController->GoToSpawnPos();
+}
+
 void Creature_Comp::Start()
 {
 	m_pCharacterController = GetComponent<CharacterController_Comp>();

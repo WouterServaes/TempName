@@ -99,14 +99,17 @@
     <ClCompile Include="LevelScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="GreenCreatureObserver.cpp">
-      <Filter>GameObservers</Filter>
-    </ClCompile>
     <ClCompile Include="GreenCreature_Comp.cpp">
       <Filter>GameComponents</Filter>
     </ClCompile>
     <ClCompile Include="Creature_Comp.cpp">
       <Filter>GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="PurpleCreature_Comp.cpp">
+      <Filter>GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="CreatureObserver.cpp">
+      <Filter>GameObservers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -176,14 +179,17 @@
     <ClInclude Include="LevelScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="GreenCreatureObserver.h">
-      <Filter>GameObservers</Filter>
-    </ClInclude>
     <ClInclude Include="GreenCreature_Comp.h">
       <Filter>GameComponents</Filter>
     </ClInclude>
     <ClInclude Include="Creature_Comp.h">
       <Filter>GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="PurpleCreature_Comp.h">
+      <Filter>GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="CreatureObserver.h">
+      <Filter>GameObservers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
