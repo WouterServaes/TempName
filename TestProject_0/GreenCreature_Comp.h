@@ -3,17 +3,18 @@
 class CharacterController_Comp;
 class WorldTileManager_Comp;
 class Transform;
-class PurpleCreature_Comp final :public BaseComponent
+class GreenCreature_Comp final :public BaseComponent
 {
 public:
-	PurpleCreature_Comp(float timeBetweenJumps);
-	~PurpleCreature_Comp() = default;
-	PurpleCreature_Comp(const PurpleCreature_Comp& other) = delete;
-	PurpleCreature_Comp(PurpleCreature_Comp&& other) noexcept = delete;
-	PurpleCreature_Comp& operator=(const PurpleCreature_Comp& other) = delete;
-	PurpleCreature_Comp& operator=(PurpleCreature_Comp&& other) noexcept = delete;
+	explicit GreenCreature_Comp(float timeBetweenJumps);
+	~GreenCreature_Comp() = default;
+	GreenCreature_Comp(const GreenCreature_Comp& other) = delete;
+	GreenCreature_Comp(GreenCreature_Comp&& other) noexcept = delete;
+	GreenCreature_Comp& operator=(const GreenCreature_Comp& other) = delete;
+	GreenCreature_Comp& operator=(GreenCreature_Comp&& other) noexcept = delete;
 	void Start() override;
 	void Update() override;
+	void Respawn();
 private:
 	enum class Side
 	{

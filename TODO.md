@@ -21,11 +21,6 @@
 ## Minigin.cpp
 - Ability to set audio system
 
-## game
-diagonal movement  
-jump off pyramid: lose live, teleport to top.  
-lost all lives: end of game.  
-
 
 
      

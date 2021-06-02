@@ -99,7 +99,10 @@
     <ClCompile Include="LevelScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="PurpleCreature_Comp.cpp">
+    <ClCompile Include="GreenCreatureObserver.cpp">
+      <Filter>GameObservers</Filter>
+    </ClCompile>
+    <ClCompile Include="GreenCreature_Comp.cpp">
       <Filter>GameComponents</Filter>
     </ClCompile>
   </ItemGroup>
@@ -170,7 +173,10 @@
     <ClInclude Include="LevelScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="PurpleCreature_Comp.h">
+    <ClInclude Include="GreenCreatureObserver.h">
+      <Filter>GameObservers</Filter>
+    </ClInclude>
+    <ClInclude Include="GreenCreature_Comp.h">
       <Filter>GameComponents</Filter>
     </ClInclude>
   </ItemGroup>

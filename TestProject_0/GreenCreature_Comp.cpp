@@ -1,6 +1,5 @@
 #include "MiniginPCH.h"
-#include "PurpleCreature_Comp.h"
-
+#include "GreenCreature_Comp.h"
 
 #include "Animation_Comp.h"
 #include "CharacterController_Comp.h"
@@ -8,11 +7,11 @@
 #include "Transform.h"
 #include "WorldTileManager_Comp.h"
 
-PurpleCreature_Comp::PurpleCreature_Comp(const float timeBetweenJumps) : m_TimeBetweenJumps(timeBetweenJumps)
+GreenCreature_Comp::GreenCreature_Comp(const float timeBetweenJumps) : m_TimeBetweenJumps(timeBetweenJumps)
 {
 }
 
-void PurpleCreature_Comp::Start()
+void GreenCreature_Comp::Start()
 {
 	m_pCharacterController = GetComponent<CharacterController_Comp>();
 	m_pWorldTileManager = m_pGameObject->GetCurrentScene()->GetGameObject("WorldTileManager")->GetComponent<WorldTileManager_Comp>();
@@ -20,7 +19,7 @@ void PurpleCreature_Comp::Start()
 	Spawn();
 }
 
-void PurpleCreature_Comp::Update()
+void GreenCreature_Comp::Update()
 {
 	if (m_pCharacterController->CanMove())
 	{
@@ -28,13 +27,20 @@ void PurpleCreature_Comp::Update()
 		if (m_ElapsedTime >= m_TimeBetweenJumps)
 		{
 			m_ElapsedTime = 0.f;
+			bool otherDir{ rand() % 10 <= 3 };
 			switch (m_FollowingSide)
 			{
 			case Side::Left:
-				m_pCharacterController->MoveLeftDownOnGrid();
+				if (!otherDir)
+					m_pCharacterController->MoveLeftDownOnGrid();
+				else
+					m_pCharacterController->MoveRightDownOnGrid();
 				break;
 			case Side::Right:
-				m_pCharacterController->MoveRightDownOnGrid();
+				if (!otherDir)
+					m_pCharacterController->MoveRightDownOnGrid();
+				else
+					m_pCharacterController->MoveLeftDownOnGrid();
 				break;
 			default:;
 			}
@@ -42,17 +48,21 @@ void PurpleCreature_Comp::Update()
 	}
 }
 
-void PurpleCreature_Comp::Spawn()
+void GreenCreature_Comp::Respawn()
 {
-	//m_FollowingSide = (rand() % 2 == 0) ? Side::Left : Side::Right;
-	//m_FollowingSide = Side::Right;
-	//const int tileNr{ (m_FollowingSide == Side::Left) ? 0 : m_pWorldTileManager->GetBottomRowAmount() };
+	m_pCharacterController->GoToSpawnPos();
 
+	m_FollowingSide = (rand() % 2 == 0) ? Side::Left : Side::Right;
+}
+
+void GreenCreature_Comp::Spawn()
+{
+	Respawn();
 	auto spawnPos{ m_pWorldTileManager->GetTileStandPos(m_pWorldTileManager->GetTileAmount()) };
 
 	const auto textureWidth{ GetConstComponent<Animation_Comp>()->GetFrameDimensions().x * m_pTransform->GetUniformScale() };
 	spawnPos.x -= textureWidth / 2.f;
-	
+
 	m_pCharacterController->SetSpawnPos(spawnPos);
 	m_pTransform->SetPosition(spawnPos.x, spawnPos.y);
 }

@@ -18,7 +18,8 @@
 #include "GameController_Comp.h"
 #include "GameObserver.h"
 #include "Health_Comp.h"
-#include "PurpleCreature_Comp.h"
+#include "GreenCreatureObserver.h"
+#include "GreenCreature_Comp.h"
 #include "ScoreObserver.h"
 #include "Score_Comp.h"
 #include "Text_Comp.h"
@@ -73,15 +74,25 @@ void LevelScene::InitializeScene()
 	pGameController->GetSubject()->AddObserver(new GameObserver());
 
 	//purple creatures
-	auto pUgg{ std::make_shared<GameObject>("Ugg", true) };
+	auto pUgg{ std::make_shared<GameObject>("Slick", true) };
 	AddGameObject(pUgg);
 	pUgg->AddComponent(new Render_Comp());
-	pUgg->AddComponent(new Animation_Comp("Images/Ugg_Wrongway.png", 4, 8, glm::vec2(128.f, 147.f)));
+	pUgg->AddComponent(new Animation_Comp("Images/Slick_Sam.png", 4, 8, glm::vec2(128.f, 147.f)));
 	pUgg->AddComponent(new CharacterController_Comp(.15f));
-	pUgg->AddComponent(new PurpleCreature_Comp(2.f));
+	pUgg->AddComponent(new GreenCreature_Comp(2.f));
 	pUgg->AddComponent(new TileChanger_Comp(TileChanger_Comp::TileChangeLevel::RevertChanges));
 	pUgg->GetTransform()->ScaleUniform(.25f);
-	pUgg->GetSubject()->AddObserver(new CharacterObserver());
+	pUgg->GetSubject()->AddObserver(new GreenCreatureObserver());
+
+	auto pWrongway{ std::make_shared<GameObject>("Sam", true) };
+	AddGameObject(pWrongway);
+	pWrongway->AddComponent(new Render_Comp());
+	pWrongway->AddComponent(new Animation_Comp("Images/Slick_Sam.png", 4, 8, glm::vec2(128.f, 147.f)));
+	pWrongway->AddComponent(new CharacterController_Comp(.15f));
+	pWrongway->AddComponent(new GreenCreature_Comp(2.f));
+	pWrongway->AddComponent(new TileChanger_Comp(TileChanger_Comp::TileChangeLevel::RevertChanges));
+	pWrongway->GetTransform()->ScaleUniform(.25f);
+	pWrongway->GetSubject()->AddObserver(new GreenCreatureObserver());
 }
 
 void LevelScene::InitUi()
