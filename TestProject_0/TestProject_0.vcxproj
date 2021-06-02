@@ -186,6 +186,7 @@
     <ClCompile Include="..\Minigin\Score_Comp.cpp" />
     <ClCompile Include="CharacterController_Comp.cpp" />
     <ClCompile Include="CharacterObserver.cpp" />
+    <ClCompile Include="Creature_Comp.cpp" />
     <ClCompile Include="DemoScene.cpp" />
     <ClCompile Include="GameCommands.cpp" />
     <ClCompile Include="GameController_Comp.cpp" />
@@ -217,6 +218,7 @@
     <ClInclude Include="..\Minigin\Score_Comp.h" />
     <ClInclude Include="CharacterController_Comp.h" />
     <ClInclude Include="CharacterObserver.h" />
+    <ClInclude Include="Creature_Comp.h" />
     <ClInclude Include="DemoScene.h" />
     <ClInclude Include="GameCommands.h" />
     <ClInclude Include="GameController_Comp.h" />

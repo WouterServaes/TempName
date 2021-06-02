@@ -3,20 +3,11 @@
 
 #include "Animation_Comp.h"
 #include "CharacterController_Comp.h"
-#include "Scene.h"
 #include "Transform.h"
 #include "WorldTileManager_Comp.h"
 
 GreenCreature_Comp::GreenCreature_Comp(const float timeBetweenJumps) : m_TimeBetweenJumps(timeBetweenJumps)
 {
-}
-
-void GreenCreature_Comp::Start()
-{
-	m_pCharacterController = GetComponent<CharacterController_Comp>();
-	m_pWorldTileManager = m_pGameObject->GetCurrentScene()->GetGameObject("WorldTileManager")->GetComponent<WorldTileManager_Comp>();
-	m_pTransform = m_pGameObject->GetTransform();
-	Spawn();
 }
 
 void GreenCreature_Comp::Update()

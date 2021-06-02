@@ -105,6 +105,9 @@
     <ClCompile Include="GreenCreature_Comp.cpp">
       <Filter>GameComponents</Filter>
     </ClCompile>
+    <ClCompile Include="Creature_Comp.cpp">
+      <Filter>GameComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniginPCH.h">
@@ -177,6 +180,9 @@
       <Filter>GameObservers</Filter>
     </ClInclude>
     <ClInclude Include="GreenCreature_Comp.h">
+      <Filter>GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Creature_Comp.h">
       <Filter>GameComponents</Filter>
     </ClInclude>
   </ItemGroup>
