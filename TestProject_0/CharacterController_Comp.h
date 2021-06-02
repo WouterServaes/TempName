@@ -36,6 +36,9 @@ public:
 	
 	void MoveLeftOnGrid();
 	void MoveRightOnGrid();
+
+	void SetSpawnPos(glm::vec2 position);
+	void GoToSpawnPos() const;
 private:
 	[[nodiscard]] bool GetReachedPos() const;
 	void UpdatePos();
@@ -51,4 +54,6 @@ private:
 
 	GridMovements m_GridMovements{};
 	const WorldTileManager_Comp* m_pWorldTileManager{nullptr};
+
+	glm::vec2 m_SpawnPos{};
 };

@@ -21,11 +21,14 @@ void Player_Comp::Start()
 
 	const auto pWorldGrid{ m_pGameObject->GetCurrentScene()->GetGameObject("WorldTileManager") };
 	const auto pWorldGridManagerComp{ pWorldGrid->GetConstComponent<WorldTileManager_Comp>() };
-	const auto spawnPos{ pWorldGridManagerComp->GetTileStandPos(pWorldGridManagerComp->GetTileAmount()) };
+	auto spawnPos{ pWorldGridManagerComp->GetTileStandPos(pWorldGridManagerComp->GetTileAmount()) };
 
 	auto* pTransform{ m_pGameObject->GetTransform() };
 	const auto textureWidth{ GetConstComponent<Animation_Comp>()->GetFrameDimensions().x * pTransform->GetUniformScale() };
-	pTransform->SetPosition(spawnPos.x - textureWidth / 2.f, spawnPos.y);
+
+	spawnPos.x -= textureWidth / 2.f;
+	pTransform->SetPosition(spawnPos.x, spawnPos.y);
+	m_pGameObject->GetComponent<CharacterController_Comp>()->SetSpawnPos(spawnPos);
 	
 }
 

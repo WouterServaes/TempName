@@ -35,8 +35,8 @@ void CharacterController_Comp::Update()
 {
 	if (m_IsMoving)
 		UpdatePos();
-	
-	TestIsOutsideGrid();
+	else
+		TestIsOutsideGrid();
 }
 
 void CharacterController_Comp::Start()
@@ -75,6 +75,16 @@ void CharacterController_Comp::MoveLeftOnGrid()
 void CharacterController_Comp::MoveRightOnGrid()
 {
 	Move(glm::vec2(m_GridMovements.Right * 2.f, 0.f));
+}
+
+void CharacterController_Comp::SetSpawnPos(glm::vec2 position)
+{
+	m_SpawnPos = position;
+}
+
+void CharacterController_Comp::GoToSpawnPos() const
+{
+	m_pTransform->SetPosition(m_SpawnPos.x, m_SpawnPos.y);
 }
 
 bool CharacterController_Comp::GetReachedPos() const
@@ -117,7 +127,7 @@ void CharacterController_Comp::SetGridMovement()
 
 void CharacterController_Comp::TestIsOutsideGrid() const
 {
-	if (!m_pWorldTileManager->IsTileAtPosition(m_TargetPos))
+	if (!m_pWorldTileManager->IsTileAtPosition(m_pTransform->GetPosition()))
 	{
 		auto* pSubject{ m_pGameObject->GetSubject() };
 		if (pSubject) pSubject->Notify(m_pGameObject, Event::FellOffGrid);

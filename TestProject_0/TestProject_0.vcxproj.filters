@@ -90,6 +90,9 @@
     <ClCompile Include="ScoreObserver.cpp">
       <Filter>GameObservers</Filter>
     </ClCompile>
+    <ClCompile Include="CharacterObserver.cpp">
+      <Filter>GameObservers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniginPCH.h">
@@ -147,6 +150,9 @@
       <Filter>GameComponents</Filter>
     </ClInclude>
     <ClInclude Include="ScoreObserver.h">
+      <Filter>GameObservers</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterObserver.h">
       <Filter>GameObservers</Filter>
     </ClInclude>
   </ItemGroup>

@@ -18,6 +18,8 @@
 #include "CharacterController_Comp.h"
 #include "Player_Comp.h"
 #include "Animation_Comp.h"
+#include "CharacterObserver.h"
+#include "Health_Comp.h"
 #include "ScoreObserver.h"
 #include "Score_Comp.h"
 #include "Text_Comp.h"
@@ -37,8 +39,10 @@ void LevelOneScene::InitializeScene()
 	pPlayerObj->AddComponent(new Player_Comp());
 	pPlayerObj->AddComponent(new TileChanger_Comp());
 	pPlayerObj->AddComponent(new Score_Comp());
+	pPlayerObj->AddComponent(new Health_Comp(10.f, 10.f, 3, 3));
 	pPlayerObj->GetSubject()->AddObserver(new MovementObserver());
 	pPlayerObj->GetSubject()->AddObserver(new ScoreObserver());
+	pPlayerObj->GetSubject()->AddObserver(new CharacterObserver());
 	pPlayerObj->SetRenderLayer(5);
 	pPlayerObj->GetTransform()->ScaleUniform(.25f);
 

@@ -185,6 +185,7 @@
     <ClCompile Include="..\Minigin\QBert_Comp.cpp" />
     <ClCompile Include="..\Minigin\Score_Comp.cpp" />
     <ClCompile Include="CharacterController_Comp.cpp" />
+    <ClCompile Include="CharacterObserver.cpp" />
     <ClCompile Include="DemoScene.cpp" />
     <ClCompile Include="GameCommands.cpp" />
     <ClCompile Include="LevelOneScene.cpp" />
@@ -211,6 +212,7 @@
     <ClInclude Include="..\Minigin\QBert_Comp.h" />
     <ClInclude Include="..\Minigin\Score_Comp.h" />
     <ClInclude Include="CharacterController_Comp.h" />
+    <ClInclude Include="CharacterObserver.h" />
     <ClInclude Include="DemoScene.h" />
     <ClInclude Include="GameCommands.h" />
     <ClInclude Include="GameEvents.h" />
