@@ -1,6 +1,10 @@
 #include "MiniginPCH.h"
 #include "Health_Comp.h"
 
+
+#include "Events.h"
+#include "Subject.h"
+
 Health_Comp::Health_Comp(const float maxHealth, const float currentHealth, const int maxLives, const int currentLives)
 	:m_MaxHealth(maxHealth), m_CurrentHealth(currentHealth), m_MaxLives(maxLives), m_CurrentLives(currentLives)
 {
@@ -19,9 +23,13 @@ bool Health_Comp::RemoveHealth(const float amount)
 	return m_CurrentHealth > 0.f;
 }
 
-bool Health_Comp::RemoveLives(int amount)
+bool Health_Comp::RemoveLives(const int amount)
 {
 	m_CurrentLives -= amount;
+	
+	auto* pSubject{ m_pGameObject->GetSubject() };
+	if (pSubject) pSubject->Notify(m_pGameObject, Event::LostLive);
+	
 	return m_CurrentLives > 0;
 }
 

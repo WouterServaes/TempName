@@ -19,7 +19,7 @@ public:
 	WorldTileManager_Comp& operator=(WorldTileManager_Comp&& other) noexcept = delete;
 
 	void Start() override;
-
+	void Update() override;
 	[[nodiscard]] glm::vec2 GetGridTileDimensions() const;
 	/// <summary>
 	/// Resets all the tiles
@@ -33,6 +33,7 @@ public:
 private:
 	void SpawnTiles();
 	void CreateTile(glm::vec3 pos, int c, int r);
+	void CheckIfCompleted() const;
 	const int m_BottomRowAmount;
 	float m_TileWidth{}, m_TileSmallestHeight{};
 	glm::vec2 m_TileStandOffset{};

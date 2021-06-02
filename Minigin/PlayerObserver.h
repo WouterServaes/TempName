@@ -1,6 +1,6 @@
 #pragma once
 #include "Observer.h"
-
+//NOT USED 
 class Text_Comp;
 class Score_Comp;
 class PlayerObserver final :

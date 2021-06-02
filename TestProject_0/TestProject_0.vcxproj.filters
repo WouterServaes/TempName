@@ -93,6 +93,12 @@
     <ClCompile Include="CharacterObserver.cpp">
       <Filter>GameObservers</Filter>
     </ClCompile>
+    <ClCompile Include="GameController_Comp.cpp">
+      <Filter>GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObserver.cpp">
+      <Filter>GameObservers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniginPCH.h">
@@ -153,6 +159,12 @@
       <Filter>GameObservers</Filter>
     </ClInclude>
     <ClInclude Include="CharacterObserver.h">
+      <Filter>GameObservers</Filter>
+    </ClInclude>
+    <ClInclude Include="GameController_Comp.h">
+      <Filter>GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObserver.h">
       <Filter>GameObservers</Filter>
     </ClInclude>
   </ItemGroup>

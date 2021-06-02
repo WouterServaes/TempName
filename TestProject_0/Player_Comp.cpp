@@ -29,7 +29,6 @@ void Player_Comp::Start()
 	spawnPos.x -= textureWidth / 2.f;
 	pTransform->SetPosition(spawnPos.x, spawnPos.y);
 	m_pGameObject->GetComponent<CharacterController_Comp>()->SetSpawnPos(spawnPos);
-	
 }
 
 void Player_Comp::InitInput()

@@ -11,6 +11,8 @@
 #include "Transform.h"
 #include "Transform_Comp.h"
 
+//NOT USED
+
 void PlayerObserver::OnNotify(GameObject* const gameObject, const Event event)
 {
 	switch (event)

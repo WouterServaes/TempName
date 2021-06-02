@@ -4,9 +4,11 @@
 #include "WorldTile_Comp.h"
 #include "BaseComponent.h"
 #include "EngineSettings.h"
+#include "Events.h"
 #include "Minigin.h"
 #include "Render_Comp.h"
 #include "Scene.h"
+#include "Subject.h"
 #include "Transform.h"
 
 WorldTileManager_Comp::WorldTileManager_Comp(const std::shared_ptr<Texture2D> pNormalTexture, const std::shared_ptr<Texture2D> pHighlightTexture, const int bottomRowAmount)
@@ -38,6 +40,11 @@ void WorldTileManager_Comp::Start()
 	pTransform->SetPosition(x, y);
 
 	SpawnTiles();
+}
+
+void WorldTileManager_Comp::Update()
+{
+	CheckIfCompleted();
 }
 
 glm::vec2 WorldTileManager_Comp::GetGridTileDimensions() const
@@ -124,4 +131,14 @@ void WorldTileManager_Comp::CreateTile(const glm::vec3 pos, const int c, const i
 
 	m_pGameObject->GetCurrentScene()->AddGameObject(pHexObj);
 	pHexObj->SetRenderLayer(-1);
+}
+
+void WorldTileManager_Comp::CheckIfCompleted() const
+{
+	const auto it{ std::find_if(m_pWorldTiles.begin(), m_pWorldTiles.end(), [](WorldTile_Comp* pTile) { return !pTile->GetIsHighlighted(); }) };
+	if(it == m_pWorldTiles.end())
+	{
+		const auto pGameController{ m_pGameObject->GetCurrentScene()->GetGameObject("GameController") };
+		pGameController->GetSubject()->Notify(pGameController.get(), Event::GridComplete);
+	}
 }
