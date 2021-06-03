@@ -3,6 +3,8 @@
 
 #include "Animation_Comp.h"
 #include "CharacterController_Comp.h"
+#include "Events.h"
+#include "Subject.h"
 #include "Transform.h"
 #include "WorldTileManager_Comp.h"
 
@@ -11,7 +13,7 @@ PurpleCreature_Comp::PurpleCreature_Comp(const Side spawnSide, const float timeB
 {
 }
 
-void PurpleCreature_Comp::Update()
+void PurpleCreature_Comp::UpdateCreature()
 {
 	if (m_pCharacterController->CanMove())
 	{
@@ -51,4 +53,9 @@ void PurpleCreature_Comp::Spawn()
 	spawnPos.x -= textureWidth / 2.f;
 	m_pCharacterController->SetSpawnPos(spawnPos);
 	Respawn();
+}
+
+void PurpleCreature_Comp::CollidedWithPlayer()
+{
+	m_pPlayer->GetSubject()->Notify(m_pPlayer.get(), Event::FellOffGrid);
 }

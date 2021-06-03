@@ -9,9 +9,10 @@ public:
 	PurpleCreature_Comp(PurpleCreature_Comp&& other) noexcept = delete;
 	PurpleCreature_Comp& operator=(const PurpleCreature_Comp& other) = delete;
 	PurpleCreature_Comp& operator=(PurpleCreature_Comp&& other) noexcept = delete;
-	void Update() override;
+	void UpdateCreature() override;
 private:
 	void Spawn() override;
+	void CollidedWithPlayer() override;
 	Side m_SpawnSide;
 	float m_ElapsedTime{};
 	const float m_TimeBetweenJumps;
