@@ -34,12 +34,11 @@ public:
 	void MoveRightUpOnGrid();
 	void MoveRightDownOnGrid();
 	
-	void MoveLeftOnGrid();
-	void MoveRightOnGrid();
-
 	void SetSpawnPos(glm::vec2 position);
+	[[nodiscard]] glm::vec2 GetSpawnPos() const { return  m_SpawnPos; }
 	void GoToSpawnPos() const;
 	[[nodiscard]] bool CanMove() const { return !m_IsMoving; }
+	[[nodiscard]] const GridMovements& GetGridMovements() const { return m_GridMovements; }
 private:
 	[[nodiscard]] bool GetReachedPos() const;
 	void UpdatePos();

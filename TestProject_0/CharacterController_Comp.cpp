@@ -67,16 +67,6 @@ void CharacterController_Comp::MoveRightDownOnGrid()
 	Move(glm::vec2(m_GridMovements.Right, m_GridMovements.Down));
 }
 
-void CharacterController_Comp::MoveLeftOnGrid()
-{
-	Move(glm::vec2(m_GridMovements.Left * 2.f, 0.f));
-}
-
-void CharacterController_Comp::MoveRightOnGrid()
-{
-	Move(glm::vec2(m_GridMovements.Right * 2.f, 0.f));
-}
-
 void CharacterController_Comp::SetSpawnPos(const glm::vec2 position)
 {
 	m_SpawnPos = position;
@@ -98,7 +88,6 @@ void CharacterController_Comp::UpdatePos()
 {
 	if (!GetReachedPos())
 	{
-		//change to bezier curve later https://gamedev.stackexchange.com/questions/157642/moving-a-2d-object-along-circular-arc-between-two-points
 		const auto elapsedSec{ Time::GetInstance().elapsedTime };
 		m_MoveDelta += elapsedSec * m_MoveSpeed;
 

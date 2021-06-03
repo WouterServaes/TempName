@@ -16,7 +16,5 @@ private:
 	void MoveLeftDown(GameObject* pGameObject)const;
 	void MoveRightUp(GameObject* pGameObject)const;
 	void MoveRightDown(GameObject* pGameObject)const;
-	void MoveRight(GameObject* pGameObject)const;
-	void MoveLeft(GameObject* pGameObject)const;
 };
 

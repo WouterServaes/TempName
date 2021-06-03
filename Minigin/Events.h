@@ -12,8 +12,6 @@ enum class Event
 	MoveLeftDown,
 	MoveRightUp,
 	MoveRightDown,
-	MoveRight,
-	MoveLeft,
 	FellOffGrid,
 	GridComplete,
 	AttackedByPurple

@@ -21,12 +21,6 @@ void MovementObserver::OnNotify(GameObject* const pGameObject, const Event event
 	case Event::MoveRightDown:
 		MoveRightDown(pGameObject);
 		break;
-	case Event::MoveLeft:
-		MoveLeft(pGameObject);
-		break;
-	case Event::MoveRight:
-		MoveRight(pGameObject);
-		break;
 	default:;
 	}
 }
@@ -49,14 +43,4 @@ void MovementObserver::MoveRightUp(GameObject* pGameObject)const
 void MovementObserver::MoveRightDown(GameObject* pGameObject)const
 {
 	pGameObject->GetComponent<CharacterController_Comp>()->MoveRightDownOnGrid();
-}
-
-void MovementObserver::MoveRight(GameObject* pGameObject) const
-{
-	pGameObject->GetComponent<CharacterController_Comp>()->MoveRightOnGrid();
-}
-
-void MovementObserver::MoveLeft(GameObject* pGameObject) const
-{
-	pGameObject->GetComponent<CharacterController_Comp>()->MoveLeftOnGrid();
 }

@@ -57,31 +57,3 @@ public:
 
 	void Execute() override;
 };
-
-class Command_MoveRight final : public Commands
-{
-public:
-	Command_MoveRight() = delete;
-	explicit Command_MoveRight(GameObject* gameObject) :Commands(gameObject) {};
-	~Command_MoveRight() = default;
-	Command_MoveRight(const Command_MoveRight& other) = delete;
-	Command_MoveRight(Command_MoveRight&& other) noexcept = delete;
-	Command_MoveRight& operator=(const Command_MoveRight& other) = delete;
-	Command_MoveRight& operator=(Command_MoveRight&& other) noexcept = delete;
-
-	void Execute() override;
-};
-
-class Command_MoveLeft final : public Commands
-{
-public:
-	Command_MoveLeft() = delete;
-	explicit Command_MoveLeft(GameObject* gameObject) :Commands(gameObject) {};
-	~Command_MoveLeft() = default;
-	Command_MoveLeft(const Command_MoveLeft& other) = delete;
-	Command_MoveLeft(Command_MoveLeft&& other) noexcept = delete;
-	Command_MoveLeft& operator=(const Command_MoveLeft& other) = delete;
-	Command_MoveLeft& operator=(Command_MoveLeft&& other) noexcept = delete;
-
-	void Execute() override;
-};

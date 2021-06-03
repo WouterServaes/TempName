@@ -1,15 +1,15 @@
 #include "MiniginPCH.h"
 #include "CoilyCreature_Comp.h"
 
-
 #include "Animation_Comp.h"
 #include "CharacterController_Comp.h"
 #include "Events.h"
 #include "Subject.h"
 #include "Transform.h"
 #include "WorldTileManager_Comp.h"
+#include "WorldTile_Comp.h"
 
-CoilyCreature_Comp::CoilyCreature_Comp(const float timeBetweenJumps, const std::string& coilyAnimationSheet, const int coilyImageAmount, const int coilyFramesPerSecond, const glm::vec2 coilyFrameDimensions):
+CoilyCreature_Comp::CoilyCreature_Comp(const float timeBetweenJumps, const std::string& coilyAnimationSheet, const int coilyImageAmount, const int coilyFramesPerSecond, const glm::vec2 coilyFrameDimensions) :
 	m_TimeBetweenJumps(timeBetweenJumps), m_CoilyImageAmount(coilyImageAmount), m_CoilyFPS(coilyFramesPerSecond), m_CoilyAnimSheet(coilyAnimationSheet), m_CoilyFrameDim(coilyFrameDimensions)
 {
 }
@@ -18,61 +18,110 @@ void CoilyCreature_Comp::Spawn()
 {
 	auto spawnPos{ m_pWorldTileManager->GetTileStandPos(m_pWorldTileManager->GetTileAmount()) };
 
-	const auto textureWidth{ GetConstComponent<Animation_Comp>()->GetFrameDimensions().x * m_pTransform->GetUniformScale() };
-	spawnPos.x -= textureWidth / 2.f;
+	const auto frameWidth{ GetConstComponent<Animation_Comp>()->GetFrameDimensions().x * m_pTransform->GetUniformScale() };
+	spawnPos.x -= frameWidth / 2.f;
 
 	m_pCharacterController->SetSpawnPos(spawnPos);
+	m_pPlayerTransform = m_pPlayer->GetTransform();
 	Respawn();
 }
 
 void CoilyCreature_Comp::UpdateCreature()
 {
-	if (m_IsEgg)
-		UpdateEgg();
-	else
-		FollowPlayer();
-}
-
-void CoilyCreature_Comp::CollidedWithPlayer()
-{
-	if(!m_IsEgg) m_pPlayer->GetSubject()->Notify(m_pPlayer.get(), Event::AttackedByPurple);
-}
-
-void CoilyCreature_Comp::UpdateEgg()
-{
-	BounceToBottom();
-
-	const int tileIdx{ m_pWorldTileManager->GetTileIdxAtPosition(m_pTransform->GetPosition()) };
-	
-	if (tileIdx >= 0 && tileIdx <= m_pWorldTileManager->GetBottomRowAmount())
-		ChangeToSnake();
-}
-
-void CoilyCreature_Comp::BounceToBottom()
-{
-	if(m_pCharacterController->CanMove())
+	if (m_pCharacterController->CanMove())
 	{
 		m_ElapsedTime += Time::GetInstance().deltaTime;
 		if (m_ElapsedTime >= m_TimeBetweenJumps)
 		{
 			m_ElapsedTime = 0.f;
-			const Side side = (m_LastSide == Side::Left) ? Side::Right : Side::Left;
-			if (side == Side::Left)
-				m_pCharacterController->MoveLeftDownOnGrid();
+			if (m_IsEgg)
+				UpdateEgg();
 			else
-				m_pCharacterController->MoveRightDownOnGrid();
-			m_LastSide = side;
+				FollowPlayer();
 		}
 	}
+}
+
+void CoilyCreature_Comp::CollidedWithPlayer()
+{
+	if (!m_IsEgg) m_pPlayer->GetSubject()->Notify(m_pPlayer.get(), Event::AttackedByPurple);
+}
+
+void CoilyCreature_Comp::UpdateEgg()
+{
+	const int tileIdx{ m_pWorldTileManager->GetTileIdxAtPosition(m_pTransform->GetPosition()) };
+
+	if (tileIdx >= 0 && tileIdx <= m_pWorldTileManager->GetBottomRowAmount())
+		ChangeToSnake();
+	else
+		BounceToBottom();
+}
+
+void CoilyCreature_Comp::BounceToBottom()
+{
+	const Side side = (m_LastSide == Side::Left) ? Side::Right : Side::Left;
+	if (side == Side::Left)
+		m_pCharacterController->MoveLeftDownOnGrid();
+	else
+		m_pCharacterController->MoveRightDownOnGrid();
+	m_LastSide = side;
 }
 
 void CoilyCreature_Comp::ChangeToSnake()
 {
 	m_IsEgg = false;
-	m_pTransform->ScaleUniform(.45f);
+	const float rescale{ .35f };
+	m_ElapsedTime = 0.f;
+
+	//update texture
+	m_pTransform->ScaleUniform(rescale);
 	GetComponent<Animation_Comp>()->UpdateAnimationSheet(m_CoilyAnimSheet, m_CoilyImageAmount, m_CoilyFPS, m_CoilyFrameDim);
+
+	//change spawn position because different texture size
+	auto spawnPos{ m_pWorldTileManager->GetTileStandPos(m_pWorldTileManager->GetTileAmount()) };
+
+	const auto currentFrameWidth{ m_CoilyFrameDim.x * rescale };
+	spawnPos.x -= currentFrameWidth / 2.f;
+	m_pCharacterController->SetSpawnPos(spawnPos);
+
+	//change current position because different texture size
+	auto currentPos{ m_pWorldTileManager->GetTileAtPosition(m_pTransform->GetPosition())->GetStandPos() };
+	currentPos.x -= currentFrameWidth / 2.f;
+	m_pTransform->SetPosition(currentPos.x, currentPos.y);
 }
 
 void CoilyCreature_Comp::FollowPlayer()
 {
+	const auto& playerPos{ m_pPlayerTransform->GetPosition() };
+	const auto& coilyPos{ m_pTransform->GetPosition() };
+
+	bool moveLeft{ true };
+
+	//decide direction
+	if (playerPos.x > coilyPos.x) //move right
+		moveLeft = false;
+	else if (playerPos.x == coilyPos.x)//move left or right
+		moveLeft = rand() % 10 < 5;
+
+	bool moveUp{ true };
+	if (playerPos.y > coilyPos.y) //move up
+		moveUp = false;
+	else if (playerPos.y == coilyPos.y)//move up or down
+		moveUp = rand() % 10 < 5;
+
+	//move in said direction
+	if (moveLeft)
+	{
+		if (moveUp)
+			m_pCharacterController->MoveLeftUpOnGrid();
+		else
+			m_pCharacterController->MoveLeftDownOnGrid();
+	}
+	else
+	{
+		if (moveUp)
+			m_pCharacterController->MoveRightUpOnGrid();
+		else
+			m_pCharacterController->MoveRightDownOnGrid();
+	}
 }

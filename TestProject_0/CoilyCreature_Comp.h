@@ -5,6 +5,7 @@
 #include <glm/vec2.hpp>
 #pragma warning(pop)
 
+class Transform;
 class CoilyCreature_Comp final:public Creature_Comp
 {
 public:
@@ -34,5 +35,7 @@ private:
 	const std::string m_CoilyAnimSheet;
 	const int m_CoilyImageAmount, m_CoilyFPS;
 	const glm::vec2 m_CoilyFrameDim;
+
+	Transform* m_pPlayerTransform{nullptr};
 };
 

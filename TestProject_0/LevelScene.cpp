@@ -121,7 +121,7 @@ void LevelScene::InitializeScene()
 	pCoily->AddComponent(new Render_Comp());
 	pCoily->AddComponent(new Animation_Comp("Images/CoilyEgg.png", 4, 8, glm::vec2(128.f, 147.f)));
 	pCoily->AddComponent(new CharacterController_Comp(.15f));
-	pCoily->AddComponent(new CoilyCreature_Comp(2.f, "Images/Coily.png", 4,8, glm::vec2(128.f, 147.f)));
+	pCoily->AddComponent(new CoilyCreature_Comp(2.f, "Images/Coily.png", 4,8, glm::vec2(50.f, 147.f)));
 	pCoily->GetTransform()->ScaleUniform(.1f);
 	pCoily->GetSubject()->AddObserver(new CreatureObserver());
 	
