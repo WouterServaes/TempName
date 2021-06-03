@@ -9,7 +9,8 @@
 #include "Transform.h"
 #include "WorldTileManager_Comp.h"
 
-CoilyCreature_Comp::CoilyCreature_Comp(const float timeBetweenJumps): m_TimeBetweenJumps(timeBetweenJumps)
+CoilyCreature_Comp::CoilyCreature_Comp(const float timeBetweenJumps, const std::string& coilyAnimationSheet, const int coilyImageAmount, const int coilyFramesPerSecond, const glm::vec2 coilyFrameDimensions):
+	m_TimeBetweenJumps(timeBetweenJumps), m_CoilyImageAmount(coilyImageAmount), m_CoilyFPS(coilyFramesPerSecond), m_CoilyAnimSheet(coilyAnimationSheet), m_CoilyFrameDim(coilyFrameDimensions)
 {
 }
 
@@ -26,10 +27,10 @@ void CoilyCreature_Comp::Spawn()
 
 void CoilyCreature_Comp::UpdateCreature()
 {
-	if(m_IsEgg)
-	{
+	if (m_IsEgg)
 		UpdateEgg();
-	}
+	else
+		FollowPlayer();
 }
 
 void CoilyCreature_Comp::CollidedWithPlayer()
@@ -68,6 +69,8 @@ void CoilyCreature_Comp::BounceToBottom()
 void CoilyCreature_Comp::ChangeToSnake()
 {
 	m_IsEgg = false;
+	m_pTransform->ScaleUniform(.45f);
+	GetComponent<Animation_Comp>()->UpdateAnimationSheet(m_CoilyAnimSheet, m_CoilyImageAmount, m_CoilyFPS, m_CoilyFrameDim);
 }
 
 void CoilyCreature_Comp::FollowPlayer()

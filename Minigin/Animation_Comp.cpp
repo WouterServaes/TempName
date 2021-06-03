@@ -61,6 +61,19 @@ void Animation_Comp::MultipleTexturesUpdate()
 	}
 }
 
+void Animation_Comp::UpdateAnimationSheet(const std::string& animationSheet, const int imageAmount, const int framesPerSecond,
+	const glm::vec2 frameDimensions)
+{
+	m_FrameDimensions = frameDimensions;
+	m_AmountOfFrames = imageAmount;
+	m_FramesPerSecond = framesPerSecond;
+	m_CurrentFrameColumn = 0;
+	m_CurrentFrameRow = 0;
+	m_ElapsedTime = 0.f;
+	m_MultipleImages = false;
+	m_Textures[0] = ResourceManager::GetInstance().LoadTexture(animationSheet);
+}
+
 void Animation_Comp::SingleTextureUpdate()
 {
 	const auto texDim{ m_Textures[0]->GetTextureData().Dimensions };
@@ -82,6 +95,8 @@ void Animation_Comp::SingleTextureUpdate()
 	if (m_pRenderComponent)
 		m_pRenderComponent->UpdateTexture(m_Textures[0], m_FrameDimensions.x, m_FrameDimensions.y, srcX, srcY, m_FrameDimensions.x, m_FrameDimensions.y);
 }
+
+
 
 std::string Animation_Comp::GetImageName(const int imgNr, const std::string& folderName, const std::string& imageBaseName) const
 {
