@@ -13,12 +13,11 @@ public:
 	void Update() override;
 	void Respawn() override;
 private:
-	
-	
 	void Spawn() override;
 	
 	Side m_FollowingSide{};
 	float m_ElapsedTime{};
 	const float m_TimeBetweenJumps;
+	
 };
 

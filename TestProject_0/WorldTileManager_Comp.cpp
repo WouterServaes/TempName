@@ -30,8 +30,7 @@ void WorldTileManager_Comp::Start()
 
 	//tile stand offset
 	m_TileStandOffset.x = m_TileWidth / 2.f;
-	m_TileStandOffset.y = m_TileSmallestHeight/2.f;
-	
+	m_TileStandOffset.y = m_TileSmallestHeight / 2.f;
 
 	//pyramid position
 	auto* pEngineSettings{ Minigin::pEngineSettings };
@@ -72,19 +71,33 @@ WorldTile_Comp* WorldTileManager_Comp::GetTileAtPosition(glm::vec2 position) con
 
 			return position.x <= standPos.x + m_TileWidth / 2.f && position.x >= standPos.x - m_TileWidth / 2.f
 				&& position.y == standPos.y;
-		
 		}) };
-	
+
 	if (it != m_pWorldTiles.end())
 		return *it;
 	return nullptr;
+}
+
+int WorldTileManager_Comp::GetTileIdxAtPosition(glm::vec2 position) const
+{
+	const auto it{ std::find_if(m_pWorldTiles.begin(), m_pWorldTiles.end(), [position, this](WorldTile_Comp* pWorldTile)
+		{
+			const auto standPos{ pWorldTile->GetStandPos() };
+
+			return position.x <= standPos.x + m_TileWidth / 2.f && position.x >= standPos.x - m_TileWidth / 2.f
+				&& position.y == standPos.y;
+		}) };
+
+	int idx{ -1 };
+	if (it != m_pWorldTiles.end())
+		idx = static_cast<int>(std::distance(m_pWorldTiles.begin(), it));
+	return idx;
 }
 
 bool WorldTileManager_Comp::IsTileAtPosition(const glm::vec2 position) const
 {
 	return GetTileAtPosition(position) != nullptr;
 }
-
 
 int WorldTileManager_Comp::GetTileAmount() const
 {
@@ -126,7 +139,7 @@ void WorldTileManager_Comp::CreateTile(const glm::vec3 pos, const int c, const i
 	auto* pHexTransform{ pHexObj->GetTransform() };
 	pHexTransform->SetPosition(pos);
 	pHexTransform->ScaleUniform(m_pGameObject->GetTransform()->GetUniformScale());
-	
+
 	pHexObj->AddComponent(new Render_Comp());
 
 	auto* pTileComp{ new WorldTile_Comp(m_pNormalTexture, m_pHighlightTexture, m_pIntermediateTexture, glm::vec2(pos.x + m_TileStandOffset.x, pos.y - m_TileStandOffset.y)) };
@@ -142,7 +155,7 @@ void WorldTileManager_Comp::CreateTile(const glm::vec3 pos, const int c, const i
 void WorldTileManager_Comp::CheckIfCompleted() const
 {
 	const auto it{ std::find_if(m_pWorldTiles.begin(), m_pWorldTiles.end(), [](WorldTile_Comp* pTile) { return !pTile->GetIsHighlighted(); }) };
-	if(it == m_pWorldTiles.end())
+	if (it == m_pWorldTiles.end())
 	{
 		const auto pGameController{ m_pGameObject->GetCurrentScene()->GetGameObject("GameController") };
 		pGameController->GetSubject()->Notify(pGameController.get(), Event::GridComplete);

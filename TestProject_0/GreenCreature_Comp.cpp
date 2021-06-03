@@ -3,6 +3,7 @@
 
 #include "Animation_Comp.h"
 #include "CharacterController_Comp.h"
+#include "Scene.h"
 #include "Transform.h"
 #include "WorldTileManager_Comp.h"
 

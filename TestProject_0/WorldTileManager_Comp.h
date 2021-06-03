@@ -28,6 +28,7 @@ public:
 
 	[[nodiscard]] glm::vec2 GetTileStandPos(int tileIdx) const;
 	[[nodiscard]] WorldTile_Comp* GetTileAtPosition(glm::vec2 position) const;
+	[[nodiscard]] int GetTileIdxAtPosition(glm::vec2 position) const;
 	[[nodiscard]] bool IsTileAtPosition(glm::vec2 position) const;
 	[[nodiscard]] int GetTileAmount() const;
 	[[nodiscard]] int GetBottomRowAmount() const;
