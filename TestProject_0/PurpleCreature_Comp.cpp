@@ -57,5 +57,5 @@ void PurpleCreature_Comp::Spawn()
 
 void PurpleCreature_Comp::CollidedWithPlayer()
 {
-	m_pPlayer->GetSubject()->Notify(m_pPlayer.get(), Event::FellOffGrid);
+	m_pPlayer->GetSubject()->Notify(m_pPlayer.get(), Event::AttackedByPurple);
 }

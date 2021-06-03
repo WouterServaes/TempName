@@ -10,6 +10,7 @@ void CharacterObserver::OnNotify(GameObject* pGameObject, const Event event)
 {
 	switch (event)
 	{
+	case Event::AttackedByPurple:
 	case Event::FellOffGrid:
 		FellOffGrid(pGameObject);
 		break;

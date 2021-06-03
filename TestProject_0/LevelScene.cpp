@@ -15,6 +15,7 @@
 #include "Player_Comp.h"
 #include "Animation_Comp.h"
 #include "CharacterObserver.h"
+#include "CoilyCreature_Comp.h"
 #include "CreatureObserver.h"
 #include "GameController_Comp.h"
 #include "GameObserver.h"
@@ -113,6 +114,17 @@ void LevelScene::InitializeScene()
 	pWrongway->AddComponent(new PurpleCreature_Comp(Creature_Comp::Side::Right, 2.f));
 	pWrongway->GetTransform()->ScaleUniform(.25f);
 	pWrongway->GetSubject()->AddObserver(new CreatureObserver());
+
+	//coily
+	auto pCoily{ std::make_shared<GameObject>("Coily", true) };
+	AddGameObject(pCoily);
+	pCoily->AddComponent(new Render_Comp());
+	pCoily->AddComponent(new Animation_Comp("Images/CoilyEgg.png", 4, 8, glm::vec2(128.f, 147.f)));
+	pCoily->AddComponent(new CharacterController_Comp(.15f));
+	pCoily->AddComponent(new CoilyCreature_Comp(2.f));
+	pCoily->GetTransform()->ScaleUniform(.1f);
+	pCoily->GetSubject()->AddObserver(new CreatureObserver());
+	
 }
 
 void LevelScene::InitUi()

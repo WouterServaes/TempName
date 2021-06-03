@@ -111,6 +111,9 @@
     <ClCompile Include="CreatureObserver.cpp">
       <Filter>GameObservers</Filter>
     </ClCompile>
+    <ClCompile Include="CoilyCreature_Comp.cpp">
+      <Filter>GameComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniginPCH.h">
@@ -190,6 +193,9 @@
     </ClInclude>
     <ClInclude Include="CreatureObserver.h">
       <Filter>GameObservers</Filter>
+    </ClInclude>
+    <ClInclude Include="CoilyCreature_Comp.h">
+      <Filter>GameComponents</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
