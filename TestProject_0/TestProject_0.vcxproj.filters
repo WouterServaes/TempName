@@ -117,6 +117,9 @@
     <ClCompile Include="FloatingDisk_Comp.cpp">
       <Filter>GameComponents</Filter>
     </ClCompile>
+    <ClCompile Include="DiskManager_Comp.cpp">
+      <Filter>GameComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniginPCH.h">
@@ -201,6 +204,9 @@
       <Filter>GameComponents</Filter>
     </ClInclude>
     <ClInclude Include="FloatingDisk_Comp.h">
+      <Filter>GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="DiskManager_Comp.h">
       <Filter>GameComponents</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,10 +1,11 @@
 #pragma once
 #include <BaseComponent.h>
-#include "Transform.h"
+#include "DiskManager_Comp.h"
+
 class FloatingDisk_Comp final:public BaseComponent
 {
 public:
-	FloatingDisk_Comp(int pyramidRow, Transform::Side pyramidSide);
+	FloatingDisk_Comp(DiskManager_Comp::DiskPos diskPos);
 	~FloatingDisk_Comp() = default;
 	FloatingDisk_Comp(const FloatingDisk_Comp & other) = delete;
 	FloatingDisk_Comp(FloatingDisk_Comp && other) noexcept = delete;
@@ -13,10 +14,11 @@ public:
 
 	void Start() override;
 
-	[[nodiscard]] Transform::Side GetPyramidSideOfDisk()const { return m_PyramidSide; }
-	[[nodiscard]] int GetPyramidRowOfDisk()const { return m_PyramidRow; }
+	[[nodiscard]] DiskManager_Comp::DiskPos GetDiskPos() const { return m_DiskPos; }
+	[[nodiscard]] int GetTileIdxNextToDisk() const { return m_TileIdxNextToDisk; }
 private:
 	void SetPositionOfDisk();
-	const int m_PyramidRow;
-	const Transform::Side m_PyramidSide;
+
+	const DiskManager_Comp::DiskPos m_DiskPos;
+	int m_TileIdxNextToDisk{};
 };

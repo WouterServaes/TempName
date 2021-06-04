@@ -17,6 +17,7 @@
 #include "CharacterObserver.h"
 #include "CoilyCreature_Comp.h"
 #include "CreatureObserver.h"
+#include "DiskManager_Comp.h"
 #include "FloatingDisk_Comp.h"
 #include "GameController_Comp.h"
 #include "GameObserver.h"
@@ -134,19 +135,13 @@ void LevelScene::InitializeScene()
 
 
 	//disks
-	auto pDisk{ std::make_shared<GameObject>("DiskOne") };
-	AddGameObject(pDisk);
-	pDisk->AddComponent(new Render_Comp());
-	pDisk->AddComponent(new Animation_Comp("Images/FloatingDisk.png", 4, 8, glm::vec2(128, 73)));
-	pDisk->AddComponent(new FloatingDisk_Comp(5, Transform::Side::Left));
-	pDisk->GetTransform()->ScaleUniform(.25f);
-
-	pDisk = std::make_shared<GameObject>("DiskTwo");
-	AddGameObject(pDisk);
-	pDisk->AddComponent(new Render_Comp());
-	pDisk->AddComponent(new Animation_Comp("Images/FloatingDisk.png", 4, 8, glm::vec2(128, 73)));
-	pDisk->AddComponent(new FloatingDisk_Comp(4, Transform::Side::Right));
-	pDisk->GetTransform()->ScaleUniform(.25f);
+	auto pDiskManager{ std::make_shared<GameObject>("DiskManager") };
+	AddGameObject(pDiskManager);
+	std::vector<DiskManager_Comp::DiskPos> diskPositions{
+		{ DiskManager_Comp::DiskPos{ Transform::Side::Left,1 } },
+		{ DiskManager_Comp::DiskPos{ Transform::Side::Right,1 } }
+	};
+	pDiskManager->AddComponent(new DiskManager_Comp(diskPositions));
 }
 
 void LevelScene::InitUi()
