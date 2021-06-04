@@ -5,6 +5,7 @@
 #include "BaseComponent.h"
 #include "EngineSettings.h"
 #include "Events.h"
+#include "GameController_Comp.h"
 #include "Minigin.h"
 #include "Render_Comp.h"
 #include "Scene.h"
@@ -163,6 +164,6 @@ void WorldTileManager_Comp::CheckIfCompleted() const
 	if (it == m_pWorldTiles.end())
 	{
 		const auto pGameController{ m_pGameObject->GetCurrentScene()->GetGameObject("GameController") };
-		pGameController->GetSubject()->Notify(pGameController.get(), Event::GridComplete);
+		pGameController->GetComponent<GameController_Comp>()->CompletedGrid();
 	}
 }

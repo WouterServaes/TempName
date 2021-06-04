@@ -1,5 +1,6 @@
 #pragma once
 #include <BaseComponent.h>
+
 class GameController_Comp final:public BaseComponent
 {
 public:
@@ -12,8 +13,8 @@ public:
 	void CompletedGrid();
 	void PlayerDied();
 private:
-	void StartLevelTwo();
-	void StartLevelThree();
+
 	int m_CurrentLevel{ 1 };
+	
 };
 

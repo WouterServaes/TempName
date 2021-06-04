@@ -29,7 +29,7 @@ public:
 	void Update() override;
 	void Start() override;
 
-	
+	void NextLevel();
 
 private:
 	void TryChangeTile();

@@ -4,11 +4,13 @@
 #include "Animation_Comp.h"
 #include "CharacterController_Comp.h"
 #include "Events.h"
+#include "GameController_Comp.h"
 #include "Health_Comp.h"
 #include "MoveCommands.h"
 #include "InputManager.h"
 #include "Scene.h"
 #include "Subject.h"
+#include "TileChanger_Comp.h"
 #include "Transform.h"
 #include "WorldTileManager_Comp.h"
 
@@ -35,6 +37,12 @@ void Player_Comp::Start()
 	m_pGameObject->GetComponent<CharacterController_Comp>()->SetSpawnPos(spawnPos);
 }
 
+void Player_Comp::NextLevel()
+{
+	GetComponent<TileChanger_Comp>()->NextLevel();
+	m_pController->GoToSpawnPos();
+}
+
 void Player_Comp::InitInput()
 {
 	InputManager::GetInstance().AssignKey(InputAction(SDLK_UP, TriggerState::Released, ControllerButtons::ButtonUp), std::make_unique<Command_MoveLeftUp>(m_pGameObject));
@@ -48,6 +56,6 @@ void Player_Comp::CheckIfDead() const
 	if(m_pHealthComp->IsDead())
 	{
 		const auto pGameController{ m_pGameObject->GetCurrentScene()->GetGameObject("GameController") };
-		pGameController->GetSubject()->Notify(pGameController.get(), Event::PlayerDied);
+		pGameController->GetComponent<GameController_Comp>()->PlayerDied();
 	}
 }

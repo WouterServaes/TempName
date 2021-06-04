@@ -20,7 +20,6 @@
 #include "DiskManager_Comp.h"
 #include "FloatingDisk_Comp.h"
 #include "GameController_Comp.h"
-#include "GameObserver.h"
 #include "Health_Comp.h"
 #include "GreenCreature_Comp.h"
 #include "PurpleCreature_Comp.h"
@@ -78,10 +77,9 @@ void LevelScene::InitializeScene()
 	pScoreDisplay->GetTransform()->SetPosition(30, 70);
 	
 	//game controller
-	auto pGameController{ std::make_shared<GameObject>("GameController", true) };
+	auto pGameController{ std::make_shared<GameObject>("GameController") };
 	AddGameObject(pGameController);
 	pGameController->AddComponent(new GameController_Comp());
-	pGameController->GetSubject()->AddObserver(new GameObserver());
 
 	//purple creatures
 	auto pSlick{ std::make_shared<GameObject>("Slick", true) };

@@ -193,7 +193,6 @@
     <ClCompile Include="FloatingDisk_Comp.cpp" />
     <ClCompile Include="GameCommands.cpp" />
     <ClCompile Include="GameController_Comp.cpp" />
-    <ClCompile Include="GameObserver.cpp" />
     <ClCompile Include="LevelScene.cpp" />
     <ClCompile Include="MiniginPCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -232,7 +231,6 @@
     <ClInclude Include="GameCommands.h" />
     <ClInclude Include="GameController_Comp.h" />
     <ClInclude Include="GameEvents.h" />
-    <ClInclude Include="GameObserver.h" />
     <ClInclude Include="LevelScene.h" />
     <ClInclude Include="MiniginPCH.h" />
     <ClInclude Include="MoveCommands.h" />

@@ -24,6 +24,22 @@ void TileChanger_Comp::Start()
 	m_pTransform = m_pGameObject->GetTransform();
 }
 
+void TileChanger_Comp::NextLevel()
+{
+	switch (m_TileChangeLevel)
+	{
+	case TileChangeLevel::ChangeOnce:
+		m_TileChangeLevel = TileChangeLevel::ChangeTwice;
+		break;
+	case TileChangeLevel::ChangeTwice: 
+		m_TileChangeLevel = TileChangeLevel::ChangesBack;
+		break;
+	case TileChangeLevel::ChangesBack:
+	case TileChangeLevel::RevertChanges:
+	default: ;
+	}
+}
+
 void TileChanger_Comp::TryChangeTile()
 {
 	const auto pos{ m_pTransform->GetPosition() };
