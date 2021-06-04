@@ -20,15 +20,3 @@ private:
 	const int m_PyramidRow;
 	const Transform::Side m_PyramidSide;
 };
-
-
-
-//character controller TestIsOutsideGrid also checks if it's a disk.
-//if it is, it fires an event "Floating disk"
-//Character Observer handles this event by just teleporting the object back to its spawn pos.
-//Coily's observer handles it by removing coily from the game AND firing the event "Score" on the Player subject.
-
-
-// Pyramid row
-// left / right
-//  => get the correct position from this data with the worldTileManager 
