@@ -24,8 +24,7 @@ void SceneManager::LoadScene(int sceneNr)
 {
 	if (sceneNr >= static_cast<int>(m_Scenes.size()))
 	{
-		const auto exceptionText{ "SceneManager::LoadScene(int) => sceneNr out of bounds, there's only " + std::to_string(m_Scenes.size()) + " scenes!" };
-		throw(std::exception(exceptionText.c_str()));
+		Logger::LogError("SceneManager::LoadScene(int) => sceneNr out of bounds, there's only " + std::to_string(m_Scenes.size()) + " scenes!");
 	}
 
 	m_ActiveScene = m_Scenes[sceneNr];
@@ -45,7 +44,6 @@ void SceneManager::LoadScene(const std::string& sceneName)
 	else
 	{
 		//scene doesn't exit
-		const auto exceptionText{ "SceneManager::LoadScene(const std::string&) => no scene with name \"" + sceneName + "\n found!" };
-		throw(std::exception(exceptionText.c_str()));
+		Logger::LogError("SceneManager::LoadScene(const std::string&) => no scene with name \"" + sceneName + "\n found!");
 	}
 }

@@ -54,6 +54,5 @@ private:
 
 	GridMovements m_GridMovements{};
 	const WorldTileManager_Comp* m_pWorldTileManager{nullptr};
-
 	glm::vec2 m_SpawnPos{};
 };

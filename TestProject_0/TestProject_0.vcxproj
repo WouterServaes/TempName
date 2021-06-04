@@ -208,9 +208,11 @@
     <ClCompile Include="GreenCreature_Comp.cpp" />
     <ClCompile Include="PurpleCreature_Comp.cpp" />
     <ClCompile Include="ScoreObserver.cpp" />
+    <ClCompile Include="StartMenuScene.cpp" />
     <ClCompile Include="TestGame.cpp" />
     <ClCompile Include="TestProject_0.cpp" />
     <ClCompile Include="TileChanger_Comp.cpp" />
+    <ClCompile Include="UiComponents.cpp" />
     <ClCompile Include="WorldTileManager_Comp.cpp" />
     <ClCompile Include="WorldTile_Comp.cpp" />
   </ItemGroup>
@@ -240,8 +242,10 @@
     <ClInclude Include="GreenCreature_Comp.h" />
     <ClInclude Include="PurpleCreature_Comp.h" />
     <ClInclude Include="ScoreObserver.h" />
+    <ClInclude Include="StartMenuScene.h" />
     <ClInclude Include="TestGame.h" />
     <ClInclude Include="TileChanger_Comp.h" />
+    <ClInclude Include="UiComponents.h" />
     <ClInclude Include="WorldTileManager_Comp.h" />
     <ClInclude Include="WorldTile_Comp.h" />
   </ItemGroup>

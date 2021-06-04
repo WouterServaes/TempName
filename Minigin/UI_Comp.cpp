@@ -11,20 +11,6 @@ void UI_Comp::Start()
 	m_pTransformComponent = m_pGameObject->GetComponent<Transform_Comp>();
 }
 
-void StartUI::Update()
-{
-	const auto& transformPos{ m_pTransformComponent->GetTransform()->GetPosition() };
-	const auto pos = ImVec2(transformPos.x, transformPos.y);
-
-	bool activeWindow{ true };
-	ImGui::SetNextWindowPos(pos);
-	ImGui::Begin("Start UI", &activeWindow, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
-	ImGui::Button("single player");
-	ImGui::Button("co-op");
-	ImGui::Button("versus");
-	ImGui::End();
-}
-
 void FpsUI::Update()
 {
 	const auto transformPos{ m_pTransformComponent->GetTransform()->GetPosition() };

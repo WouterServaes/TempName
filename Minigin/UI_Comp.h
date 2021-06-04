@@ -20,19 +20,6 @@ protected:
 	const Transform_Comp* m_pTransformComponent{ nullptr };
 };
 
-class StartUI final :public UI_Comp
-{
-public:
-	StartUI() = default;
-	~StartUI() = default;
-	StartUI(const StartUI& other) = delete;
-	StartUI(StartUI&& other) noexcept = delete;
-	StartUI& operator=(const StartUI& other) = delete;
-	StartUI& operator=(StartUI&& other) noexcept = delete;
-
-	void Update() override;
-};
-
 class FpsUI final :public UI_Comp
 {
 public:

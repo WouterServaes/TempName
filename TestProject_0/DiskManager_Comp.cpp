@@ -17,10 +17,10 @@ void DiskManager_Comp::Start()
 	MakeDisks();
 }
 
-bool DiskManager_Comp::IsDiskNextToPos(const glm::vec2 position)
+bool DiskManager_Comp::IsDiskNextToPos(const glm::vec2 position) const
 {
 	const int tileIdxAtPos{ m_pWorldTileManager->GetTileIdxAtPosition(position) };
-	auto it{ std::find_if(m_pDisks.begin(), m_pDisks.end(), [tileIdxAtPos](const FloatingDisk_Comp* pDisk)
+	const auto it{ std::find_if(m_pDisks.begin(), m_pDisks.end(), [tileIdxAtPos](const FloatingDisk_Comp* pDisk)
 		{
 			return pDisk->GetTileIdxNextToDisk() == tileIdxAtPos;
 		}) };

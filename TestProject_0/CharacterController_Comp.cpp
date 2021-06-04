@@ -13,7 +13,6 @@
 #include "Subject.h"
 #include "WorldTileManager_Comp.h"
 
-
 CharacterController_Comp::CharacterController_Comp(const float moveSpeed)
 	: m_MoveSpeed(moveSpeed)
 {
@@ -119,6 +118,9 @@ void CharacterController_Comp::TestIsOutsideGrid() const
 	if (!m_pWorldTileManager->IsTileAtPosition(m_pTransform->GetPosition()))
 	{
 		auto* pSubject{ m_pGameObject->GetSubject() };
-		if (pSubject) pSubject->Notify(m_pGameObject, Event::FellOffGrid);
+		if (pSubject)
+		{
+			pSubject->Notify(m_pGameObject, Event::FellOffGrid);
+		}
 	}
 }

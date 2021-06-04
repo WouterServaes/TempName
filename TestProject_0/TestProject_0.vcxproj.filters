@@ -31,6 +31,9 @@
     <Filter Include="GameEvents">
       <UniqueIdentifier>{2bad5ec2-d8f7-480b-8d7a-cd0f0c2333f8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UiComponents">
+      <UniqueIdentifier>{9dce039c-0df6-4370-bc92-d99e47e36832}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TestProject_0.cpp">
@@ -120,6 +123,12 @@
     <ClCompile Include="DiskManager_Comp.cpp">
       <Filter>GameComponents</Filter>
     </ClCompile>
+    <ClCompile Include="UiComponents.cpp">
+      <Filter>UiComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="StartMenuScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniginPCH.h">
@@ -208,6 +217,12 @@
     </ClInclude>
     <ClInclude Include="DiskManager_Comp.h">
       <Filter>GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="UiComponents.h">
+      <Filter>UiComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="StartMenuScene.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

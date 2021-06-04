@@ -14,6 +14,7 @@
 #include "Health_Comp.h"
 #include "QBert_Comp.h"
 #include "Score_Comp.h"
+#include "UiComponents.h"
 
 void DemoScene::InitializeScene()
 {
