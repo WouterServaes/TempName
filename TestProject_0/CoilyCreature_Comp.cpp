@@ -5,7 +5,6 @@
 #include "CharacterController_Comp.h"
 #include "Events.h"
 #include "Subject.h"
-#include "Transform.h"
 #include "WorldTileManager_Comp.h"
 #include "WorldTile_Comp.h"
 
@@ -59,8 +58,8 @@ void CoilyCreature_Comp::UpdateEgg()
 
 void CoilyCreature_Comp::BounceToBottom()
 {
-	const Side side = (m_LastSide == Side::Left) ? Side::Right : Side::Left;
-	if (side == Side::Left)
+	const Transform::Side side = (m_LastSide == Transform::Side::Left) ? Transform::Side::Right : Transform::Side::Left;
+	if (side == Transform::Side::Left)
 		m_pCharacterController->MoveLeftDownOnGrid();
 	else
 		m_pCharacterController->MoveRightDownOnGrid();

@@ -29,6 +29,12 @@ public:
 	void ScaleUniform(float scale);
 	void Scale(float scaleX, float scaleY);
 	void Scale(const glm::vec2& scale);
+
+	enum class Side
+	{
+		Left, Right
+	};
+
 private:
 	glm::vec3 m_Position;
 	glm::vec3 m_LastPosition;

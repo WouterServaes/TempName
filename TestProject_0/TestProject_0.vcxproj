@@ -189,6 +189,7 @@
     <ClCompile Include="CoilyCreature_Comp.cpp" />
     <ClCompile Include="Creature_Comp.cpp" />
     <ClCompile Include="DemoScene.cpp" />
+    <ClCompile Include="FloatingDisk_Comp.cpp" />
     <ClCompile Include="GameCommands.cpp" />
     <ClCompile Include="GameController_Comp.cpp" />
     <ClCompile Include="GameObserver.cpp" />
@@ -223,6 +224,7 @@
     <ClInclude Include="CoilyCreature_Comp.h" />
     <ClInclude Include="Creature_Comp.h" />
     <ClInclude Include="DemoScene.h" />
+    <ClInclude Include="FloatingDisk_Comp.h" />
     <ClInclude Include="GameCommands.h" />
     <ClInclude Include="GameController_Comp.h" />
     <ClInclude Include="GameEvents.h" />

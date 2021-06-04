@@ -114,6 +114,9 @@
     <ClCompile Include="CoilyCreature_Comp.cpp">
       <Filter>GameComponents</Filter>
     </ClCompile>
+    <ClCompile Include="FloatingDisk_Comp.cpp">
+      <Filter>GameComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniginPCH.h">
@@ -195,6 +198,9 @@
       <Filter>GameObservers</Filter>
     </ClInclude>
     <ClInclude Include="CoilyCreature_Comp.h">
+      <Filter>GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="FloatingDisk_Comp.h">
       <Filter>GameComponents</Filter>
     </ClInclude>
   </ItemGroup>

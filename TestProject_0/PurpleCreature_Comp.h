@@ -1,9 +1,10 @@
 #pragma once
 #include "Creature_Comp.h"
+#include "Transform.h"
 class PurpleCreature_Comp final:public Creature_Comp
 {
 public:
-	PurpleCreature_Comp(Side spawnSide, float timeBetweenJumps);
+	PurpleCreature_Comp(Transform::Side spawnSide, float timeBetweenJumps);
 	~PurpleCreature_Comp() = default;
 	PurpleCreature_Comp(const PurpleCreature_Comp& other) = delete;
 	PurpleCreature_Comp(PurpleCreature_Comp&& other) noexcept = delete;
@@ -13,7 +14,7 @@ public:
 private:
 	void Spawn() override;
 	void CollidedWithPlayer() override;
-	Side m_SpawnSide;
+	Transform::Side m_SpawnSide;
 	float m_ElapsedTime{};
 	const float m_TimeBetweenJumps;
 };

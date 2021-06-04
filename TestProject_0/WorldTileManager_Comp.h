@@ -20,18 +20,19 @@ public:
 
 	void Start() override;
 	void Update() override;
-	[[nodiscard]] glm::vec2 GetGridTileDimensions() const;
 	/// <summary>
 	/// Resets all the tiles
 	/// </summary>
 	void ResetTiles();
 
+	[[nodiscard]] glm::vec2 GetGridTileStandOffset() const;
 	[[nodiscard]] glm::vec2 GetTileStandPos(int tileIdx) const;
 	[[nodiscard]] WorldTile_Comp* GetTileAtPosition(glm::vec2 position) const;
 	[[nodiscard]] int GetTileIdxAtPosition(glm::vec2 position) const;
 	[[nodiscard]] bool IsTileAtPosition(glm::vec2 position) const;
 	[[nodiscard]] int GetTileAmount() const;
 	[[nodiscard]] int GetBottomRowAmount() const;
+	[[nodiscard]] glm::vec2 GetGridTileDimensions() const;
 private:
 	void SpawnTiles();
 	void CreateTile(glm::vec3 pos, int c, int r);

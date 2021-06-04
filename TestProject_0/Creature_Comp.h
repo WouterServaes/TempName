@@ -15,10 +15,7 @@ public:
 	virtual void Respawn();
 	void Update() override;
 	void Start() override;
-	enum class Side
-	{
-		Left, Right
-	};
+	
 private:
 	virtual void Spawn() = 0;
 	virtual void UpdateCreature() = 0;

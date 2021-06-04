@@ -1,6 +1,6 @@
 #pragma once
 #include "Creature_Comp.h"
-
+#include "Transform.h"
 class GreenCreature_Comp final :public Creature_Comp
 {
 public:
@@ -18,7 +18,7 @@ private:
 	void CollidedWithPlayer() override;
 	void HandleDead();
 	void HandleAlive();
-	Side m_FollowingSide{};
+	Transform::Side m_FollowingSide{};
 	float m_ElapsedTime{};
 	const float m_TimeBetweenJumps;
 

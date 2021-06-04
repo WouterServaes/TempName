@@ -17,6 +17,7 @@
 #include "CharacterObserver.h"
 #include "CoilyCreature_Comp.h"
 #include "CreatureObserver.h"
+#include "FloatingDisk_Comp.h"
 #include "GameController_Comp.h"
 #include "GameObserver.h"
 #include "Health_Comp.h"
@@ -102,7 +103,7 @@ void LevelScene::InitializeScene()
 	pUgg->AddComponent(new Render_Comp());
 	pUgg->AddComponent(new Animation_Comp("Images/Ugg_Wrongway.png", 4, 8, glm::vec2(128.f, 147.f)));
 	pUgg->AddComponent(new CharacterController_Comp(.15f));
-	pUgg->AddComponent(new PurpleCreature_Comp(Creature_Comp::Side::Left, 2.f));
+	pUgg->AddComponent(new PurpleCreature_Comp(Transform::Side::Left, 2.f));
 	pUgg->GetTransform()->ScaleUniform(.25f);
 	pUgg->GetSubject()->AddObserver(new CreatureObserver());
 
@@ -111,7 +112,7 @@ void LevelScene::InitializeScene()
 	pWrongway->AddComponent(new Render_Comp());
 	pWrongway->AddComponent(new Animation_Comp("Images/Ugg_Wrongway.png", 4, 8, glm::vec2(128.f, 147.f)));
 	pWrongway->AddComponent(new CharacterController_Comp(.15f));
-	pWrongway->AddComponent(new PurpleCreature_Comp(Creature_Comp::Side::Right, 2.f));
+	pWrongway->AddComponent(new PurpleCreature_Comp(Transform::Side::Right, 2.f));
 	pWrongway->GetTransform()->ScaleUniform(.25f);
 	pWrongway->GetSubject()->AddObserver(new CreatureObserver());
 
@@ -124,7 +125,22 @@ void LevelScene::InitializeScene()
 	pCoily->AddComponent(new CoilyCreature_Comp(2.f, "Images/Coily.png", 4,8, glm::vec2(50.f, 147.f)));
 	pCoily->GetTransform()->ScaleUniform(.1f);
 	pCoily->GetSubject()->AddObserver(new CreatureObserver());
-	
+
+
+	//disks
+	auto pDisk{ std::make_shared<GameObject>("DiskOne") };
+	AddGameObject(pDisk);
+	pDisk->AddComponent(new Render_Comp());
+	pDisk->AddComponent(new Animation_Comp("Images/FloatingDisk.png", 4, 8, glm::vec2(128, 73)));
+	pDisk->AddComponent(new FloatingDisk_Comp(5, Transform::Side::Left));
+	pDisk->GetTransform()->ScaleUniform(.25f);
+
+	pDisk = std::make_shared<GameObject>("DiskTwo");
+	AddGameObject(pDisk);
+	pDisk->AddComponent(new Render_Comp());
+	pDisk->AddComponent(new Animation_Comp("Images/FloatingDisk.png", 4, 8, glm::vec2(128, 73)));
+	pDisk->AddComponent(new FloatingDisk_Comp(4, Transform::Side::Right));
+	pDisk->GetTransform()->ScaleUniform(.25f);
 }
 
 void LevelScene::InitUi()

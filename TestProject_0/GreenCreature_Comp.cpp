@@ -23,7 +23,7 @@ void GreenCreature_Comp::Respawn()
 {
 	m_pCharacterController->GoToSpawnPos();
 
-	m_FollowingSide = (rand() % 2 == 0) ? Side::Left : Side::Right;
+	m_FollowingSide = (rand() % 2 == 0) ? Transform::Side::Left : Transform::Side::Right;
 }
 
 void GreenCreature_Comp::Spawn()
@@ -71,13 +71,13 @@ void GreenCreature_Comp::HandleAlive()
 			bool otherDir{ rand() % 10 <= 3 };
 			switch (m_FollowingSide)
 			{
-			case Side::Left:
+			case Transform::Side::Left:
 				if (!otherDir)
 					m_pCharacterController->MoveLeftDownOnGrid();
 				else
 					m_pCharacterController->MoveRightDownOnGrid();
 				break;
-			case Side::Right:
+			case Transform::Side::Right:
 				if (!otherDir)
 					m_pCharacterController->MoveRightDownOnGrid();
 				else

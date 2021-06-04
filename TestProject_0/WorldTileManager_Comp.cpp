@@ -47,7 +47,7 @@ void WorldTileManager_Comp::Update()
 	CheckIfCompleted();
 }
 
-glm::vec2 WorldTileManager_Comp::GetGridTileDimensions() const
+glm::vec2 WorldTileManager_Comp::GetGridTileStandOffset() const
 {
 	return m_TileStandOffset;
 }
@@ -107,6 +107,11 @@ int WorldTileManager_Comp::GetTileAmount() const
 int WorldTileManager_Comp::GetBottomRowAmount() const
 {
 	return m_BottomRowAmount - 1;
+}
+
+glm::vec2 WorldTileManager_Comp::GetGridTileDimensions() const
+{
+	return glm::vec2(m_TileWidth, m_TileSmallestHeight);
 }
 
 void WorldTileManager_Comp::SpawnTiles()

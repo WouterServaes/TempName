@@ -4,8 +4,7 @@
 #pragma warning (disable:4201)
 #include <glm/vec2.hpp>
 #pragma warning(pop)
-
-class Transform;
+#include "Transform.h"
 class CoilyCreature_Comp final:public Creature_Comp
 {
 public:
@@ -30,7 +29,7 @@ private:
 
 	bool m_IsEgg{ true };
 
-	Side m_LastSide{ Side::Left };
+	Transform::Side m_LastSide{ Transform::Side::Left };
 
 	const std::string m_CoilyAnimSheet;
 	const int m_CoilyImageAmount, m_CoilyFPS;

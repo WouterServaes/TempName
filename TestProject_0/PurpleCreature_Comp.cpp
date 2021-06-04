@@ -5,10 +5,9 @@
 #include "CharacterController_Comp.h"
 #include "Events.h"
 #include "Subject.h"
-#include "Transform.h"
 #include "WorldTileManager_Comp.h"
 
-PurpleCreature_Comp::PurpleCreature_Comp(const Side spawnSide, const float timeBetweenJumps) : m_SpawnSide(spawnSide),
+PurpleCreature_Comp::PurpleCreature_Comp(const Transform::Side spawnSide, const float timeBetweenJumps) : m_SpawnSide(spawnSide),
 	m_TimeBetweenJumps(timeBetweenJumps)
 {
 }
@@ -24,13 +23,13 @@ void PurpleCreature_Comp::UpdateCreature()
 			bool otherDir{ rand() % 10 <= 3 };
 			switch (m_SpawnSide)
 			{
-			case Side::Left:
+			case Transform::Side::Left:
 				if (!otherDir)
 					m_pCharacterController->MoveRightUpOnGrid();
 				else
 					m_pCharacterController->MoveLeftUpOnGrid();
 				break;
-			case Side::Right:
+			case Transform::Side::Right:
 				if (!otherDir)
 					m_pCharacterController->MoveLeftDownOnGrid();
 				else
@@ -45,7 +44,7 @@ void PurpleCreature_Comp::UpdateCreature()
 void PurpleCreature_Comp::Spawn()
 {
 	int tileNr{ 0 };
-	if (m_SpawnSide == Side::Right) tileNr = m_pWorldTileManager->GetBottomRowAmount();
+	if (m_SpawnSide == Transform::Side::Right) tileNr = m_pWorldTileManager->GetBottomRowAmount();
 
 	auto spawnPos{ m_pWorldTileManager->GetTileStandPos(tileNr) };
 

@@ -106,7 +106,7 @@ void CharacterController_Comp::UpdatePos()
 
 void CharacterController_Comp::SetGridMovement()
 {
-	const auto tileDimensions{ m_pWorldTileManager->GetGridTileDimensions() };
+	const auto tileDimensions{ m_pWorldTileManager->GetGridTileStandOffset() };
 
 	m_GridMovements.Down = tileDimensions.y * 2.f;
 	m_GridMovements.Up = -tileDimensions.y * 2.f;
