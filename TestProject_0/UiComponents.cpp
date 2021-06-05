@@ -32,3 +32,55 @@ void StartUI::Update()
 	}
 	ImGui::End();
 }
+
+void GameOverUI::Update()
+{
+	const auto& transformPos{ m_pTransformComponent->GetTransform()->GetPosition() };
+	const auto pos = ImVec2(transformPos.x, transformPos.y);
+	bool activeWindow{ true };
+	ImGui::SetNextWindowPos(pos);
+	ImGui::Begin("GameOver UI", &activeWindow, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
+
+
+	if (ImGui::Button("Main menu"))
+	{
+		SceneManager::GetInstance().LoadScene("StartMenuScene");
+	}
+
+	if (ImGui::Button("Restart"))
+	{
+		
+	}
+
+	if (ImGui::Button("Quit"))
+	{
+
+	}
+	ImGui::End();
+}
+
+void WinUI::Update()
+{
+	const auto& transformPos{ m_pTransformComponent->GetTransform()->GetPosition() };
+	const auto pos = ImVec2(transformPos.x, transformPos.y);
+	bool activeWindow{ true };
+	ImGui::SetNextWindowPos(pos);
+	ImGui::Begin("Win UI", &activeWindow, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
+
+
+	if (ImGui::Button("Main menu"))
+	{
+		SceneManager::GetInstance().LoadScene("StartMenuScene");
+	}
+
+	if (ImGui::Button("Restart"))
+	{
+
+	}
+
+	if (ImGui::Button("Quit"))
+	{
+
+	}
+	ImGui::End();
+}

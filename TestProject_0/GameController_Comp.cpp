@@ -11,7 +11,9 @@ void GameController_Comp::CompletedGrid()
 {
 	if(m_CurrentLevel == 3)
 	{
-		Logger::LogInfo("Completed game");
+		auto* pScene{ m_pGameObject->GetCurrentScene() };
+		pScene->GetGameObject("Win")->SetActive(true);
+		pScene->GetGameObject("WinMenu")->SetActive(true);
 	}
 	else
 	{
@@ -29,6 +31,8 @@ void GameController_Comp::CompletedGrid()
 
 void GameController_Comp::PlayerDied()
 {
-	Logger::LogInfo("Player Died");	
+	auto* pScene{ m_pGameObject->GetCurrentScene() };
+	pScene->GetGameObject("GameOver")->SetActive(true);
+	pScene->GetGameObject("GameOverMenu")->SetActive(true);
 }
 

@@ -22,9 +22,17 @@ private:
 	void InitWorld();
 	
 	//players
-	void InitPlayerManager();
+	void InitPlayer();
 
 	//Coily
 	void InitCoily();
+
+	void InitGreen();
+
+	void InitPurple();
+
+	void InitDisks();
+
+	void InitGameController();
 };
 
