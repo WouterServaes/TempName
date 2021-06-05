@@ -4,7 +4,7 @@
 #include "CharacterController_Comp.h"
 #include "Events.h"
 #include "GameObject.h"
-#include "Health_Comp.h"
+#include "Player_Comp.h"
 
 void CharacterObserver::OnNotify(GameObject* pGameObject, const Event event)
 {
@@ -22,6 +22,6 @@ void CharacterObserver::FellOffGrid(GameObject* pGameObject)
 {
 	pGameObject->GetComponent<CharacterController_Comp>()->GoToSpawnPos();
 
-	auto* pHealthComp{ pGameObject->GetComponent<Health_Comp>() };
-	if (pHealthComp) pHealthComp->RemoveLives();
+	auto* pPlayerComp{ pGameObject->GetComponent<Player_Comp>() };
+	if (pPlayerComp) pPlayerComp->FellOffPyramid();
 }

@@ -1,6 +1,12 @@
 #include "MiniginPCH.h"
 #include "GameAudio.h"
 #include "../3rdParty/Simple-SDL2-Audio/audio.h"
+//Already defined in GameAudioMT.cpp:
+//#pragma warning(push)
+//#pragma warning (disable:4244) //'=': conversion from 'int' to uint8_t', possible loss of data
+//#include "../3rdParty/Simple-SDL2-Audio/audio.c"
+//#pragma warning(pop)
+//
 
 void GameAudio::Start()
 {

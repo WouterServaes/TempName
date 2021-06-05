@@ -18,6 +18,7 @@ public:
 
 	void NextLevel();
 	void ResetPlayer();
+	void FellOffPyramid() const;
 private:
 	void InitInput();
 	void CheckIfDead() const;

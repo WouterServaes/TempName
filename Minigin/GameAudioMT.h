@@ -7,7 +7,7 @@
 //https://gameprogrammingpatterns.com/event-queue.html
 
 
-//Multi Threaded Game Audio 
+//Multi Threaded Game Audio using Simple SDL2 Audio
 class GameAudioMT final :public AudioInterface
 {
 public:

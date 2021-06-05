@@ -2,6 +2,7 @@
 #include "Player_Comp.h"
 
 #include "Animation_Comp.h"
+#include "AudioServiceLocator.h"
 #include "CharacterController_Comp.h"
 #include "Events.h"
 #include "GameController_Comp.h"
@@ -53,6 +54,12 @@ void Player_Comp::ResetPlayer()
 	m_pController->GoToSpawnPos();
 	//can move = true
 	m_pController->SetCanMove(true);
+}
+
+void Player_Comp::FellOffPyramid() const
+{
+	m_pHealthComp->RemoveLives();
+	AudioServiceLocator::GetAudio()->PlaySound(1, 100);
 }
 
 void Player_Comp::InitInput()
