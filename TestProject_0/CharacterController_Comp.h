@@ -37,7 +37,7 @@ public:
 	void SetSpawnPos(glm::vec2 position);
 	[[nodiscard]] glm::vec2 GetSpawnPos() const { return  m_SpawnPos; }
 	void GoToSpawnPos() const;
-	[[nodiscard]] bool CanMove() const { return !m_IsMoving; }
+	[[nodiscard]] bool CanMove() const { return !m_IsMoving && m_CanMove; }
 	[[nodiscard]] const GridMovements& GetGridMovements() const { return m_GridMovements; }
 	void SetCanMove(const bool canMove) { m_CanMove = canMove; }
 private:

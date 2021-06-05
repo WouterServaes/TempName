@@ -224,10 +224,10 @@ void LevelScene::InitAudio()
 {
 	auto audio{ AudioServiceLocator::GetAudio() };
 	
-	audio->AddAudioFile("../Data/Audio/fall.mp3");
-	audio->AddAudioFile("../Data/Audio/jump-3.mp3");
-	audio->AddAudioFile("../Data/Audio/snake-fall.mp3");
-	audio->AddAudioFile("../Data/Audio/tune.mp3");
+	audio->AddAudioFile("../Data/Audio/Jump.wav");
+	audio->AddAudioFile("../Data/Audio/Fall.wav");
+	audio->AddAudioFile("../Data/Audio/SnakeFall.wav");
+	audio->AddAudioFile("../Data/Audio/Victory.wav");
 }
 
 

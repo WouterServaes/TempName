@@ -13,8 +13,10 @@ public:
 	void OnNotify(GameObject* pGameObject, Event event) override;
 private:
 	void MoveLeftUp(GameObject* pGameObject) const;
-	void MoveLeftDown(GameObject* pGameObject)const;
-	void MoveRightUp(GameObject* pGameObject)const;
-	void MoveRightDown(GameObject* pGameObject)const;
+	void MoveLeftDown(GameObject* pGameObject) const;
+	void MoveRightUp(GameObject* pGameObject) const;
+	void MoveRightDown(GameObject* pGameObject) const;
+
+	void PlayMoveSound() const;
 };
 

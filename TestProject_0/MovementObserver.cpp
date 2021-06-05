@@ -29,22 +29,38 @@ void MovementObserver::OnNotify(GameObject* const pGameObject, const Event event
 
 void MovementObserver::MoveLeftUp(GameObject* pGameObject) const
 {
-	pGameObject->GetComponent<CharacterController_Comp>()->MoveLeftUpOnGrid();
+	 auto* pCharContr{ pGameObject->GetComponent<CharacterController_Comp>() };
+	 if (pCharContr->CanMove())
+		 PlayMoveSound();
+	
+	pCharContr->MoveLeftUpOnGrid();
 }
 
 void MovementObserver::MoveLeftDown(GameObject* pGameObject)const
 {
-	pGameObject->GetComponent<CharacterController_Comp>()->MoveLeftDownOnGrid();
+	auto* pCharContr{ pGameObject->GetComponent<CharacterController_Comp>() };
+	if (pCharContr->CanMove())
+		PlayMoveSound();
+	pCharContr->MoveLeftDownOnGrid();
 }
 
 void MovementObserver::MoveRightUp(GameObject* pGameObject)const
 {
-	pGameObject->GetComponent<CharacterController_Comp>()->MoveRightUpOnGrid();
+	auto* pCharContr{ pGameObject->GetComponent<CharacterController_Comp>() };
+	if (pCharContr->CanMove())
+		PlayMoveSound();
+	pCharContr->MoveRightUpOnGrid();
 }
 
 void MovementObserver::MoveRightDown(GameObject* pGameObject)const
 {
-	AudioServiceLocator::GetAudio()->PlaySound(0, 100);
+	auto* pCharContr{ pGameObject->GetComponent<CharacterController_Comp>() };
+	if (pCharContr->CanMove())
+		PlayMoveSound();
+	pCharContr->MoveRightDownOnGrid();
+}
 
-	pGameObject->GetComponent<CharacterController_Comp>()->MoveRightDownOnGrid();
+void MovementObserver::PlayMoveSound() const
+{
+	AudioServiceLocator::GetAudio()->PlaySound(0, 100);
 }
