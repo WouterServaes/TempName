@@ -39,6 +39,7 @@ public:
 	void GoToSpawnPos() const;
 	[[nodiscard]] bool CanMove() const { return !m_IsMoving; }
 	[[nodiscard]] const GridMovements& GetGridMovements() const { return m_GridMovements; }
+	void SetCanMove(const bool canMove) { m_CanMove = canMove; }
 private:
 	[[nodiscard]] bool GetReachedPos() const;
 	void UpdatePos();
@@ -55,4 +56,6 @@ private:
 	GridMovements m_GridMovements{};
 	const WorldTileManager_Comp* m_pWorldTileManager{nullptr};
 	glm::vec2 m_SpawnPos{};
+
+	bool m_CanMove{ true };
 };

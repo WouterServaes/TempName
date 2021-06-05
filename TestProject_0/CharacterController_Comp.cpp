@@ -20,7 +20,7 @@ CharacterController_Comp::CharacterController_Comp(const float moveSpeed)
 
 void CharacterController_Comp::Move(const glm::vec2 movement)
 {
-	if (!m_IsMoving)
+	if (!m_IsMoving && m_CanMove)
 	{
 		m_IsMoving = true;
 		const auto& pos{ m_pTransform->GetPosition() };

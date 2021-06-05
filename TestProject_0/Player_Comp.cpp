@@ -57,5 +57,6 @@ void Player_Comp::CheckIfDead() const
 	{
 		const auto pGameController{ m_pGameObject->GetCurrentScene()->GetGameObject("GameController") };
 		pGameController->GetComponent<GameController_Comp>()->PlayerDied();
+		m_pController->SetCanMove(false);
 	}
 }
