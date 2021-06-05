@@ -3,7 +3,9 @@
 
 #include "Animation_Comp.h"
 #include "CharacterController_Comp.h"
+#include "Events.h"
 #include "Scene.h"
+#include "Subject.h"
 #include "Transform.h"
 #include "WorldTileManager_Comp.h"
 
@@ -45,6 +47,7 @@ void GreenCreature_Comp::CollidedWithPlayer()
 		m_origScale = m_pTransform->GetUniformScale();
 		m_pTransform->ScaleUniform(0.f);
 		m_ElapsedTime = 0.f;
+		m_pPlayer->GetSubject()->Notify(m_pPlayer.get(), Event::CatchedSlickOrSam);
 	}
 }
 

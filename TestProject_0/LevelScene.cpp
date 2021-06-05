@@ -81,7 +81,7 @@ void LevelScene::InitializeScene()
 	AddGameObject(pGameController);
 	pGameController->AddComponent(new GameController_Comp());
 
-	//purple creatures
+	//green creatures
 	auto pSlick{ std::make_shared<GameObject>("Slick", true) };
 	AddGameObject(pSlick);
 	pSlick->AddComponent(new Render_Comp());
@@ -102,44 +102,44 @@ void LevelScene::InitializeScene()
 	pSam->GetTransform()->ScaleUniform(.25f);
 	pSam->GetSubject()->AddObserver(new CreatureObserver());
 
-	//green creatures
-	auto pUgg{ std::make_shared<GameObject>("Ugg", true) };
-	AddGameObject(pUgg);
-	pUgg->AddComponent(new Render_Comp());
-	pUgg->AddComponent(new Animation_Comp("Images/Ugg_Wrongway.png", 4, 8, glm::vec2(128.f, 147.f)));
-	pUgg->AddComponent(new CharacterController_Comp(.15f));
-	pUgg->AddComponent(new PurpleCreature_Comp(Transform::Side::Left, 2.f));
-	pUgg->GetTransform()->ScaleUniform(.25f);
-	pUgg->GetSubject()->AddObserver(new CreatureObserver());
+	////purple creatures
+	//auto pUgg{ std::make_shared<GameObject>("Ugg", true) };
+	//AddGameObject(pUgg);
+	//pUgg->AddComponent(new Render_Comp());
+	//pUgg->AddComponent(new Animation_Comp("Images/Ugg_Wrongway.png", 4, 8, glm::vec2(128.f, 147.f)));
+	//pUgg->AddComponent(new CharacterController_Comp(.15f));
+	//pUgg->AddComponent(new PurpleCreature_Comp(Transform::Side::Left, 2.f));
+	//pUgg->GetTransform()->ScaleUniform(.25f);
+	//pUgg->GetSubject()->AddObserver(new CreatureObserver());
 
-	auto pWrongway{ std::make_shared<GameObject>("Wrongway", true) };
-	AddGameObject(pWrongway);
-	pWrongway->AddComponent(new Render_Comp());
-	pWrongway->AddComponent(new Animation_Comp("Images/Ugg_Wrongway.png", 4, 8, glm::vec2(128.f, 147.f)));
-	pWrongway->AddComponent(new CharacterController_Comp(.15f));
-	pWrongway->AddComponent(new PurpleCreature_Comp(Transform::Side::Right, 2.f));
-	pWrongway->GetTransform()->ScaleUniform(.25f);
-	pWrongway->GetSubject()->AddObserver(new CreatureObserver());
+	//auto pWrongway{ std::make_shared<GameObject>("Wrongway", true) };
+	//AddGameObject(pWrongway);
+	//pWrongway->AddComponent(new Render_Comp());
+	//pWrongway->AddComponent(new Animation_Comp("Images/Ugg_Wrongway.png", 4, 8, glm::vec2(128.f, 147.f)));
+	//pWrongway->AddComponent(new CharacterController_Comp(.15f));
+	//pWrongway->AddComponent(new PurpleCreature_Comp(Transform::Side::Right, 2.f));
+	//pWrongway->GetTransform()->ScaleUniform(.25f);
+	//pWrongway->GetSubject()->AddObserver(new CreatureObserver());
 
-	//coily
-	auto pCoily{ std::make_shared<GameObject>("Coily", true) };
-	AddGameObject(pCoily);
-	pCoily->AddComponent(new Render_Comp());
-	pCoily->AddComponent(new Animation_Comp("Images/CoilyEgg.png", 4, 8, glm::vec2(128.f, 147.f)));
-	pCoily->AddComponent(new CharacterController_Comp(.15f));
-	pCoily->AddComponent(new CoilyCreature_Comp(2.f, "Images/Coily.png", 4,8, glm::vec2(50.f, 147.f)));
-	pCoily->GetTransform()->ScaleUniform(.1f);
-	pCoily->GetSubject()->AddObserver(new CreatureObserver());
+	////coily
+	//auto pCoily{ std::make_shared<GameObject>("Coily", true) };
+	//AddGameObject(pCoily);
+	//pCoily->AddComponent(new Render_Comp());
+	//pCoily->AddComponent(new Animation_Comp("Images/CoilyEgg.png", 4, 8, glm::vec2(128.f, 147.f)));
+	//pCoily->AddComponent(new CharacterController_Comp(.15f));
+	//pCoily->AddComponent(new CoilyCreature_Comp(2.f, "Images/Coily.png", 4,8, glm::vec2(50.f, 147.f)));
+	//pCoily->GetTransform()->ScaleUniform(.1f);
+	//pCoily->GetSubject()->AddObserver(new CreatureObserver());
 
 
-	//disks
-	auto pDiskManager{ std::make_shared<GameObject>("DiskManager") };
-	AddGameObject(pDiskManager);
-	std::vector<DiskManager_Comp::DiskPos> diskPositions{
-		{ DiskManager_Comp::DiskPos{ Transform::Side::Left,1 } },
-		{ DiskManager_Comp::DiskPos{ Transform::Side::Right,1 } }
-	};
-	pDiskManager->AddComponent(new DiskManager_Comp(diskPositions));
+	////disks
+	//auto pDiskManager{ std::make_shared<GameObject>("DiskManager") };
+	//AddGameObject(pDiskManager);
+	//std::vector<DiskManager_Comp::DiskPos> diskPositions{
+	//	{ DiskManager_Comp::DiskPos{ Transform::Side::Left,1 } },
+	//	{ DiskManager_Comp::DiskPos{ Transform::Side::Right,1 } }
+	//};
+	//pDiskManager->AddComponent(new DiskManager_Comp(diskPositions));
 }
 
 void LevelScene::InitUi()

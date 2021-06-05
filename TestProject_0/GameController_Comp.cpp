@@ -4,6 +4,7 @@
 
 #include "Player_Comp.h"
 #include "Scene.h"
+#include "Subject.h"
 #include "WorldTileManager_Comp.h"
 
 void GameController_Comp::CompletedGrid()
@@ -15,7 +16,8 @@ void GameController_Comp::CompletedGrid()
 	else
 	{
 		auto* pScene{ m_pGameObject->GetCurrentScene() };
-		pScene->GetGameObject("pl")->GetComponent<Player_Comp>()->NextLevel();
+		auto pPlayer{ pScene->GetGameObject("pl") };
+		pPlayer->GetComponent<Player_Comp>()->NextLevel();
 		pScene->GetGameObject("WorldTileManager")->GetComponent<WorldTileManager_Comp>()->ResetTiles();
 		
 		if (m_CurrentLevel == 1)
