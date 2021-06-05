@@ -40,6 +40,7 @@ public:
 	[[nodiscard]] bool CanMove() const { return !m_IsMoving && m_CanMove; }
 	[[nodiscard]] const GridMovements& GetGridMovements() const { return m_GridMovements; }
 	void SetCanMove(const bool canMove) { m_CanMove = canMove; }
+	[[nodiscard]] int GetStandingTileIdx() const { return m_StandingTileIndex; }
 private:
 	[[nodiscard]] bool GetReachedPos() const;
 	void UpdatePos();
@@ -58,4 +59,6 @@ private:
 	glm::vec2 m_SpawnPos{};
 
 	bool m_CanMove{ true };
+
+	int m_StandingTileIndex{-1};
 };

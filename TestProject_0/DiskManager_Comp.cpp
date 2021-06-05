@@ -5,6 +5,7 @@
 #include "FloatingDisk_Comp.h"
 #include "Render_Comp.h"
 #include "Scene.h"
+#include "Transform_Comp.h"
 #include "WorldTileManager_Comp.h"
 DiskManager_Comp::DiskManager_Comp(std::vector<DiskPos>& diskPositions)
 	:m_DiskPositions(std::move(diskPositions))
@@ -27,10 +28,47 @@ bool DiskManager_Comp::IsDiskNextToPos(const glm::vec2 position) const
 	return it != m_pDisks.end();
 }
 
+bool DiskManager_Comp::IsDiskNextToTile(const int tileIndex) const
+{
+	const auto it{ std::find_if(m_pDisks.begin(), m_pDisks.end(), [tileIndex](const FloatingDisk_Comp* pDisk)
+		{
+			return pDisk->GetTileIdxNextToDisk() == tileIndex;
+		}) };
+	return it != m_pDisks.end();
+}
+
+glm::vec2 DiskManager_Comp::GetDiskPositionNextToTile(int tileIndex) const
+{
+	const auto it{ std::find_if(m_pDisks.begin(), m_pDisks.end(), [tileIndex](const FloatingDisk_Comp* pDisk)
+		{
+			return pDisk->GetTileIdxNextToDisk() == tileIndex;
+		}) };
+	if (it != m_pDisks.end())
+		return (*it)->GetConstComponent<Transform_Comp>()->GetTransform()->GetPosition();
+
+	Logger::LogWarning("DiskManager_Comp::GetDiskPositionNextToTile => no disk next to this tile! nr = " + std::to_string(tileIndex));
+	return glm::vec2();
+}
+
 void DiskManager_Comp::ResetDisks()
 {
-	//for(auto* pDisk:m_pDisks)
-		Logger::LogInfo("Reset Disk");
+	for (auto* pDisk : m_pDisks)
+		pDisk->SetEnabled(true);
+}
+
+void DiskManager_Comp::RemoveDisk(int tileIndex)
+{
+	const auto it{ std::find_if(m_pDisks.begin(), m_pDisks.end(), [tileIndex](const FloatingDisk_Comp* pDisk)
+		{
+			return pDisk->GetTileIdxNextToDisk() == tileIndex;
+		}) };
+	
+	if (it != m_pDisks.end())
+	{
+		
+	}
+	else
+		Logger::LogWarning("DiskManager_Comp::RemoveDisk => no disk next to this tile! nr = " + std::to_string(tileIndex));
 }
 
 void DiskManager_Comp::MakeDisks()

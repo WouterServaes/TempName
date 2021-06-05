@@ -3,10 +3,17 @@
 
 #include "Animation_Comp.h"
 #include "CharacterController_Comp.h"
+#include "DiskManager_Comp.h"
 #include "Events.h"
+#include "Scene.h"
 #include "Subject.h"
 #include "WorldTileManager_Comp.h"
 #include "WorldTile_Comp.h"
+
+#pragma warning(push)
+#pragma warning (disable:4201)
+#include <glm/gtx/norm.hpp>
+#pragma warning(pop)
 
 CoilyCreature_Comp::CoilyCreature_Comp(const float timeBetweenJumps, const std::string& coilyAnimationSheet, const int coilyImageAmount, const int coilyFramesPerSecond, const glm::vec2 coilyFrameDimensions) :
 	m_TimeBetweenJumps(timeBetweenJumps), m_CoilyImageAmount(coilyImageAmount), m_CoilyFPS(coilyFramesPerSecond), m_CoilyAnimSheet(coilyAnimationSheet), m_CoilyFrameDim(coilyFrameDimensions)
@@ -16,18 +23,49 @@ CoilyCreature_Comp::CoilyCreature_Comp(const float timeBetweenJumps, const std::
 void CoilyCreature_Comp::Spawn()
 {
 	m_pAnimationComp = GetComponent<Animation_Comp>();
+	m_pDiskManager = m_pGameObject->GetGameObject("DiskManager")->GetComponent<DiskManager_Comp>();
 	m_pPlayerTransform = m_pPlayer->GetTransform();
 	m_EggAnimSheet = m_pAnimationComp->GetTextureName();
 	m_EggImageAmount = m_pAnimationComp->GetAmountOfFrames();
 	m_EggFPS = m_pAnimationComp->GetFramesPerSecond();
 	m_EggFrameDim = m_pAnimationComp->GetFrameDimensions();
+	m_OriginalScale = m_pTransform->GetUniformScale();
 	ChangeToEgg();
 	Respawn();
 }
 
 void CoilyCreature_Comp::ResetCreature()
 {
+	m_pGameObject->SetActive(true);
+	m_GoToDisk = false;
 	ChangeToEgg();
+}
+
+void CoilyCreature_Comp::FellOffGrid()
+{
+	const int tileNr{ m_pCharacterController->GetStandingTileIdx() };
+	if (m_pDiskManager->IsDiskNextToTile(tileNr))
+	{
+		m_pPlayer->GetSubject()->Notify(m_pPlayer.get(), Event::DefeatedCoily);
+		m_pCharacterController->GoToSpawnPos();
+		m_GoToDisk = false;
+		m_DiskPos = glm::vec2(0.f, 0.f);
+		m_pDiskManager->RemoveDisk(tileNr);
+		m_pGameObject->SetActive(false);
+	}
+	else
+		Logger::LogInfo("fell off grid");
+}
+
+void CoilyCreature_Comp::PlayerJumpedOnDisk(const glm::vec2 diskPosition)
+{
+	glm::vec2 pos = m_pTransform->GetPosition();
+	const auto distanceToDisk{ glm::distance(pos, diskPosition) };
+	if (distanceToDisk <= m_pWorldTileManager->GetGridTileDimensions().x * 2.f)
+	{
+		m_GoToDisk = true;
+		m_DiskPos = diskPosition;
+	}
 }
 
 void CoilyCreature_Comp::UpdateCreature()
@@ -101,7 +139,7 @@ void CoilyCreature_Comp::ChangeToEgg()
 	const float rescale{ .1f };
 	m_pTransform->ScaleUniform(rescale);
 
-	if(m_pAnimationComp->GetTextureName() != m_EggAnimSheet)
+	if (m_pAnimationComp->GetTextureName() != m_EggAnimSheet)
 		m_pAnimationComp->UpdateAnimationSheet(m_EggAnimSheet, m_EggImageAmount, m_EggFPS, m_EggFrameDim);
 
 	auto spawnPos{ m_pWorldTileManager->GetTileStandPos(m_pWorldTileManager->GetTileAmount()) };
@@ -112,21 +150,26 @@ void CoilyCreature_Comp::ChangeToEgg()
 
 void CoilyCreature_Comp::FollowPlayer()
 {
-	const auto& playerPos{ m_pPlayerTransform->GetPosition() };
+	glm::vec2 goToPos;
+	if (m_GoToDisk)
+		goToPos = m_DiskPos;
+	else
+		goToPos = m_pPlayerTransform->GetPosition();
+
 	const auto& coilyPos{ m_pTransform->GetPosition() };
 
 	bool moveLeft{ true };
 
 	//decide direction
-	if (playerPos.x > coilyPos.x) //move right
+	if (goToPos.x > coilyPos.x) //move right
 		moveLeft = false;
-	else if (playerPos.x == coilyPos.x)//move left or right
+	else if (goToPos.x == coilyPos.x)//move left or right
 		moveLeft = rand() % 10 < 5;
 
 	bool moveUp{ true };
-	if (playerPos.y > coilyPos.y) //move up
+	if (goToPos.y > coilyPos.y) //move down
 		moveUp = false;
-	else if (playerPos.y == coilyPos.y)//move up or down
+	else if (goToPos.y == coilyPos.y)//move up or down
 		moveUp = rand() % 10 < 5;
 
 	//move in said direction

@@ -13,5 +13,6 @@ public:
 	void OnNotify(GameObject * pGameObject, Event event) override;
 private:
 	void FellOffGrid(GameObject* pGameObject);
+	void AttackedByPurple(GameObject* pGameObject);
 };
 

@@ -3,6 +3,8 @@
 
 class CharacterController_Comp;
 class Health_Comp;
+class DiskManager_Comp;
+class CoilyCreature_Comp;
 class Player_Comp final:public BaseComponent
 {
 public:
@@ -18,11 +20,13 @@ public:
 
 	void NextLevel();
 	void ResetPlayer();
-	void FellOffPyramid() const;
+	void FellOffPyramid();
 private:
 	void InitInput();
 	void CheckIfDead() const;
 	CharacterController_Comp* m_pController{nullptr};
 	Health_Comp* m_pHealthComp{ nullptr };
+	DiskManager_Comp* m_pDiskmanager{ nullptr };
+	CoilyCreature_Comp* m_pCoily{ nullptr };
 };
 

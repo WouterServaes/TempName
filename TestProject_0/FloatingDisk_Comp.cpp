@@ -14,6 +14,13 @@ void FloatingDisk_Comp::Start()
 	SetPositionOfDisk();
 }
 
+void FloatingDisk_Comp::SetEnabled(const bool enabled)
+{
+	m_Enabled = enabled;
+
+	m_pGameObject->SetActive(m_Enabled);
+}
+
 void FloatingDisk_Comp::SetPositionOfDisk()
 {
 	const auto pTileManagerObj{ m_pGameObject->GetCurrentScene()->GetGameObject("WorldTileManager") };
@@ -32,17 +39,17 @@ void FloatingDisk_Comp::SetPositionOfDisk()
 	glm::vec2 tilePos;
 
 	tilePos.y = tile0Pos.y - m_DiskPos.pyramidRow * tileDimensions.y;
-	diskPos.y = tilePos.y + textureDimensions.y / 2.f;
+	diskPos.y = tilePos.y - textureDimensions.y / 2.f;
 
 	if (m_DiskPos.pyramidSide == Transform::Side::Left)
 	{
 		tilePos.x = tile0Pos.x + (m_DiskPos.pyramidRow) * (tileDimensions.x / 2.f);
-		diskPos.x = tile0Pos.x + (m_DiskPos.pyramidRow - 1) * (tileDimensions.x / 2.f);
+		diskPos.x = tile0Pos.x + (m_DiskPos.pyramidRow - 1) * (tileDimensions.x / 2.f) - tileDimensions.x / 2.f;
 	}
 	else
 	{
 		tilePos.x = tile0Pos.x + (botRowAmount * tileDimensions.x) - (m_DiskPos.pyramidRow * tileDimensions.x / 2.f);
-		diskPos.x = tile0Pos.x + (botRowAmount * tileDimensions.x) - (m_DiskPos.pyramidRow * tileDimensions.x / 2.f);
+		diskPos.x = tile0Pos.x + (botRowAmount * tileDimensions.x) - (m_DiskPos.pyramidRow * tileDimensions.x / 2.f) + tileDimensions.x / 2.f;
 	}
 
 	m_TileIdxNextToDisk = pTileManagerComp->GetTileIdxAtPosition(tilePos);

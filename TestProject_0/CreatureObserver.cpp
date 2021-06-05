@@ -28,5 +28,5 @@ void CreatureObserver::FellOffGrid(GameObject* pGameObject)
 	else if (pGameObject->TryGetComponent(pGreen))
 		pGreen->Respawn();
 	else if (pGameObject->TryGetComponent(pCoily))
-		pCoily->Respawn();
+		pCoily->FellOffGrid();
 }

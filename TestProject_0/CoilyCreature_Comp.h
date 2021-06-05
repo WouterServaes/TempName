@@ -7,6 +7,7 @@
 #include "Transform.h"
 
 class Animation_Comp;
+class DiskManager_Comp;
 class CoilyCreature_Comp final:public Creature_Comp
 {
 public:
@@ -19,6 +20,8 @@ public:
 	CoilyCreature_Comp& operator=(CoilyCreature_Comp && other) noexcept = delete;
 	void Spawn() override;
 	void ResetCreature() override;
+	void FellOffGrid();
+	void PlayerJumpedOnDisk(glm::vec2 diskPosition);
 private:
 	void UpdateCreature() override;
 	void CollidedWithPlayer() override;
@@ -46,5 +49,12 @@ private:
 	
 	Transform* m_pPlayerTransform{nullptr};
 	Animation_Comp* m_pAnimationComp{ nullptr };
+	DiskManager_Comp* m_pDiskManager{ nullptr };
+
+	bool m_GoToDisk{ false };
+	glm::vec2 m_DiskPos{};
+	
+	float m_OriginalScale{};
+
 };
 

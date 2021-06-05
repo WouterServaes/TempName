@@ -26,8 +26,10 @@ public:
 	void Start() override;
 
 	[[nodiscard]] bool IsDiskNextToPos(glm::vec2 position) const;
-
+	[[nodiscard]] bool IsDiskNextToTile(int tileIndex) const;
+	[[nodiscard]] glm::vec2 GetDiskPositionNextToTile(int tileIndex) const;
 	void ResetDisks();
+	void RemoveDisk(int tileIndex);
 private:
 	void MakeDisks();
 	const std::vector<DiskPos> m_DiskPositions;

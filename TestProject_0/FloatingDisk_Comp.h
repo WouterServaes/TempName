@@ -16,9 +16,13 @@ public:
 
 	[[nodiscard]] DiskManager_Comp::DiskPos GetDiskPos() const { return m_DiskPos; }
 	[[nodiscard]] int GetTileIdxNextToDisk() const { return m_TileIdxNextToDisk; }
+
+	void SetEnabled(bool enabled);
 private:
 	void SetPositionOfDisk();
 
 	const DiskManager_Comp::DiskPos m_DiskPos;
 	int m_TileIdxNextToDisk{};
+
+	bool m_Enabled{ true };
 };

@@ -4,7 +4,6 @@
 #include "Animation_Comp.h"
 #include "AudioServiceLocator.h"
 #include "CharacterController_Comp.h"
-#include "Events.h"
 #include "GameController_Comp.h"
 #include "Health_Comp.h"
 #include "MoveCommands.h"
@@ -14,7 +13,8 @@
 #include "TileChanger_Comp.h"
 #include "Transform.h"
 #include "WorldTileManager_Comp.h"
-
+#include "DiskManager_Comp.h"
+#include "CoilyCreature_Comp.h"
 void Player_Comp::Update()
 {
 	CheckIfDead();
@@ -24,6 +24,8 @@ void Player_Comp::Start()
 {
 	m_pController = GetComponent<CharacterController_Comp>();
 	m_pHealthComp = GetComponent<Health_Comp>();
+	m_pDiskmanager = m_pGameObject->GetCurrentScene()->GetGameObject("DiskManager")->GetComponent<DiskManager_Comp>();
+	m_pCoily = m_pGameObject->GetCurrentScene()->GetGameObject("Coily")->GetComponent<CoilyCreature_Comp>();
 	InitInput();
 
 	const auto pWorldGrid{ m_pGameObject->GetCurrentScene()->GetGameObject("WorldTileManager") };
@@ -56,10 +58,19 @@ void Player_Comp::ResetPlayer()
 	m_pController->SetCanMove(true);
 }
 
-void Player_Comp::FellOffPyramid() const
+void Player_Comp::FellOffPyramid()
 {
-	m_pHealthComp->RemoveLives();
-	AudioServiceLocator::GetAudio()->PlaySound(1, 100);
+	int tile{ m_pController->GetStandingTileIdx() };
+	if(m_pDiskmanager->IsDiskNextToTile(tile))
+	{
+		Logger::LogInfo("ON DISK");
+		m_pCoily->PlayerJumpedOnDisk(m_pDiskmanager->GetDiskPositionNextToTile(tile));
+	}
+	else
+	{
+		m_pHealthComp->RemoveLives();
+		AudioServiceLocator::GetAudio()->PlaySound(1, 100);
+	}
 }
 
 void Player_Comp::InitInput()

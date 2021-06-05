@@ -32,6 +32,10 @@ void CharacterController_Comp::Move(const glm::vec2 movement)
 
 void CharacterController_Comp::Update()
 {
+	const int currentTileIdx = m_pWorldTileManager->GetTileIdxAtPosition(m_pTransform->GetPosition());
+	if (currentTileIdx > -1 && currentTileIdx != m_StandingTileIndex)
+		m_StandingTileIndex = currentTileIdx;
+
 	if (m_IsMoving)
 		UpdatePos();
 	else
