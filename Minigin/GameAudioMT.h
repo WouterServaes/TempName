@@ -5,15 +5,17 @@
 #include <condition_variable>
 //https://gameprogrammingpatterns.com/event-queue.html
 
-class GameAudio final :public AudioInterface
+
+//Multi Threaded Game Audio 
+class GameAudioMT final :public AudioInterface
 {
 public:
-	GameAudio() = default;
-	~GameAudio() = default;
-	GameAudio(const GameAudio& other) = delete;
-	GameAudio(GameAudio&& other) noexcept = delete;
-	GameAudio& operator=(const GameAudio& other) = delete;
-	GameAudio& operator=(GameAudio&& other) noexcept = delete;
+	GameAudioMT() = default;
+	~GameAudioMT() = default;
+	GameAudioMT(const GameAudioMT& other) = delete;
+	GameAudioMT(GameAudioMT&& other) noexcept = delete;
+	GameAudioMT& operator=(const GameAudioMT& other) = delete;
+	GameAudioMT& operator=(GameAudioMT&& other) noexcept = delete;
 
 	void Start() override;
 	void End() override;

@@ -19,7 +19,7 @@
 #include "Time.h"
 
 #include "AudioServiceLocator.h"
-#include "GameAudio.h"
+#include "GameAudioMT.h"
 #include "AudioLogger.h"
 #include "EngineSettings.h"
 
@@ -34,7 +34,7 @@ void Minigin::Run()
 	ResourceManager::GetInstance().Init("../Data/");
 	LoadGame();
 
-	AudioServiceLocator::ProvideAudioService(new AudioLogger(new GameAudio()));
+	AudioServiceLocator::ProvideAudioService(new AudioLogger(new GameAudioMT()));
 	AudioServiceLocator::GetAudio()->Start();
 
 	Logger::LogInfo("Running game...");

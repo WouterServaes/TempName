@@ -57,9 +57,6 @@
     <ClCompile Include="..\Minigin\PlayerObserver.cpp">
       <Filter>GameObservers</Filter>
     </ClCompile>
-    <ClCompile Include="..\Minigin\GameAudio.cpp">
-      <Filter>GameAudio</Filter>
-    </ClCompile>
     <ClCompile Include="GameCommands.cpp">
       <Filter>GameCommands</Filter>
     </ClCompile>
@@ -126,6 +123,9 @@
     <ClCompile Include="StartMenuScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Minigin\GameAudioMT.cpp">
+      <Filter>GameAudio</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniginPCH.h">
@@ -145,9 +145,6 @@
     </ClInclude>
     <ClInclude Include="..\Minigin\PlayerObserver.h">
       <Filter>GameObservers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Minigin\GameAudio.h">
-      <Filter>GameAudio</Filter>
     </ClInclude>
     <ClInclude Include="GameCommands.h">
       <Filter>GameCommands</Filter>
@@ -217,6 +214,9 @@
     </ClInclude>
     <ClInclude Include="StartMenuScene.h">
       <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Minigin\GameAudioMT.h">
+      <Filter>GameAudio</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
