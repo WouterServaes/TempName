@@ -13,6 +13,8 @@
 #pragma warning(push)
 #pragma warning (disable:4201)
 #include <glm/gtx/norm.hpp>
+
+#include "AudioServiceLocator.h"
 #pragma warning(pop)
 
 CoilyCreature_Comp::CoilyCreature_Comp(const float timeBetweenJumps, const std::string& coilyAnimationSheet, const int coilyImageAmount, const int coilyFramesPerSecond, const glm::vec2 coilyFrameDimensions) :
@@ -51,6 +53,7 @@ void CoilyCreature_Comp::FellOffGrid()
 		m_GoToDisk = false;
 		m_DiskPos = glm::vec2(0.f, 0.f);
 		m_pDiskManager->RemoveDisk(tileNr);
+		AudioServiceLocator::GetAudio()->PlaySound(2, 100); 
 		m_pGameObject->SetActive(false);
 	}
 	else

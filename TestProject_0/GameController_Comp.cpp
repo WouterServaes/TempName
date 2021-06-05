@@ -30,6 +30,7 @@ void GameController_Comp::CompletedGrid()
 		else if (m_CurrentLevel == 2)
 			m_CurrentLevel = 3;
 	}
+	AudioServiceLocator::GetAudio()->PlaySound(3, 100);
 }
 
 void GameController_Comp::PlayerDied()

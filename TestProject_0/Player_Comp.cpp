@@ -44,6 +44,7 @@ void Player_Comp::NextLevel()
 {
 	GetComponent<TileChanger_Comp>()->NextLevel();
 	m_pController->GoToSpawnPos();
+	m_pCoily->ResetCreature(); //yep, this shouldnt be here
 }
 
 void Player_Comp::ResetPlayer()
