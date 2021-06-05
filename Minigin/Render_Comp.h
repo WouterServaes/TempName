@@ -5,15 +5,31 @@
 class Render_Comp final :public BaseComponent
 {
 public:
-	explicit Render_Comp(const std::string& filename = "Engine/PlaceHolderPng.png"); //Place holder is used to avoid empty m_Texture
+	/// <summary>
+	/// Render_Comp without given texture will not be rendered
+	/// </summary>
+	Render_Comp() = default;
+
+	/// <summary>
+	/// Loads a texture using the fileName
+	/// </summary>
+	explicit Render_Comp(const std::string& filename);
+
+	/// <summary>
+	/// Renders given Texture
+	/// </summary>
 	explicit Render_Comp(std::shared_ptr<Texture2D> texture);
+	
 	~Render_Comp() = default;
 	Render_Comp(const Render_Comp& other) = delete;
 	Render_Comp(Render_Comp&& other) noexcept = delete;
 	Render_Comp& operator=(const Render_Comp& other) = delete;
 	Render_Comp& operator=(Render_Comp&& other) noexcept = delete;
 
-	void Render()const override;
+	/// <summary>
+	/// Renders, called from Render() from game object
+	/// </summary>
+	void Render() const override;
 
 	///texture + resize
 	/// width/height < 0 -> original texture size is used

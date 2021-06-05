@@ -1,34 +1,63 @@
 #pragma once
-#include "time.h"
 class Logger
 {
 public:
 
+	/// <summary>
+	/// Prints info in the console
+	/// </summary>
+	/// <param name="msg">the message</param>
+	/// <param name="timeStamp">true: time gets printed before the message</param>
 	static void LogInfo(const char* msg, const bool timeStamp = true)
 	{
 		LogMsg(Level::Info, msg, timeStamp);
 	}
 
+	/// <summary>
+	/// Prints info in the console
+	/// </summary>
+	/// <param name="msg">the message</param>
+	/// <param name="timeStamp">true: time gets printed before the message</param>
 	static void LogInfo(const std::string& msg, const bool timeStamp = true)
 	{
 		LogMsg(Level::Info, msg.c_str(), timeStamp);
 	}
 
+	/// <summary>
+	/// Prints a warning in the console
+	/// </summary>
+	/// <param name="msg">the message</param>
+	/// <param name="timeStamp">true: time gets printed before the message</param>
 	static void LogWarning(const std::string& msg, const bool timeStamp = true)
 	{
 		LogMsg(Level::Warning, msg.c_str(), timeStamp);
 	}
-	
+
+	/// <summary>
+	/// Prints a warning in the console
+	/// </summary>
+	/// <param name="msg">the message</param>
+	/// <param name="timeStamp">true: time gets printed before the message</param>
 	static void LogWarning(const char* msg, const bool timeStamp = true)
 	{
 		LogMsg(Level::Warning, msg, timeStamp);
 	}
 
+	/// <summary>
+	/// Throws an error box with a message, different options on box depending on Debug or Release
+	/// </summary>
+	/// <param name="msg">the message</param>
+	/// <param name="timeStamp">true: time gets shown in the error box</param>
 	static void LogError(const std::string& msg, const bool timeStamp = true)
 	{
 		LogMsg(Level::Error, msg.c_str(), timeStamp);
 	}
-	
+
+	/// <summary>
+	/// Throws an error box with a message, different options on box depending on Debug or Release
+	/// </summary>
+	/// <param name="msg">the message</param>
+	/// <param name="timeStamp">true: time gets shown in the error box</param>
 	static void LogError(const char* msg, const bool timeStamp = true)
 	{
 		LogMsg(Level::Error, msg, timeStamp);
@@ -86,29 +115,9 @@ private:
 
 		if (level == Level::Error)
 		{
-			//https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-messagebox
-#if _DEBUG
-			const auto msgBoxmsg{ (msg + static_cast<std::string>("\n\n Try again: puts breakpoint in program\n Continue: continues program (may result in more crashes)\nCancel: closes program (beware leaks)")) };
-
-			const auto msgBoxReturn{ MessageBoxA(0, msgBoxmsg.c_str(), "[ERROR]", MB_ICONERROR | MB_CANCELTRYCONTINUE | MB_TOPMOST | MB_DEFBUTTON2) };
-			if (msgBoxReturn == IDTRYAGAIN)
-			{
-				// is there a way to step through the call stack through code? breakpoint gets put here, but the user should see the actual error.
-				//
-				__debugbreak();
-			}
-			else if (msgBoxReturn == IDCANCEL)
-				exit(-1);
-#else
-
-			const auto msgBoxmsg{ (static_cast<std::string>("Critical error:\n") + msg + static_cast<std::string>("\n\n Click OK to close program")) };
-
-			const auto msgBoxReturn{ MessageBoxA(0, msgBoxmsg.c_str(), "[ERROR]", MB_ICONERROR | MB_OK | MB_TOPMOST) };
-			if (msgBoxReturn == IDOK)
-			{
-				exit(-1);
-			}
-#endif
+			ThrowErrorBox(msg);
 		}
+
 	}
+	static void ThrowErrorBox(const std::string & message);
 };

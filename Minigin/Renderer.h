@@ -17,8 +17,21 @@ public:
 	Renderer& operator=(const Renderer& other) = delete;
 	Renderer& operator=(Renderer&& other) noexcept = delete;
 
+	/// <summary>
+	/// Creates the SDL renderer and ImGui
+	/// </summary>
+	/// <param name="window"></param>
 	void Init(SDL_Window* window);
+
+	/// <summary>
+	/// Renders the current scene and ImGui 
+	/// </summary>
 	void Render() const;
+
+	/// <summary>
+	/// Shuts down ImGui\n
+	/// destroys the SDL renderer
+	/// </summary>
 	void Destroy();
 
 	/// <summary>

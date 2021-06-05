@@ -5,12 +5,6 @@
 #include "Scene.h"
 #include "Transform_Comp.h"
 #include "Subject.h"
-GameObject::GameObject(const std::string& objectName, Scene* pScene, const bool isSubject)
-	:m_ObjectName(objectName), m_pCurrentScene(pScene), m_pSubject((isSubject) ? new Subject() : nullptr)
-{
-	m_pComponents.push_back(new Transform_Comp(0.f, 0.f, 0.f));
-	m_pComponents.at(0)->SetGameObject(this);
-}
 
 GameObject::GameObject(const std::string& objectName, bool isSubject)
 	:m_ObjectName(objectName), m_pCurrentScene(nullptr), m_pSubject((isSubject) ? new Subject() : nullptr)

@@ -8,12 +8,12 @@
 
 void UI_Comp::Start()
 {
-	m_pTransformComponent = m_pGameObject->GetComponent<Transform_Comp>();
+	m_pTransform = m_pGameObject->GetComponent<Transform_Comp>()->GetTransform();
 }
 
 void FpsUI::Update()
 {
-	const auto transformPos{ m_pTransformComponent->GetTransform()->GetPosition() };
+	const auto transformPos{ m_pTransform->GetPosition() };
 	const auto pos = ImVec2(transformPos.x, transformPos.y);
 	const auto size = ImVec2(100, 20);
 	bool activeWindow{ true };

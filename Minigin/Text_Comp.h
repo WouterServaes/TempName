@@ -17,6 +17,10 @@ class Text_Comp final :public BaseComponent
 {
 public:
 	Text_Comp() = delete;
+	/// <param name="text">the text</param>
+	/// <param name="font">relative path to font file</param>
+	/// <param name="fontSize">size of text</param>
+	/// <param name="color">color of text</param>
 	Text_Comp(const std::string& text, const std::string& font, int fontSize, const glm::vec4& color = { 255.f, 255.f, 255.f, 1.f });
 	~Text_Comp();
 	Text_Comp(const Text_Comp& other) = delete;
@@ -24,7 +28,14 @@ public:
 	Text_Comp& operator=(const Text_Comp& other) = delete;
 	Text_Comp& operator=(Text_Comp&& other) noexcept = delete;
 
+	/// <summary>
+	/// Updates the text to a new text
+	/// </summary>
 	void UpdateText(const std::string& newText);
+
+	/// <summary>
+	/// Initializes the text using SDL
+	/// </summary>
 	void Start() override;
 
 private:

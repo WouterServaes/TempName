@@ -18,6 +18,8 @@ Render_Comp::Render_Comp(const std::shared_ptr<Texture2D> texture)
 
 void Render_Comp::Render()const
 {
+	if (m_Texture == nullptr) return;
+	
 	const auto* pTransform{ m_pGameObject->GetTransform() };
 	const auto& pos{ pTransform->GetPosition() };
 	const auto& scale{ pTransform->GetScale() };

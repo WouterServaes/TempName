@@ -43,6 +43,7 @@ void Minigin::Run()
 		auto& renderer{ Renderer::GetInstance() };
 		auto& sceneManager{ SceneManager::GetInstance() };
 		auto& input{ InputManager::GetInstance() };
+		input.Start();
 		auto& time{ Time::GetInstance() };
 
 		auto lastTime{ high_resolution_clock::now() };

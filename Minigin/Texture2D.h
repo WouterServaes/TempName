@@ -10,6 +10,10 @@
 class Texture2D
 {
 public:
+
+	/// <summary>
+	/// Holds the texture dimensions, format, access and file name
+	/// </summary>
 	struct TextureData
 	{
 		glm::vec2 Dimensions{};
@@ -27,7 +31,10 @@ public:
 	Texture2D& operator= (const Texture2D&) = delete;
 	Texture2D& operator= (const Texture2D&&) = delete;
 
+	///Returns a ptr to the SDL_Texture
 	[[nodiscard]] SDL_Texture* GetSDLTexture() const;
+	
+	///Returns the texture data of this texture
 	[[nodiscard]] const TextureData& GetTextureData() const { return m_TextureData; }
 private:
 	SDL_Texture* m_Texture;

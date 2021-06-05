@@ -1,6 +1,9 @@
 #pragma once
 #include "AudioInterface.h"
 
+/// <summary>
+/// Wrapper for AudioService, prints info whenever something happens (Start, stop, play, pause, ...)
+/// </summary>
 class AudioLogger final :public AudioInterface
 {
 public:

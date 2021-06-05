@@ -3,13 +3,18 @@
 
 #include "Minigin.h"
 
+void InputManager::Start()
+{
+	m_CurrentConsoleState.resize(m_MaxControllerAmount);
+}
+
 void InputManager::ProcessInput()
 {
 	ProcessControllerInput();
 	ProcessKeyboardInput();
 }
 
-bool InputManager::IsButtonPressed(ControllerButtons button, int controllerIdx) const
+bool InputManager::IsButtonPressed(ControllerButtons button,const int controllerIdx) const
 {
 	return (m_CurrentConsoleState[controllerIdx].Gamepad.wButtons & int(button));
 }
@@ -27,13 +32,13 @@ void InputManager::ProcessControllerInput()
 	}
 }
 
-DWORD InputManager::UpdateControllerState(int controllerIdx)
+DWORD InputManager::UpdateControllerState(const int controllerIdx)
 {
-	ZeroMemory(&m_CurrentConsoleState, sizeof(XINPUT_STATE));
+	ZeroMemory(&m_CurrentConsoleState[controllerIdx], sizeof(XINPUT_STATE));
 	return XInputGetState(controllerIdx, &m_CurrentConsoleState[controllerIdx]);
 }
 
-void InputManager::ProcessControllerButtons(ControllerButtons button, int controllerIdx)
+void InputManager::ProcessControllerButtons(ControllerButtons button,const int controllerIdx)
 {
 	for (auto& inputCommandsMap : m_InputCommandsMap)
 	{
@@ -47,7 +52,7 @@ void InputManager::ProcessControllerButtons(ControllerButtons button, int contro
 	}
 }
 
-void InputManager::ProcessControllerCommand(const std::unique_ptr<Commands>& command, bool buttonPressed)
+void InputManager::ProcessControllerCommand(const std::unique_ptr<Commands>& command,const bool buttonPressed)
 {
 	if (!command->IsActivated())
 	{
@@ -86,7 +91,7 @@ void InputManager::ProcessKeyboardInput()
 	}
 }
 
-void InputManager::ProcessKeyboardKey(SDL_Keycode sdlKeycode, TriggerState triggerState)
+void InputManager::ProcessKeyboardKey(const SDL_Keycode sdlKeycode,const TriggerState triggerState)
 {
 	for (auto& keyboardCommand : m_InputCommandsMap)
 	{

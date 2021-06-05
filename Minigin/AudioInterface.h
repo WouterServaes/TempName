@@ -3,7 +3,6 @@
 class AudioInterface
 {
 public:
-
 	virtual ~AudioInterface() = default;
 	AudioInterface() = default;
 	AudioInterface(const AudioInterface& other) = delete;

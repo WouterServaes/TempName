@@ -12,8 +12,17 @@ public:
 	Commands& operator=(const Commands& other) = delete;
 	Commands& operator=(Commands&& other) noexcept = delete;
 
+	///Returns true if the Command is activated, used in InputManager
 	[[nodiscard]] bool IsActivated() const;
+
+	/// <summary>
+	/// Sets the command to active, used in InputManager
+	/// </summary>
 	virtual void SetActivated(bool activated);
+
+	/// <summary>
+	/// Executes the command
+	/// </summary>
 	virtual void Execute() = 0;
 protected:
 	bool m_Activated{ false };

@@ -12,7 +12,7 @@ void SceneManager::Render() const
 	m_ActiveScene->Render();
 }
 
-void SceneManager::AddScene(std::shared_ptr<Scene> pScene)
+void SceneManager::AddScene(const std::shared_ptr<Scene> pScene)
 {
 	if (m_ActiveScene == nullptr)
 		m_ActiveScene = pScene;
@@ -20,7 +20,7 @@ void SceneManager::AddScene(std::shared_ptr<Scene> pScene)
 	m_Scenes.push_back(pScene);
 }
 
-void SceneManager::LoadScene(int sceneNr)
+void SceneManager::LoadScene(const int sceneNr)
 {
 	if (sceneNr >= static_cast<int>(m_Scenes.size()))
 	{

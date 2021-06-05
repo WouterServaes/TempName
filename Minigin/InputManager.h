@@ -60,17 +60,31 @@ public:
 	InputManager& operator=(const InputManager& other) = delete;
 	InputManager& operator=(InputManager&& other) noexcept = delete;
 
+	void Start();
+	
+	/// <summary>
+	/// Processes input for controller and keyboard
+	/// </summary>
 	void ProcessInput();
+
+	/// <summary>
+	/// Sets the max controller amount
+	/// </summary>
 	void SetMaxControllerAmount(const int amount)
 	{
 		if (amount < XUSER_MAX_COUNT) m_MaxControllerAmount = amount;
-		else Logger::LogError("InputManager::SetMaxControllerAmount(amount) => amount exceeds allowed amount of 4 ");
+		else Logger::LogError("InputManager::SetMaxControllerAmount(amount) => amount exceeds allowed amount of " + std::to_string(XUSER_MAX_COUNT));
+
+		m_CurrentConsoleState.resize(m_MaxControllerAmount);
 	}
 
+	///Returns true if a button is pressed on the specified controller
 	[[nodiscard]] bool IsButtonPressed(ControllerButtons button, int controllerIdx) const;
 
-	template <typename T>
-	void AssignKey(const InputAction& inputAction, std::unique_ptr<T> command)
+	/// <summary>
+	/// Assigns an input action to a Command
+	/// </summary>
+	void AssignKey(const InputAction& inputAction, std::unique_ptr<Commands> command)
 	{
 		m_InputCommandsMap.insert(std::make_pair(inputAction, std::move(command)));
 	}
@@ -78,14 +92,40 @@ private:
 	friend class Singleton<InputManager>;
 	InputManager() = default;
 
+	/// <summary>
+	/// Processes controller input, calls UpdateControllerState and ProcessControllerButtons
+	/// </summary>
 	void ProcessControllerInput();
+
+	/// <summary>
+	/// Processes keyboard input, calls ProcessKeyboardKey
+	/// </summary>
 	void ProcessKeyboardInput();
+
+	/// <summary>
+	/// Processes keyboard key
+	/// </summary>
 	void ProcessKeyboardKey(SDL_Keycode sdlKeycode, TriggerState triggerState);
+
+	/// <summary>
+	/// Updates state of a controller using XInputGetState and returns it
+	/// </summary>
 	DWORD UpdateControllerState(int controllerIdx);
+
+	/// <summary>
+	/// Processes controller buttons of controller, calls ProcessControllerCommand
+	/// </summary>
 	void ProcessControllerButtons(ControllerButtons button, int controllerIdx);
+
+	/// <summary>
+	/// Enables, disables and executes a command
+	/// </summary>
 	void ProcessControllerCommand(const std::unique_ptr<Commands>& command, bool buttonPressed);
 
-	XINPUT_STATE m_CurrentConsoleState[2]{};
+	/// <summary>
+	/// Holds the states of each controller
+	/// </summary>
+	std::vector<XINPUT_STATE> m_CurrentConsoleState;
 
 	InputCommandsMap m_InputCommandsMap{};
 

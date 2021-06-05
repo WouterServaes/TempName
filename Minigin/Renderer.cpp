@@ -28,7 +28,7 @@ void Renderer::Init(SDL_Window* window)
 	m_Renderer = SDL_CreateRenderer(window, GetOpenGLDriverIndex(), SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (m_Renderer == nullptr)
 	{
-		throw std::runtime_error(std::string("SDL_CreateRenderer Error: ") + SDL_GetError());
+		Logger::LogError(std::string("Renderer::Init => SDL_CreateRenderer Error: ") + SDL_GetError());
 	}
 
 	IMGUI_CHECKVERSION();

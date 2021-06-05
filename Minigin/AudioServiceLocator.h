@@ -16,6 +16,11 @@ public:
 	static AudioInterface* GetAudio() { return m_pAudioService; }
 
 	static void Initialize() { m_pAudioService = &m_NullAudioService; };
+
+	/// <summary>
+	/// Sets the current audio service to given audio interface.
+	/// Sets current audio service to NullAudioService if given service is nullptr
+	/// </summary>
 	static void ProvideAudioService(AudioInterface* pBaseAudio)
 	{
 		if (pBaseAudio == nullptr)
@@ -23,6 +28,10 @@ public:
 		else
 			m_pAudioService = pBaseAudio;
 	}
+
+	/// <summary>
+	/// Ends the current audio service and deletes it
+	/// </summary>
 	static void RemoveService()
 	{
 		m_pAudioService->End();

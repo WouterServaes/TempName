@@ -4,6 +4,7 @@
 Transform& Transform::operator=(const Transform& other)
 {
 	m_Position = other.GetPosition();
+	m_Scale = other.GetScale();
 	return *this;
 }
 

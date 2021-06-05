@@ -1,5 +1,9 @@
 #pragma once
 #include <SDL.h> //included for the macros
+
+/// <summary>
+/// Title, window size and start window position
+/// </summary>
 struct EngineSettings
 {
 	std::string Title = std::string("Wouter Servaes Exam");
