@@ -2,7 +2,6 @@
 #include "LevelScene.h"
 
 #include "CharacterController_Comp.h"
-#include "EngineSettings.h"
 #include "GameObject.h"
 #include "InputManager.h"
 #include "MovementObserver.h"
@@ -18,7 +17,6 @@
 #include "CoilyCreature_Comp.h"
 #include "CreatureObserver.h"
 #include "DiskManager_Comp.h"
-#include "FloatingDisk_Comp.h"
 #include "GameController_Comp.h"
 #include "Health_Comp.h"
 #include "GreenCreature_Comp.h"
@@ -44,6 +42,30 @@ void LevelScene::InitializeScene()
 	InitCoily();
 	InitGreen();
 	InitPurple();
+	InitDisks();
+}
+
+void LevelScene::Restart()
+{
+	//player full restart
+	GetGameObject("pl")->GetComponent<Player_Comp>()->ResetPlayer();
+	//gameController restart
+	GetGameObject("GameController")->GetComponent<GameController_Comp>()->ResetGame();
+	//tiles
+	GetGameObject("WorldTileManager")->GetComponent<WorldTileManager_Comp>()->ResetTiles();
+	//disk full restart
+	GetGameObject("DiskManager")->GetComponent<DiskManager_Comp>()->ResetDisks();
+	//creatures full restart
+	GetGameObject("Coily")->GetComponent<CoilyCreature_Comp>()->ResetCreature();
+	GetGameObject("Ugg")->GetComponent<PurpleCreature_Comp>()->ResetCreature();
+	GetGameObject("Wrongway")->GetComponent<PurpleCreature_Comp>()->ResetCreature();
+	GetGameObject("Slick")->GetComponent<GreenCreature_Comp>()->ResetCreature();
+	GetGameObject("Sam")->GetComponent<GreenCreature_Comp>()->ResetCreature();
+
+	GetGameObject("GameOver")->SetActive(false);
+	GetGameObject("GameOverMenu")->SetActive(false);
+	GetGameObject("Win")->SetActive(false);
+	GetGameObject("WinMenu")->SetActive(false);
 }
 
 void LevelScene::InitUi()
@@ -194,23 +216,6 @@ void LevelScene::InitGameController()
 	pGameController->AddComponent(new GameController_Comp());
 }
 
-void LevelScene::RestartScene()
-{
-	//player full restart
-	GetGameObject("pl")->GetComponent<Player_Comp>()->ResetPlayer();
-	//gameController restart
-	GetGameObject("GameController")->GetComponent<GameController_Comp>()->ResetGame();
-	//tiles
-	GetGameObject("WorldTileManager")->GetComponent<WorldTileManager_Comp>()->ResetTiles();
-	//disk full restart
-	GetGameObject("DiskManager")->GetComponent<DiskManager_Comp>()->ResetDisks();
-	//creatures full restart
-	GetGameObject("Coily")->GetComponent<CoilyCreature_Comp>()->ResetCreature();
-	GetGameObject("Ugg")->GetComponent<PurpleCreature_Comp>()->ResetCreature();
-	GetGameObject("Wrongway")->GetComponent<PurpleCreature_Comp>()->ResetCreature();
-	GetGameObject("Slick")->GetComponent<GreenCreature_Comp>()->ResetCreature();
-	GetGameObject("Same")->GetComponent<GreenCreature_Comp>()->ResetCreature();
-}
 
 void LevelScene::InitCoily()
 {

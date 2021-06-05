@@ -38,8 +38,9 @@ void GreenCreature_Comp::ResetCreature()
 void GreenCreature_Comp::Spawn()
 {
 	auto spawnPos{ m_pWorldTileManager->GetTileStandPos(m_pWorldTileManager->GetTileAmount()) };
+	m_origScale = m_pTransform->GetUniformScale();
 
-	const auto textureWidth{ GetConstComponent<Animation_Comp>()->GetFrameDimensions().x * m_pTransform->GetUniformScale() };
+	const auto textureWidth{ GetConstComponent<Animation_Comp>()->GetFrameDimensions().x * m_origScale };
 	spawnPos.x -= textureWidth / 2.f;
 
 	m_pCharacterController->SetSpawnPos(spawnPos);
@@ -51,7 +52,6 @@ void GreenCreature_Comp::CollidedWithPlayer()
 	if (!m_Dead)
 	{
 		m_Dead = true;
-		m_origScale = m_pTransform->GetUniformScale();
 		m_pTransform->ScaleUniform(0.f);
 		m_ElapsedTime = 0.f;
 		m_pPlayer->GetSubject()->Notify(m_pPlayer.get(), Event::CatchedSlickOrSam);

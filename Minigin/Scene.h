@@ -19,13 +19,14 @@ public:
 	Scene& operator=(const Scene& other) = delete;
 	Scene& operator=(Scene&& other) = delete;
 
-	virtual void RestartScene(){}
+	void RestartScene();
 private:
 	void StartScene();
 	void StartLateObjects();
 	std::string m_Name;
 	bool m_StartedScene = false;
 	virtual void InitializeScene() = 0;
+	virtual void Restart(){};
 	std::vector<int> m_InitialStartObjIdxs{}; //This prevents crashes when adding a game object to the scene in the Start() of a component
 	std::vector<int> m_ObjIdxsNeedStart{};
 protected:

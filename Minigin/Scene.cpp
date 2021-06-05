@@ -103,3 +103,10 @@ std::shared_ptr< GameObject>& Scene::GetGameObject(const int idx)
 	Logger::LogError("GetGameObject(int idx) no object at this idx");
 	return m_Objects[0];
 }
+
+void Scene::RestartScene()
+{
+	if (!m_StartedScene)
+		StartScene();
+	else Restart();
+}

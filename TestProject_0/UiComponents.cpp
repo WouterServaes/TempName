@@ -20,18 +20,21 @@ void StartUI::Update()
 	if(ImGui::Button("single player"))
 	{
 		SceneManager::GetInstance().LoadScene("Level");
+		SceneManager::GetInstance().GetCurrentScene()->RestartScene();
 		//get current scene -> get game controller -> set game mode
 	}
 	
 	if(ImGui::Button("co-op"))
 	{
 		SceneManager::GetInstance().LoadScene("Level");
+		m_pGameObject->GetCurrentScene()->RestartScene();
 		//get current scene -> get game controller -> set game mode
 	}
 	
 	if(ImGui::Button("versus"))
 	{
 		SceneManager::GetInstance().LoadScene("Level");
+		m_pGameObject->GetCurrentScene()->RestartScene();
 		//get current scene -> get game controller -> set game mode
 	}
 	ImGui::End();

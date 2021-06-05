@@ -14,6 +14,7 @@ public:
 	LevelScene& operator=(LevelScene && other) = delete;
 
 	void InitializeScene() override;
+	void Restart() override;
 private:
 	//ui game object
 	void InitUi();
@@ -34,7 +35,8 @@ private:
 	void InitDisks();
 
 	void InitGameController();
-public:
-	void RestartScene() override;
+
+
+	
 };
 
