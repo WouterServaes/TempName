@@ -47,8 +47,16 @@ I use the Service Locator pattern for the audio to easily use custom audio servi
 
 
 ## References <a name ="ref"></a>
-Entity Component System. https://gameprogrammingpatterns.com/component.html
-Game loop https://gameprogrammingpatterns.com/game-loop.html
-Observer https://gameprogrammingpatterns.com/observer.html
-Service Locator https://gameprogrammingpatterns.com/service-locator.html
-Commands https://gameprogrammingpatterns.com/command.html
+Entity Component System. https://gameprogrammingpatterns.com/component.html  
+Game loop https://gameprogrammingpatterns.com/game-loop.html  
+Observer https://gameprogrammingpatterns.com/observer.html  
+Service Locator https://gameprogrammingpatterns.com/service-locator.html  
+Commands https://gameprogrammingpatterns.com/command.html  
+
+Library files can be found in 3rdparty
+- maths GLM https://github.com/g-truc/glm
+- SDL2 https://github.com/libsdl-org/SDL
+- SDL2 image https://github.com/libsdl-org/SDL_image
+- SDL2 TTF https://github.com/libsdl-org/SDL_ttf
+- Simple SDL2 Audio https://github.com/jakebesworth/Simple-SDL2-Audio
+- Visual Leak Detector 2.5.6 https://github.com/Azure/vld/tree/v2.5.6
