@@ -14,11 +14,14 @@ void FloatingDisk_Comp::Start()
 	SetPositionOfDisk();
 }
 
-void FloatingDisk_Comp::SetEnabled(const bool enabled)
+void FloatingDisk_Comp::SetEnabled(const bool enabled) const
 {
-	m_Enabled = enabled;
+	m_pGameObject->SetActive(enabled);
+}
 
-	m_pGameObject->SetActive(m_Enabled);
+bool FloatingDisk_Comp::IsEnabled() const
+{
+	return m_pGameObject->IsActive();
 }
 
 void FloatingDisk_Comp::SetPositionOfDisk()
@@ -27,7 +30,7 @@ void FloatingDisk_Comp::SetPositionOfDisk()
 	const auto* pTileManagerComp{ pTileManagerObj->GetConstComponent<WorldTileManager_Comp>() };
 
 	const int botRowAmount{ pTileManagerComp->GetBottomRowAmount() };
-	if (m_DiskPos.pyramidRow > botRowAmount) Logger::LogWarning("FloatingDisk_Comp:: given row exceeds pyramids size, game object: " + m_pGameObject->GetName());
+	if (m_DiskPos.PyramidRow > botRowAmount) Logger::LogWarning("FloatingDisk_Comp:: given row exceeds pyramids size, game object: " + m_pGameObject->GetName());
 
 	const glm::vec2 tile0Pos{ pTileManagerComp->GetTileStandPos(0) };
 	const glm::vec2 tileDimensions{ pTileManagerComp->GetGridTileDimensions() };
@@ -38,18 +41,18 @@ void FloatingDisk_Comp::SetPositionOfDisk()
 	glm::vec2 diskPos;
 	glm::vec2 tilePos;
 
-	tilePos.y = tile0Pos.y - m_DiskPos.pyramidRow * tileDimensions.y;
+	tilePos.y = tile0Pos.y - m_DiskPos.PyramidRow * tileDimensions.y;
 	diskPos.y = tilePos.y - textureDimensions.y / 2.f;
 
-	if (m_DiskPos.pyramidSide == Transform::Side::Left)
+	if (m_DiskPos.PyramidSide == Transform::Side::Left)
 	{
-		tilePos.x = tile0Pos.x + (m_DiskPos.pyramidRow) * (tileDimensions.x / 2.f);
-		diskPos.x = tile0Pos.x + (m_DiskPos.pyramidRow - 1) * (tileDimensions.x / 2.f) - tileDimensions.x / 2.f;
+		tilePos.x = tile0Pos.x + (m_DiskPos.PyramidRow) * (tileDimensions.x / 2.f);
+		diskPos.x = tile0Pos.x + (m_DiskPos.PyramidRow - 1) * (tileDimensions.x / 2.f) - tileDimensions.x / 2.f;
 	}
 	else
 	{
-		tilePos.x = tile0Pos.x + (botRowAmount * tileDimensions.x) - (m_DiskPos.pyramidRow * tileDimensions.x / 2.f);
-		diskPos.x = tile0Pos.x + (botRowAmount * tileDimensions.x) - (m_DiskPos.pyramidRow * tileDimensions.x / 2.f) + tileDimensions.x / 2.f;
+		tilePos.x = tile0Pos.x + (botRowAmount * tileDimensions.x) - (m_DiskPos.PyramidRow * tileDimensions.x / 2.f);
+		diskPos.x = tile0Pos.x + (botRowAmount * tileDimensions.x) - (m_DiskPos.PyramidRow * tileDimensions.x / 2.f) + tileDimensions.x / 2.f;
 	}
 
 	m_TileIdxNextToDisk = pTileManagerComp->GetTileIdxAtPosition(tilePos);

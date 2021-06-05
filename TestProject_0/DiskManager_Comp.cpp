@@ -71,6 +71,15 @@ void DiskManager_Comp::RemoveDisk(int tileIndex)
 		Logger::LogWarning("DiskManager_Comp::RemoveDisk => no disk next to this tile! nr = " + std::to_string(tileIndex));
 }
 
+int DiskManager_Comp::GetRemainingDisks() const
+{
+	int count{};
+	for (const auto* pDisk : m_pDisks)
+		if (pDisk->IsEnabled())
+			count++;
+	return count;
+}
+
 void DiskManager_Comp::MakeDisks()
 {
 	auto* pScene{ m_pGameObject->GetCurrentScene() };

@@ -14,8 +14,9 @@ public:
 	void PlayerDied();
 	void ResetGame();
 private:
-
+	void CompletedGame();
 	int m_CurrentLevel{ 1 };
-	
+
+	std::shared_ptr<GameObject> m_pPlayer;
 };
 

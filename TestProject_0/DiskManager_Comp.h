@@ -12,8 +12,8 @@ class DiskManager_Comp final :public BaseComponent
 public:
 	struct DiskPos
 	{
-		Transform::Side pyramidSide;
-		int pyramidRow;
+		Transform::Side PyramidSide;
+		int PyramidRow;
 	};
 
 	explicit DiskManager_Comp(std::vector<DiskPos>& diskPositions);
@@ -30,6 +30,8 @@ public:
 	[[nodiscard]] glm::vec2 GetDiskPositionNextToTile(int tileIndex) const;
 	void ResetDisks();
 	void RemoveDisk(int tileIndex);
+
+	[[nodiscard]] int GetRemainingDisks() const;
 private:
 	void MakeDisks();
 	const std::vector<DiskPos> m_DiskPositions;
