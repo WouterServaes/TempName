@@ -18,6 +18,24 @@ void Score_Comp::AttachTextComp(Text_Comp* pTextComp)
 	m_pScoreText = pTextComp;
 }
 
+void Score_Comp::SetScore(const int newScore)
+{
+	UpdateUi();
+	m_CurrentScore = newScore;
+}
+
+void Score_Comp::IncreaseScore(const int amount)
+{
+	m_CurrentScore += amount;
+	UpdateUi();
+}
+
+void Score_Comp::ResetScore()
+{
+	m_CurrentScore = 0;
+	UpdateUi();
+}
+
 void Score_Comp::UpdateUi() const
 {
 	if (!m_pScoreText)

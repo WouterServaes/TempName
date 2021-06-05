@@ -14,17 +14,9 @@ public:
 	void Update() override;
 	void AttachTextComp(Text_Comp* pTextComp);
 	[[nodiscard]] const int& GetScore()const { return m_CurrentScore; };
-	void SetScore(const int newScore)
-	{
-		UpdateUi();
-		m_CurrentScore = newScore;
-	}
-	void IncreaseScore(const int amount)
-	{
-		m_CurrentScore += amount;
-		UpdateUi();
-	}
-	void ResetScore() { m_CurrentScore = 0; };
+	void SetScore(int newScore);
+	void IncreaseScore(int amount);
+	void ResetScore();
 private:
 	void UpdateUi() const;
 	int m_CurrentScore{};
