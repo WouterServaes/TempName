@@ -20,7 +20,7 @@ void PurpleCreature_Comp::UpdateCreature()
 		if (m_ElapsedTime >= m_TimeBetweenJumps)
 		{
 			m_ElapsedTime = 0.f;
-			bool otherDir{ rand() % 10 <= 3 };
+			const bool otherDir{ rand() % 10 <= 3 };
 			switch (m_SpawnSide)
 			{
 			case Transform::Side::Left:
@@ -39,6 +39,12 @@ void PurpleCreature_Comp::UpdateCreature()
 			}
 		}
 	}
+}
+
+void PurpleCreature_Comp::ResetCreature()
+{
+	m_ElapsedTime = 0.f;
+	Respawn();
 }
 
 void PurpleCreature_Comp::Spawn()

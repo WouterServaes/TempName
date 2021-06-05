@@ -36,7 +36,7 @@ void Text_Comp::UpdateText(const std::string& newText)
 		Logger::LogError((static_cast<std::string>("Create text texture from surface failed: ") + SDL_GetError()).c_str());
 	}
 	SDL_FreeSurface(surf);
-	m_pRenderComponent->UpdateTexture(std::make_shared<Texture2D>(texture));
+	m_pRenderComponent->UpdateTexture(std::make_shared<Texture2D>(texture, "text"));
 }
 
 void Text_Comp::InitializeText() const
@@ -52,5 +52,5 @@ void Text_Comp::InitializeText() const
 		Logger::LogError((static_cast<std::string>("Create text texture from surface failed: ") + SDL_GetError()).c_str());
 	}
 	SDL_FreeSurface(surf);
-	m_pRenderComponent->UpdateTexture(std::make_shared<Texture2D>(texture));
+	m_pRenderComponent->UpdateTexture(std::make_shared<Texture2D>(texture, "text"));
 }

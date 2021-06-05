@@ -24,8 +24,15 @@ void GreenCreature_Comp::UpdateCreature()
 void GreenCreature_Comp::Respawn()
 {
 	m_pCharacterController->GoToSpawnPos();
-
+	m_Dead = false;
+	m_ElapsedTime = 0.f;
+	m_pTransform->ScaleUniform(m_origScale);
 	m_FollowingSide = (rand() % 2 == 0) ? Transform::Side::Left : Transform::Side::Right;
+}
+
+void GreenCreature_Comp::ResetCreature()
+{
+	Respawn();
 }
 
 void GreenCreature_Comp::Spawn()
@@ -56,9 +63,6 @@ void GreenCreature_Comp::HandleDead()
 	m_ElapsedTime += Time::GetInstance().deltaTime;
 	if (m_ElapsedTime >= m_DeadCooldown)
 	{
-		m_Dead = false;
-		m_ElapsedTime = 0.f;
-		m_pTransform->ScaleUniform(m_origScale);
 		Respawn();
 	}
 }

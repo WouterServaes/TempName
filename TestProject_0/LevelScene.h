@@ -34,5 +34,7 @@ private:
 	void InitDisks();
 
 	void InitGameController();
+public:
+	void RestartScene() override;
 };
 

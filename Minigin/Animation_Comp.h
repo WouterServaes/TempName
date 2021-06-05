@@ -24,7 +24,10 @@ public:
 	void Start() override;
 
 	[[nodiscard]] const glm::vec2& GetFrameDimensions() const { return m_FrameDimensions; }
-
+	[[nodiscard]] int GetFramesPerSecond() const { return m_FramesPerSecond; }
+	[[nodiscard]] int GetAmountOfFrames() const { return m_AmountOfFrames; }
+	[[nodiscard]] const std::string& GetTextureName() const;
+	
 	void UpdateAnimationSheet(const std::string& animationSheet, int imageAmount, int framesPerSecond, glm::vec2 frameDimensions);
 private:
 	[[nodiscard]] std::string GetImageName(int imgNr, const std::string& folderName, const std::string& imageBaseName) const;

@@ -15,10 +15,11 @@ public:
 		glm::vec2 Dimensions{};
 		UINT32 Format{};
 		int TextureAccess{};
+		std::string FileName{};
 	};
 
 	Texture2D() = delete;
-	explicit Texture2D(SDL_Texture* texture);
+	explicit Texture2D(SDL_Texture* texture, const std::string& fileName);
 	~Texture2D();
 
 	Texture2D(const Texture2D&) = delete;

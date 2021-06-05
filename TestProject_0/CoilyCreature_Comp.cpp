@@ -15,14 +15,19 @@ CoilyCreature_Comp::CoilyCreature_Comp(const float timeBetweenJumps, const std::
 
 void CoilyCreature_Comp::Spawn()
 {
-	auto spawnPos{ m_pWorldTileManager->GetTileStandPos(m_pWorldTileManager->GetTileAmount()) };
-
-	const auto frameWidth{ GetConstComponent<Animation_Comp>()->GetFrameDimensions().x * m_pTransform->GetUniformScale() };
-	spawnPos.x -= frameWidth / 2.f;
-
-	m_pCharacterController->SetSpawnPos(spawnPos);
+	m_pAnimationComp = GetComponent<Animation_Comp>();
 	m_pPlayerTransform = m_pPlayer->GetTransform();
+	m_EggAnimSheet = m_pAnimationComp->GetTextureName();
+	m_EggImageAmount = m_pAnimationComp->GetAmountOfFrames();
+	m_EggFPS = m_pAnimationComp->GetFramesPerSecond();
+	m_EggFrameDim = m_pAnimationComp->GetFrameDimensions();
+	ChangeToEgg();
 	Respawn();
+}
+
+void CoilyCreature_Comp::ResetCreature()
+{
+	ChangeToEgg();
 }
 
 void CoilyCreature_Comp::UpdateCreature()
@@ -74,7 +79,7 @@ void CoilyCreature_Comp::ChangeToSnake()
 
 	//update texture
 	m_pTransform->ScaleUniform(rescale);
-	GetComponent<Animation_Comp>()->UpdateAnimationSheet(m_CoilyAnimSheet, m_CoilyImageAmount, m_CoilyFPS, m_CoilyFrameDim);
+	m_pAnimationComp->UpdateAnimationSheet(m_CoilyAnimSheet, m_CoilyImageAmount, m_CoilyFPS, m_CoilyFrameDim);
 
 	//change spawn position because different texture size
 	auto spawnPos{ m_pWorldTileManager->GetTileStandPos(m_pWorldTileManager->GetTileAmount()) };
@@ -87,6 +92,22 @@ void CoilyCreature_Comp::ChangeToSnake()
 	auto currentPos{ m_pWorldTileManager->GetTileAtPosition(m_pTransform->GetPosition())->GetStandPos() };
 	currentPos.x -= currentFrameWidth / 2.f;
 	m_pTransform->SetPosition(currentPos.x, currentPos.y);
+}
+
+void CoilyCreature_Comp::ChangeToEgg()
+{
+	m_IsEgg = true;
+	m_ElapsedTime = 0.f;
+	const float rescale{ .1f };
+	m_pTransform->ScaleUniform(rescale);
+
+	if(m_pAnimationComp->GetTextureName() != m_EggAnimSheet)
+		m_pAnimationComp->UpdateAnimationSheet(m_EggAnimSheet, m_EggImageAmount, m_EggFPS, m_EggFrameDim);
+
+	auto spawnPos{ m_pWorldTileManager->GetTileStandPos(m_pWorldTileManager->GetTileAmount()) };
+	const auto frameWidth{ GetConstComponent<Animation_Comp>()->GetFrameDimensions().x * rescale };
+	spawnPos.x -= frameWidth / 2.f;
+	m_pCharacterController->SetSpawnPos(spawnPos);
 }
 
 void CoilyCreature_Comp::FollowPlayer()

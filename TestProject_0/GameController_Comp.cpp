@@ -36,3 +36,8 @@ void GameController_Comp::PlayerDied()
 	pScene->GetGameObject("GameOverMenu")->SetActive(true);
 }
 
+void GameController_Comp::ResetGame()
+{
+	m_CurrentLevel = 0;
+}
+

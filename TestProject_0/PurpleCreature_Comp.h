@@ -11,6 +11,7 @@ public:
 	PurpleCreature_Comp& operator=(const PurpleCreature_Comp& other) = delete;
 	PurpleCreature_Comp& operator=(PurpleCreature_Comp&& other) noexcept = delete;
 	void UpdateCreature() override;
+	void ResetCreature() override;
 private:
 	void Spawn() override;
 	void CollidedWithPlayer() override;

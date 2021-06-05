@@ -27,6 +27,7 @@ public:
 
 	[[nodiscard]] bool IsDiskNextToPos(glm::vec2 position) const;
 
+	void ResetDisks();
 private:
 	void MakeDisks();
 	const std::vector<DiskPos> m_DiskPositions;

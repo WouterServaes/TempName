@@ -17,10 +17,11 @@ public:
 	void Start() override;
 
 	void NextLevel();
+	void ResetPlayer();
 private:
 	void InitInput();
 	void CheckIfDead() const;
 	CharacterController_Comp* m_pController{nullptr};
-	const Health_Comp* m_pHealthComp{ nullptr };
+	Health_Comp* m_pHealthComp{ nullptr };
 };
 

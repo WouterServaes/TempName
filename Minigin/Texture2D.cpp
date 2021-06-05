@@ -1,13 +1,15 @@
 #include "MiniginPCH.h"
 #include "Texture2D.h"
 
-Texture2D::Texture2D(SDL_Texture* texture)
+Texture2D::Texture2D(SDL_Texture* texture, const std::string& fileName)
 {
 	m_Texture = texture;
 	int width{}, height{};
 	SDL_QueryTexture(m_Texture, &m_TextureData.Format, &m_TextureData.TextureAccess, &width, &height);
 	m_TextureData.Dimensions.x = static_cast<float>(width);
 	m_TextureData.Dimensions.y = static_cast<float>(height);
+	m_TextureData.FileName = fileName;
+	
 }
 
 Texture2D::~Texture2D()

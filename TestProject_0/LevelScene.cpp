@@ -194,6 +194,24 @@ void LevelScene::InitGameController()
 	pGameController->AddComponent(new GameController_Comp());
 }
 
+void LevelScene::RestartScene()
+{
+	//player full restart
+	GetGameObject("pl")->GetComponent<Player_Comp>()->ResetPlayer();
+	//gameController restart
+	GetGameObject("GameController")->GetComponent<GameController_Comp>()->ResetGame();
+	//tiles
+	GetGameObject("WorldTileManager")->GetComponent<WorldTileManager_Comp>()->ResetTiles();
+	//disk full restart
+	GetGameObject("DiskManager")->GetComponent<DiskManager_Comp>()->ResetDisks();
+	//creatures full restart
+	GetGameObject("Coily")->GetComponent<CoilyCreature_Comp>()->ResetCreature();
+	GetGameObject("Ugg")->GetComponent<PurpleCreature_Comp>()->ResetCreature();
+	GetGameObject("Wrongway")->GetComponent<PurpleCreature_Comp>()->ResetCreature();
+	GetGameObject("Slick")->GetComponent<GreenCreature_Comp>()->ResetCreature();
+	GetGameObject("Same")->GetComponent<GreenCreature_Comp>()->ResetCreature();
+}
+
 void LevelScene::InitCoily()
 {
 	auto pCoily{ std::make_shared<GameObject>("Coily", true) };

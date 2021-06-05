@@ -38,7 +38,7 @@ std::shared_ptr< Texture2D> ResourceManager::LoadTexture(const std::string& file
 	{
 		Logger::LogError((static_cast<std::string>("Failed to load texture: ") + SDL_GetError()).c_str());
 	}
-	return std::make_shared<Texture2D>(texture);
+	return std::make_shared<Texture2D>(texture, file);
 }
 
 std::shared_ptr< Font> ResourceManager::LoadFont(const std::string& file, unsigned int size) const

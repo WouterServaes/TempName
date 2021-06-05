@@ -15,7 +15,7 @@ public:
 	virtual void Respawn();
 	void Update() override;
 	void Start() override;
-	
+	virtual void ResetCreature() = 0;
 private:
 	virtual void Spawn() = 0;
 	virtual void UpdateCreature() = 0;

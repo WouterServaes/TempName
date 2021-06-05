@@ -12,12 +12,14 @@ public:
 	GreenCreature_Comp& operator=(GreenCreature_Comp&& other) noexcept = delete;
 	void UpdateCreature() override;
 	void Respawn() override;
+	void ResetCreature() override;
 private:
 	void Spawn() override;
 
 	void CollidedWithPlayer() override;
 	void HandleDead();
 	void HandleAlive();
+
 	Transform::Side m_FollowingSide{};
 	float m_ElapsedTime{};
 	const float m_TimeBetweenJumps;

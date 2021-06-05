@@ -19,6 +19,7 @@ public:
 	Scene& operator=(const Scene& other) = delete;
 	Scene& operator=(Scene&& other) = delete;
 
+	virtual void RestartScene(){}
 private:
 	void StartScene();
 	void StartLateObjects();

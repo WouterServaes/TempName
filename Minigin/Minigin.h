@@ -15,13 +15,13 @@ public:
 	void Run();
 
 	static EngineSettings* pEngineSettings;
+	static bool* pQuitGame;
 protected:
 	virtual void LoadGame() = 0;
 
 private:
 	void Initialize();
 	void Cleanup();
-	bool* m_QuitGame{ new bool(false) };
 	static const int MsPerFrame{ 16 }; //16 for 60 fps, 33 for 30 fps
 	const float MsPerUpdate{ MsPerFrame / 1000.f };
 	SDL_Window* m_Window{};

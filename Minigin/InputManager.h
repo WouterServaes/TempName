@@ -60,7 +60,6 @@ public:
 	InputManager& operator=(const InputManager& other) = delete;
 	InputManager& operator=(InputManager&& other) noexcept = delete;
 
-	void SetQuitGamePtr(bool* pQuitGame) { m_pQuitGame = pQuitGame; };
 	void ProcessInput();
 	void SetMaxControllerAmount(const int amount)
 	{
@@ -108,6 +107,5 @@ private:
 		ControllerButtons::RightShoulder
 	};;
 
-	bool* m_pQuitGame{ nullptr };
 	int m_MaxControllerAmount{ XUSER_MAX_COUNT };
 };

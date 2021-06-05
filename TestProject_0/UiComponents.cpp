@@ -1,7 +1,11 @@
 #include "MiniginPCH.h"
 #include "UiComponents.h"
 
+
+#include "EngineSettings.h"
 #include "imgui.h"
+#include "Minigin.h"
+#include "Scene.h"
 #include "SceneManager.h"
 #include "Transform_Comp.h"
 #include "Transform.h"
@@ -49,12 +53,12 @@ void GameOverUI::Update()
 
 	if (ImGui::Button("Restart"))
 	{
-		
+		m_pGameObject->GetCurrentScene()->RestartScene();
 	}
 
 	if (ImGui::Button("Quit"))
 	{
-
+		*Minigin::pQuitGame = true;
 	}
 	ImGui::End();
 }
@@ -75,12 +79,12 @@ void WinUI::Update()
 
 	if (ImGui::Button("Restart"))
 	{
-
+		m_pGameObject->GetCurrentScene()->RestartScene();
 	}
 
 	if (ImGui::Button("Quit"))
 	{
-
+		*Minigin::pQuitGame = true;
 	}
 	ImGui::End();
 }

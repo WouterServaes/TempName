@@ -18,6 +18,8 @@ public:
 	bool RemoveLives(int amount = 1);
 
 	[[nodiscard]] bool IsDead() const { return m_CurrentLives <= 0; }
+
+	void ResetHealth();
 private:
 	void UpdateUi() const;
 	int m_CurrentLives;

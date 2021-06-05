@@ -27,6 +27,12 @@ bool DiskManager_Comp::IsDiskNextToPos(const glm::vec2 position) const
 	return it != m_pDisks.end();
 }
 
+void DiskManager_Comp::ResetDisks()
+{
+	//for(auto* pDisk:m_pDisks)
+		Logger::LogInfo("Reset Disk");
+}
+
 void DiskManager_Comp::MakeDisks()
 {
 	auto* pScene{ m_pGameObject->GetCurrentScene() };

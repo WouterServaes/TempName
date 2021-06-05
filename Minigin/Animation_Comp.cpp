@@ -4,7 +4,7 @@
 #include "Animation_Comp.h"
 #include "Render_Comp.h"
 #include "Time.h"
-
+#include "Texture2D.h"
 Animation_Comp::Animation_Comp(const std::string& folder, const std::string& baseName, const int amountOfImages, const int animationFramesPerSecond)
 	:m_AmountOfFrames(amountOfImages)
 	, m_FramesPerSecond(animationFramesPerSecond)
@@ -61,8 +61,13 @@ void Animation_Comp::MultipleTexturesUpdate()
 	}
 }
 
+const std::string& Animation_Comp::GetTextureName() const
+{
+	return m_Textures[0]->GetTextureData().FileName;
+}
+
 void Animation_Comp::UpdateAnimationSheet(const std::string& animationSheet, const int imageAmount, const int framesPerSecond,
-	const glm::vec2 frameDimensions)
+                                          const glm::vec2 frameDimensions)
 {
 	m_FrameDimensions = frameDimensions;
 	m_AmountOfFrames = imageAmount;

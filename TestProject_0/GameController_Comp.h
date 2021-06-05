@@ -12,6 +12,7 @@ public:
 	GameController_Comp& operator=(GameController_Comp&& other) noexcept = delete;
 	void CompletedGrid();
 	void PlayerDied();
+	void ResetGame();
 private:
 
 	int m_CurrentLevel{ 1 };

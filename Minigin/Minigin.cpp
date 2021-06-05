@@ -27,6 +27,7 @@ using namespace std;
 using namespace std::chrono;
 
 EngineSettings* Minigin::pEngineSettings = new EngineSettings();
+bool* Minigin::pQuitGame = new bool(false);
 void Minigin::Run()
 {
 	Initialize();
@@ -42,11 +43,10 @@ void Minigin::Run()
 		auto& renderer{ Renderer::GetInstance() };
 		auto& sceneManager{ SceneManager::GetInstance() };
 		auto& input{ InputManager::GetInstance() };
-		input.SetQuitGamePtr(m_QuitGame);
 		auto& time{ Time::GetInstance() };
 
 		auto lastTime{ high_resolution_clock::now() };
-		while (!*m_QuitGame)
+		while (!*pQuitGame)
 		{
 			const auto currentTime{ high_resolution_clock::now() };
 			const float deltaTime{ duration<float>(currentTime - lastTime).count() };
@@ -101,5 +101,5 @@ void Minigin::Cleanup()
 	SDL_DestroyWindow(m_Window);
 	m_Window = nullptr;
 	SDL_Quit();
-	delete m_QuitGame;
+	delete pQuitGame;
 }

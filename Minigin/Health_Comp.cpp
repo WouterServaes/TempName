@@ -27,6 +27,12 @@ void Health_Comp::AttachTextComp(Text_Comp* pTextComp)
 	m_pHealthText = pTextComp;
 }
 
+void Health_Comp::ResetHealth()
+{
+	m_CurrentLives = m_MaxLives;
+	UpdateUi();
+}
+
 void Health_Comp::UpdateUi() const
 {
 	if (!m_pHealthText)

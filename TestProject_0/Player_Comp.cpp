@@ -9,7 +9,7 @@
 #include "MoveCommands.h"
 #include "InputManager.h"
 #include "Scene.h"
-#include "Subject.h"
+#include "Score_Comp.h"
 #include "TileChanger_Comp.h"
 #include "Transform.h"
 #include "WorldTileManager_Comp.h"
@@ -22,7 +22,7 @@ void Player_Comp::Update()
 void Player_Comp::Start()
 {
 	m_pController = GetComponent<CharacterController_Comp>();
-	m_pHealthComp = GetConstComponent<Health_Comp>();
+	m_pHealthComp = GetComponent<Health_Comp>();
 	InitInput();
 
 	const auto pWorldGrid{ m_pGameObject->GetCurrentScene()->GetGameObject("WorldTileManager") };
@@ -41,6 +41,18 @@ void Player_Comp::NextLevel()
 {
 	GetComponent<TileChanger_Comp>()->NextLevel();
 	m_pController->GoToSpawnPos();
+}
+
+void Player_Comp::ResetPlayer()
+{
+	//health reset
+	m_pHealthComp->ResetHealth();
+	//score reset
+	GetComponent<Score_Comp>()->ResetScore();
+	//position reset
+	m_pController->GoToSpawnPos();
+	//can move = true
+	m_pController->SetCanMove(true);
 }
 
 void Player_Comp::InitInput()

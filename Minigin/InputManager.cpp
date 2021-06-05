@@ -1,6 +1,8 @@
 #include "MiniginPCH.h"
 #include "InputManager.h"
 
+#include "Minigin.h"
+
 void InputManager::ProcessInput()
 {
 	ProcessControllerInput();
@@ -70,7 +72,7 @@ void InputManager::ProcessKeyboardInput()
 		switch (e.type)
 		{
 		case SDL_QUIT:
-			*m_pQuitGame = true;
+			*Minigin::pQuitGame = true;
 			break;
 		case SDL_KEYDOWN:
 			ProcessKeyboardKey(e.key.keysym.sym, TriggerState::Down);
