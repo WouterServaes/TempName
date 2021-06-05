@@ -13,6 +13,7 @@
 
 #include "Player_Comp.h"
 #include "Animation_Comp.h"
+#include "AudioServiceLocator.h"
 #include "CharacterObserver.h"
 #include "CoilyCreature_Comp.h"
 #include "CreatureObserver.h"
@@ -44,6 +45,8 @@ void LevelScene::InitializeScene()
 	InitGreen();
 	InitPurple();
 	InitDisks();
+
+	InitAudio();
 }
 
 void LevelScene::Restart()
@@ -215,6 +218,16 @@ void LevelScene::InitGameController()
 	auto pGameController{ std::make_shared<GameObject>("GameController") };
 	AddGameObject(pGameController);
 	pGameController->AddComponent(new GameController_Comp());
+}
+
+void LevelScene::InitAudio()
+{
+	auto audio{ AudioServiceLocator::GetAudio() };
+	
+	audio->AddAudioFile("../Data/Audio/fall.mp3");
+	audio->AddAudioFile("../Data/Audio/jump-3.mp3");
+	audio->AddAudioFile("../Data/Audio/snake-fall.mp3");
+	audio->AddAudioFile("../Data/Audio/tune.mp3");
 }
 
 

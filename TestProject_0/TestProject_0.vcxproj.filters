@@ -126,6 +126,9 @@
     <ClCompile Include="..\Minigin\GameAudioMT.cpp">
       <Filter>GameAudio</Filter>
     </ClCompile>
+    <ClCompile Include="GameAudio.cpp">
+      <Filter>GameAudio</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniginPCH.h">
@@ -216,6 +219,9 @@
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="..\Minigin\GameAudioMT.h">
+      <Filter>GameAudio</Filter>
+    </ClInclude>
+    <ClInclude Include="GameAudio.h">
       <Filter>GameAudio</Filter>
     </ClInclude>
   </ItemGroup>

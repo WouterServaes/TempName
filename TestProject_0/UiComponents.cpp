@@ -11,7 +11,7 @@
 #include "Transform.h"
 void StartUI::Update()
 {
-	const auto& transformPos{ m_pTransformComponent->GetTransform()->GetPosition() };
+	const auto& transformPos{ m_pTransform->GetPosition() };
 	const auto pos = ImVec2(transformPos.x, transformPos.y);
 
 	bool activeWindow{ true };
@@ -42,7 +42,7 @@ void StartUI::Update()
 
 void GameOverUI::Update()
 {
-	const auto& transformPos{ m_pTransformComponent->GetTransform()->GetPosition() };
+	const auto& transformPos{ m_pTransform->GetPosition() };
 	const auto pos = ImVec2(transformPos.x, transformPos.y);
 	bool activeWindow{ true };
 	ImGui::SetNextWindowPos(pos);
@@ -68,7 +68,7 @@ void GameOverUI::Update()
 
 void WinUI::Update()
 {
-	const auto& transformPos{ m_pTransformComponent->GetTransform()->GetPosition() };
+	const auto& transformPos{ m_pTransform->GetPosition() };
 	const auto pos = ImVec2(transformPos.x, transformPos.y);
 	bool activeWindow{ true };
 	ImGui::SetNextWindowPos(pos);

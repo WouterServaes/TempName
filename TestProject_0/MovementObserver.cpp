@@ -1,6 +1,8 @@
 #include "MiniginPCH.h"
 #include "MovementObserver.h"
 
+
+#include "AudioServiceLocator.h"
 #include "CharacterController_Comp.h"
 #include "Events.h"
 #include "GameObject.h"
@@ -42,5 +44,7 @@ void MovementObserver::MoveRightUp(GameObject* pGameObject)const
 
 void MovementObserver::MoveRightDown(GameObject* pGameObject)const
 {
+	AudioServiceLocator::GetAudio()->PlaySound(0, 100);
+
 	pGameObject->GetComponent<CharacterController_Comp>()->MoveRightDownOnGrid();
 }

@@ -36,7 +36,7 @@ private:
 
 	void InitGameController();
 
-
+	void InitAudio();
 	
 };
 

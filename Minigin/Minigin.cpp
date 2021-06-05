@@ -32,10 +32,11 @@ void Minigin::Run()
 {
 	Initialize();
 	ResourceManager::GetInstance().Init("../Data/");
+	
 	LoadGame();
-
-	AudioServiceLocator::ProvideAudioService(new AudioLogger(new GameAudioMT()));
 	AudioServiceLocator::GetAudio()->Start();
+
+	
 
 	Logger::LogInfo("Running game...");
 
