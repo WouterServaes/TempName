@@ -26,7 +26,10 @@ void CoilyCreature_Comp::Spawn()
 {
 	m_pAnimationComp = GetComponent<Animation_Comp>();
 	m_pDiskManager = m_pGameObject->GetGameObject("DiskManager")->GetComponent<DiskManager_Comp>();
-	m_pPlayerTransform = m_pPlayer->GetTransform();
+	m_pPlayersTransform.clear();
+	for (auto pl : m_pPlayers)
+		m_pPlayersTransform.push_back(pl->GetTransform());
+	
 	m_EggAnimSheet = m_pAnimationComp->GetTextureName();
 	m_EggImageAmount = m_pAnimationComp->GetAmountOfFrames();
 	m_EggFPS = m_pAnimationComp->GetFramesPerSecond();
@@ -48,7 +51,7 @@ void CoilyCreature_Comp::FellOffGrid()
 	const int tileNr{ m_pCharacterController->GetStandingTileIdx() };
 	if (m_pDiskManager->IsDiskNextToTile(tileNr))
 	{
-		m_pPlayer->GetSubject()->Notify(m_pPlayer.get(), Event::DefeatedCoily);
+		m_pPlayers.at(m_DefeatedByPlayerIndex)->GetSubject()->Notify(m_pPlayers.at(m_DefeatedByPlayerIndex).get(), Event::DefeatedCoily);
 		m_pCharacterController->GoToSpawnPos();
 		m_GoToDisk = false;
 		m_DiskPos = glm::vec2(0.f, 0.f);
@@ -87,9 +90,9 @@ void CoilyCreature_Comp::UpdateCreature()
 	}
 }
 
-void CoilyCreature_Comp::CollidedWithPlayer()
+void CoilyCreature_Comp::CollidedWithPlayer(const int playerIndex)
 {
-	if (!m_IsEgg) m_pPlayer->GetSubject()->Notify(m_pPlayer.get(), Event::AttackedByPurple);
+	if (!m_IsEgg) m_pPlayers.at(playerIndex)->GetSubject()->Notify(m_pPlayers.at(playerIndex).get(), Event::AttackedByPurple);
 }
 
 void CoilyCreature_Comp::UpdateEgg()
@@ -153,13 +156,30 @@ void CoilyCreature_Comp::ChangeToEgg()
 
 void CoilyCreature_Comp::FollowPlayer()
 {
+	const auto& coilyPos{ m_pTransform->GetPosition() };
 	glm::vec2 goToPos;
 	if (m_GoToDisk)
 		goToPos = m_DiskPos;
 	else
-		goToPos = m_pPlayerTransform->GetPosition();
+	{
+		float smallestDist{FLT_MAX};
+		glm::vec3 closestPos{};
 
-	const auto& coilyPos{ m_pTransform->GetPosition() };
+		for(int idx{};idx<m_pPlayersTransform.size();idx++)
+		{
+			const auto playerPos{ m_pPlayersTransform.at(idx)->GetPosition() };
+			const float dist{ glm::distance2(coilyPos, playerPos) };
+			if (dist < smallestDist)
+			{
+				closestPos = playerPos;
+				smallestDist = dist;
+				m_DefeatedByPlayerIndex = idx;
+			}
+		}
+		goToPos = closestPos;
+	}
+
+	
 
 	bool moveLeft{ true };
 

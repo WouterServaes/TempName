@@ -16,7 +16,7 @@ public:
 private:
 	void Spawn() override;
 
-	void CollidedWithPlayer() override;
+	void CollidedWithPlayer(int playerIndex) override;
 	void HandleDead();
 	void HandleAlive();
 

@@ -17,6 +17,6 @@ private:
 	void CompletedGame();
 	int m_CurrentLevel{ 1 };
 
-	std::shared_ptr<GameObject> m_pPlayer;
+	std::vector<std::shared_ptr<GameObject>> m_pPlayers;
 };
 

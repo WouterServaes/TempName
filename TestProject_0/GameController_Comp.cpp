@@ -4,6 +4,7 @@
 #include "AudioServiceLocator.h"
 #include "DiskManager_Comp.h"
 #include "Events.h"
+#include "PlayerManager_Comp.h"
 #include "Player_Comp.h"
 #include "Scene.h"
 #include "Subject.h"
@@ -19,8 +20,9 @@ void GameController_Comp::CompletedGrid()
 	{
 		auto* pScene{ m_pGameObject->GetCurrentScene() };
 
-		m_pPlayer = pScene->GetGameObject("pl");
-		m_pPlayer->GetComponent<Player_Comp>()->NextLevel();
+		m_pPlayers = pScene->GetGameObject("PlayerManager")->GetConstComponent<PlayerManager_Comp>()->GetPlayers();
+		for (auto pl : m_pPlayers)
+			pl->GetComponent<Player_Comp>()->NextLevel();
 
 		auto pTileManager{ pScene->GetGameObject("WorldTileManager")->GetComponent<WorldTileManager_Comp>() };
 		pTileManager->ResetTiles();
@@ -52,9 +54,12 @@ void GameController_Comp::CompletedGame()
 
 	if (remainingDisks > 0)
 	{
-		auto* pPlayerSubject{ m_pPlayer->GetSubject() };
-		for (int idx{}; idx < remainingDisks; idx++)
-			pPlayerSubject->Notify(m_pPlayer.get(), Event::DiskLeftAtEnd);
+		for (auto pl : m_pPlayers)
+		{
+			auto* pPlayerSubject{ pl->GetSubject() };
+			for (int idx{}; idx < remainingDisks; idx++)
+				pPlayerSubject->Notify(pl.get(), Event::DiskLeftAtEnd);
+		}
 	}
 
 	auto* pScene{ m_pGameObject->GetCurrentScene() };

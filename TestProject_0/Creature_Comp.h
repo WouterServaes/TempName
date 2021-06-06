@@ -19,14 +19,14 @@ public:
 private:
 	virtual void Spawn() = 0;
 	virtual void UpdateCreature() = 0;
-	virtual void CollidedWithPlayer() = 0;
+	virtual void CollidedWithPlayer(int playerIndex) = 0;
 protected:
 	void CheckForPlayer();
 	
 	CharacterController_Comp* m_pCharacterController{ nullptr };
 	WorldTileManager_Comp* m_pWorldTileManager{ nullptr };
 	Transform* m_pTransform{ nullptr };
-	std::shared_ptr<GameObject> m_pPlayer{ nullptr };
+	std::vector<std::shared_ptr<GameObject>> m_pPlayers{ nullptr };
 
 };
 

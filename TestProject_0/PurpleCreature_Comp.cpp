@@ -60,7 +60,7 @@ void PurpleCreature_Comp::Spawn()
 	Respawn();
 }
 
-void PurpleCreature_Comp::CollidedWithPlayer()
+void PurpleCreature_Comp::CollidedWithPlayer(const int playerIndex)
 {
-	m_pPlayer->GetSubject()->Notify(m_pPlayer.get(), Event::AttackedByPurple);
+	m_pPlayers.at(playerIndex)->GetSubject()->Notify(m_pPlayers.at(playerIndex).get(), Event::AttackedByPurple);
 }

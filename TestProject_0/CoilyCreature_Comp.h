@@ -24,7 +24,7 @@ public:
 	void PlayerJumpedOnDisk(glm::vec2 diskPosition);
 private:
 	void UpdateCreature() override;
-	void CollidedWithPlayer() override;
+	void CollidedWithPlayer(int playerIndex) override;
 
 	void UpdateEgg();
 	void BounceToBottom();
@@ -47,7 +47,7 @@ private:
 	int m_EggImageAmount{}, m_EggFPS{};
 	glm::vec2 m_EggFrameDim{};
 	
-	Transform* m_pPlayerTransform{nullptr};
+	std::vector<Transform*> m_pPlayersTransform{nullptr};
 	Animation_Comp* m_pAnimationComp{ nullptr };
 	DiskManager_Comp* m_pDiskManager{ nullptr };
 
@@ -56,5 +56,6 @@ private:
 	
 	float m_OriginalScale{};
 
+	int m_DefeatedByPlayerIndex{};
 };
 

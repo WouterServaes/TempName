@@ -20,6 +20,7 @@
 #include "GameController_Comp.h"
 #include "Health_Comp.h"
 #include "GreenCreature_Comp.h"
+#include "PlayerManager_Comp.h"
 #include "PurpleCreature_Comp.h"
 #include "ScoreObserver.h"
 #include "Score_Comp.h"
@@ -50,7 +51,7 @@ void SinglePlayerScene::InitializeScene()
 void SinglePlayerScene::Restart()
 {
 	//player full restart
-	GetGameObject("pl")->GetComponent<Player_Comp>()->ResetPlayer();
+	GetGameObject("PlayerManager")->GetComponent<PlayerManager_Comp>()->ResetPlayers();
 	//gameController restart
 	GetGameObject("GameController")->GetComponent<GameController_Comp>()->ResetGame();
 	//tiles
@@ -117,32 +118,21 @@ void SinglePlayerScene::InitWorld()
 
 void SinglePlayerScene::InitPlayer()
 {
-	//player 1
-	auto pPlayerObj{ std::make_shared< GameObject>("pl", true) };
-	AddGameObject(pPlayerObj);
-	pPlayerObj->AddComponent(new Render_Comp());
-	auto* pAnimComp{ new Animation_Comp("Images/QBert.png", 4, 8, glm::vec2(128.f, 147.f)) };
-	pPlayerObj->AddComponent(pAnimComp);
-	pPlayerObj->AddComponent(new CharacterController_Comp(.025f));
-	pPlayerObj->AddComponent(new Player_Comp());
-	pPlayerObj->AddComponent(new TileChanger_Comp());
-	auto* pPl1Score{ new Score_Comp() };
-	pPlayerObj->AddComponent(pPl1Score);
-	auto* pPl1Health{ new Health_Comp(3, 3) };
-	pPlayerObj->AddComponent(pPl1Health);
-	pPlayerObj->GetSubject()->AddObserver(new MovementObserver());
-	pPlayerObj->GetSubject()->AddObserver(new ScoreObserver());
-	pPlayerObj->GetSubject()->AddObserver(new CharacterObserver());
-	pPlayerObj->SetRenderLayer(5);
-	pPlayerObj->GetTransform()->ScaleUniform(.25f);
+	auto pPlayerManager{ std::make_shared<GameObject>("PlayerManager") };
+	auto* pPlayerManagerComp{ new PlayerManager_Comp() };
+	pPlayerManager->AddComponent(pPlayerManagerComp);
+	AddGameObject(pPlayerManager);
 
+	pPlayerManagerComp->AddPlayer();
+
+	auto playerOne{ pPlayerManagerComp->GetPlayers().at(0) };
 	//player 1 lives
 	const std::string font{ "Fonts/Lingua.otf" };
 	auto pLiveDisplay{ std::make_shared<GameObject>("Player1LiveUi") };
 	pLiveDisplay->AddComponent(new Render_Comp());
 	auto* pLiveText{ new Text_Comp("Lives: ", font, 18) };
 	pLiveDisplay->AddComponent(pLiveText);
-	pPl1Health->AttachTextComp(pLiveText);
+	playerOne->GetComponent<Health_Comp>()->AttachTextComp(pLiveText);
 	AddGameObject(pLiveDisplay);
 	pLiveDisplay->GetTransform()->SetPosition(30, 50);
 
@@ -151,7 +141,7 @@ void SinglePlayerScene::InitPlayer()
 	pScoreDisplay->AddComponent(new Render_Comp());
 	auto* pScoreText{ new Text_Comp("Score: ", font, 18) };
 	pScoreDisplay->AddComponent(pScoreText);
-	pPl1Score->AttachTextComp(pScoreText);
+	playerOne->GetComponent<Score_Comp>()->AttachTextComp(pScoreText);
 	AddGameObject(pScoreDisplay);
 	pScoreDisplay->GetTransform()->SetPosition(30, 70);
 }

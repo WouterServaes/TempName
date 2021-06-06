@@ -47,14 +47,14 @@ void GreenCreature_Comp::Spawn()
 	Respawn();
 }
 
-void GreenCreature_Comp::CollidedWithPlayer()
+void GreenCreature_Comp::CollidedWithPlayer(const int playerIndex)
 {
 	if (!m_Dead)
 	{
 		m_Dead = true;
 		m_pTransform->ScaleUniform(0.f);
 		m_ElapsedTime = 0.f;
-		m_pPlayer->GetSubject()->Notify(m_pPlayer.get(), Event::CatchedSlickOrSam);
+		m_pPlayers.at(playerIndex)->GetSubject()->Notify(m_pPlayers.at(playerIndex).get(), Event::CatchedSlickOrSam);
 	}
 }
 

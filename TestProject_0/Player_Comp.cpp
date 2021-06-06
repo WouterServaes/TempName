@@ -15,6 +15,11 @@
 #include "WorldTileManager_Comp.h"
 #include "DiskManager_Comp.h"
 #include "CoilyCreature_Comp.h"
+
+Player_Comp::Player_Comp(const int spawnTileIndex): m_SpawnTileIndex(spawnTileIndex)
+{
+}
+
 void Player_Comp::Update()
 {
 	CheckIfDead();
@@ -30,7 +35,7 @@ void Player_Comp::Start()
 
 	const auto pWorldGrid{ m_pGameObject->GetCurrentScene()->GetGameObject("WorldTileManager") };
 	const auto pWorldGridManagerComp{ pWorldGrid->GetConstComponent<WorldTileManager_Comp>() };
-	auto spawnPos{ pWorldGridManagerComp->GetTileStandPos(pWorldGridManagerComp->GetTileAmount()) };
+	auto spawnPos{ pWorldGridManagerComp->GetTileStandPos(m_SpawnTileIndex) };
 
 	auto* pTransform{ m_pGameObject->GetTransform() };
 	const auto textureWidth{ GetConstComponent<Animation_Comp>()->GetFrameDimensions().x * pTransform->GetUniformScale() };
@@ -44,7 +49,7 @@ void Player_Comp::NextLevel()
 {
 	GetComponent<TileChanger_Comp>()->NextLevel();
 	m_pController->GoToSpawnPos();
-	m_pCoily->ResetCreature(); //yep, this shouldnt be here
+	m_pCoily->ResetCreature(); 
 }
 
 void Player_Comp::ResetPlayer()

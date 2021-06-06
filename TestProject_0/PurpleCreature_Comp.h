@@ -14,7 +14,7 @@ public:
 	void ResetCreature() override;
 private:
 	void Spawn() override;
-	void CollidedWithPlayer() override;
+	void CollidedWithPlayer(int playerIndex) override;
 	Transform::Side m_SpawnSide;
 	float m_ElapsedTime{};
 	const float m_TimeBetweenJumps;
