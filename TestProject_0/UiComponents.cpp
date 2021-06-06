@@ -26,7 +26,7 @@ void StartUI::Update()
 	
 	if(ImGui::Button("co-op"))
 	{
-		SceneManager::GetInstance().LoadScene("SinglePlayerScene");
+		SceneManager::GetInstance().LoadScene("CoopScene");
 		m_pGameObject->GetCurrentScene()->RestartScene();
 		//get current scene -> get game controller -> set game mode
 	}

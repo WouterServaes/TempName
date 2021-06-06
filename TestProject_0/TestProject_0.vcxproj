@@ -187,6 +187,7 @@
     <ClCompile Include="CharacterController_Comp.cpp" />
     <ClCompile Include="CharacterObserver.cpp" />
     <ClCompile Include="CoilyCreature_Comp.cpp" />
+    <ClCompile Include="CoopScene.cpp" />
     <ClCompile Include="Creature_Comp.cpp" />
     <ClCompile Include="DemoScene.cpp" />
     <ClCompile Include="DiskManager_Comp.cpp" />
@@ -225,6 +226,7 @@
     <ClInclude Include="CharacterController_Comp.h" />
     <ClInclude Include="CharacterObserver.h" />
     <ClInclude Include="CoilyCreature_Comp.h" />
+    <ClInclude Include="CoopScene.h" />
     <ClInclude Include="Creature_Comp.h" />
     <ClInclude Include="DemoScene.h" />
     <ClInclude Include="DiskManager_Comp.h" />

@@ -129,6 +129,9 @@
     <ClCompile Include="SinglePlayerScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="CoopScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniginPCH.h">
@@ -222,6 +225,9 @@
       <Filter>GameAudio</Filter>
     </ClInclude>
     <ClInclude Include="SinglePlayerScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="CoopScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
