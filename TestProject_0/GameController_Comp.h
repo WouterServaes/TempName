@@ -13,10 +13,11 @@ public:
 	void CompletedGrid();
 	void PlayerDied();
 	void ResetGame();
+	void Start() override;
 private:
 	void CompletedGame();
 	int m_CurrentLevel{ 1 };
-
+	int m_PlayerDeadCount{};
 	std::vector<std::shared_ptr<GameObject>> m_pPlayers;
 };
 

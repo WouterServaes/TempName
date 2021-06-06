@@ -20,7 +20,6 @@ void GameController_Comp::CompletedGrid()
 	{
 		auto* pScene{ m_pGameObject->GetCurrentScene() };
 
-		m_pPlayers = pScene->GetGameObject("PlayerManager")->GetConstComponent<PlayerManager_Comp>()->GetPlayers();
 		for (auto pl : m_pPlayers)
 			pl->GetComponent<Player_Comp>()->NextLevel();
 
@@ -37,14 +36,23 @@ void GameController_Comp::CompletedGrid()
 
 void GameController_Comp::PlayerDied()
 {
-	auto* pScene{ m_pGameObject->GetCurrentScene() };
-	pScene->GetGameObject("GameOver")->SetActive(true);
-	pScene->GetGameObject("GameOverMenu")->SetActive(true);
+	m_PlayerDeadCount++;
+	if (m_PlayerDeadCount >= m_pPlayers.size())
+	{
+		auto* pScene{ m_pGameObject->GetCurrentScene() };
+		pScene->GetGameObject("GameOver")->SetActive(true);
+		pScene->GetGameObject("GameOverMenu")->SetActive(true);
+	}
 }
 
 void GameController_Comp::ResetGame()
 {
 	m_CurrentLevel = 0;
+}
+
+void GameController_Comp::Start()
+{
+	m_pPlayers = m_pGameObject->GetCurrentScene()->GetGameObject("PlayerManager")->GetConstComponent<PlayerManager_Comp>()->GetPlayers();
 }
 
 void GameController_Comp::CompletedGame()

@@ -38,7 +38,7 @@ void CoopScene::InitializeScene()
 	InitUi();
 	InitCoily();
 	InitGreen();
-	InitPurple();
+	//InitPurple();
 	InitDisks();
 }
 

@@ -8,7 +8,7 @@ class CoilyCreature_Comp;
 class Player_Comp final:public BaseComponent
 {
 public:
-	Player_Comp() = default;
+	explicit Player_Comp(const int playerIndex):m_PlayerIndex(playerIndex){}
 	~Player_Comp() = default;
 	Player_Comp(const Player_Comp& other) = delete;
 	Player_Comp(Player_Comp&& other) noexcept = delete;
@@ -28,5 +28,6 @@ private:
 	Health_Comp* m_pHealthComp{ nullptr };
 	DiskManager_Comp* m_pDiskmanager{ nullptr };
 	CoilyCreature_Comp* m_pCoily{ nullptr };
+	const int m_PlayerIndex{};
 };
 

@@ -4,6 +4,7 @@
 
 #include "EngineSettings.h"
 #include "imgui.h"
+#include "InputManager.h"
 #include "Minigin.h"
 #include "Scene.h"
 #include "SceneManager.h"
@@ -21,21 +22,20 @@ void StartUI::Update()
 	{
 		SceneManager::GetInstance().LoadScene("SinglePlayerScene");
 		SceneManager::GetInstance().GetCurrentScene()->RestartScene();
-		//get current scene -> get game controller -> set game mode
 	}
 	
 	if(ImGui::Button("co-op"))
 	{
 		SceneManager::GetInstance().LoadScene("CoopScene");
 		m_pGameObject->GetCurrentScene()->RestartScene();
-		//get current scene -> get game controller -> set game mode
+		
 	}
 	
 	if(ImGui::Button("versus"))
 	{
 		SceneManager::GetInstance().LoadScene("SinglePlayerScene");
 		m_pGameObject->GetCurrentScene()->RestartScene();
-		//get current scene -> get game controller -> set game mode
+		
 	}
 	ImGui::End();
 }

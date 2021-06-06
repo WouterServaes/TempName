@@ -28,15 +28,13 @@ void Player_Comp::Start()
 	m_pDiskmanager = m_pGameObject->GetCurrentScene()->GetGameObject("DiskManager")->GetComponent<DiskManager_Comp>();
 	m_pCoily = m_pGameObject->GetCurrentScene()->GetGameObject("Coily")->GetComponent<CoilyCreature_Comp>();
 	InitInput();
-
-	
 }
 
 void Player_Comp::NextLevel()
 {
 	GetComponent<TileChanger_Comp>()->NextLevel();
 	m_pController->GoToSpawnPos();
-	m_pCoily->ResetCreature(); 
+	m_pCoily->ResetCreature();
 }
 
 void Player_Comp::ResetPlayer()
@@ -54,9 +52,8 @@ void Player_Comp::ResetPlayer()
 void Player_Comp::FellOffPyramid()
 {
 	int tile{ m_pController->GetStandingTileIdx() };
-	if(m_pDiskmanager->IsDiskNextToTile(tile))
+	if (m_pDiskmanager->IsDiskNextToTile(tile))
 	{
-		Logger::LogInfo("ON DISK");
 		m_pCoily->PlayerJumpedOnDisk(m_pDiskmanager->GetDiskPositionNextToTile(tile));
 	}
 	else
@@ -68,15 +65,25 @@ void Player_Comp::FellOffPyramid()
 
 void Player_Comp::InitInput()
 {
-	InputManager::GetInstance().AssignKey(InputAction(SDLK_UP, TriggerState::Released, ControllerButtons::ButtonUp), std::make_unique<Command_MoveLeftUp>(m_pGameObject));
-	InputManager::GetInstance().AssignKey(InputAction(SDLK_DOWN, TriggerState::Released, ControllerButtons::ButtonDown), std::make_unique<Command_MoveLeftDown>(m_pGameObject));
-	InputManager::GetInstance().AssignKey(InputAction(SDLK_LEFT, TriggerState::Released, ControllerButtons::ButtonLeft), std::make_unique<Command_MoveRightUp>(m_pGameObject));
-	InputManager::GetInstance().AssignKey(InputAction(SDLK_RIGHT, TriggerState::Released, ControllerButtons::ButtonRight), std::make_unique<Command_MoveRightDown>(m_pGameObject));
+	if (m_PlayerIndex == 0)
+	{
+		InputManager::GetInstance().AssignKey(InputAction(SDLK_UP, TriggerState::Released, ControllerButtons::ButtonUp), std::make_unique<Command_MoveLeftUp>(m_pGameObject));
+		InputManager::GetInstance().AssignKey(InputAction(SDLK_DOWN, TriggerState::Released, ControllerButtons::ButtonDown), std::make_unique<Command_MoveLeftDown>(m_pGameObject));
+		InputManager::GetInstance().AssignKey(InputAction(SDLK_LEFT, TriggerState::Released, ControllerButtons::ButtonLeft), std::make_unique<Command_MoveRightUp>(m_pGameObject));
+		InputManager::GetInstance().AssignKey(InputAction(SDLK_RIGHT, TriggerState::Released, ControllerButtons::ButtonRight), std::make_unique<Command_MoveRightDown>(m_pGameObject));
+	}
+	else
+	{
+		InputManager::GetInstance().AssignKey(InputAction(SDLK_w, TriggerState::Released, ControllerButtons::ButtonUp, 1), std::make_unique<Command_MoveLeftUp>(m_pGameObject));
+		InputManager::GetInstance().AssignKey(InputAction(SDLK_s, TriggerState::Released, ControllerButtons::ButtonDown, 1), std::make_unique<Command_MoveLeftDown>(m_pGameObject));
+		InputManager::GetInstance().AssignKey(InputAction(SDLK_a, TriggerState::Released, ControllerButtons::ButtonLeft, 1), std::make_unique<Command_MoveRightUp>(m_pGameObject));
+		InputManager::GetInstance().AssignKey(InputAction(SDLK_d, TriggerState::Released, ControllerButtons::ButtonRight, 1), std::make_unique<Command_MoveRightDown>(m_pGameObject));
+	}
 }
 
 void Player_Comp::CheckIfDead() const
 {
-	if(m_pHealthComp->IsDead())
+	if (m_pHealthComp->IsDead())
 	{
 		const auto pGameController{ m_pGameObject->GetCurrentScene()->GetGameObject("GameController") };
 		pGameController->GetComponent<GameController_Comp>()->PlayerDied();

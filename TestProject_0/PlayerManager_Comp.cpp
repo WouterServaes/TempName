@@ -27,7 +27,7 @@ void PlayerManager_Comp::AddPlayer()
 	auto* pAnimComp{ new Animation_Comp("Images/QBert.png", imgAmount, fps, glm::vec2(128.f, 147.f)) };
 	pPlayerObj->AddComponent(pAnimComp);
 	pPlayerObj->AddComponent(new CharacterController_Comp(.025f));
-	pPlayerObj->AddComponent(new Player_Comp());
+	pPlayerObj->AddComponent(new Player_Comp(m_PlayerCount));
 	pPlayerObj->AddComponent(new TileChanger_Comp());
 	auto* pPlScore{ new Score_Comp() };
 	pPlayerObj->AddComponent(pPlScore);

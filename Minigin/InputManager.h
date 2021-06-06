@@ -31,14 +31,15 @@ enum class TriggerState
 
 struct KeyboardKey
 {
-	KeyboardKey(SDL_Keycode sdlKeyCode, TriggerState triggerState) :sdlKeyCode(sdlKeyCode), triggerState(triggerState) {};
+	KeyboardKey(const SDL_Keycode sdlKeyCode,const TriggerState triggerState) :sdlKeyCode(sdlKeyCode), triggerState(triggerState) {};
 	SDL_Keycode sdlKeyCode{};
 	TriggerState triggerState{ TriggerState::Released };
 };
 
 struct InputAction
 {
-	InputAction(SDL_Keycode sdlKeyCode, TriggerState triggerState, ControllerButtons controllerButton, int controllerNr = 0) :KeyboardKey(sdlKeyCode, triggerState), ControllerButton(controllerButton), ControllerNr(controllerNr) {};
+	InputAction(const SDL_Keycode sdlKeyCode, const TriggerState triggerState, const ControllerButtons controllerButton,const int controllerNr = 0)
+	:KeyboardKey(sdlKeyCode, triggerState), ControllerButton(controllerButton), ControllerNr(controllerNr) {};
 	KeyboardKey KeyboardKey;
 	ControllerButtons ControllerButton;
 	int ControllerNr;
@@ -125,7 +126,7 @@ private:
 	/// <summary>
 	/// Holds the states of each controller
 	/// </summary>
-	std::vector<XINPUT_STATE> m_CurrentConsoleState;
+	std::vector<XINPUT_STATE> m_CurrentConsoleState{};
 
 	InputCommandsMap m_InputCommandsMap{};
 
