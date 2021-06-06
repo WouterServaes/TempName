@@ -1,5 +1,8 @@
 #pragma once
 #include <BaseComponent.h>
+
+#include "SceneParser.h"
+
 class PlayerManager_Comp final:public BaseComponent
 {
 public:
@@ -9,8 +12,7 @@ public:
 	PlayerManager_Comp(PlayerManager_Comp && other) noexcept = delete;
 	PlayerManager_Comp& operator=(const PlayerManager_Comp & other) = delete;
 	PlayerManager_Comp& operator=(PlayerManager_Comp && other) noexcept = delete;
-	void AddPlayer();
-
+	void AddPlayers(const std::vector< SceneParser::PlayerData>& playerData);
 	const std::vector<std::shared_ptr<GameObject>>& GetPlayers() const;
 	void ResetPlayers();
 	void Update() override;

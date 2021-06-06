@@ -16,30 +16,35 @@
 #include "Transform.h"
 #include "WorldTileManager_Comp.h"
 
-void PlayerManager_Comp::AddPlayer()
+void PlayerManager_Comp::AddPlayers(const std::vector<SceneParser::PlayerData>& playersData)
 {
-	auto pPlayerObj{ std::make_shared< GameObject>("Player" + std::to_string(m_PlayerCount), true) };
 
-	m_pGameObject->GetCurrentScene()->AddGameObject(pPlayerObj);
-	pPlayerObj->AddComponent(new Render_Comp());
-	const int imgAmount{ 4 };
-	const int fps{ 8 };
-	auto* pAnimComp{ new Animation_Comp("Images/QBert.png", imgAmount, fps, glm::vec2(128.f, 147.f)) };
-	pPlayerObj->AddComponent(pAnimComp);
-	pPlayerObj->AddComponent(new CharacterController_Comp(.025f));
-	pPlayerObj->AddComponent(new Player_Comp(m_PlayerCount));
-	pPlayerObj->AddComponent(new TileChanger_Comp());
-	auto* pPlScore{ new Score_Comp() };
-	pPlayerObj->AddComponent(pPlScore);
-	auto* pPlHealth{ new Health_Comp(3, 3) };
-	pPlayerObj->AddComponent(pPlHealth);
-	pPlayerObj->GetSubject()->AddObserver(new MovementObserver());
-	pPlayerObj->GetSubject()->AddObserver(new ScoreObserver());
-	pPlayerObj->GetSubject()->AddObserver(new CharacterObserver());
-	pPlayerObj->SetRenderLayer(5);
-	pPlayerObj->GetTransform()->ScaleUniform(.25f);
-	m_pPlayers.push_back(pPlayerObj);
-	m_PlayerCount++;
+	for(const auto& playerData:playersData)
+	{
+		auto pPlayerObj{ std::make_shared< GameObject>("Player" + std::to_string(m_PlayerCount), true) };
+
+		m_pGameObject->GetCurrentScene()->AddGameObject(pPlayerObj);
+		pPlayerObj->AddComponent(new Render_Comp());
+		const int imgAmount{ playerData.TextureData.Count };
+		const int fps{ playerData.TextureData.Fps};
+		auto* pAnimComp{ new Animation_Comp(playerData.TextureData.imgPath, imgAmount, fps,playerData.TextureData.FrameSize) };
+		pPlayerObj->AddComponent(pAnimComp);
+		pPlayerObj->AddComponent(new CharacterController_Comp(.025f));
+		pPlayerObj->AddComponent(new Player_Comp(m_PlayerCount));
+		pPlayerObj->AddComponent(new TileChanger_Comp());
+		auto* pPlScore{ new Score_Comp() };
+		pPlayerObj->AddComponent(pPlScore);
+		auto* pPlHealth{ new Health_Comp(playerData.StartLives, playerData.StartLives) };
+		pPlayerObj->AddComponent(pPlHealth);
+		pPlayerObj->GetSubject()->AddObserver(new MovementObserver());
+		pPlayerObj->GetSubject()->AddObserver(new ScoreObserver());
+		pPlayerObj->GetSubject()->AddObserver(new CharacterObserver());
+		pPlayerObj->SetRenderLayer(5);
+		pPlayerObj->GetTransform()->ScaleUniform(.25f);
+		m_pPlayers.push_back(pPlayerObj);
+		m_PlayerCount++;
+	}
+	
 }
 
 const std::vector<std::shared_ptr<GameObject>>& PlayerManager_Comp::GetPlayers() const

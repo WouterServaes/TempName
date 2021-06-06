@@ -1,8 +1,6 @@
 #include "MiniginPCH.h"
 #include "CoopScene.h"
 
-
-
 #include "Animation_Comp.h"
 #include "CharacterController_Comp.h"
 #include "CoilyCreature_Comp.h"
@@ -26,6 +24,7 @@
 #include "UI_Comp.h"
 #include "WorldTileManager_Comp.h"
 
+#include "SceneParser.h"
 void CoopScene::InitializeScene()
 {
 	GetInputManager()->SetMaxControllerAmount(2);
@@ -69,10 +68,12 @@ void CoopScene::Restart()
 
 void CoopScene::InitUi()
 {
-	const std::string font{ "Fonts/Lingua.otf" };
+	const auto sceneData{ SceneParser::GetSceneData(1) };
+	const std::string font{ sceneData->Font };
+	const auto fontColor{ sceneData->FontColor };
 	auto pGameOver{ std::make_shared<GameObject>("GameOver") };
 	pGameOver->AddComponent(new Render_Comp());
-	pGameOver->AddComponent(new Text_Comp("Game over!", font, 28));
+	pGameOver->AddComponent(new Text_Comp("Game over!", font, 28, fontColor));
 	pGameOver->GetTransform()->SetPosition(120.f, 150.f);
 	pGameOver->SetActive(false);
 	AddGameObject(pGameOver);
@@ -83,10 +84,9 @@ void CoopScene::InitUi()
 	AddGameObject(pGameOverMenu);
 	pGameOverMenu->SetActive(false);
 
-
 	auto pWin{ std::make_shared<GameObject>("Win") };
 	pWin->AddComponent(new Render_Comp());
-	pWin->AddComponent(new Text_Comp("You won!", font, 28));
+	pWin->AddComponent(new Text_Comp("You won!", font, 28, fontColor));
 	pWin->GetTransform()->SetPosition(120.f, 150.f);
 	pWin->SetActive(false);
 	AddGameObject(pWin);
@@ -100,11 +100,12 @@ void CoopScene::InitUi()
 
 void CoopScene::InitWorld()
 {
-	const auto pNormalTexture{ ResourceManager::GetInstance().LoadTexture("Images/Tile_Normal.png") }
-		, pIntermediateTexture{ ResourceManager::GetInstance().LoadTexture("Images/Tile_Intermediate.png") }
-	, pHighlightTexture{ ResourceManager::GetInstance().LoadTexture("Images/Tile_Highlighted.png") };
+	const auto sceneData{ SceneParser::GetSceneData(1) };
+	const auto pNormalTexture{ ResourceManager::GetInstance().LoadTexture(sceneData->NormalTileTexture) }
+		, pIntermediateTexture{ ResourceManager::GetInstance().LoadTexture(sceneData->IntermediateTileTexture) }
+	, pHighlightTexture{ ResourceManager::GetInstance().LoadTexture(sceneData->HighlightedTileTexture) };
 
-	const auto bottomRowAmount{ 7 };
+	const auto bottomRowAmount{ sceneData->PyramidSize };
 	auto pWorldGridManager{ std::make_shared<GameObject>("WorldTileManager") };
 	AddGameObject(pWorldGridManager);
 	pWorldGridManager->GetTransform()->ScaleUniform(.5f);
@@ -118,19 +119,20 @@ void CoopScene::InitPlayers()
 	pPlayerManager->AddComponent(pPlayerManagerComp);
 	AddGameObject(pPlayerManager);
 
-	pPlayerManagerComp->AddPlayer();
-	pPlayerManagerComp->AddPlayer();
+	const auto sceneData{ SceneParser::GetSceneData(1) };
+	pPlayerManagerComp->AddPlayers(sceneData->Players);
 
-	std::vector<glm::vec2> uiPositions{{30.f, 50.f}, {Minigin::pEngineSettings->WindowWidth - 150.f, 50.f}};
+	std::vector<glm::vec2> uiPositions{ { 30.f, 50.f }, { Minigin::pEngineSettings->WindowWidth - 150.f, 50.f } };
 	const auto players{ pPlayerManagerComp->GetPlayers() };
-	for(int idx{};idx< players.size();idx++)
+	const std::string font{ sceneData->Font };
+	const auto fontColor{ sceneData->FontColor };
+	for (int idx{}; idx < players.size(); idx++)
 	{
 		const glm::vec2 uiPos{ uiPositions.at(idx) };
-	
-		const std::string font{ "Fonts/Lingua.otf" };
+
 		auto pLiveDisplay{ std::make_shared<GameObject>("Player1LiveUi") };
 		pLiveDisplay->AddComponent(new Render_Comp());
-		auto* pLiveText{ new Text_Comp("Lives: ", font, 18) };
+		auto* pLiveText{ new Text_Comp("Lives: ", font, 18, fontColor) };
 		pLiveDisplay->AddComponent(pLiveText);
 		players.at(idx)->GetComponent<Health_Comp>()->AttachTextComp(pLiveText);
 		AddGameObject(pLiveDisplay);
@@ -138,7 +140,7 @@ void CoopScene::InitPlayers()
 
 		auto pScoreDisplay{ std::make_shared<GameObject>("Player1ScoreUi") };
 		pScoreDisplay->AddComponent(new Render_Comp());
-		auto* pScoreText{ new Text_Comp("Score: ", font, 18) };
+		auto* pScoreText{ new Text_Comp("Score: ", font, 18, fontColor) };
 		pScoreDisplay->AddComponent(pScoreText);
 		players.at(idx)->GetComponent<Score_Comp>()->AttachTextComp(pScoreText);
 		AddGameObject(pScoreDisplay);
@@ -148,34 +150,39 @@ void CoopScene::InitPlayers()
 
 void CoopScene::InitCoily()
 {
+	const auto coilyData{ SceneParser::GetCreatureData("coily", 1) };
+	const auto coilyEggData{ SceneParser::GetCreatureData("coilyEgg", 1) };
+
 	auto pCoily{ std::make_shared<GameObject>("Coily", true) };
 	AddGameObject(pCoily);
 	pCoily->AddComponent(new Render_Comp());
-	pCoily->AddComponent(new Animation_Comp("Images/CoilyEgg.png", 4, 8, glm::vec2(128.f, 147.f)));
+	pCoily->AddComponent(new Animation_Comp(coilyEggData.TextureData.imgPath, coilyEggData.TextureData.Count, coilyEggData.TextureData.Fps, coilyEggData.TextureData.FrameSize));
 	pCoily->AddComponent(new CharacterController_Comp(.15f));
-	pCoily->AddComponent(new CoilyCreature_Comp(2.f, "Images/Coily.png", 4, 8, glm::vec2(50.f, 147.f)));
+	pCoily->AddComponent(new CoilyCreature_Comp(coilyEggData.TimeBetweenJumps, coilyData.TextureData.imgPath, coilyData.TextureData.Count, coilyData.TextureData.Fps, coilyData.TextureData.FrameSize));
 	pCoily->GetTransform()->ScaleUniform(.1f);
 	pCoily->GetSubject()->AddObserver(new CreatureObserver());
 }
 
 void CoopScene::InitGreen()
 {
+	auto slickData{ SceneParser::GetCreatureData("slick", 1) };
 	auto pSlick{ std::make_shared<GameObject>("Slick", true) };
 	AddGameObject(pSlick);
 	pSlick->AddComponent(new Render_Comp());
-	pSlick->AddComponent(new Animation_Comp("Images/Slick_Sam.png", 4, 8, glm::vec2(128.f, 147.f)));
+	pSlick->AddComponent(new Animation_Comp(slickData.TextureData.imgPath, slickData.TextureData.Count, slickData.TextureData.Fps, slickData.TextureData.FrameSize));
 	pSlick->AddComponent(new CharacterController_Comp(.15f));
-	pSlick->AddComponent(new GreenCreature_Comp(2.f));
+	pSlick->AddComponent(new GreenCreature_Comp(slickData.TimeBetweenJumps));
 	pSlick->AddComponent(new TileChanger_Comp(TileChanger_Comp::TileChangeLevel::RevertChanges));
 	pSlick->GetTransform()->ScaleUniform(.25f);
 	pSlick->GetSubject()->AddObserver(new CreatureObserver());
 
+	auto samData{ SceneParser::GetCreatureData("sam", 1) };
 	auto pSam{ std::make_shared<GameObject>("Sam", true) };
 	AddGameObject(pSam);
 	pSam->AddComponent(new Render_Comp());
-	pSam->AddComponent(new Animation_Comp("Images/Slick_Sam.png", 4, 8, glm::vec2(128.f, 147.f)));
+	pSam->AddComponent(new Animation_Comp(samData.TextureData.imgPath, samData.TextureData.Count, samData.TextureData.Fps, samData.TextureData.FrameSize));
 	pSam->AddComponent(new CharacterController_Comp(.15f));
-	pSam->AddComponent(new GreenCreature_Comp(2.f));
+	pSam->AddComponent(new GreenCreature_Comp(samData.TimeBetweenJumps));
 	pSam->AddComponent(new TileChanger_Comp(TileChanger_Comp::TileChangeLevel::RevertChanges));
 	pSam->GetTransform()->ScaleUniform(.25f);
 	pSam->GetSubject()->AddObserver(new CreatureObserver());
@@ -183,33 +190,38 @@ void CoopScene::InitGreen()
 
 void CoopScene::InitPurple()
 {
+	const auto creatureData{ SceneParser::GetSceneData(0)->Creatures };
+	const auto uggData{ SceneParser::GetCreatureData("ugg", 1) };
 	auto pUgg{ std::make_shared<GameObject>("Ugg", true) };
 	AddGameObject(pUgg);
 	pUgg->AddComponent(new Render_Comp());
-	pUgg->AddComponent(new Animation_Comp("Images/Ugg_Wrongway.png", 4, 8, glm::vec2(128.f, 147.f)));
+	pUgg->AddComponent(new Animation_Comp(uggData.TextureData.imgPath, uggData.TextureData.Count, uggData.TextureData.Fps, uggData.TextureData.FrameSize));
 	pUgg->AddComponent(new CharacterController_Comp(.15f));
-	pUgg->AddComponent(new PurpleCreature_Comp(Transform::Side::Left, 2.f));
+	pUgg->AddComponent(new PurpleCreature_Comp(Transform::Side::Left, uggData.TimeBetweenJumps));
 	pUgg->GetTransform()->ScaleUniform(.25f);
 	pUgg->GetSubject()->AddObserver(new CreatureObserver());
 
-	auto pWrongway{ std::make_shared<GameObject>("Wrongway", true) };
+	const auto wrongWayData{ SceneParser::GetCreatureData("wrongway", 1) };
+	const auto pWrongway{ std::make_shared<GameObject>("Wrongway", true) };
 	AddGameObject(pWrongway);
 	pWrongway->AddComponent(new Render_Comp());
-	pWrongway->AddComponent(new Animation_Comp("Images/Ugg_Wrongway.png", 4, 8, glm::vec2(128.f, 147.f)));
+	pWrongway->AddComponent(new Animation_Comp(wrongWayData.TextureData.imgPath, wrongWayData.TextureData.Count, wrongWayData.TextureData.Fps, wrongWayData.TextureData.FrameSize));
 	pWrongway->AddComponent(new CharacterController_Comp(.15f));
-	pWrongway->AddComponent(new PurpleCreature_Comp(Transform::Side::Right, 2.f));
+	pWrongway->AddComponent(new PurpleCreature_Comp(Transform::Side::Right, wrongWayData.TimeBetweenJumps));
 	pWrongway->GetTransform()->ScaleUniform(.25f);
 	pWrongway->GetSubject()->AddObserver(new CreatureObserver());
 }
 
 void CoopScene::InitDisks()
 {
+	const auto disksdata{ SceneParser::GetSceneData(0)->Disks };
+
 	auto pDiskManager{ std::make_shared<GameObject>("DiskManager") };
 	AddGameObject(pDiskManager);
-	std::vector<DiskManager_Comp::DiskPos> diskPositions{
-		{ DiskManager_Comp::DiskPos{ Transform::Side::Left, 1 } },
-		{ DiskManager_Comp::DiskPos{ Transform::Side::Right, 1 } }
-	};
+	std::vector<DiskManager_Comp::DiskPos> diskPositions{};
+	for (const auto& diskdata : disksdata)
+		diskPositions.push_back(DiskManager_Comp::DiskPos{ diskdata.Side, diskdata.Row });
+	
 	pDiskManager->AddComponent(new DiskManager_Comp(diskPositions));
 }
 

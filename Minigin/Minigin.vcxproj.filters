@@ -46,6 +46,9 @@
     <Filter Include="Logger">
       <UniqueIdentifier>{31f1759b-77fe-4285-9bec-62baff105a04}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SceneParser">
+      <UniqueIdentifier>{59ed7d4b-8a8d-412b-9159-081c24889cc4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniginPCH.h">
@@ -162,6 +165,9 @@
     <ClInclude Include="EngineSettings.h">
       <Filter>Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="SceneParser.h">
+      <Filter>SceneParser</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -253,6 +259,9 @@
     </ClCompile>
     <ClCompile Include="..\3rdParty\imgui-1.81\imgui_impl_opengl2.cpp">
       <Filter>Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneParser.cpp">
+      <Filter>SceneParser</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
