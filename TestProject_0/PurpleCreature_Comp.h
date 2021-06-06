@@ -16,6 +16,11 @@ public:
 private:
 	void Spawn() override;
 	void CollidedWithPlayer(int playerIndex) override;
+
+
+	/// <summary>
+	/// This is to prevent spawning on the player when the player spawn in on the same tile as this creature
+	/// </summary>
 	void TryToActuallyRespawn();
 	Transform::Side m_SpawnSide;
 	float m_ElapsedTime{};

@@ -32,13 +32,13 @@ void PurpleCreature_Comp::UpdateCreature()
 				if (!otherDir)
 					m_pCharacterController->MoveRightUpOnGrid();
 				else
-					m_pCharacterController->MoveLeftUpOnGrid();
+					m_pCharacterController->MoveRightOnGrid();
 				break;
 			case Transform::Side::Right:
 				if (!otherDir)
-					m_pCharacterController->MoveLeftDownOnGrid();
+					m_pCharacterController->MoveLeftUpOnGrid();
 				else
-					m_pCharacterController->MoveRightUpOnGrid();
+					m_pCharacterController->MoveLeftOnGrid();
 				break;
 			default:;
 			}

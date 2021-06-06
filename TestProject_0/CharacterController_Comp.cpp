@@ -11,6 +11,7 @@
 #include "Events.h"
 #include "Scene.h"
 #include "Subject.h"
+#include "Time.h"
 #include "WorldTileManager_Comp.h"
 
 CharacterController_Comp::CharacterController_Comp(const float moveSpeed)
@@ -68,6 +69,16 @@ void CharacterController_Comp::MoveRightUpOnGrid()
 void CharacterController_Comp::MoveRightDownOnGrid()
 {
 	Move(glm::vec2(m_GridMovements.Right, m_GridMovements.Down));
+}
+
+void CharacterController_Comp::MoveLeftOnGrid()
+{
+	Move(glm::vec2(m_GridMovements.Left * 2.f, 0.f));
+}
+
+void CharacterController_Comp::MoveRightOnGrid()
+{
+	Move(glm::vec2(m_GridMovements.Right * 2.f, 0.f));
 }
 
 void CharacterController_Comp::SetSpawnPos(const glm::vec2 position)

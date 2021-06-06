@@ -33,7 +33,8 @@ public:
 	void MoveLeftDownOnGrid();
 	void MoveRightUpOnGrid();
 	void MoveRightDownOnGrid();
-	
+	void MoveLeftOnGrid();
+	void MoveRightOnGrid();
 	void SetSpawnPos(glm::vec2 position);
 	[[nodiscard]] glm::vec2 GetSpawnPos() const { return  m_SpawnPos; }
 	void GoToSpawnPos() const;
