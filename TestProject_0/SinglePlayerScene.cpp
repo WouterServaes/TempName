@@ -13,7 +13,6 @@
 
 #include "Player_Comp.h"
 #include "Animation_Comp.h"
-#include "AudioServiceLocator.h"
 #include "CharacterObserver.h"
 #include "CoilyCreature_Comp.h"
 #include "CreatureObserver.h"
@@ -46,7 +45,6 @@ void SinglePlayerScene::InitializeScene()
 	InitPurple();
 	InitDisks();
 
-	InitAudio();
 }
 
 void SinglePlayerScene::Restart()
@@ -219,17 +217,6 @@ void SinglePlayerScene::InitGameController()
 	AddGameObject(pGameController);
 	pGameController->AddComponent(new GameController_Comp());
 }
-
-void SinglePlayerScene::InitAudio()
-{
-	auto audio{ AudioServiceLocator::GetAudio() };
-	
-	audio->AddAudioFile("../Data/Audio/Jump.wav");
-	audio->AddAudioFile("../Data/Audio/Fall.wav");
-	audio->AddAudioFile("../Data/Audio/SnakeFall.wav");
-	audio->AddAudioFile("../Data/Audio/Victory.wav");
-}
-
 
 void SinglePlayerScene::InitCoily()
 {

@@ -15,5 +15,6 @@ public:
 
 	void InitializeScene() override;
 private:
+	void InitAudio();
 };
 

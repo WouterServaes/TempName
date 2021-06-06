@@ -34,9 +34,6 @@ private:
 
 	void InitDisks();
 
-	void InitGameController();
-
-	void InitAudio();
-	
+	void InitGameController();	
 };
 
