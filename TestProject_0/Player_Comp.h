@@ -23,11 +23,12 @@ public:
 	void FellOffPyramid();
 private:
 	void InitInput();
-	void CheckIfDead() const;
+	void CheckIfDead();
 	CharacterController_Comp* m_pController{nullptr};
 	Health_Comp* m_pHealthComp{ nullptr };
 	DiskManager_Comp* m_pDiskmanager{ nullptr };
 	CoilyCreature_Comp* m_pCoily{ nullptr };
 	const int m_PlayerIndex{};
+	bool m_IsDead{ false };
 };
 

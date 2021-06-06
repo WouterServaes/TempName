@@ -8,10 +8,12 @@
 #include "CoilyCreature_Comp.h"
 #include "CreatureObserver.h"
 #include "DiskManager_Comp.h"
+#include "EngineSettings.h"
 #include "GameController_Comp.h"
 #include "GreenCreature_Comp.h"
 #include "Health_Comp.h"
 #include "InputManager.h"
+#include "Minigin.h"
 #include "PlayerManager_Comp.h"
 #include "PurpleCreature_Comp.h"
 #include "ResourceManager.h"
@@ -38,7 +40,7 @@ void CoopScene::InitializeScene()
 	InitUi();
 	InitCoily();
 	InitGreen();
-	//InitPurple();
+	InitPurple();
 	InitDisks();
 }
 
@@ -119,7 +121,7 @@ void CoopScene::InitPlayers()
 	pPlayerManagerComp->AddPlayer();
 	pPlayerManagerComp->AddPlayer();
 
-	std::vector<glm::vec2> uiPositions{{30.f, 50.f}, {100.f, 50.f}};
+	std::vector<glm::vec2> uiPositions{{30.f, 50.f}, {Minigin::pEngineSettings->WindowWidth - 150.f, 50.f}};
 	const auto players{ pPlayerManagerComp->GetPlayers() };
 	for(int idx{};idx< players.size();idx++)
 	{

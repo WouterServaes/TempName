@@ -17,7 +17,7 @@
 
 void Player_Comp::Update()
 {
-	CheckIfDead();
+	if(!m_IsDead)CheckIfDead();
 }
 
 void Player_Comp::Start()
@@ -46,6 +46,7 @@ void Player_Comp::ResetPlayer()
 	m_pController->GoToSpawnPos();
 	//can move = true
 	m_pController->SetCanMove(true);
+	m_IsDead = false;
 }
 
 void Player_Comp::FellOffPyramid()
@@ -81,10 +82,11 @@ void Player_Comp::InitInput()
 	}
 }
 
-void Player_Comp::CheckIfDead() const
+void Player_Comp::CheckIfDead()
 {
 	if (m_pHealthComp->IsDead())
 	{
+		m_IsDead = true;
 		const auto pGameController{ m_pGameObject->GetCurrentScene()->GetGameObject("GameController") };
 		pGameController->GetComponent<GameController_Comp>()->PlayerDied();
 		m_pController->SetCanMove(false);
