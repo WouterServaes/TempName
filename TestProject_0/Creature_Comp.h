@@ -28,5 +28,7 @@ protected:
 	Transform* m_pTransform{ nullptr };
 	std::vector<std::shared_ptr<GameObject>> m_pPlayers{ nullptr };
 
+	int m_SpawnTileIdx{};
+
 };
 

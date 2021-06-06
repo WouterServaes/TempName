@@ -11,8 +11,6 @@
 - multi thread resource loading
 
 ## IMPORTANT
-
-- Co-op - two players can play as Q*bert, instead of the top, they start at the two bottom corners.
 - Versus - One player plays as Q*bert, another player can play as a Coily. The Coily player bounces to the bottom and then gets control.
 
 - Load game level from file

@@ -44,6 +44,7 @@ void GreenCreature_Comp::Spawn()
 	spawnPos.x -= textureWidth / 2.f;
 
 	m_pCharacterController->SetSpawnPos(spawnPos);
+	m_SpawnTileIdx = m_pWorldTileManager->GetTileIdxAtPosition(spawnPos);
 	Respawn();
 }
 

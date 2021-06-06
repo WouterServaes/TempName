@@ -57,6 +57,7 @@ void PurpleCreature_Comp::Spawn()
 	const auto textureWidth{ GetConstComponent<Animation_Comp>()->GetFrameDimensions().x * m_pTransform->GetUniformScale() };
 	spawnPos.x -= textureWidth / 2.f;
 	m_pCharacterController->SetSpawnPos(spawnPos);
+	m_SpawnTileIdx = m_pWorldTileManager->GetTileIdxAtPosition(spawnPos);
 	Respawn();
 }
 
