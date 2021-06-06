@@ -45,17 +45,11 @@
     <ClCompile Include="TestGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DemoScene.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="..\Minigin\QBert_Comp.cpp">
       <Filter>GameComponents</Filter>
     </ClCompile>
     <ClCompile Include="..\Minigin\Score_Comp.cpp">
       <Filter>GameComponents</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Minigin\PlayerObserver.cpp">
-      <Filter>GameObservers</Filter>
     </ClCompile>
     <ClCompile Include="GameCommands.cpp">
       <Filter>GameCommands</Filter>
@@ -143,17 +137,11 @@
     <ClInclude Include="TestGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DemoScene.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="..\Minigin\QBert_Comp.h">
       <Filter>GameComponents</Filter>
     </ClInclude>
     <ClInclude Include="..\Minigin\Score_Comp.h">
       <Filter>GameComponents</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Minigin\PlayerObserver.h">
-      <Filter>GameObservers</Filter>
     </ClInclude>
     <ClInclude Include="GameCommands.h">
       <Filter>GameCommands</Filter>

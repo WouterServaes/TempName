@@ -26,7 +26,7 @@
 
 void CoopScene::InitializeScene()
 {
-	InputManager::GetInstance().SetMaxControllerAmount(2);
+	GetInputManager()->SetMaxControllerAmount(2);
 	auto fpsCounter = std::make_shared<GameObject>("Fps");
 	fpsCounter->AddComponent(new FpsUI());
 	fpsCounter->GetTransform()->SetPosition(5.f, 5.f);

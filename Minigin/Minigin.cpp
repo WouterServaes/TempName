@@ -19,8 +19,6 @@
 #include "Time.h"
 
 #include "AudioServiceLocator.h"
-#include "GameAudioMT.h"
-#include "AudioLogger.h"
 #include "EngineSettings.h"
 
 using namespace std;
@@ -43,8 +41,6 @@ void Minigin::Run()
 	{
 		auto& renderer{ Renderer::GetInstance() };
 		auto& sceneManager{ SceneManager::GetInstance() };
-		auto& input{ InputManager::GetInstance() };
-		input.Start();
 		auto& time{ Time::GetInstance() };
 
 		auto lastTime{ high_resolution_clock::now() };
@@ -59,7 +55,6 @@ void Minigin::Run()
 			ImGui::NewFrame();
 
 			lastTime = currentTime;
-			input.ProcessInput();
 			time.Update(deltaTime);
 			sceneManager.Update();
 			renderer.Render();
@@ -74,7 +69,7 @@ void Minigin::Initialize()
 	Logger::LogInfo("Initializing...");
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
-		throw std::runtime_error(std::string("SDL_Init Error: ") + SDL_GetError());
+		Logger::LogError(std::string("SDL_Init Error: ") + SDL_GetError());
 	}
 
 	m_Window = SDL_CreateWindow(
@@ -87,7 +82,7 @@ void Minigin::Initialize()
 	);
 	if (m_Window == nullptr)
 	{
-		throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
+		Logger::LogError(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
 	}
 
 	Renderer::GetInstance().Init(m_Window);

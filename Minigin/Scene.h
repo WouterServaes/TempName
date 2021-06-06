@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 
+class InputManager;
 class Scene
 {
 public:
@@ -49,6 +50,8 @@ public:
 	/// If the scene hasn't started yet, it starts the scene instead
 	/// </summary>
 	void RestartScene();
+
+	[[nodiscard]] std::shared_ptr<InputManager>& GetInputManager() { return m_pInputManager; }
 private:
 	/// <summary>
 	///  Calls Start() on added GameObjects 
@@ -77,7 +80,9 @@ private:
 	
 	std::vector<int> m_InitialStartObjIdxs{}; //This prevents crashes when adding a game object to the scene in the Start() of a component
 	std::vector<int> m_ObjIdxsNeedStart{};
+	std::shared_ptr<InputManager> m_pInputManager{nullptr};
 protected:
 	std::vector < std::shared_ptr<GameObject>> m_Objects{};
 	const int sceneNr;
+	
 };

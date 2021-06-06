@@ -1,12 +1,16 @@
 #include "MiniginPCH.h"
 #include "Scene.h"
 #include <algorithm>
+
+#include "InputManager.h"
 int Scene::SceneCount = 0;
 
 Scene::Scene(const std::string& name)
 	: m_Name{ name }, sceneNr{ SceneCount }
 {
 	SceneCount++;
+	m_pInputManager = std::make_unique<InputManager>();
+	m_pInputManager->Start();
 }
 
 void Scene::AddGameObject(const std::shared_ptr<GameObject>& object)
@@ -27,6 +31,8 @@ void Scene::Update()
 
 	StartLateObjects();
 
+	m_pInputManager->ProcessInput();
+	
 	for (auto& obj : m_Objects)
 		obj->Update();
 

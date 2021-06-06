@@ -2,7 +2,6 @@
 #include <map>
 #include <XInput.h>
 #include <SDL.h>
-#include "Singleton.h"
 #include "Commands.h"
 #include "Logger.h"
 
@@ -52,9 +51,10 @@ struct InputAction
 
 using InputCommandsMap = std::map<InputAction, std::unique_ptr<Commands>>;
 
-class InputManager final : public Singleton<InputManager>
+class InputManager final
 {
 public:
+	InputManager() = default;
 	~InputManager() = default;
 	InputManager(const InputManager& other) = delete;
 	InputManager(InputManager&& other) noexcept = delete;
@@ -90,9 +90,6 @@ public:
 		m_InputCommandsMap.insert(std::make_pair(inputAction, std::move(command)));
 	}
 private:
-	friend class Singleton<InputManager>;
-	InputManager() = default;
-
 	/// <summary>
 	/// Processes controller input, calls UpdateControllerState and ProcessControllerButtons
 	/// </summary>

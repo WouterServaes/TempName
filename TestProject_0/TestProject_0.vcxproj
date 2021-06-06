@@ -181,7 +181,6 @@
   <ItemGroup>
     <ClCompile Include="..\Minigin\GameAudioMT.cpp" />
     <ClCompile Include="..\Minigin\Health_Comp.cpp" />
-    <ClCompile Include="..\Minigin\PlayerObserver.cpp" />
     <ClCompile Include="..\Minigin\QBert_Comp.cpp" />
     <ClCompile Include="..\Minigin\Score_Comp.cpp" />
     <ClCompile Include="CharacterController_Comp.cpp" />
@@ -189,7 +188,6 @@
     <ClCompile Include="CoilyCreature_Comp.cpp" />
     <ClCompile Include="CoopScene.cpp" />
     <ClCompile Include="Creature_Comp.cpp" />
-    <ClCompile Include="DemoScene.cpp" />
     <ClCompile Include="DiskManager_Comp.cpp" />
     <ClCompile Include="FloatingDisk_Comp.cpp" />
     <ClCompile Include="GameAudio.cpp" />
@@ -221,7 +219,6 @@
   <ItemGroup>
     <ClInclude Include="..\Minigin\GameAudioMT.h" />
     <ClInclude Include="..\Minigin\Health_Comp.h" />
-    <ClInclude Include="..\Minigin\PlayerObserver.h" />
     <ClInclude Include="..\Minigin\QBert_Comp.h" />
     <ClInclude Include="..\Minigin\Score_Comp.h" />
     <ClInclude Include="CharacterController_Comp.h" />
@@ -229,7 +226,6 @@
     <ClInclude Include="CoilyCreature_Comp.h" />
     <ClInclude Include="CoopScene.h" />
     <ClInclude Include="Creature_Comp.h" />
-    <ClInclude Include="DemoScene.h" />
     <ClInclude Include="DiskManager_Comp.h" />
     <ClInclude Include="FloatingDisk_Comp.h" />
     <ClInclude Include="GameAudio.h" />
