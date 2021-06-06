@@ -22,8 +22,7 @@ private:
 	void InitWorld();
 
 	void InitPlayers();
-	void PlayerOneUi(std::shared_ptr<GameObject> pPl);
-	void PlayerTwoUi(std::shared_ptr<GameObject> pPl);
+	
 	void InitCoily();
 
 	void InitGreen();

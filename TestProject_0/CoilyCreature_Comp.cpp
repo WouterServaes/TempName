@@ -56,11 +56,11 @@ void CoilyCreature_Comp::FellOffGrid()
 		m_GoToDisk = false;
 		m_DiskPos = glm::vec2(0.f, 0.f);
 		m_pDiskManager->RemoveDisk(tileNr);
-		AudioServiceLocator::GetAudio()->PlaySound(2, 100); 
+		AudioServiceLocator::GetAudio()->PlaySound(2, 100);
 		m_pGameObject->SetActive(false);
 	}
 	else
-		Logger::LogInfo("fell off grid");
+		m_pCharacterController->GoToSpawnPos();
 }
 
 void CoilyCreature_Comp::PlayerJumpedOnDisk(const glm::vec2 diskPosition)
