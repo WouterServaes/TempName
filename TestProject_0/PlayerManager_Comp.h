@@ -13,9 +13,11 @@ public:
 
 	const std::vector<std::shared_ptr<GameObject>>& GetPlayers() const;
 	void ResetPlayers();
+	void Update() override;
 private:
+	void SetSpawnPosition();
 	std::vector<std::shared_ptr<GameObject>> m_pPlayers{};
 	int m_PlayerCount{};
-	
+	bool m_Started{ false };
 };
 

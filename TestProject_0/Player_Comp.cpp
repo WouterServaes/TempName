@@ -16,10 +16,6 @@
 #include "DiskManager_Comp.h"
 #include "CoilyCreature_Comp.h"
 
-Player_Comp::Player_Comp(const int spawnTileIndex): m_SpawnTileIndex(spawnTileIndex)
-{
-}
-
 void Player_Comp::Update()
 {
 	CheckIfDead();
@@ -33,16 +29,7 @@ void Player_Comp::Start()
 	m_pCoily = m_pGameObject->GetCurrentScene()->GetGameObject("Coily")->GetComponent<CoilyCreature_Comp>();
 	InitInput();
 
-	const auto pWorldGrid{ m_pGameObject->GetCurrentScene()->GetGameObject("WorldTileManager") };
-	const auto pWorldGridManagerComp{ pWorldGrid->GetConstComponent<WorldTileManager_Comp>() };
-	auto spawnPos{ pWorldGridManagerComp->GetTileStandPos(m_SpawnTileIndex) };
-
-	auto* pTransform{ m_pGameObject->GetTransform() };
-	const auto textureWidth{ GetConstComponent<Animation_Comp>()->GetFrameDimensions().x * pTransform->GetUniformScale() };
-
-	spawnPos.x -= textureWidth / 2.f;
-	pTransform->SetPosition(spawnPos.x, spawnPos.y);
-	m_pGameObject->GetComponent<CharacterController_Comp>()->SetSpawnPos(spawnPos);
+	
 }
 
 void Player_Comp::NextLevel()

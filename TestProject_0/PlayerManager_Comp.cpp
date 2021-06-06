@@ -1,7 +1,6 @@
 #include "MiniginPCH.h"
 #include "PlayerManager_Comp.h"
 
-
 #include "Animation_Comp.h"
 #include "CharacterController_Comp.h"
 #include "CharacterObserver.h"
@@ -15,11 +14,12 @@
 #include "Subject.h"
 #include "TileChanger_Comp.h"
 #include "Transform.h"
+#include "WorldTileManager_Comp.h"
 
 void PlayerManager_Comp::AddPlayer()
 {
-	auto pPlayerObj{ std::make_shared< GameObject>("pl" + std::to_string(m_PlayerCount), true) };
-	
+	auto pPlayerObj{ std::make_shared< GameObject>("Player" + std::to_string(m_PlayerCount), true) };
+
 	m_pGameObject->GetCurrentScene()->AddGameObject(pPlayerObj);
 	pPlayerObj->AddComponent(new Render_Comp());
 	const int imgAmount{ 4 };
@@ -27,7 +27,7 @@ void PlayerManager_Comp::AddPlayer()
 	auto* pAnimComp{ new Animation_Comp("Images/QBert.png", imgAmount, fps, glm::vec2(128.f, 147.f)) };
 	pPlayerObj->AddComponent(pAnimComp);
 	pPlayerObj->AddComponent(new CharacterController_Comp(.025f));
-	pPlayerObj->AddComponent(new Player_Comp(10));
+	pPlayerObj->AddComponent(new Player_Comp());
 	pPlayerObj->AddComponent(new TileChanger_Comp());
 	auto* pPlScore{ new Score_Comp() };
 	pPlayerObj->AddComponent(pPlScore);
@@ -51,4 +51,42 @@ void PlayerManager_Comp::ResetPlayers()
 {
 	for (auto pl : m_pPlayers)
 		pl->GetComponent<Player_Comp>()->ResetPlayer();
+}
+
+void PlayerManager_Comp::Update()
+{
+	if (!m_Started)
+	{
+		m_Started = true;
+		SetSpawnPosition();
+	}
+}
+
+void PlayerManager_Comp::SetSpawnPosition()
+{
+	const auto pWorldGrid{ m_pGameObject->GetCurrentScene()->GetGameObject("WorldTileManager") };
+	const auto pWorldGridManagerComp{ pWorldGrid->GetConstComponent<WorldTileManager_Comp>() };
+	std::vector<int> spawnTiles{};
+
+	if (m_PlayerCount > 1)
+	{
+		spawnTiles.push_back(0);
+		spawnTiles.push_back(pWorldGridManagerComp->GetBottomRowAmount());
+	}
+	else
+		spawnTiles.push_back(pWorldGridManagerComp->GetTileAmount());
+
+	glm::vec2 spawnPos{};
+
+	const auto playerTextureWidth{ m_pPlayers.at(0)->GetConstComponent<Animation_Comp>()->GetFrameDimensions().x };
+
+	for (int idx{}; idx < m_PlayerCount; idx++)
+	{
+		auto pPlayer{ m_pPlayers.at(idx) };
+		spawnPos = pWorldGridManagerComp->GetTileStandPos(spawnTiles.at(idx));
+		auto* pTransform{ pPlayer->GetTransform() };
+		spawnPos.x -= (playerTextureWidth * pTransform->GetUniformScale()) / 2.f;
+		pTransform->SetPosition(spawnPos.x, spawnPos.y);
+		pPlayer->GetComponent<CharacterController_Comp>()->SetSpawnPos(spawnPos);
+	}
 }
