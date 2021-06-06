@@ -8,7 +8,7 @@
 #include "AudioServiceLocator.h"
 #include "GameAudio.h"
 #include "SceneManager.h"
-#include "LevelScene.h"
+#include "SinglePlayerScene.h"
 #include "StartMenuScene.h"
 
 void TestGame::LoadGame()
@@ -19,6 +19,6 @@ void TestGame::LoadGame()
 	auto& sceneManager{ SceneManager::GetInstance() };
 	//sceneManager.AddScene(std::make_shared<DemoScene>("Demo"));
 	sceneManager.AddScene(std::make_shared<StartMenuScene>("StartMenuScene"));
-	sceneManager.AddScene(std::make_shared<LevelScene>("Level"));
+	sceneManager.AddScene(std::make_shared<SinglePlayerScene>("SinglePlayerScene"));
 	sceneManager.LoadScene("StartMenuScene");
 }

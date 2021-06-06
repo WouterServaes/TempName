@@ -1,5 +1,5 @@
 #include "MiniginPCH.h"
-#include "LevelScene.h"
+#include "SinglePlayerScene.h"
 
 #include "CharacterController_Comp.h"
 #include "GameObject.h"
@@ -29,7 +29,7 @@
 #include "UiComponents.h"
 #include "UI_Comp.h"
 
-void LevelScene::InitializeScene()
+void SinglePlayerScene::InitializeScene()
 {
 	InputManager::GetInstance().SetMaxControllerAmount(2);
 	auto fpsCounter = std::make_shared<GameObject>("Fps");
@@ -49,7 +49,7 @@ void LevelScene::InitializeScene()
 	InitAudio();
 }
 
-void LevelScene::Restart()
+void SinglePlayerScene::Restart()
 {
 	//player full restart
 	GetGameObject("pl")->GetComponent<Player_Comp>()->ResetPlayer();
@@ -72,7 +72,7 @@ void LevelScene::Restart()
 	GetGameObject("WinMenu")->SetActive(false);
 }
 
-void LevelScene::InitUi()
+void SinglePlayerScene::InitUi()
 {
 	const std::string font{ "Fonts/Lingua.otf" };
 	auto pGameOver{ std::make_shared<GameObject>("GameOver") };
@@ -104,7 +104,7 @@ void LevelScene::InitUi()
 	
 }
 
-void LevelScene::InitWorld()
+void SinglePlayerScene::InitWorld()
 {
 	const auto pNormalTexture{ ResourceManager::GetInstance().LoadTexture("Images/Tile_Normal.png") }
 		, pIntermediateTexture{ ResourceManager::GetInstance().LoadTexture("Images/Tile_Intermediate.png") }
@@ -117,7 +117,7 @@ void LevelScene::InitWorld()
 	pWorldGridManager->AddComponent(new WorldTileManager_Comp(pNormalTexture, pHighlightTexture, pIntermediateTexture, bottomRowAmount));
 }
 
-void LevelScene::InitPlayer()
+void SinglePlayerScene::InitPlayer()
 {
 	//player 1
 	auto pPlayerObj{ std::make_shared< GameObject>("pl", true) };
@@ -158,7 +158,7 @@ void LevelScene::InitPlayer()
 	pScoreDisplay->GetTransform()->SetPosition(30, 70);
 }
 
-void LevelScene::InitGreen()
+void SinglePlayerScene::InitGreen()
 {
 	auto pSlick{ std::make_shared<GameObject>("Slick", true) };
 	AddGameObject(pSlick);
@@ -181,7 +181,7 @@ void LevelScene::InitGreen()
 	pSam->GetSubject()->AddObserver(new CreatureObserver());
 }
 
-void LevelScene::InitPurple()
+void SinglePlayerScene::InitPurple()
 {
 	auto pUgg{ std::make_shared<GameObject>("Ugg", true) };
 	AddGameObject(pUgg);
@@ -202,7 +202,7 @@ void LevelScene::InitPurple()
 	pWrongway->GetSubject()->AddObserver(new CreatureObserver());
 }
 
-void LevelScene::InitDisks()
+void SinglePlayerScene::InitDisks()
 {
 	auto pDiskManager{ std::make_shared<GameObject>("DiskManager") };
 	AddGameObject(pDiskManager);
@@ -213,14 +213,14 @@ void LevelScene::InitDisks()
 	pDiskManager->AddComponent(new DiskManager_Comp(diskPositions));
 }
 
-void LevelScene::InitGameController()
+void SinglePlayerScene::InitGameController()
 {
 	auto pGameController{ std::make_shared<GameObject>("GameController") };
 	AddGameObject(pGameController);
 	pGameController->AddComponent(new GameController_Comp());
 }
 
-void LevelScene::InitAudio()
+void SinglePlayerScene::InitAudio()
 {
 	auto audio{ AudioServiceLocator::GetAudio() };
 	
@@ -231,7 +231,7 @@ void LevelScene::InitAudio()
 }
 
 
-void LevelScene::InitCoily()
+void SinglePlayerScene::InitCoily()
 {
 	auto pCoily{ std::make_shared<GameObject>("Coily", true) };
 	AddGameObject(pCoily);

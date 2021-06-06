@@ -194,7 +194,7 @@
     <ClCompile Include="GameAudio.cpp" />
     <ClCompile Include="GameCommands.cpp" />
     <ClCompile Include="GameController_Comp.cpp" />
-    <ClCompile Include="LevelScene.cpp" />
+    <ClCompile Include="SinglePlayerScene.cpp" />
     <ClCompile Include="MiniginPCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -233,7 +233,7 @@
     <ClInclude Include="GameCommands.h" />
     <ClInclude Include="GameController_Comp.h" />
     <ClInclude Include="GameEvents.h" />
-    <ClInclude Include="LevelScene.h" />
+    <ClInclude Include="SinglePlayerScene.h" />
     <ClInclude Include="MiniginPCH.h" />
     <ClInclude Include="MoveCommands.h" />
     <ClInclude Include="MovementObserver.h" />
