@@ -8,11 +8,12 @@
 
 class Animation_Comp;
 class DiskManager_Comp;
+class CoilyAi;
 class CoilyCreature_Comp final:public Creature_Comp
 {
 public:
 	CoilyCreature_Comp(float timeBetweenJumps
-		, const std::string& coilyAnimationSheet, int coilyImageAmount, int coilyFramesPerSecond, glm::vec2 coilyFrameDimensions);
+		, const std::string& coilyAnimationSheet, int coilyImageAmount, int coilyFramesPerSecond, glm::vec2 coilyFrameDimensions, bool isAi = true);
 	~CoilyCreature_Comp() = default;
 	CoilyCreature_Comp(const CoilyCreature_Comp & other) = delete;
 	CoilyCreature_Comp(CoilyCreature_Comp && other) noexcept = delete;
@@ -57,5 +58,7 @@ private:
 	float m_OriginalScale{};
 
 	int m_DefeatedByPlayerIndex{};
+	std::unique_ptr<CoilyAi> m_pCoilyAi{nullptr};
+	bool m_IsAi{};
 };
 

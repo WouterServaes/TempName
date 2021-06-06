@@ -18,7 +18,7 @@ void Logger::ThrowErrorBox(const std::string& message)
 		exit(-1);
 #else
 
-	const auto msgBoxmsg{ (static_cast<std::string>("Critical error:\n") + msg + static_cast<std::string>("\n\n Click OK to close program")) };
+	const auto msgBoxmsg{ (static_cast<std::string>("Critical error:\n") + message + static_cast<std::string>("\n\n Click OK to close program")) };
 
 	const auto msgBoxReturn{ MessageBoxA(0, msgBoxmsg.c_str(), "[ERROR]", MB_ICONERROR | MB_OK | MB_TOPMOST) };
 	if (msgBoxReturn == IDOK)

@@ -24,7 +24,8 @@ void Creature_Comp::CheckForPlayer()
 	const int tileIdx{ m_pWorldTileManager->GetTileIdxAtPosition(m_pTransform->GetPosition()) };
 	if (tileIdx == -1) return;
 
-	for (int idx{}; idx < m_pPlayers.size(); idx++)
+	const int playerCount{ static_cast<int>(m_pPlayers.size()) };
+	for (int idx{}; idx < playerCount; idx++)
 	{
 		const int playerTileIdx{ m_pWorldTileManager->GetTileIdxAtPosition(m_pPlayers.at(idx)->GetTransform()->GetPosition()) };
 		if (playerTileIdx == -1 || playerTileIdx == m_pWorldTileManager->GetTileAmount()) return;

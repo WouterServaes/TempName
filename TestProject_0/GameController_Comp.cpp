@@ -37,7 +37,7 @@ void GameController_Comp::CompletedGrid()
 void GameController_Comp::PlayerDied()
 {
 	m_PlayerDeadCount++;
-	if (m_PlayerDeadCount >= m_pPlayers.size())
+	if (m_PlayerDeadCount >= static_cast<int>(m_pPlayers.size()))
 	{
 		auto* pScene{ m_pGameObject->GetCurrentScene() };
 		pScene->GetGameObject("GameOver")->SetActive(true);

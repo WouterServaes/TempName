@@ -1,31 +1,32 @@
 #include "MiniginPCH.h"
-#include "CoopScene.h"
+#include "VersusScene.h"
+#include "CharacterController_Comp.h"
+#include "GameObject.h"
+#include "InputManager.h"
+#include "Render_Comp.h"
+#include "ResourceManager.h"
+#include "Subject.h"
+#include "Transform.h"
+#include "WorldTileManager_Comp.h"
 
 #include "Animation_Comp.h"
-#include "CharacterController_Comp.h"
+#include "CharacterObserver.h"
 #include "CoilyCreature_Comp.h"
 #include "CreatureObserver.h"
 #include "DiskManager_Comp.h"
-#include "EngineSettings.h"
 #include "GameController_Comp.h"
-#include "GreenCreature_Comp.h"
 #include "Health_Comp.h"
-#include "InputManager.h"
-#include "Minigin.h"
+#include "GreenCreature_Comp.h"
 #include "PlayerManager_Comp.h"
 #include "PurpleCreature_Comp.h"
-#include "ResourceManager.h"
 #include "Score_Comp.h"
-#include "Subject.h"
 #include "Text_Comp.h"
 #include "TileChanger_Comp.h"
-#include "Transform.h"
 #include "UiComponents.h"
 #include "UI_Comp.h"
-#include "WorldTileManager_Comp.h"
 
 #include "SceneParser.h"
-void CoopScene::InitializeScene()
+void VersusScene::InitializeScene()
 {
 	GetInputManager()->SetMaxControllerAmount(2);
 	auto fpsCounter = std::make_shared<GameObject>("Fps");
@@ -35,7 +36,7 @@ void CoopScene::InitializeScene()
 
 	InitGameController();
 	InitWorld();
-	InitPlayers();
+	InitPlayer();
 	InitUi();
 	InitCoily();
 	InitGreen();
@@ -43,7 +44,7 @@ void CoopScene::InitializeScene()
 	InitDisks();
 }
 
-void CoopScene::Restart()
+void VersusScene::Restart()
 {
 	//player full restart
 	GetGameObject("PlayerManager")->GetComponent<PlayerManager_Comp>()->ResetPlayers();
@@ -66,9 +67,9 @@ void CoopScene::Restart()
 	GetGameObject("WinMenu")->SetActive(false);
 }
 
-void CoopScene::InitUi()
+void VersusScene::InitUi()
 {
-	const auto sceneData{ SceneParser::GetSceneData(1) };
+	const auto sceneData{ SceneParser::GetSceneData(2) };
 	const std::string font{ sceneData->Font };
 	const auto fontColor{ sceneData->FontColor };
 	auto pGameOver{ std::make_shared<GameObject>("GameOver") };
@@ -98,9 +99,9 @@ void CoopScene::InitUi()
 	pWinMenu->SetActive(false);
 }
 
-void CoopScene::InitWorld()
+void VersusScene::InitWorld()
 {
-	const auto sceneData{ SceneParser::GetSceneData(1) };
+	const auto sceneData{ SceneParser::GetSceneData(2) };
 	const auto pNormalTexture{ ResourceManager::GetInstance().LoadTexture(sceneData->NormalTileTexture) }
 		, pIntermediateTexture{ ResourceManager::GetInstance().LoadTexture(sceneData->IntermediateTileTexture) }
 	, pHighlightTexture{ ResourceManager::GetInstance().LoadTexture(sceneData->HighlightedTileTexture) };
@@ -112,61 +113,57 @@ void CoopScene::InitWorld()
 	pWorldGridManager->AddComponent(new WorldTileManager_Comp(pNormalTexture, pHighlightTexture, pIntermediateTexture, bottomRowAmount));
 }
 
-void CoopScene::InitPlayers()
+void VersusScene::InitPlayer()
 {
 	auto pPlayerManager{ std::make_shared<GameObject>("PlayerManager") };
 	auto* pPlayerManagerComp{ new PlayerManager_Comp() };
 	pPlayerManager->AddComponent(pPlayerManagerComp);
 	AddGameObject(pPlayerManager);
 
-	const auto sceneData{ SceneParser::GetSceneData(1) };
+	const auto sceneData{ SceneParser::GetSceneData(2) };
 	pPlayerManagerComp->AddPlayers(sceneData->Players);
 
-	std::vector<glm::vec2> uiPositions{ { 30.f, 50.f }, { Minigin::pEngineSettings->WindowWidth - 150.f, 50.f } };
-	const auto players{ pPlayerManagerComp->GetPlayers() };
+	auto playerOne{ pPlayerManagerComp->GetPlayers().at(0) };
+	//player 1 lives
 	const std::string font{ sceneData->Font };
-	const auto fontColor{ sceneData->FontColor };
-	const int playerCount{ static_cast<int>(players.size()) };
-	for (int idx{}; idx < playerCount; idx++)
-	{
-		const glm::vec2 uiPos{ uiPositions.at(idx) };
+	auto pLiveDisplay{ std::make_shared<GameObject>("Player1LiveUi") };
+	pLiveDisplay->AddComponent(new Render_Comp());
+	auto* pLiveText{ new Text_Comp("Lives: ", font, 18, sceneData->FontColor) };
+	pLiveDisplay->AddComponent(pLiveText);
+	playerOne->GetComponent<Health_Comp>()->AttachTextComp(pLiveText);
+	AddGameObject(pLiveDisplay);
+	pLiveDisplay->GetTransform()->SetPosition(30, 50);
 
-		auto pLiveDisplay{ std::make_shared<GameObject>("Player1LiveUi") };
-		pLiveDisplay->AddComponent(new Render_Comp());
-		auto* pLiveText{ new Text_Comp("Lives: ", font, 18, fontColor) };
-		pLiveDisplay->AddComponent(pLiveText);
-		players.at(idx)->GetComponent<Health_Comp>()->AttachTextComp(pLiveText);
-		AddGameObject(pLiveDisplay);
-		pLiveDisplay->GetTransform()->SetPosition(uiPos.x, uiPos.y);
-
-		auto pScoreDisplay{ std::make_shared<GameObject>("Player1ScoreUi") };
-		pScoreDisplay->AddComponent(new Render_Comp());
-		auto* pScoreText{ new Text_Comp("Score: ", font, 18, fontColor) };
-		pScoreDisplay->AddComponent(pScoreText);
-		players.at(idx)->GetComponent<Score_Comp>()->AttachTextComp(pScoreText);
-		AddGameObject(pScoreDisplay);
-		pScoreDisplay->GetTransform()->SetPosition(uiPos.x, uiPos.y + 20.f);
-	}
+	//player 1 score
+	auto pScoreDisplay{ std::make_shared<GameObject>("Player1ScoreUi") };
+	pScoreDisplay->AddComponent(new Render_Comp());
+	auto* pScoreText{ new Text_Comp("Score: ", font, 18, sceneData->FontColor) };
+	pScoreDisplay->AddComponent(pScoreText);
+	playerOne->GetComponent<Score_Comp>()->AttachTextComp(pScoreText);
+	AddGameObject(pScoreDisplay);
+	pScoreDisplay->GetTransform()->SetPosition(30, 70);
 }
 
-void CoopScene::InitCoily()
+void VersusScene::InitCoily()
 {
-	const auto coilyData{ SceneParser::GetCreatureData("coily", 1) };
-	const auto coilyEggData{ SceneParser::GetCreatureData("coilyEgg", 1) };
-
+	const auto creatureData{ SceneParser::GetSceneData(0)->Creatures };
+	const auto coilyData{ SceneParser::GetCreatureData("coily", 2) };
+	const auto coilyEggData{ SceneParser::GetCreatureData("coilyEgg", 2) };
 	auto pCoily{ std::make_shared<GameObject>("Coily", true) };
 	AddGameObject(pCoily);
 	pCoily->AddComponent(new Render_Comp());
 	pCoily->AddComponent(new Animation_Comp(coilyEggData.TextureData.imgPath, coilyEggData.TextureData.Count, coilyEggData.TextureData.Fps, coilyEggData.TextureData.FrameSize));
 	pCoily->AddComponent(new CharacterController_Comp(.15f));
-	pCoily->AddComponent(new CoilyCreature_Comp(coilyEggData.TimeBetweenJumps, coilyData.TextureData.imgPath, coilyData.TextureData.Count, coilyData.TextureData.Fps, coilyData.TextureData.FrameSize));
+	pCoily->AddComponent(new CoilyCreature_Comp(coilyEggData.TimeBetweenJumps, coilyData.TextureData.imgPath, coilyData.TextureData.Count, coilyData.TextureData.Fps, coilyData.TextureData.FrameSize, false));
 	pCoily->GetTransform()->ScaleUniform(.1f);
 	pCoily->GetSubject()->AddObserver(new CreatureObserver());
 }
 
-void CoopScene::InitGreen()
+void VersusScene::InitGreen()
 {
-	auto slickData{ SceneParser::GetCreatureData("slick", 1) };
+	const auto creatureData{ SceneParser::GetSceneData(2)->Creatures };
+
+	auto slickData{ SceneParser::GetCreatureData("slick", 2) };
 	auto pSlick{ std::make_shared<GameObject>("Slick", true) };
 	AddGameObject(pSlick);
 	pSlick->AddComponent(new Render_Comp());
@@ -177,7 +174,7 @@ void CoopScene::InitGreen()
 	pSlick->GetTransform()->ScaleUniform(.25f);
 	pSlick->GetSubject()->AddObserver(new CreatureObserver());
 
-	auto samData{ SceneParser::GetCreatureData("sam", 1) };
+	auto samData{ SceneParser::GetCreatureData("sam", 2) };
 	auto pSam{ std::make_shared<GameObject>("Sam", true) };
 	AddGameObject(pSam);
 	pSam->AddComponent(new Render_Comp());
@@ -189,10 +186,10 @@ void CoopScene::InitGreen()
 	pSam->GetSubject()->AddObserver(new CreatureObserver());
 }
 
-void CoopScene::InitPurple()
+void VersusScene::InitPurple()
 {
-	const auto creatureData{ SceneParser::GetSceneData(0)->Creatures };
-	const auto uggData{ SceneParser::GetCreatureData("ugg", 1) };
+	const auto creatureData{ SceneParser::GetSceneData(2)->Creatures };
+	const auto uggData{ SceneParser::GetCreatureData("ugg", 2) };
 	auto pUgg{ std::make_shared<GameObject>("Ugg", true) };
 	AddGameObject(pUgg);
 	pUgg->AddComponent(new Render_Comp());
@@ -202,7 +199,7 @@ void CoopScene::InitPurple()
 	pUgg->GetTransform()->ScaleUniform(.25f);
 	pUgg->GetSubject()->AddObserver(new CreatureObserver());
 
-	const auto wrongWayData{ SceneParser::GetCreatureData("wrongway", 1) };
+	const auto wrongWayData{ SceneParser::GetCreatureData("wrongway", 2) };
 	const auto pWrongway{ std::make_shared<GameObject>("Wrongway", true) };
 	AddGameObject(pWrongway);
 	pWrongway->AddComponent(new Render_Comp());
@@ -213,20 +210,20 @@ void CoopScene::InitPurple()
 	pWrongway->GetSubject()->AddObserver(new CreatureObserver());
 }
 
-void CoopScene::InitDisks()
+void VersusScene::InitDisks()
 {
-	const auto disksdata{ SceneParser::GetSceneData(0)->Disks };
+	const auto disksdata{ SceneParser::GetSceneData(2)->Disks };
 
 	auto pDiskManager{ std::make_shared<GameObject>("DiskManager") };
 	AddGameObject(pDiskManager);
 	std::vector<DiskManager_Comp::DiskPos> diskPositions{};
 	for (const auto& diskdata : disksdata)
 		diskPositions.push_back(DiskManager_Comp::DiskPos{ diskdata.Side, diskdata.Row });
-	
+
 	pDiskManager->AddComponent(new DiskManager_Comp(diskPositions));
 }
 
-void CoopScene::InitGameController()
+void VersusScene::InitGameController()
 {
 	auto pGameController{ std::make_shared<GameObject>("GameController") };
 	AddGameObject(pGameController);

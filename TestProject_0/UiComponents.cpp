@@ -33,9 +33,14 @@ void StartUI::Update()
 	
 	if(ImGui::Button("versus"))
 	{
-		SceneManager::GetInstance().LoadScene("SinglePlayerScene");
+		SceneManager::GetInstance().LoadScene("VersusScene");
 		m_pGameObject->GetCurrentScene()->RestartScene();
 		
+	}
+
+	if (ImGui::Button("Quit"))
+	{
+		*Minigin::pQuitGame = true;
 	}
 	ImGui::End();
 }

@@ -6,11 +6,11 @@
 #endif
 
 #include "Minigin.h"
-#include "TestGame.h"
+#include "QBertGame.h"
 
 int main()
 {
-	auto* pGame = new TestGame();
+	auto* pGame = new QBertGame();
 	pGame->Run();
 	delete pGame;
 	return 0;

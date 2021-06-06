@@ -17,7 +17,7 @@ void SceneParser::LoadGameFromFile(const std::string& filePath)
 
 std::shared_ptr<SceneParser::SceneData> SceneParser::GetSceneData(const int sceneNr)
 {
-	if (sceneNr >= m_pSceneDatas.size())
+	if (sceneNr >= static_cast<int>(m_pSceneDatas.size()))
 		Logger::LogError("SceneParser:: GetSceneData() given sceneNr exceeds saved scenes! (sceneNr: " + std::to_string(sceneNr) + ")");
 	return m_pSceneDatas.at(sceneNr);
 }

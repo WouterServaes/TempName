@@ -10,6 +10,7 @@
     - [User input and commands](#inputCommands)
     - [Audio Service Locator](#audio)
 - [Rendering](#rendering)
+- [Scene config files](#sceneConfigs)
 - [References](#ref)
 
 ## In short <a name ="inShort"></a>
@@ -44,7 +45,10 @@ I use the Service Locator pattern for the audio to easily use custom audio servi
 
 
 ## Rendering <a name ="rendering"></a>
+Active game object with a render component get rendered by the Renderer using SDL. 2D images can be rendered as-is, resized or only a part of the image can be rendered (used for animation in the animation component).
 
+## Scene config files <a name ="sceneConfigs"></a>
+Scene configuration for the game can be saved in json files and read using the SceneParser when a scene is initializing.
 
 ## References <a name ="ref"></a>
 Entity Component System. https://gameprogrammingpatterns.com/component.html  
@@ -60,3 +64,4 @@ Library files can be found in 3rdparty
 - SDL2 TTF https://github.com/libsdl-org/SDL_ttf
 - Simple SDL2 Audio https://github.com/jakebesworth/Simple-SDL2-Audio
 - Visual Leak Detector 2.5.6 https://github.com/Azure/vld/tree/v2.5.6
+- rapidjson https://rapidjson.org/

@@ -83,7 +83,8 @@ int DiskManager_Comp::GetRemainingDisks() const
 void DiskManager_Comp::MakeDisks()
 {
 	auto* pScene{ m_pGameObject->GetCurrentScene() };
-	for (int idx{}; idx < m_DiskPositions.size(); idx++)
+	const int diskCount{ static_cast<int>(m_DiskPositions.size()) };
+	for (int idx{}; idx < diskCount; idx++)
 	{
 		const auto name{ "Disk" + std::to_string(idx) };
 		auto pDisk{ std::make_shared<GameObject>(name) };

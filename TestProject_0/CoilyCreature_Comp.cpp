@@ -13,12 +13,16 @@
 #pragma warning(push)
 #pragma warning (disable:4201)
 #include <glm/gtx/norm.hpp>
-
-#include "AudioServiceLocator.h"
 #pragma warning(pop)
 
-CoilyCreature_Comp::CoilyCreature_Comp(const float timeBetweenJumps, const std::string& coilyAnimationSheet, const int coilyImageAmount, const int coilyFramesPerSecond, const glm::vec2 coilyFrameDimensions) :
-	m_TimeBetweenJumps(timeBetweenJumps), m_CoilyImageAmount(coilyImageAmount), m_CoilyFPS(coilyFramesPerSecond), m_CoilyAnimSheet(coilyAnimationSheet), m_CoilyFrameDim(coilyFrameDimensions)
+#include "AudioServiceLocator.h"
+#include "CoilyMover.h"
+#include "InputManager.h"
+#include "MoveCommands.h"
+#include "MovementObserver.h"
+
+CoilyCreature_Comp::CoilyCreature_Comp(const float timeBetweenJumps, const std::string& coilyAnimationSheet, const int coilyImageAmount, const int coilyFramesPerSecond, const glm::vec2 coilyFrameDimensions, const bool isAi) :
+	m_TimeBetweenJumps(timeBetweenJumps), m_CoilyAnimSheet(coilyAnimationSheet), m_CoilyImageAmount(coilyImageAmount), m_CoilyFPS(coilyFramesPerSecond), m_CoilyFrameDim(coilyFrameDimensions), m_IsAi(isAi)
 {
 }
 
@@ -35,6 +39,18 @@ void CoilyCreature_Comp::Spawn()
 	m_EggFPS = m_pAnimationComp->GetFramesPerSecond();
 	m_EggFrameDim = m_pAnimationComp->GetFrameDimensions();
 	m_OriginalScale = m_pTransform->GetUniformScale();
+	
+	if(m_IsAi)
+		m_pCoilyAi = std::make_unique<CoilyAi>(m_pPlayersTransform, &m_DefeatedByPlayerIndex, m_pTransform, m_pCharacterController);
+	else
+	{
+		m_pGameObject->GetSubject()->AddObserver(new MovementObserver());
+		auto& pInputManager{ m_pGameObject->GetCurrentScene()->GetInputManager() };
+		pInputManager->AssignKey(InputAction(SDLK_w, TriggerState::Released, ControllerButtons::ButtonUp, 1), std::make_unique<Command_MoveLeftUp>(m_pGameObject));
+		pInputManager->AssignKey(InputAction(SDLK_s, TriggerState::Released, ControllerButtons::ButtonDown, 1), std::make_unique<Command_MoveLeftDown>(m_pGameObject));
+		pInputManager->AssignKey(InputAction(SDLK_a, TriggerState::Released, ControllerButtons::ButtonLeft, 1), std::make_unique<Command_MoveRightUp>(m_pGameObject));
+		pInputManager->AssignKey(InputAction(SDLK_d, TriggerState::Released, ControllerButtons::ButtonRight, 1), std::make_unique<Command_MoveRightDown>(m_pGameObject));
+	}
 	ChangeToEgg();
 	Respawn();
 }
@@ -84,7 +100,7 @@ void CoilyCreature_Comp::UpdateCreature()
 			m_ElapsedTime = 0.f;
 			if (m_IsEgg)
 				UpdateEgg();
-			else
+			else if(m_IsAi)
 				FollowPlayer();
 		}
 	}
@@ -156,58 +172,5 @@ void CoilyCreature_Comp::ChangeToEgg()
 
 void CoilyCreature_Comp::FollowPlayer()
 {
-	const auto& coilyPos{ m_pTransform->GetPosition() };
-	glm::vec2 goToPos;
-	if (m_GoToDisk)
-		goToPos = m_DiskPos;
-	else
-	{
-		float smallestDist{FLT_MAX};
-		glm::vec3 closestPos{};
-
-		for(int idx{};idx<m_pPlayersTransform.size();idx++)
-		{
-			const auto playerPos{ m_pPlayersTransform.at(idx)->GetPosition() };
-			const float dist{ glm::distance2(coilyPos, playerPos) };
-			if (dist < smallestDist)
-			{
-				closestPos = playerPos;
-				smallestDist = dist;
-				m_DefeatedByPlayerIndex = idx;
-			}
-		}
-		goToPos = closestPos;
-	}
-
-	
-
-	bool moveLeft{ true };
-
-	//decide direction
-	if (goToPos.x > coilyPos.x) //move right
-		moveLeft = false;
-	else if (goToPos.x == coilyPos.x)//move left or right
-		moveLeft = rand() % 10 < 5;
-
-	bool moveUp{ true };
-	if (goToPos.y > coilyPos.y) //move down
-		moveUp = false;
-	else if (goToPos.y == coilyPos.y)//move up or down
-		moveUp = rand() % 10 < 5;
-
-	//move in said direction
-	if (moveLeft)
-	{
-		if (moveUp)
-			m_pCharacterController->MoveLeftUpOnGrid();
-		else
-			m_pCharacterController->MoveLeftDownOnGrid();
-	}
-	else
-	{
-		if (moveUp)
-			m_pCharacterController->MoveRightUpOnGrid();
-		else
-			m_pCharacterController->MoveRightDownOnGrid();
-	}
+	m_pCoilyAi->Mover(m_GoToDisk, m_DiskPos);
 }

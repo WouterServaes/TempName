@@ -1,6 +1,6 @@
 #include "MiniginPCH.h"
 
-#include "TestGame.h"
+#include "QBertGame.h"
 
 
 
@@ -12,8 +12,9 @@
 #include "SinglePlayerScene.h"
 #include "StartMenuScene.h"
 #include "SceneParser.h"
+#include "VersusScene.h"
 
-void TestGame::LoadGame()
+void QBertGame::LoadGame()
 {
 
 	SceneParser::LoadGameFromFile("../Data/GameJsonFiles/QBert.json");
@@ -25,5 +26,6 @@ void TestGame::LoadGame()
 	sceneManager.AddScene(std::make_shared<StartMenuScene>("StartMenuScene"));
 	sceneManager.AddScene(std::make_shared<SinglePlayerScene>("SinglePlayerScene"));
 	sceneManager.AddScene(std::make_shared<CoopScene>("CoopScene"));
+	sceneManager.AddScene(std::make_shared<VersusScene>("VersusScene"));
 	sceneManager.LoadScene("StartMenuScene");
 }
