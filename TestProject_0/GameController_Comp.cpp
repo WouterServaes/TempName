@@ -48,6 +48,7 @@ void GameController_Comp::PlayerDied()
 void GameController_Comp::ResetGame()
 {
 	m_CurrentLevel = 0;
+	m_PlayerDeadCount = 0;
 }
 
 void GameController_Comp::Start()

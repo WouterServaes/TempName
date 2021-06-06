@@ -12,11 +12,15 @@ public:
 	PurpleCreature_Comp& operator=(PurpleCreature_Comp&& other) noexcept = delete;
 	void UpdateCreature() override;
 	void ResetCreature() override;
+	void Respawn() override;
 private:
 	void Spawn() override;
 	void CollidedWithPlayer(int playerIndex) override;
+	void TryToActuallyRespawn();
 	Transform::Side m_SpawnSide;
 	float m_ElapsedTime{};
 	const float m_TimeBetweenJumps;
+	float m_OriginalScale{};
+	bool m_WantsToSpawn{ true };
 };
 

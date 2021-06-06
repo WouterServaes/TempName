@@ -29,6 +29,6 @@ protected:
 	std::vector<std::shared_ptr<GameObject>> m_pPlayers{ nullptr };
 
 	int m_SpawnTileIdx{};
-
+	bool m_CollisionWithPlayerEnabled{ true };
 };
 

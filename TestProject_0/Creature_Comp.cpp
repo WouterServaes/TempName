@@ -15,7 +15,8 @@ void Creature_Comp::Respawn()
 void Creature_Comp::Update()
 {
 	UpdateCreature();
-	CheckForPlayer();
+	if(m_CollisionWithPlayerEnabled)
+		CheckForPlayer();
 }
 
 void Creature_Comp::CheckForPlayer()
